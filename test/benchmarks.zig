@@ -1,5 +1,5 @@
 const std = @import("std");
-const kuznechik = @import("kuznechik.zig");
+const kuznechik = @import("kuznechik");
 const zbench = @import("zbench");
 
 var msg: kuznechik.block = @as(kuznechik.block, @splat(0));

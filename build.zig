@@ -30,13 +30,17 @@ pub fn build(b: *std.Build) void {
     // Benchmark executable
     const benchmark = b.addExecutable(.{
         .name = "benchmark",
-        .root_source_file = b.path("src/benchmarks.zig"),
+        .root_source_file = b.path("test/benchmarks.zig"),
         .target = target,
-        .optimize = optimize,
+        .optimize = .ReleaseFast,
     });
+
+    benchmark.root_module.addImport("kuznechik", &lib.root_module);
 
     const zbench_module = b.dependency("zbench", opts).module("zbench");
     benchmark.root_module.addImport("zbench", zbench_module);
 
-    b.installArtifact(benchmark);
+    const run_lib_benchmark = b.addRunArtifact(benchmark);
+    const benchmark_step = b.step("bench", "Run lib benchmark");
+    benchmark_step.dependOn(&run_lib_benchmark.step);
 }

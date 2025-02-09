@@ -56,7 +56,7 @@ zig build test
 ### Running Benchmarks
 
 ```bash
-zig build benchmark
+zig build bench
 ```
 
 ## Performance
