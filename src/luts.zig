@@ -7,7 +7,7 @@ const key = definitions.key;
 
 pub const ls_trans_lut = lut_blk: {
     @setEvalBranchQuota(100000000);
-    var lut: [16][256]block align(4096 * 8) = [_][256]block{[_]block{[_]u8{0} ** 16} ** 256} ** 16;
+    var lut: [16][256]block align(4096) = [_][256]block{[_]block{[_]u8{0} ** 16} ** 256} ** 16;
     for (0..16) |i| {
         for (0..256) |v| {
             var blk = @as(block, @splat(0));
@@ -20,7 +20,7 @@ pub const ls_trans_lut = lut_blk: {
 
 pub const ls_inv_trans_lut = lut_blk: {
     @setEvalBranchQuota(100000000);
-    var lut: [16][256]block align(4096 * 8) = [_][256]block{[_]block{[_]u8{0} ** 16} ** 256} ** 16;
+    var lut: [16][256]block align(4096) = [_][256]block{[_]block{[_]u8{0} ** 16} ** 256} ** 16;
     for (0..16) |i| {
         for (0..256) |v| {
             var blk = @as(block, @splat(0));

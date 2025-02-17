@@ -8,47 +8,24 @@ pub const key = definitions.key;
 
 const testing = std.testing;
 
-inline fn lsx_trans(a: *block, k: block) void {
+inline fn lsx_trans(a: *align(16) block, k: block) void {
     @setRuntimeSafety(false);
-    a.* ^= k;
-    a.* =
-         luts.ls_trans_lut[0][a[0]] ^
-         luts.ls_trans_lut[1][a[1]] ^
-         luts.ls_trans_lut[2][a[2]] ^
-         luts.ls_trans_lut[3][a[3]] ^
-         luts.ls_trans_lut[4][a[4]] ^
-         luts.ls_trans_lut[5][a[5]] ^
-         luts.ls_trans_lut[6][a[6]] ^
-         luts.ls_trans_lut[7][a[7]] ^
-         luts.ls_trans_lut[8][a[8]] ^
-         luts.ls_trans_lut[9][a[9]] ^
-         luts.ls_trans_lut[10][a[10]] ^
-         luts.ls_trans_lut[11][a[11]] ^
-         luts.ls_trans_lut[12][a[12]] ^
-         luts.ls_trans_lut[13][a[13]] ^
-         luts.ls_trans_lut[14][a[14]] ^
-         luts.ls_trans_lut[15][a[15]];
+    const x = a.* ^ k;
+    var accum: block = [_]u8{0} ** 16;
+    inline for (0..16) |i| {
+        accum ^= luts.ls_trans_lut[i][x[i]];
+    }
+    a.* = accum;
 }
 
-inline fn ls_inv_trans(a: *block) void {
+inline fn ls_inv_trans(a: *align(16) block) void {
     @setRuntimeSafety(false);
-    a.* =
-        luts.ls_inv_trans_lut[0][a[0]] ^
-        luts.ls_inv_trans_lut[1][a[1]] ^
-        luts.ls_inv_trans_lut[2][a[2]] ^
-        luts.ls_inv_trans_lut[3][a[3]] ^
-        luts.ls_inv_trans_lut[4][a[4]] ^
-        luts.ls_inv_trans_lut[5][a[5]] ^
-        luts.ls_inv_trans_lut[6][a[6]] ^
-        luts.ls_inv_trans_lut[7][a[7]] ^
-        luts.ls_inv_trans_lut[8][a[8]] ^
-        luts.ls_inv_trans_lut[9][a[9]] ^
-        luts.ls_inv_trans_lut[10][a[10]] ^
-        luts.ls_inv_trans_lut[11][a[11]] ^
-        luts.ls_inv_trans_lut[12][a[12]] ^
-        luts.ls_inv_trans_lut[13][a[13]] ^
-        luts.ls_inv_trans_lut[14][a[14]] ^
-        luts.ls_inv_trans_lut[15][a[15]];
+    const x = a.*;
+    var accum: block = [_]u8{0} ** 16;
+    inline for (0..16) |i| {
+        accum ^= luts.ls_inv_trans_lut[i][x[i]];
+    }
+    a.* = accum;
 }
 
 fn make_iter_c() [32]block {
@@ -61,7 +38,7 @@ fn make_iter_c() [32]block {
     return out;
 }
 
-fn f_trans(k1: block, k2: block, iter_c: block) [2]block {
+inline fn f_trans(k1: block, k2: block, iter_c: block) [2]block {
     return [2]block{ transitions.x_trans(transitions.l_trans(transitions.s_trans(transitions.x_trans(k1, iter_c))), k2), k1 };
 }
 
@@ -73,8 +50,10 @@ fn make_iter_keys(k: key) [10]block {
     const iter_c = comptime make_iter_c();
     iter_keys[0] = k1;
     iter_keys[1] = k2;
-    for (0..4) |i| {
-        for (0..8) |j| {
+    comptime var i = 0;
+    inline while (i < 4) : (i += 1) {
+        comptime var j = 0;
+        inline while (j < 8) : (j += 1) {
             const res = f_trans(k1, k2, iter_c[j + 8 * i]);
             k1 = res[0];
             k2 = res[1];
@@ -86,39 +65,45 @@ fn make_iter_keys(k: key) [10]block {
 }
 
 pub const Cipher = struct {
-    k: key,
-    ik: [10]block,
-    ik_inv: [10]block,
+    k: key align(16),
+    ik: [10]block align(16),
+    ik_inv: [10]block align(16),
 
     pub fn init(k: key) Cipher {
-        @prefetch(&luts.ls_trans_lut, std.builtin.PrefetchOptions{});
+        @prefetch(&luts.ls_trans_lut, .{});
+        @prefetch(&luts.ls_inv_trans_lut, .{});
         const ik = make_iter_keys(k);
-        var ik_inv = ik;
+        var ik_inv: [10]block align(16) = undefined;
         for (0..10) |i| {
             ik_inv[i] = transitions.l_inv_trans(ik[i]);
         }
-        return Cipher{
+        return .{
             .k = k,
             .ik = ik,
             .ik_inv = ik_inv,
         };
     }
 
-    pub fn encrypt(self: Cipher, msg: *block) void {
+    pub inline fn encrypt(self: Cipher, msg: *align(16) block) void {
         @setRuntimeSafety(false);
+
+        var state = msg.*;
         inline for (0..9) |i| {
-            lsx_trans(msg, self.ik[i]);
+            lsx_trans(&state, self.ik[i]);
         }
-        msg.* ^= self.ik[9];
+        state ^= self.ik[9];
+        msg.* = state;
     }
-    pub fn decrypt(self: Cipher, msg: *block) void {
+
+    pub inline fn decrypt(self: Cipher, msg: *align(16) block) void {
         @setRuntimeSafety(false);
-        msg.* = transitions.s_trans(msg.*);
+
+        transitions.s_trans_inplace(msg);
         inline for (0..9) |i| {
             ls_inv_trans(msg);
             msg.* ^= self.ik_inv[9 - i];
         }
-        msg.* = transitions.s_inv_trans(msg.*);
+        transitions.s_inv_trans_inplace(msg);
         msg.* ^= self.ik[0];
     }
 };

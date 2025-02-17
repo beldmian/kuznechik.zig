@@ -17,12 +17,24 @@ pub inline fn s_trans(a: block) block {
     return out;
 }
 
+pub inline fn s_trans_inplace(a: *block) void {
+    for (0..16) |i| {
+        a[i] = definitions.pi_table[a[i]];
+    }
+}
+
 pub fn s_inv_trans(a: block) block {
     var out = a;
     for (0..16) |i| {
         out[i] = definitions.pi_inv_table[out[i]];
     }
     return out;
+}
+
+pub fn s_inv_trans_inplace(a: *block) void {
+    for (0..16) |i| {
+        a[i] = definitions.pi_inv_table[a[i]];
+    }
 }
 
 fn gf_mul(a_in: u8, b_in: u8) u8 {
