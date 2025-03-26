@@ -64,10 +64,21 @@ zig build bench
 The implementation is optimized using precomputed lookup tables for the S-box, inverse S-box, and linear transformations. Benchmark results on Apple M2:
 
 ```
-benchmark              runs     total time     time/run (avg ± σ)     (min ... max)                p75        p99        p995
------------------------------------------------------------------------------------------------------------------------------
-Encrypt Benchmark      65535    4.688ms        71ns ± 18ns            (0ns ... 209ns)              83ns       84ns       84ns
-Decrypt Benchmark      65535    5.504ms        84ns ± 65ns            (41ns ... 13.084us)          84ns       125ns      125ns
+Running benchmark: Encrypt Benchmark (65535 iterations)
+Encrypt Benchmark:
+  Iterations: 65535
+  Total time: 5056195 ns
+  Average time: 77 ns
+  Min time: 0 ns
+  Max time: 18375 ns
+
+Running benchmark: Decrypt Benchmark (65535 iterations)
+Decrypt Benchmark:
+  Iterations: 65535
+  Total time: 5698981 ns
+  Average time: 86 ns
+  Min time: 0 ns
+  Max time: 10167 ns
 ```
 
 

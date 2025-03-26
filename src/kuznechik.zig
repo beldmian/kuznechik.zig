@@ -11,7 +11,7 @@ const testing = std.testing;
 inline fn lsx_trans(a: *align(16) block, k: block) void {
     @setRuntimeSafety(false);
     const x = a.* ^ k;
-    var accum: block = [_]u8{0} ** 16;
+    var accum: block align(16) = @splat(0);
     inline for (0..16) |i| {
         accum ^= luts.ls_trans_lut[i][x[i]];
     }
@@ -20,11 +20,28 @@ inline fn lsx_trans(a: *align(16) block, k: block) void {
 
 inline fn ls_inv_trans(a: *align(16) block) void {
     @setRuntimeSafety(false);
-    const x = a.*;
-    var accum: block = [_]u8{0} ** 16;
-    inline for (0..16) |i| {
-        accum ^= luts.ls_inv_trans_lut[i][x[i]];
+
+    // Prefetch lookup tables for critical bytes
+    @prefetch(&luts.ls_inv_trans_lut[0][a[0]], .{});
+    @prefetch(&luts.ls_inv_trans_lut[4][a[4]], .{});
+    @prefetch(&luts.ls_inv_trans_lut[8][a[8]], .{});
+    @prefetch(&luts.ls_inv_trans_lut[12][a[12]], .{});
+
+    var accum: block align(16) = @splat(0);
+
+    // Process 4 bytes at a time for better instruction-level parallelism
+    inline for (0..4) |i| {
+        const idx0 = i * 4;
+        const idx1 = idx0 + 1;
+        const idx2 = idx0 + 2;
+        const idx3 = idx0 + 3;
+
+        accum ^= luts.ls_inv_trans_lut[idx0][a[idx0]];
+        accum ^= luts.ls_inv_trans_lut[idx1][a[idx1]];
+        accum ^= luts.ls_inv_trans_lut[idx2][a[idx2]];
+        accum ^= luts.ls_inv_trans_lut[idx3][a[idx3]];
     }
+
     a.* = accum;
 }
 
@@ -74,9 +91,11 @@ pub const Cipher = struct {
         @prefetch(&luts.ls_inv_trans_lut, .{});
         const ik = make_iter_keys(k);
         var ik_inv: [10]block align(16) = undefined;
+
         for (0..10) |i| {
             ik_inv[i] = transitions.l_inv_trans(ik[i]);
         }
+
         return .{
             .k = k,
             .ik = ik,
@@ -98,13 +117,100 @@ pub const Cipher = struct {
     pub inline fn decrypt(self: Cipher, msg: *align(16) block) void {
         @setRuntimeSafety(false);
 
-        transitions.s_trans_inplace(msg);
-        inline for (0..9) |i| {
-            ls_inv_trans(msg);
-            msg.* ^= self.ik_inv[9 - i];
+        var state = msg.*;
+
+        // Apply S-transformation using table lookup (Pi)
+        // Unroll the loop for better performance
+        {
+            state[0] = definitions.pi_table[state[0]];
+            state[1] = definitions.pi_table[state[1]];
+            state[2] = definitions.pi_table[state[2]];
+            state[3] = definitions.pi_table[state[3]];
+            state[4] = definitions.pi_table[state[4]];
+            state[5] = definitions.pi_table[state[5]];
+            state[6] = definitions.pi_table[state[6]];
+            state[7] = definitions.pi_table[state[7]];
+            state[8] = definitions.pi_table[state[8]];
+            state[9] = definitions.pi_table[state[9]];
+            state[10] = definitions.pi_table[state[10]];
+            state[11] = definitions.pi_table[state[11]];
+            state[12] = definitions.pi_table[state[12]];
+            state[13] = definitions.pi_table[state[13]];
+            state[14] = definitions.pi_table[state[14]];
+            state[15] = definitions.pi_table[state[15]];
         }
-        transitions.s_inv_trans_inplace(msg);
-        msg.* ^= self.ik[0];
+
+        // Apply rounds of inverse transformations
+        // Prefetch important tables for the first few rounds
+        @prefetch(&luts.ls_inv_trans_lut[0][state[0]], .{});
+        @prefetch(&luts.ls_inv_trans_lut[8][state[8]], .{});
+
+        // First half of rounds
+        inline for (0..5) |i| {
+            var accum: block align(16) = @splat(0);
+
+            // Process table lookups in groups of 4 for better hardware utilization
+            inline for (0..4) |j| {
+                const idx0 = j * 4;
+                const idx1 = idx0 + 1;
+                const idx2 = idx0 + 2;
+                const idx3 = idx0 + 3;
+
+                accum ^= luts.ls_inv_trans_lut[idx0][state[idx0]];
+                accum ^= luts.ls_inv_trans_lut[idx1][state[idx1]];
+                accum ^= luts.ls_inv_trans_lut[idx2][state[idx2]];
+                accum ^= luts.ls_inv_trans_lut[idx3][state[idx3]];
+            }
+
+            state = accum ^ self.ik_inv[9 - i];
+        }
+
+        // Prefetch for second half
+        @prefetch(&luts.ls_inv_trans_lut[0][state[0]], .{});
+        @prefetch(&luts.ls_inv_trans_lut[8][state[8]], .{});
+
+        // Second half of rounds
+        inline for (5..9) |i| {
+            var accum: block align(16) = @splat(0);
+
+            inline for (0..4) |j| {
+                const idx0 = j * 4;
+                const idx1 = idx0 + 1;
+                const idx2 = idx0 + 2;
+                const idx3 = idx0 + 3;
+
+                accum ^= luts.ls_inv_trans_lut[idx0][state[idx0]];
+                accum ^= luts.ls_inv_trans_lut[idx1][state[idx1]];
+                accum ^= luts.ls_inv_trans_lut[idx2][state[idx2]];
+                accum ^= luts.ls_inv_trans_lut[idx3][state[idx3]];
+            }
+
+            state = accum ^ self.ik_inv[9 - i];
+        }
+
+        // Final S-inverse transformation (unrolled)
+        {
+            state[0] = definitions.pi_inv_table[state[0]];
+            state[1] = definitions.pi_inv_table[state[1]];
+            state[2] = definitions.pi_inv_table[state[2]];
+            state[3] = definitions.pi_inv_table[state[3]];
+            state[4] = definitions.pi_inv_table[state[4]];
+            state[5] = definitions.pi_inv_table[state[5]];
+            state[6] = definitions.pi_inv_table[state[6]];
+            state[7] = definitions.pi_inv_table[state[7]];
+            state[8] = definitions.pi_inv_table[state[8]];
+            state[9] = definitions.pi_inv_table[state[9]];
+            state[10] = definitions.pi_inv_table[state[10]];
+            state[11] = definitions.pi_inv_table[state[11]];
+            state[12] = definitions.pi_inv_table[state[12]];
+            state[13] = definitions.pi_inv_table[state[13]];
+            state[14] = definitions.pi_inv_table[state[14]];
+            state[15] = definitions.pi_inv_table[state[15]];
+        }
+
+        // XOR with first round key and store result
+        state ^= self.ik[0];
+        msg.* = state;
     }
 };
 
