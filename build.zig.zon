@@ -1,12 +1,7 @@
 .{
-    .name = "kuznechik",
+    .name = .kuznechik,
     .version = "0.1.0",
-    .dependencies = .{
-        .zbench = .{
-            .url = "https://github.com/hendriknielaender/zbench/archive/0d5417d53e38026503cf993ef9aa24a5fa9554dc.tar.gz",
-            .hash = "12202e943486d4351fcc633aed880df43e9025f8866c746619da284a3048ef529233",
-        },
-    },
-
+    .fingerprint = 0xf6b3271a2c8f7810,
+    .dependencies = .{},
     .paths = .{ "build.zig", "build.zig.zon", "src", "README.md", "LICENSE" },
 }

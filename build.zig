@@ -4,8 +4,6 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const opts = .{ .target = target, .optimize = optimize };
-
     // Main library artifact
     const lib = b.addStaticLibrary(.{
         .name = "kuznechik",
@@ -30,13 +28,24 @@ pub fn build(b: *std.Build) void {
     // Benchmark executable
     const benchmark = b.addExecutable(.{
         .name = "benchmark",
-        .root_source_file = b.path("src/benchmarks.zig"),
+        .root_source_file = b.path("test/benchmarks.zig"),
         .target = target,
-        .optimize = optimize,
+        .optimize = .ReleaseFast,
     });
 
-    const zbench_module = b.dependency("zbench", opts).module("zbench");
-    benchmark.root_module.addImport("zbench", zbench_module);
+    // Create module for our library to be used by the benchmark
+    const kuznechik_module = b.createModule(.{
+        .root_source_file = b.path("src/kuznechik.zig"),
+    });
 
-    b.installArtifact(benchmark);
+    // Add module imports
+    benchmark.root_module.addImport("kuznechik", kuznechik_module);
+
+    const run_lib_benchmark = b.addRunArtifact(benchmark);
+    const run_benchmark_step = b.step("bench", "Run lib benchmark");
+    run_benchmark_step.dependOn(&run_lib_benchmark.step);
+
+    const build_benchmark = b.addInstallArtifact(benchmark, .{});
+    const build_benchmark_step = b.step("build_bench", "Build lib benchmark executable");
+    build_benchmark_step.dependOn(&build_benchmark.step);
 }
