@@ -1,6 +1,6 @@
 .{
     .name = .kuznechik,
-    .version = "0.1.0",
+    .version = "0.2.0",
     .fingerprint = 0xf6b3271a2c8f7810,
     .dependencies = .{},
     .paths = .{ "build.zig", "build.zig.zon", "src", "README.md", "LICENSE" },
