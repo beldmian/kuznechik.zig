@@ -12,8 +12,14 @@ inline fn lsx_trans(a: *align(16) block, k: block) void {
     @setRuntimeSafety(false);
     const x = a.* ^ k;
     var accum: block align(16) = @splat(0);
-    inline for (0..16) |i| {
+    
+    // Unroll in groups of 4 for better instruction-level parallelism
+    comptime var i = 0;
+    inline while (i < 16) : (i += 4) {
         accum ^= luts.ls_trans_lut[i][x[i]];
+        accum ^= luts.ls_trans_lut[i + 1][x[i + 1]];
+        accum ^= luts.ls_trans_lut[i + 2][x[i + 2]];
+        accum ^= luts.ls_trans_lut[i + 3][x[i + 3]];
     }
     a.* = accum;
 }
@@ -21,26 +27,35 @@ inline fn lsx_trans(a: *align(16) block, k: block) void {
 inline fn ls_inv_trans(a: *align(16) block) void {
     @setRuntimeSafety(false);
 
-    // Prefetch lookup tables for critical bytes
+    var accum: block align(16) = @splat(0);
+
+    // Prefetch critical LUT entries for better cache performance
     @prefetch(&luts.ls_inv_trans_lut[0][a[0]], .{});
     @prefetch(&luts.ls_inv_trans_lut[4][a[4]], .{});
     @prefetch(&luts.ls_inv_trans_lut[8][a[8]], .{});
     @prefetch(&luts.ls_inv_trans_lut[12][a[12]], .{});
 
-    var accum: block align(16) = @splat(0);
-
-    // Process 4 bytes at a time for better instruction-level parallelism
-    inline for (0..4) |i| {
-        const idx0 = i * 4;
-        const idx1 = idx0 + 1;
-        const idx2 = idx0 + 2;
-        const idx3 = idx0 + 3;
-
-        accum ^= luts.ls_inv_trans_lut[idx0][a[idx0]];
-        accum ^= luts.ls_inv_trans_lut[idx1][a[idx1]];
-        accum ^= luts.ls_inv_trans_lut[idx2][a[idx2]];
-        accum ^= luts.ls_inv_trans_lut[idx3][a[idx3]];
-    }
+    // Unroll completely for maximum performance - process all 16 bytes
+    // Group into 4x4 pattern for optimal instruction scheduling
+    accum ^= luts.ls_inv_trans_lut[0][a[0]];
+    accum ^= luts.ls_inv_trans_lut[1][a[1]];
+    accum ^= luts.ls_inv_trans_lut[2][a[2]];
+    accum ^= luts.ls_inv_trans_lut[3][a[3]];
+    
+    accum ^= luts.ls_inv_trans_lut[4][a[4]];
+    accum ^= luts.ls_inv_trans_lut[5][a[5]];
+    accum ^= luts.ls_inv_trans_lut[6][a[6]];
+    accum ^= luts.ls_inv_trans_lut[7][a[7]];
+    
+    accum ^= luts.ls_inv_trans_lut[8][a[8]];
+    accum ^= luts.ls_inv_trans_lut[9][a[9]];
+    accum ^= luts.ls_inv_trans_lut[10][a[10]];
+    accum ^= luts.ls_inv_trans_lut[11][a[11]];
+    
+    accum ^= luts.ls_inv_trans_lut[12][a[12]];
+    accum ^= luts.ls_inv_trans_lut[13][a[13]];
+    accum ^= luts.ls_inv_trans_lut[14][a[14]];
+    accum ^= luts.ls_inv_trans_lut[15][a[15]];
 
     a.* = accum;
 }
@@ -87,12 +102,20 @@ pub const Cipher = struct {
     ik_inv: [10]block align(16),
 
     pub fn init(k: key) Cipher {
-        @prefetch(&luts.ls_trans_lut, .{});
-        @prefetch(&luts.ls_inv_trans_lut, .{});
+        // Prefetch lookup tables early and more aggressively
+        @prefetch(&luts.ls_trans_lut, .{ .locality = 3 });
+        @prefetch(&luts.ls_inv_trans_lut, .{ .locality = 3 });
+        
         const ik = make_iter_keys(k);
         var ik_inv: [10]block align(16) = undefined;
 
-        for (0..10) |i| {
+        // Prefetch key schedule data
+        @prefetch(&ik[0], .{});
+        @prefetch(&ik[5], .{});
+
+        // Optimize key inversion loop with better cache usage
+        comptime var i = 0;
+        inline while (i < 10) : (i += 1) {
             ik_inv[i] = transitions.l_inv_trans(ik[i]);
         }
 
@@ -106,10 +129,25 @@ pub const Cipher = struct {
     pub inline fn encrypt(self: Cipher, msg: *align(16) block) void {
         @setRuntimeSafety(false);
 
+        // Prefetch lookup table and round keys
+        @prefetch(&luts.ls_trans_lut, .{});
+        @prefetch(&self.ik[0], .{});
+        @prefetch(&self.ik[4], .{});
+        @prefetch(&self.ik[8], .{});
+
         var state = msg.*;
-        inline for (0..9) |i| {
+        
+        // Unroll first few rounds for better pipeline utilization
+        lsx_trans(&state, self.ik[0]);
+        lsx_trans(&state, self.ik[1]);
+        lsx_trans(&state, self.ik[2]);
+        lsx_trans(&state, self.ik[3]);
+        
+        // Process remaining rounds
+        inline for (4..9) |i| {
             lsx_trans(&state, self.ik[i]);
         }
+        
         state ^= self.ik[9];
         msg.* = state;
     }
@@ -117,96 +155,66 @@ pub const Cipher = struct {
     pub inline fn decrypt(self: Cipher, msg: *align(16) block) void {
         @setRuntimeSafety(false);
 
+        // Prefetch critical lookup tables and keys early
+        @prefetch(&definitions.pi_table, .{});
+        @prefetch(&definitions.pi_inv_table, .{});
+        @prefetch(&luts.ls_inv_trans_lut, .{});
+        @prefetch(&self.ik_inv[9], .{});
+        @prefetch(&self.ik_inv[5], .{});
+        @prefetch(&self.ik_inv[0], .{});
+
         var state = msg.*;
 
-        // Apply S-transformation using table lookup (Pi)
-        // Unroll the loop for better performance
-        {
-            state[0] = definitions.pi_table[state[0]];
-            state[1] = definitions.pi_table[state[1]];
-            state[2] = definitions.pi_table[state[2]];
-            state[3] = definitions.pi_table[state[3]];
-            state[4] = definitions.pi_table[state[4]];
-            state[5] = definitions.pi_table[state[5]];
-            state[6] = definitions.pi_table[state[6]];
-            state[7] = definitions.pi_table[state[7]];
-            state[8] = definitions.pi_table[state[8]];
-            state[9] = definitions.pi_table[state[9]];
-            state[10] = definitions.pi_table[state[10]];
-            state[11] = definitions.pi_table[state[11]];
-            state[12] = definitions.pi_table[state[12]];
-            state[13] = definitions.pi_table[state[13]];
-            state[14] = definitions.pi_table[state[14]];
-            state[15] = definitions.pi_table[state[15]];
-        }
+        // Apply S-transformation using optimized unrolled lookup (Pi)
+        // Process in groups of 8 for better pipeline utilization
+        const pi = definitions.pi_table;
+        state[0] = pi[state[0]];
+        state[1] = pi[state[1]];
+        state[2] = pi[state[2]];
+        state[3] = pi[state[3]];
+        state[4] = pi[state[4]];
+        state[5] = pi[state[5]];
+        state[6] = pi[state[6]];
+        state[7] = pi[state[7]];
+        state[8] = pi[state[8]];
+        state[9] = pi[state[9]];
+        state[10] = pi[state[10]];
+        state[11] = pi[state[11]];
+        state[12] = pi[state[12]];
+        state[13] = pi[state[13]];
+        state[14] = pi[state[14]];
+        state[15] = pi[state[15]];
 
-        // Apply rounds of inverse transformations
-        // Prefetch important tables for the first few rounds
-        @prefetch(&luts.ls_inv_trans_lut[0][state[0]], .{});
-        @prefetch(&luts.ls_inv_trans_lut[8][state[8]], .{});
-
-        // First half of rounds
+        // Optimized inverse rounds with better memory access pattern
+        // Process in two phases for better cache locality
         inline for (0..5) |i| {
-            var accum: block align(16) = @splat(0);
-
-            // Process table lookups in groups of 4 for better hardware utilization
-            inline for (0..4) |j| {
-                const idx0 = j * 4;
-                const idx1 = idx0 + 1;
-                const idx2 = idx0 + 2;
-                const idx3 = idx0 + 3;
-
-                accum ^= luts.ls_inv_trans_lut[idx0][state[idx0]];
-                accum ^= luts.ls_inv_trans_lut[idx1][state[idx1]];
-                accum ^= luts.ls_inv_trans_lut[idx2][state[idx2]];
-                accum ^= luts.ls_inv_trans_lut[idx3][state[idx3]];
-            }
-
-            state = accum ^ self.ik_inv[9 - i];
+            ls_inv_trans(&state);
+            state ^= self.ik_inv[9 - i];
         }
 
-        // Prefetch for second half
-        @prefetch(&luts.ls_inv_trans_lut[0][state[0]], .{});
-        @prefetch(&luts.ls_inv_trans_lut[8][state[8]], .{});
-
-        // Second half of rounds
         inline for (5..9) |i| {
-            var accum: block align(16) = @splat(0);
-
-            inline for (0..4) |j| {
-                const idx0 = j * 4;
-                const idx1 = idx0 + 1;
-                const idx2 = idx0 + 2;
-                const idx3 = idx0 + 3;
-
-                accum ^= luts.ls_inv_trans_lut[idx0][state[idx0]];
-                accum ^= luts.ls_inv_trans_lut[idx1][state[idx1]];
-                accum ^= luts.ls_inv_trans_lut[idx2][state[idx2]];
-                accum ^= luts.ls_inv_trans_lut[idx3][state[idx3]];
-            }
-
-            state = accum ^ self.ik_inv[9 - i];
+            ls_inv_trans(&state);
+            state ^= self.ik_inv[9 - i];
         }
 
-        // Final S-inverse transformation (unrolled)
-        {
-            state[0] = definitions.pi_inv_table[state[0]];
-            state[1] = definitions.pi_inv_table[state[1]];
-            state[2] = definitions.pi_inv_table[state[2]];
-            state[3] = definitions.pi_inv_table[state[3]];
-            state[4] = definitions.pi_inv_table[state[4]];
-            state[5] = definitions.pi_inv_table[state[5]];
-            state[6] = definitions.pi_inv_table[state[6]];
-            state[7] = definitions.pi_inv_table[state[7]];
-            state[8] = definitions.pi_inv_table[state[8]];
-            state[9] = definitions.pi_inv_table[state[9]];
-            state[10] = definitions.pi_inv_table[state[10]];
-            state[11] = definitions.pi_inv_table[state[11]];
-            state[12] = definitions.pi_inv_table[state[12]];
-            state[13] = definitions.pi_inv_table[state[13]];
-            state[14] = definitions.pi_inv_table[state[14]];
-            state[15] = definitions.pi_inv_table[state[15]];
-        }
+        // Final S-inverse transformation (unrolled with local copy)
+        const pi_inv = definitions.pi_inv_table;
+        state[0] = pi_inv[state[0]];
+        state[1] = pi_inv[state[1]];
+        state[2] = pi_inv[state[2]];
+        state[3] = pi_inv[state[3]];
+        state[4] = pi_inv[state[4]];
+        state[5] = pi_inv[state[5]];
+        state[6] = pi_inv[state[6]];
+        state[7] = pi_inv[state[7]];
+        state[8] = pi_inv[state[8]];
+        state[9] = pi_inv[state[9]];
+        state[10] = pi_inv[state[10]];
+        state[11] = pi_inv[state[11]];
+        state[12] = pi_inv[state[12]];
+        state[13] = pi_inv[state[13]];
+        state[14] = pi_inv[state[14]];
+        state[15] = pi_inv[state[15]];
 
         // XOR with first round key and store result
         state ^= self.ik[0];

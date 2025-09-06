@@ -45,6 +45,12 @@ fn runBenchmark(name: []const u8, runner: anytype, iterations: usize) !void {
 
     try stdout.print("Running benchmark: {s} ({d} iterations)\n", .{ name, iterations });
 
+    // Warm up phase
+    for (0..1000) |_| {
+        beforeEach();
+        runner.run();
+    }
+
     var i: usize = 0;
     while (i < iterations) : (i += 1) {
         beforeEach();
@@ -59,18 +65,22 @@ fn runBenchmark(name: []const u8, runner: anytype, iterations: usize) !void {
     }
 
     const avg_time = total_time / iterations;
+    const throughput_mbs = (@as(f64, @floatFromInt(iterations)) * 16.0) / (@as(f64, @floatFromInt(total_time)) / 1e9) / (1024.0 * 1024.0);
+    
     try stdout.print("{s}:\n", .{name});
     try stdout.print("  Iterations: {d}\n", .{iterations});
     try stdout.print("  Total time: {d} ns\n", .{total_time});
     try stdout.print("  Average time: {d} ns\n", .{avg_time});
     try stdout.print("  Min time: {d} ns\n", .{min_time});
     try stdout.print("  Max time: {d} ns\n", .{max_time});
+    try stdout.print("  Throughput: {d:.2} MB/s\n", .{throughput_mbs});
+    try stdout.print("  Cycles per byte: {d:.2}\n", .{@as(f64, @floatFromInt(avg_time)) / 16.0});
     try stdout.print("\n", .{});
 }
 
 pub fn main() !void {
     const k = kuznechik.key{ 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef };
-    const iterations = 65535;
+    const iterations = 100000; // Increased for more accurate measurements
 
     try runBenchmark("Encrypt Benchmark", EncryptBenchmark.init(k), iterations);
     try runBenchmark("Decrypt Benchmark", DecryptBenchmark.init(k), iterations);

@@ -10,31 +10,95 @@ pub fn x_trans(a: block, b: block) block {
 }
 
 pub inline fn s_trans(a: block) block {
+    @setRuntimeSafety(false);
     var out = a;
-    for (0..16) |i| {
-        out[i] = definitions.pi_table[out[i]];
-    }
+    // Unroll completely for better performance
+    const pi = definitions.pi_table;
+    out[0] = pi[out[0]];
+    out[1] = pi[out[1]];
+    out[2] = pi[out[2]];
+    out[3] = pi[out[3]];
+    out[4] = pi[out[4]];
+    out[5] = pi[out[5]];
+    out[6] = pi[out[6]];
+    out[7] = pi[out[7]];
+    out[8] = pi[out[8]];
+    out[9] = pi[out[9]];
+    out[10] = pi[out[10]];
+    out[11] = pi[out[11]];
+    out[12] = pi[out[12]];
+    out[13] = pi[out[13]];
+    out[14] = pi[out[14]];
+    out[15] = pi[out[15]];
     return out;
 }
 
 pub inline fn s_trans_inplace(a: *block) void {
-    for (0..16) |i| {
-        a[i] = definitions.pi_table[a[i]];
-    }
+    @setRuntimeSafety(false);
+    // Unroll completely for better performance
+    const pi = definitions.pi_table;
+    a[0] = pi[a[0]];
+    a[1] = pi[a[1]];
+    a[2] = pi[a[2]];
+    a[3] = pi[a[3]];
+    a[4] = pi[a[4]];
+    a[5] = pi[a[5]];
+    a[6] = pi[a[6]];
+    a[7] = pi[a[7]];
+    a[8] = pi[a[8]];
+    a[9] = pi[a[9]];
+    a[10] = pi[a[10]];
+    a[11] = pi[a[11]];
+    a[12] = pi[a[12]];
+    a[13] = pi[a[13]];
+    a[14] = pi[a[14]];
+    a[15] = pi[a[15]];
 }
 
 pub fn s_inv_trans(a: block) block {
+    @setRuntimeSafety(false);
     var out = a;
-    for (0..16) |i| {
-        out[i] = definitions.pi_inv_table[out[i]];
-    }
+    // Unroll completely for better performance  
+    const pi_inv = definitions.pi_inv_table;
+    out[0] = pi_inv[out[0]];
+    out[1] = pi_inv[out[1]];
+    out[2] = pi_inv[out[2]];
+    out[3] = pi_inv[out[3]];
+    out[4] = pi_inv[out[4]];
+    out[5] = pi_inv[out[5]];
+    out[6] = pi_inv[out[6]];
+    out[7] = pi_inv[out[7]];
+    out[8] = pi_inv[out[8]];
+    out[9] = pi_inv[out[9]];
+    out[10] = pi_inv[out[10]];
+    out[11] = pi_inv[out[11]];
+    out[12] = pi_inv[out[12]];
+    out[13] = pi_inv[out[13]];
+    out[14] = pi_inv[out[14]];
+    out[15] = pi_inv[out[15]];
     return out;
 }
 
 pub fn s_inv_trans_inplace(a: *block) void {
-    for (0..16) |i| {
-        a[i] = definitions.pi_inv_table[a[i]];
-    }
+    @setRuntimeSafety(false);
+    // Unroll completely for better performance
+    const pi_inv = definitions.pi_inv_table;
+    a[0] = pi_inv[a[0]];
+    a[1] = pi_inv[a[1]];
+    a[2] = pi_inv[a[2]];
+    a[3] = pi_inv[a[3]];
+    a[4] = pi_inv[a[4]];
+    a[5] = pi_inv[a[5]];
+    a[6] = pi_inv[a[6]];
+    a[7] = pi_inv[a[7]];
+    a[8] = pi_inv[a[8]];
+    a[9] = pi_inv[a[9]];
+    a[10] = pi_inv[a[10]];
+    a[11] = pi_inv[a[11]];
+    a[12] = pi_inv[a[12]];
+    a[13] = pi_inv[a[13]];
+    a[14] = pi_inv[a[14]];
+    a[15] = pi_inv[a[15]];
 }
 
 fn gf_mul(a_in: u8, b_in: u8) u8 {

@@ -25,13 +25,17 @@ pub fn build(b: *std.Build) void {
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
 
-    // Benchmark executable
+    // Benchmark executable with aggressive optimizations
     const benchmark = b.addExecutable(.{
         .name = "benchmark",
         .root_source_file = b.path("test/benchmarks.zig"),
         .target = target,
         .optimize = .ReleaseFast,
     });
+
+    // Add aggressive optimization flags for maximum performance
+    benchmark.root_module.strip = true;
+    benchmark.root_module.single_threaded = true;
 
     // Create module for our library to be used by the benchmark
     const kuznechik_module = b.createModule(.{
