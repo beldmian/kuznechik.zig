@@ -1,3 +1,11 @@
 zig-out
 .zig-cache
 .DS_Store
+
+# Fuzzing outputs
+test/fuzz/output/
+test/fuzz/hangs/
+test/fuzz/crashes/
+
+# AFL++ sync data
+test/fuzz/*/sync/

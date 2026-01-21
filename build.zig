@@ -58,6 +58,9 @@ pub fn build(b: *std.Build) void {
     build_benchmark_step.dependOn(&build_benchmark.step);
 
     // === Fuzzing Infrastructure ===
+    // To build instrumented binaries for AFL++:
+    //   AFL_CC=afl-clang-fast AFL_CXX=afl-clang-fast++ zig build fuzz
+    // This uses AFL++'s compiler wrappers for instrumentation.
 
     // Import kuznechik module for all fuzz harnesses
     const kuznechik_fuzz_module = b.createModule(.{
@@ -76,8 +79,6 @@ pub fn build(b: *std.Build) void {
         .name = "roundtrip",
         .root_module = roundtrip_module,
     });
-    roundtrip_fuzzer.use_llvm = true;
-    roundtrip_fuzzer.bundle_compiler_rt = true;
 
     const install_roundtrip = b.addInstallArtifact(roundtrip_fuzzer, .{});
     const build_roundtrip_step = b.step("fuzz-round-trip", "Build round-trip encryption/decryption fuzzer");
@@ -99,8 +100,6 @@ pub fn build(b: *std.Build) void {
         .name = "key_schedule",
         .root_module = key_schedule_module,
     });
-    key_schedule_fuzzer.use_llvm = true;
-    key_schedule_fuzzer.bundle_compiler_rt = true;
 
     const install_key_schedule = b.addInstallArtifact(key_schedule_fuzzer, .{});
     const build_key_schedule_step = b.step("fuzz-key-schedule", "Build key schedule validation fuzzer");
@@ -122,8 +121,6 @@ pub fn build(b: *std.Build) void {
         .name = "ls_roundtrip",
         .root_module = ls_roundtrip_module,
     });
-    ls_roundtrip_fuzzer.use_llvm = true;
-    ls_roundtrip_fuzzer.bundle_compiler_rt = true;
 
     const install_ls_roundtrip = b.addInstallArtifact(ls_roundtrip_fuzzer, .{});
     const build_ls_roundtrip_step = b.step("fuzz-ls-roundtrip", "Build LS round-trip fuzzer");
@@ -150,4 +147,23 @@ pub fn build(b: *std.Build) void {
     fuzz_step.dependOn(&install_roundtrip.step);
     fuzz_step.dependOn(&install_key_schedule.step);
     fuzz_step.dependOn(&install_ls_roundtrip.step);
+
+    // Corpus generation - creates seed corpus files from test vectors
+    const corpus_step = b.step("fuzz-corpus", "Generate seed corpus files from test vectors");
+    corpus_step.dependOn(&install_roundtrip.step);
+    corpus_step.dependOn(&install_key_schedule.step);
+    corpus_step.dependOn(&install_ls_roundtrip.step);
+
+    // Run each fuzzer with corpus to ensure files are valid
+    const run_corpus_roundtrip = b.addRunArtifact(roundtrip_fuzzer);
+    run_corpus_roundtrip.addFileArg(b.path("test/fuzz/corpus/round_trip/rfc7801_test_vector"));
+    corpus_step.dependOn(&run_corpus_roundtrip.step);
+
+    const run_corpus_key_schedule = b.addRunArtifact(key_schedule_fuzzer);
+    run_corpus_key_schedule.addFileArg(b.path("test/fuzz/corpus/key_schedule/rfc7801_test_vector"));
+    corpus_step.dependOn(&run_corpus_key_schedule.step);
+
+    const run_corpus_ls_roundtrip = b.addRunArtifact(ls_roundtrip_fuzzer);
+    run_corpus_ls_roundtrip.addFileArg(b.path("test/fuzz/corpus/ls_roundtrip/ls_test_vector"));
+    corpus_step.dependOn(&run_corpus_ls_roundtrip.step);
 }

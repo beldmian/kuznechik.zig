@@ -63,6 +63,16 @@ zig build bench
 
 This project includes fuzzing infrastructure using AFL++ to continuously test cipher properties and discover edge cases.
 
+**Quick Links:**
+- [Comprehensive Fuzzing Guide](docs/FUZZING.md) - Detailed documentation on AFL++ usage
+- [Helper Scripts](#helper-scripts) - Convenient scripts for common fuzzing workflows
+
+#### Available Fuzzers
+
+1. **roundtrip** - Tests encryption/decryption round-trip property
+2. **key_schedule** - Tests key schedule generation and validation
+3. **ls_roundtrip** - Tests LS (Linear Substitution) transformation round-trip property
+
 #### Installation
 
 **macOS:**
@@ -97,46 +107,127 @@ Build all fuzzers:
 zig build fuzz-build
 ```
 
+#### Helper Scripts
+
+Convenience scripts are provided in the `scripts/` directory for common fuzzing workflows:
+
+**Quick Start (Dumb Mode - Works Everywhere):**
+```bash
+./scripts/fuzz-dumb.sh ls_roundtrip
+```
+
+**QEMU Mode (Binary Instrumentation - Recommended):**
+```bash
+./scripts/fuzz-qemu.sh ls_roundtrip
+```
+
+**Parallel Fuzzing (Multiple Instances):**
+```bash
+./scripts/fuzz-parallel.sh ls_roundtrip dumb 4  # 4 parallel instances
+./scripts/fuzz-parallel.sh ls_roundtrip qemu 4  # with QEMU mode
+```
+
+**View Statistics:**
+```bash
+./scripts/fuzz-stats.sh
+```
+
+**Reproduce a Crash:**
+```bash
+./scripts/fuzz-reproduce.sh ls_roundtrip test/fuzz/output/ls_roundtrip_dumb/default/crashes/id:000000,...
+```
+
+**Clean Output Directories:**
+```bash
+./scripts/fuzz-clean.sh
+```
+
+**All Scripts:**
+- `fuzz-dumb.sh` - Run AFL++ in dumb mode (no instrumentation)
+- `fuzz-qemu.sh` - Run AFL++ in QEMU mode (binary instrumentation)
+- `fuzz-parallel.sh` - Run multiple AFL++ instances in parallel
+- `fuzz-stats.sh` - Display statistics for all fuzzing sessions
+- `fuzz-reproduce.sh` - Reproduce crashes found by AFL++
+- `fuzz-clean.sh` - Clean up fuzzing output directories
+
 #### Running Fuzzers
 
-Run a specific fuzzer with AFL++:
+**Quick Start with Helper Scripts:**
+
+The easiest way to start fuzzing is using the provided helper scripts:
+
+```bash
+# Dumb mode (works everywhere, no setup required)
+./scripts/fuzz-dumb.sh ls_roundtrip
+
+# QEMU mode (recommended, requires AFL++ built with QEMU support)
+./scripts/fuzz-qemu.sh ls_roundtrip
+
+# Parallel fuzzing (4 instances for better coverage)
+./scripts/fuzz-parallel.sh ls_roundtrip dumb 4
+```
+
+**Manual AFL++ Usage:**
+
+If you prefer to use AFL++ directly:
+
+**Important Note:** Zig uses its own compiler backend which does not support AFL++'s compile-time instrumentation. To use AFL++ with Zig binaries, you must use one of the following modes:
+
+**Option 1: Dumb Mode (No instrumentation, simplest)**
 ```bash
 # Build the fuzzer first
 zig build fuzz-ls-roundtrip
 
-# Run AFL++ with the corpus
-afl-fuzz -i test/fuzz/corpus/transformations -o test/fuzz/output/transformations -- ./zig-out/bin/ls_roundtrip
+# Run AFL++ in dumb mode (-n flag)
+# This mode doesn't use coverage guidance but still provides mutation and crash detection
+afl-fuzz -n -i test/fuzz/corpus/ls_roundtrip -o test/fuzz/output/ls_roundtrip -- ./zig-out/bin/ls_roundtrip
 ```
 
-AFL++ options:
-- `-i`: Input corpus directory (seed inputs)
-- `-o`: Output directory for results
-- `--`: Separator before the fuzzer executable
+**Option 2: QEMU Mode (Binary instrumentation, recommended for Zig)**
+```bash
+# Install AFL++ with QEMU mode (requires building from source)
+# See: https://github.com/AFLplusplus/AFLplusplus#qemu-mode
+
+# Run AFL++ with QEMU mode (-Q flag)
+afl-fuzz -Q -i test/fuzz/corpus/ls_roundtrip -o test/fuzz/output/ls_roundtrip -- ./zig-out/bin/ls_roundtrip
+```
+
+**Option 3: FRIDA Mode (Dynamic instrumentation)**
+```bash
+# Install FRIDA and AFL++ FRIDA mode
+# See: https://github.com/AFLplusplus/AFLplusplus#frida-mode
+
+# Run AFL++ with FRIDA mode (-O flag)
+afl-fuzz -O -i test/fuzz/corpus/ls_roundtrip -o test/fuzz/output/ls_roundtrip -- ./zig-out/bin/ls_roundtrip
+```
+
+**For more detailed information, see [FUZZING.md](docs/FUZZING.md)**
 
 #### Understanding Results
 
 AFL++ creates an output directory with the following structure:
 
 ```
-test/fuzz/output/transformations/
-├── crashes/          # Inputs that triggered crashes
-├── hangs/            # Inputs that caused timeouts
-├── queue/            # Interesting inputs discovered
-└── fuzzer_stats/     # Statistics and progress
+test/fuzz/output/ls_roundtrip/
+├── default/
+│   ├── crashes/          # Inputs that triggered crashes
+│   ├── hangs/            # Inputs that caused timeouts
+│   ├── queue/            # Interesting inputs discovered
+│   └── fuzzer_stats      # Statistics and progress
 ```
 
 **Crashes:**
-- Check `crashes/` for files that triggered assertion failures or panics
+- Check `default/crashes/` for files that triggered assertion failures or panics
 - Each crash file contains the input that reproduces the issue
-- Run the fuzzer directly with a crash file to reproduce: `./zig-out/bin/ls_roundtrip < crashes/id:000000...`
+- Run the fuzzer directly with a crash file to reproduce: `./zig-out/bin/ls_roundtrip < default/crashes/id:000000...`
 
 **Hangs:**
-- Inputs in `hangs/` exceeded the timeout threshold (default: 1 second)
+- Inputs in `default/hangs/` exceeded the timeout threshold (default: 1 second)
 - May indicate infinite loops or performance issues
 - Adjust timeout with AFL++'s `-t` option
 
 **Statistics:**
-- Monitor `fuzzer_stats` for execution speed, coverage, and discovered paths
+- Monitor `default/fuzzer_stats` for execution speed, coverage, and discovered paths
 - `execs_per_sec`: Executions per second (higher is better)
 - `unique_crashes`: Total unique crashes found
 - `saved_crashes`: Crashes saved to disk
@@ -195,7 +286,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Future Plans
 
-- [ ] Add more fuzzing harnesses (encryption/decryption round-trip, key schedule)
+- [x] Add fuzzing harnesses (encryption/decryption round-trip, key schedule, LS transformation)
 - [ ] Improve performance further
 - [ ] Add cipher operation modes (CTR, CBC, GCM, etc.)
 
