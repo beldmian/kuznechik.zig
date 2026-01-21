@@ -170,3 +170,43 @@ test "Cipher test" {
     cipher.decrypt(&msg);
     try testing.expectEqual(msg_dec, msg);
 }
+
+// Public test helpers for fuzzing
+// These expose the internal LS transformation functions for testing purposes
+
+/// Apply LS transformation with XOR key addition (for testing/fuzzing only)
+/// This computes: a = L(S(a ^ k))
+pub fn testLsx(a: *align(16) block, k: block) void {
+    lsx_trans(a, k);
+}
+
+/// Apply inverse LS transformation (for testing/fuzzing only)
+/// This computes: a = L^-1(S^-1(a))
+/// Note: This is NOT a direct inverse of testLsx - it's used internally by decrypt
+pub fn testLsInv(a: *align(16) block) void {
+    ls_inv_trans(a);
+}
+
+/// Apply the proper inverse of testLsx (for testing/fuzzing only)
+/// If testLsx(a, k) is called, then testLsInvKey(a, k) will restore the original value
+/// This computes: a = L^-1(S^-1(a)) ^ k
+pub fn testLsInvKey(a: *align(16) block, k: block) void {
+    ls_inv_trans(a);
+    a.* ^= k;
+}
+
+/// Test helper using basic transformations (not LUT-optimized)
+/// This computes LS transformation: a = L(S(a ^ k))
+pub fn testLsBasic(a: *align(16) block, k: block) void {
+    a.* ^= k;
+    a.* = transitions.s_trans(a.*);
+    a.* = transitions.l_trans(a.*);
+}
+
+/// Test helper using basic inverse transformations
+/// This computes inverse LS transformation: a = S^-1(L^-1(a)) ^ k
+pub fn testLsInvBasic(a: *align(16) block, k: block) void {
+    a.* = transitions.l_inv_trans(a.*);
+    a.* = transitions.s_inv_trans(a.*);
+    a.* ^= k;
+}
