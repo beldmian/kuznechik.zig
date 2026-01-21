@@ -11,28 +11,28 @@ pub fn x_trans(a: block, b: block) block {
 
 pub inline fn s_trans(a: block) block {
     var out = a;
-    for (0..16) |i| {
+    inline for (0..16) |i| {
         out[i] = definitions.pi_table[out[i]];
     }
     return out;
 }
 
 pub inline fn s_trans_inplace(a: *block) void {
-    for (0..16) |i| {
+    inline for (0..16) |i| {
         a[i] = definitions.pi_table[a[i]];
     }
 }
 
-pub fn s_inv_trans(a: block) block {
+pub inline fn s_inv_trans(a: block) block {
     var out = a;
-    for (0..16) |i| {
+    inline for (0..16) |i| {
         out[i] = definitions.pi_inv_table[out[i]];
     }
     return out;
 }
 
-pub fn s_inv_trans_inplace(a: *block) void {
-    for (0..16) |i| {
+pub inline fn s_inv_trans_inplace(a: *block) void {
+    inline for (0..16) |i| {
         a[i] = definitions.pi_inv_table[a[i]];
     }
 }

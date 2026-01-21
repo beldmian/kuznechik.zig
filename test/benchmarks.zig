@@ -41,17 +41,20 @@ fn runBenchmark(name: []const u8, runner: anytype, iterations: usize) !void {
     var max_time: u64 = 0;
     var total_time: u64 = 0;
 
-    const stdout = std.io.getStdOut().writer();
+    const print = std.debug.print;
 
-    try stdout.print("Running benchmark: {s} ({d} iterations)\n", .{ name, iterations });
+    print("Running benchmark: {s} ({d} iterations)\n", .{ name, iterations });
 
     var i: usize = 0;
     while (i < iterations) : (i += 1) {
         beforeEach();
 
+        var j: usize = 0;
         timer.reset();
-        runner.run();
-        const elapsed = timer.read();
+        while (j < 1000) : (j += 1) {
+            runner.run();
+        }
+        const elapsed = timer.read() / 1000;
 
         min_time = @min(min_time, elapsed);
         max_time = @max(max_time, elapsed);
@@ -59,19 +62,19 @@ fn runBenchmark(name: []const u8, runner: anytype, iterations: usize) !void {
     }
 
     const avg_time = total_time / iterations;
-    try stdout.print("{s}:\n", .{name});
-    try stdout.print("  Iterations: {d}\n", .{iterations});
-    try stdout.print("  Total time: {d} ns\n", .{total_time});
-    try stdout.print("  Average time: {d} ns\n", .{avg_time});
-    try stdout.print("  Min time: {d} ns\n", .{min_time});
-    try stdout.print("  Max time: {d} ns\n", .{max_time});
-    try stdout.print("\n", .{});
+    print("{s}:\n", .{name});
+    print("  Iterations: {d}\n", .{iterations});
+    print("  Total time: {d} ns\n", .{total_time});
+    print("  Average time: {d} ns\n", .{avg_time});
+    print("  Min time: {d} ns\n", .{min_time});
+    print("  Max time: {d} ns\n", .{max_time});
+    print("\n", .{});
 }
 
 pub fn main() !void {
     const k = kuznechik.key{ 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef };
-    const iterations = 65535;
+    const iterations = 1000;
 
     try runBenchmark("Encrypt Benchmark", EncryptBenchmark.init(k), iterations);
-    try runBenchmark("Decrypt Benchmark", DecryptBenchmark.init(k), iterations);
+    // try runBenchmark("Decrypt Benchmark", DecryptBenchmark.init(k), iterations);
 }
