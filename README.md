@@ -59,6 +59,95 @@ zig build test
 zig build bench
 ```
 
+### Fuzzing
+
+This project includes fuzzing infrastructure using AFL++ to continuously test cipher properties and discover edge cases.
+
+#### Installation
+
+**macOS:**
+```bash
+brew install afl++
+```
+
+**Linux (Debian/Ubuntu):**
+```bash
+sudo apt-get install afl++
+```
+
+**Linux (Fedora/RHEL):**
+```bash
+sudo dnf install afl++
+```
+
+Verify your installation:
+```bash
+afl-fuzz --version
+```
+
+#### Building Fuzzers
+
+Build a specific fuzzer:
+```bash
+zig build fuzz-ls-roundtrip
+```
+
+Build all fuzzers:
+```bash
+zig build fuzz-build
+```
+
+#### Running Fuzzers
+
+Run a specific fuzzer with AFL++:
+```bash
+# Build the fuzzer first
+zig build fuzz-ls-roundtrip
+
+# Run AFL++ with the corpus
+afl-fuzz -i test/fuzz/corpus/transformations -o test/fuzz/output/transformations -- ./zig-out/bin/ls_roundtrip
+```
+
+AFL++ options:
+- `-i`: Input corpus directory (seed inputs)
+- `-o`: Output directory for results
+- `--`: Separator before the fuzzer executable
+
+#### Understanding Results
+
+AFL++ creates an output directory with the following structure:
+
+```
+test/fuzz/output/transformations/
+├── crashes/          # Inputs that triggered crashes
+├── hangs/            # Inputs that caused timeouts
+├── queue/            # Interesting inputs discovered
+└── fuzzer_stats/     # Statistics and progress
+```
+
+**Crashes:**
+- Check `crashes/` for files that triggered assertion failures or panics
+- Each crash file contains the input that reproduces the issue
+- Run the fuzzer directly with a crash file to reproduce: `./zig-out/bin/ls_roundtrip < crashes/id:000000...`
+
+**Hangs:**
+- Inputs in `hangs/` exceeded the timeout threshold (default: 1 second)
+- May indicate infinite loops or performance issues
+- Adjust timeout with AFL++'s `-t` option
+
+**Statistics:**
+- Monitor `fuzzer_stats` for execution speed, coverage, and discovered paths
+- `execs_per_sec`: Executions per second (higher is better)
+- `unique_crashes`: Total unique crashes found
+- `saved_crashes`: Crashes saved to disk
+
+#### Testing Fuzzers Standalone
+
+Validate that fuzz harnesses work correctly without AFL++:
+```bash
+zig build fuzz-test
+```
+
 ## Performance
 
 The implementation is optimized using precomputed lookup tables for the S-box, inverse S-box, and linear transformations. Benchmark results on Apple M2:
@@ -106,9 +195,9 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Future Plans
 
-- [ ] Add fuzzing tests
+- [ ] Add more fuzzing harnesses (encryption/decryption round-trip, key schedule)
 - [ ] Improve performance further
-- [ ] Add cipher operation modes
+- [ ] Add cipher operation modes (CTR, CBC, GCM, etc.)
 
 ## Author
 
