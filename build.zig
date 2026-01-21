@@ -59,16 +59,62 @@ pub fn build(b: *std.Build) void {
 
     // === Fuzzing Infrastructure ===
 
+    // Import kuznechik module for all fuzz harnesses
+    const kuznechik_fuzz_module = b.createModule(.{
+        .root_source_file = b.path("src/kuznechik.zig"),
+    });
+
+    // Round-trip encryption/decryption fuzzer
+    const roundtrip_module = b.createModule(.{
+        .root_source_file = b.path("test/fuzz/roundtrip.zig"),
+        .target = target,
+        .optimize = .Debug,
+    });
+    roundtrip_module.addImport("kuznechik", kuznechik_fuzz_module);
+
+    const roundtrip_fuzzer = b.addExecutable(.{
+        .name = "roundtrip",
+        .root_module = roundtrip_module,
+    });
+    roundtrip_fuzzer.use_llvm = true;
+    roundtrip_fuzzer.bundle_compiler_rt = true;
+
+    const install_roundtrip = b.addInstallArtifact(roundtrip_fuzzer, .{});
+    const build_roundtrip_step = b.step("fuzz-round-trip", "Build round-trip encryption/decryption fuzzer");
+    build_roundtrip_step.dependOn(&install_roundtrip.step);
+
+    const run_roundtrip = b.addRunArtifact(roundtrip_fuzzer);
+    const run_roundtrip_step = b.step("test-fuzz-round-trip", "Run round-trip fuzzer test");
+    run_roundtrip_step.dependOn(&run_roundtrip.step);
+
+    // Key schedule validation fuzzer
+    const key_schedule_module = b.createModule(.{
+        .root_source_file = b.path("test/fuzz/key_schedule.zig"),
+        .target = target,
+        .optimize = .Debug,
+    });
+    key_schedule_module.addImport("kuznechik", kuznechik_fuzz_module);
+
+    const key_schedule_fuzzer = b.addExecutable(.{
+        .name = "key_schedule",
+        .root_module = key_schedule_module,
+    });
+    key_schedule_fuzzer.use_llvm = true;
+    key_schedule_fuzzer.bundle_compiler_rt = true;
+
+    const install_key_schedule = b.addInstallArtifact(key_schedule_fuzzer, .{});
+    const build_key_schedule_step = b.step("fuzz-key-schedule", "Build key schedule validation fuzzer");
+    build_key_schedule_step.dependOn(&install_key_schedule.step);
+
+    const run_key_schedule = b.addRunArtifact(key_schedule_fuzzer);
+    const run_key_schedule_step = b.step("test-fuzz-key-schedule", "Run key schedule fuzzer test");
+    run_key_schedule_step.dependOn(&run_key_schedule.step);
+
     // LS round-trip fuzzer
     const ls_roundtrip_module = b.createModule(.{
         .root_source_file = b.path("test/fuzz/ls_roundtrip.zig"),
         .target = target,
         .optimize = .Debug,
-    });
-
-    // Import kuznechik module for the fuzz harness
-    const kuznechik_fuzz_module = b.createModule(.{
-        .root_source_file = b.path("src/kuznechik.zig"),
     });
     ls_roundtrip_module.addImport("kuznechik", kuznechik_fuzz_module);
 
@@ -76,8 +122,6 @@ pub fn build(b: *std.Build) void {
         .name = "ls_roundtrip",
         .root_module = ls_roundtrip_module,
     });
-
-    // AFL++ requires LLVM instrumentation
     ls_roundtrip_fuzzer.use_llvm = true;
     ls_roundtrip_fuzzer.bundle_compiler_rt = true;
 
@@ -85,16 +129,25 @@ pub fn build(b: *std.Build) void {
     const build_ls_roundtrip_step = b.step("fuzz-ls-roundtrip", "Build LS round-trip fuzzer");
     build_ls_roundtrip_step.dependOn(&install_ls_roundtrip.step);
 
-    // Run LS round-trip fuzzer (for standalone testing)
     const run_ls_roundtrip = b.addRunArtifact(ls_roundtrip_fuzzer);
-    const run_ls_roundtrip_step = b.step("test-fuzz-ls", "Run LS round-trip fuzzer test");
+    const run_ls_roundtrip_step = b.step("test-fuzz-ls-roundtrip", "Run LS round-trip fuzzer test");
     run_ls_roundtrip_step.dependOn(&run_ls_roundtrip.step);
 
     // Build all fuzzers
     const build_fuzz_step = b.step("fuzz-build", "Build all fuzzers");
+    build_fuzz_step.dependOn(&install_roundtrip.step);
+    build_fuzz_step.dependOn(&install_key_schedule.step);
     build_fuzz_step.dependOn(&install_ls_roundtrip.step);
 
     // Test all fuzzers (standalone validation)
     const test_fuzz_step = b.step("fuzz-test", "Test all fuzzers (standalone)");
+    test_fuzz_step.dependOn(&run_roundtrip.step);
+    test_fuzz_step.dependOn(&run_key_schedule.step);
     test_fuzz_step.dependOn(&run_ls_roundtrip.step);
+
+    // Main fuzz step - builds all fuzzers (can be run with AFL++)
+    const fuzz_step = b.step("fuzz", "Build all fuzzers for use with AFL++");
+    fuzz_step.dependOn(&install_roundtrip.step);
+    fuzz_step.dependOn(&install_key_schedule.step);
+    fuzz_step.dependOn(&install_ls_roundtrip.step);
 }

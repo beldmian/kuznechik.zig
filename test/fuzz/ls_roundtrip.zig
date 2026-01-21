@@ -28,7 +28,7 @@ export fn LLVMFuzzerTestOneInput(data: [*]const u8, len: usize) i32 {
     @memcpy(working_slice, data[0..16]);
 
     // Apply LS transformation with zero key (pure LS operation)
-    const zero_key: block = @splat(0);
+    const zero_key: block = @splat(@as(u8, 0));
     kuznechik.testLsBasic(&working, zero_key);
 
     // Apply proper inverse LS transformation with key XOR
@@ -47,7 +47,7 @@ pub fn main() !void {
     // Simple test with known vectors
     const test_input = [_]u8{ 0x64, 0xa5, 0x94, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-    _ = LLVMFuzzerTestOneInput(&test_input, test_input.len);
+    _ = LLVMFuzzerTestOneInput(&test_input, 16);
 
     std.debug.print("LS round-trip fuzz harness: Basic test passed\n", .{});
 }
