@@ -31,6 +31,14 @@ of the specified positive number of blocks. CFB uses 128-bit feedback segments.
 Keep the context for successive fragments of the same message. ECB and CBC do
 not select or add a padding convention.
 
+Version 0.9.2 batches independent CBC encryption lanes for IV registers of at
+least 64 blocks. CFB encryption batches power-of-two register sizes of at least
+64 blocks; other sizes retain scalar encryption. Updates shorter than 64 bytes
+keep scalar paths. Both preserve the same complete context state across calls,
+and CBC validates block length before any writes. Default one-block IV behavior
+is unchanged. See [feedback batching evidence](performance/2026-10-29/feedback-batching/RESULTS.md)
+for measured widths, short-call controls, rejected candidates and limits.
+
 For OFB registers of at least 64 blocks, updates of at least 64 bytes use
 batched XOR and register bookkeeping. Short updates keep the scalar loop;
 both paths preserve the same partial keystream and context state. See

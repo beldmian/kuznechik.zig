@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.2 — 2026-10-29
+
+- Batch CBC encryption with IV registers of at least 64 blocks and CFB encryption with power-of-two IV registers of at least 64 blocks. Short updates keep scalar paths; CFB IV65 batching was rejected after a portable short-call regression.
+- Preserve all context layouts and observable register/keystream/feedback state, including direction continuation. CBC rejects invalid lengths before changing data or context.
+- Add independent AES/Kuznechik shift-register checks across alignments, ring/batch boundaries, partial CFB updates, and atomic rejection.
+- Retain paired native/portable Boat improvements for large eligible IVs, with raw samples, controls, rejected variants, layout contracts, source archives and cleanup evidence.
+- Verify the combined feedback and OCB changes against the complete library suite before publication; see the v0.9.2 integration receipt for exact configurations and results.
+
 ## 0.9.1 — 2026-10-29
 
 - Bound OCB offset schedule initialization by the full-block counts of AAD and payload, avoiding unused entries for short messages while preserving the inclusive L48 endpoint.
