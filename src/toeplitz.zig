@@ -1,5 +1,6 @@
-//! Sixty-four blocks with a diagonally encoded Toeplitz linear layer.
-//! L = Drow^-1 * T * Dcolumn^-1. Position-specific S-boxes absorb the
+//! Sixty-four blocks with a diagonally encoded recursive linear layer.
+//! L = Drow^-1 * T * Dcolumn^-1; T has equal recursive diagonal blocks.
+//! Position-specific S-boxes absorb the
 //! diagonal maps between rounds; keys use the same row encoding.
 const defs = @import("definitions.zig");
 const transpose = @import("transpose.zig");

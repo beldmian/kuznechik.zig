@@ -1,0 +1,6 @@
+{"evaluations":255,"restart":0,"q":[1,1,1,1],"gamma":1,"gfni":75,"zeros":1,"units":5}
+{"evaluations":765,"restart":0,"q":[1,1,46,1],"gamma":124,"gfni":74,"zeros":4,"units":3}
+{"evaluations":13260,"restart":6,"q":[2,74,106,197],"gamma":201,"gfni":72,"zeros":5,"units":4}
+{"evaluations":110415,"restart":50,"q":[192,5,182,166],"gamma":78,"gfni":71,"zeros":5,"units":5}
+{"evaluations":1409130,"restart":636,"q":[21,138,187,232],"gamma":152,"gfni":70,"zeros":8,"units":3}
+{"evaluations":9260580,"restart":4197,"q":[76,244,1,166],"gamma":37,"gfni":69,"zeros":5,"units":7}

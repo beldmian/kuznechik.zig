@@ -1,0 +1,13 @@
+{
+  "base": "5bbffcfaa68d5c862eb56cdbb635ca9cae7647d8",
+  "measured_graph_matches_integrated": true,
+  "measured_to_integrated_changes": {
+    "toeplitz.zig": "module documentation only"
+  },
+  "all_working_src_hashes_match_generated_candidate": true,
+  "Cipher_size_bytes": 352,
+  "Cipher_definition_and_block_API_source_unchanged": true,
+  "dispatch_and_feature_gates_unchanged": true,
+  "non_Zen_fallback_unchanged": true,
+  "hidden_assembly_read_memory_clobber_preserved": ".{ .memory = true }"
+}
