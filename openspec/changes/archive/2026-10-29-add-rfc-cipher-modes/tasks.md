@@ -10,3 +10,10 @@
 - [x] Benchmark serial and batch paths on Boat and retain measured improvements.
 - [x] Document APIs, RFC scope, limits, and reproducible results.
 - [x] Publish verified increments with commits and releases.
+
+## Closeout — 2026-10-29
+
+Released byte-oriented coverage and external protocol responsibilities are listed
+in [RFC-MODES.md](../../../../docs/RFC-MODES.md). Additional streaming and bit-level
+API decisions are tracked in [#7](https://github.com/beldmian/kuznechik.zig/issues/7).
+Historical validation and reviews remain in the research archive.

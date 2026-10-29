@@ -62,8 +62,8 @@ Tests properties of the round key generation:
 
 ```zig
 pub fn keySchedule(input: []const u8) anyerror!void {
-    // Verify all round keys are unique
-    // Verify round keys are non-zero
+    // Compare every round key with an independent key-schedule reference
+    // Accept zero and equal-half keys
 }
 ```
 

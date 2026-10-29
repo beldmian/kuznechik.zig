@@ -1,8 +1,3 @@
-# Spec: Fuzzing Infrastructure
-
-**Capability:** fuzzing
-**Change ID:** add-fuzzing
-
 ## ADDED Requirements
 
 ### Requirement: Fuzz Harness Functions
@@ -19,8 +14,8 @@ The project MUST provide fuzzable harness functions that test cipher properties.
 
 **Given** a 32-byte key
 **When** the keySchedule harness is called
-**Then** all generated round keys MUST be unique
-**And** all round keys MUST NOT be all zeros
+**Then** the generated round keys MUST match an independent Kuznechik key-schedule reference
+**And** zero keys and equal-half keys MUST remain valid inputs
 
 #### Scenario: Transformation round-trip
 
@@ -107,8 +102,6 @@ The fuzzing setup MUST properly report and preserve crashes.
 **When** AFL++ is configured with a timeout
 **Then** inputs exceeding the timeout MUST be saved to `hangs/` directory
 
-## MODIFIED Requirements
-
 ### Requirement: Build System
 
 The build system SHALL be extended to support fuzzing steps while maintaining existing functionality.
@@ -119,13 +112,3 @@ The build system SHALL be extended to support fuzzing steps while maintaining ex
 **When** `zig build test` is run
 **Then** existing unit tests MUST still pass
 **And** fuzzing steps MUST NOT interfere with normal builds
-
-## REMOVED Requirements
-
-None. This is a pure addition with no breaking changes.
-
-## Cross-References
-
-- Related to: testing (existing unit tests in src/kuznechik.zig)
-- Builds on: RFC 7801 test vectors
-- Enables: future native Zig fuzzer integration
