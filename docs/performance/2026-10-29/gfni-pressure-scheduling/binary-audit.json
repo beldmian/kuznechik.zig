@@ -1,0 +1,418 @@
+{
+  "pairs-candidate-binary.s.gz": {
+    "compressed_sha256": "6f835d137fabfa0dc9733725e50c8b1ee4cf9a89c2ed20d9a3a2a7b731f83e50",
+    "disassembly_sha256": "5a28bfdda926d2f558dd41477ddf84bedf1be473bbcdd17be39224c1e835e4ea",
+    "gfni_instructions": 1179,
+    "zmm_mentions": 9692,
+    "public_symbols": [
+      {
+        "address": "0000000001052760",
+        "symbol": "pairs.apply__anon_2372"
+      },
+      {
+        "address": "0000000001053a70",
+        "symbol": "pairs.apply__anon_2388"
+      },
+      {
+        "address": "0000000001053cb0",
+        "symbol": "pairs.run__anon_2443"
+      },
+      {
+        "address": "00000000010586f0",
+        "symbol": "pairs.run__anon_2589"
+      },
+      {
+        "address": "0000000001058830",
+        "symbol": "pairs.run__anon_2631"
+      },
+      {
+        "address": "0000000001058980",
+        "symbol": "pairs.run__anon_2651"
+      }
+    ]
+  },
+  "pairs-ready00-binary.s.gz": {
+    "compressed_sha256": "e55eac9ab5376199a3ee7df4cb1997f8a0afc5782ed9c0d828b1f53f8380c8c4",
+    "disassembly_sha256": "74d78d7ddc9560dbec97dab4b0d9a431e8dd274fce01c0e6f67b7050b3cbbe28",
+    "gfni_instructions": 1470,
+    "zmm_mentions": 13414,
+    "public_symbols": [
+      {
+        "address": "0000000001055760",
+        "symbol": "pairs.apply__anon_2372"
+      },
+      {
+        "address": "0000000001055980",
+        "symbol": "pairs.apply__anon_2374"
+      },
+      {
+        "address": "0000000001056c90",
+        "symbol": "pairs.apply__anon_2388"
+      },
+      {
+        "address": "0000000001056ed0",
+        "symbol": "pairs.apply__anon_2389"
+      },
+      {
+        "address": "0000000001057110",
+        "symbol": "pairs.run__anon_2443"
+      },
+      {
+        "address": "000000000105bb50",
+        "symbol": "pairs.run__anon_2589"
+      },
+      {
+        "address": "000000000105bc90",
+        "symbol": "pairs.run__anon_2631"
+      },
+      {
+        "address": "000000000105bde0",
+        "symbol": "pairs.run__anon_2635"
+      },
+      {
+        "address": "000000000105bf30",
+        "symbol": "pairs.run__anon_2651"
+      },
+      {
+        "address": "000000000105c080",
+        "symbol": "pairs.run__anon_2655"
+      }
+    ]
+  },
+  "pairs-ready12-binary.s.gz": {
+    "compressed_sha256": "801902e6199e428f75128103b78fd0f6efa6b02dfa348cd7d4bfe4422d851a87",
+    "disassembly_sha256": "460a6626b917bd4de59a3e92895757526a687a82fda579e693d624933fe43e55",
+    "gfni_instructions": 1470,
+    "zmm_mentions": 13420,
+    "public_symbols": [
+      {
+        "address": "0000000001055760",
+        "symbol": "pairs.apply__anon_2372"
+      },
+      {
+        "address": "0000000001055980",
+        "symbol": "pairs.apply__anon_2374"
+      },
+      {
+        "address": "0000000001056c90",
+        "symbol": "pairs.apply__anon_2388"
+      },
+      {
+        "address": "0000000001056ed0",
+        "symbol": "pairs.apply__anon_2389"
+      },
+      {
+        "address": "0000000001057110",
+        "symbol": "pairs.run__anon_2443"
+      },
+      {
+        "address": "000000000105bb50",
+        "symbol": "pairs.run__anon_2589"
+      },
+      {
+        "address": "000000000105bc90",
+        "symbol": "pairs.run__anon_2631"
+      },
+      {
+        "address": "000000000105bde0",
+        "symbol": "pairs.run__anon_2635"
+      },
+      {
+        "address": "000000000105bf30",
+        "symbol": "pairs.run__anon_2651"
+      },
+      {
+        "address": "000000000105c080",
+        "symbol": "pairs.run__anon_2655"
+      }
+    ]
+  },
+  "pairs-ready18-binary.s.gz": {
+    "compressed_sha256": "88813abff29fb7c443029fcbd678b9078389fa8460d1e46aad11d55ca0d2c006",
+    "disassembly_sha256": "8b678cf6fd166fe7eb6a1591ae26e4637b7521e0689d5a735806e09646f167ff",
+    "gfni_instructions": 1470,
+    "zmm_mentions": 13439,
+    "public_symbols": [
+      {
+        "address": "0000000001055760",
+        "symbol": "pairs.apply__anon_2372"
+      },
+      {
+        "address": "0000000001055980",
+        "symbol": "pairs.apply__anon_2374"
+      },
+      {
+        "address": "0000000001056c90",
+        "symbol": "pairs.apply__anon_2388"
+      },
+      {
+        "address": "0000000001056ed0",
+        "symbol": "pairs.apply__anon_2389"
+      },
+      {
+        "address": "0000000001057110",
+        "symbol": "pairs.run__anon_2443"
+      },
+      {
+        "address": "000000000105bb50",
+        "symbol": "pairs.run__anon_2589"
+      },
+      {
+        "address": "000000000105bc90",
+        "symbol": "pairs.run__anon_2631"
+      },
+      {
+        "address": "000000000105bde0",
+        "symbol": "pairs.run__anon_2635"
+      },
+      {
+        "address": "000000000105bf30",
+        "symbol": "pairs.run__anon_2651"
+      },
+      {
+        "address": "000000000105c080",
+        "symbol": "pairs.run__anon_2655"
+      }
+    ]
+  },
+  "pairs-ready19-binary.s.gz": {
+    "compressed_sha256": "86f31e93712b2cf59bd24de602b02d5e8c1386ba2bd643e044e9462434c2b0e1",
+    "disassembly_sha256": "c7d56ba55140d2717681f254265af072099e52a9240870a5c40924b56577488d",
+    "gfni_instructions": 1470,
+    "zmm_mentions": 13470,
+    "public_symbols": [
+      {
+        "address": "0000000001055760",
+        "symbol": "pairs.apply__anon_2372"
+      },
+      {
+        "address": "0000000001055980",
+        "symbol": "pairs.apply__anon_2374"
+      },
+      {
+        "address": "0000000001056c90",
+        "symbol": "pairs.apply__anon_2388"
+      },
+      {
+        "address": "0000000001056ed0",
+        "symbol": "pairs.apply__anon_2389"
+      },
+      {
+        "address": "0000000001057110",
+        "symbol": "pairs.run__anon_2443"
+      },
+      {
+        "address": "000000000105bb50",
+        "symbol": "pairs.run__anon_2589"
+      },
+      {
+        "address": "000000000105bc90",
+        "symbol": "pairs.run__anon_2631"
+      },
+      {
+        "address": "000000000105bde0",
+        "symbol": "pairs.run__anon_2635"
+      },
+      {
+        "address": "000000000105bf30",
+        "symbol": "pairs.run__anon_2651"
+      },
+      {
+        "address": "000000000105c080",
+        "symbol": "pairs.run__anon_2655"
+      }
+    ]
+  },
+  "portable-candidate-binary.s.gz": {
+    "compressed_sha256": "9f58b09cc689ad61e3020b2b5f62cff1a168a40f7b605d0cd5d96e2dcd4bb46e",
+    "disassembly_sha256": "9c049291ccf0bbedffe2e31139242c7c5d653c8a054965da4c1a6543f48e8eeb",
+    "gfni_instructions": 0,
+    "zmm_mentions": 0,
+    "public_symbols": [
+      {
+        "address": "0000000001049e70",
+        "symbol": "pairs.apply__anon_1842"
+      },
+      {
+        "address": "000000000104b900",
+        "symbol": "pairs.apply__anon_1858"
+      },
+      {
+        "address": "000000000104d140",
+        "symbol": "pairs.run__anon_1914"
+      },
+      {
+        "address": "0000000001054060",
+        "symbol": "pairs.run__anon_2060"
+      },
+      {
+        "address": "00000000010541a0",
+        "symbol": "pairs.run__anon_2114"
+      },
+      {
+        "address": "00000000010542f0",
+        "symbol": "pairs.run__anon_2134"
+      }
+    ]
+  },
+  "portable-ready00-binary.s.gz": {
+    "compressed_sha256": "ae925911ce778199cc192bd8428236ac1922d94abea4cc279792c844b90d2e52",
+    "disassembly_sha256": "1d92e918b2c548ad23a24228bba7cc78b9cb63798335a78e3342df2d44711a49",
+    "gfni_instructions": 0,
+    "zmm_mentions": 0,
+    "public_symbols": [
+      {
+        "address": "0000000001049e70",
+        "symbol": "pairs.apply__anon_1842"
+      },
+      {
+        "address": "000000000104b900",
+        "symbol": "pairs.apply__anon_1858"
+      },
+      {
+        "address": "000000000104d140",
+        "symbol": "pairs.run__anon_1914"
+      },
+      {
+        "address": "0000000001054060",
+        "symbol": "pairs.run__anon_2060"
+      },
+      {
+        "address": "00000000010541a0",
+        "symbol": "pairs.run__anon_2114"
+      },
+      {
+        "address": "00000000010542f0",
+        "symbol": "pairs.run__anon_2134"
+      }
+    ]
+  },
+  "portable-ready12-binary.s.gz": {
+    "compressed_sha256": "b0f4bbb40087f21fdabdb534439d5322d72c7f036a4e20e4f59ab0d631dc9e55",
+    "disassembly_sha256": "bd02ad6b8725e79b8040e3c10776a5278d781fd19b91cd76a5dd692c833d917e",
+    "gfni_instructions": 0,
+    "zmm_mentions": 0,
+    "public_symbols": [
+      {
+        "address": "0000000001049e70",
+        "symbol": "pairs.apply__anon_1842"
+      },
+      {
+        "address": "000000000104b900",
+        "symbol": "pairs.apply__anon_1858"
+      },
+      {
+        "address": "000000000104d140",
+        "symbol": "pairs.run__anon_1914"
+      },
+      {
+        "address": "0000000001054060",
+        "symbol": "pairs.run__anon_2060"
+      },
+      {
+        "address": "00000000010541a0",
+        "symbol": "pairs.run__anon_2114"
+      },
+      {
+        "address": "00000000010542f0",
+        "symbol": "pairs.run__anon_2134"
+      }
+    ]
+  },
+  "reverse-ready00-binary.s.gz": {
+    "compressed_sha256": "b036ef12a66a07704199d4a1b3800cbe38c2ae2a4bdde6aa046f9bee523eff99",
+    "disassembly_sha256": "35cefe5910031a7735ac9615e7f05d1b3bb1eb2ee17b23ff378fa0473f3c4384",
+    "gfni_instructions": 1470,
+    "zmm_mentions": 13414,
+    "public_symbols": [
+      {
+        "address": "0000000001055760",
+        "symbol": "pairs.apply__anon_2372"
+      },
+      {
+        "address": "0000000001055980",
+        "symbol": "pairs.apply__anon_2374"
+      },
+      {
+        "address": "0000000001056c90",
+        "symbol": "pairs.apply__anon_2388"
+      },
+      {
+        "address": "0000000001056ed0",
+        "symbol": "pairs.apply__anon_2389"
+      },
+      {
+        "address": "0000000001057110",
+        "symbol": "pairs.run__anon_2443"
+      },
+      {
+        "address": "000000000105bb50",
+        "symbol": "pairs.run__anon_2589"
+      },
+      {
+        "address": "000000000105bc90",
+        "symbol": "pairs.run__anon_2631"
+      },
+      {
+        "address": "000000000105bde0",
+        "symbol": "pairs.run__anon_2635"
+      },
+      {
+        "address": "000000000105bf30",
+        "symbol": "pairs.run__anon_2651"
+      },
+      {
+        "address": "000000000105c080",
+        "symbol": "pairs.run__anon_2655"
+      }
+    ]
+  },
+  "reverse-ready12-binary.s.gz": {
+    "compressed_sha256": "cbae605d2df20c3a8dcbe861768c15491e1adfe257bab881b1dab0bf78e6b26a",
+    "disassembly_sha256": "282d1fd779883ca825625259dacb28bbf2a9ff470061ba49c9a2f5187869f0df",
+    "gfni_instructions": 1470,
+    "zmm_mentions": 13420,
+    "public_symbols": [
+      {
+        "address": "0000000001055760",
+        "symbol": "pairs.apply__anon_2372"
+      },
+      {
+        "address": "0000000001055980",
+        "symbol": "pairs.apply__anon_2374"
+      },
+      {
+        "address": "0000000001056c90",
+        "symbol": "pairs.apply__anon_2388"
+      },
+      {
+        "address": "0000000001056ed0",
+        "symbol": "pairs.apply__anon_2389"
+      },
+      {
+        "address": "0000000001057110",
+        "symbol": "pairs.run__anon_2443"
+      },
+      {
+        "address": "000000000105bb50",
+        "symbol": "pairs.run__anon_2589"
+      },
+      {
+        "address": "000000000105bc90",
+        "symbol": "pairs.run__anon_2631"
+      },
+      {
+        "address": "000000000105bde0",
+        "symbol": "pairs.run__anon_2635"
+      },
+      {
+        "address": "000000000105bf30",
+        "symbol": "pairs.run__anon_2651"
+      },
+      {
+        "address": "000000000105c080",
+        "symbol": "pairs.run__anon_2655"
+      }
+    ]
+  }
+}

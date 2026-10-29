@@ -1,0 +1,27 @@
+Initial control-build setup: Zig rejects importing the identical root file under
+both baseline/candidate module names ("file exists in modules 'baseline' and
+'candidate'"). Corrected before any timing by using the independently extracted,
+byte-identical candidate source directory as the second module. No binary or
+performance sample from the failed setup is used.
+
+The bounded search deduplicates policy ready13; its identical order/source is
+recorded by the final generator's duplicate-policies.json. This is why the first
+explicit tar list mentioning all 24 names reported ready13 absent. The source-only
+archive still contained all 23 generated schedules; audit-sources.py verifies
+every measured source against the fixed release, and audit-novelty.py compares
+all actual orders with all 14 previously tested families. Reproduction should
+archive generated directories rather than invent a directory for a duplicate.
+
+The initial assembly summary counted only each exported function. LLVM shared
+prepared bodies after adding public wrappers, so that count was only a thunk.
+codegen.py was corrected before selection/timing to count the full transitive
+local-call closure, with both rsp and rbp memory operands. Raw assembly is kept;
+final codegen.json can be regenerated independently. Static closures include
+loop bodies once, not dynamic nine-round totals.
+
+The search validation initially used bit-loop field multiplication throughout.
+After the first two policies it was restarted with a precomputed 256x256 field
+product table derived by the same bit-loop primitive. The completed search checks
+every emitted schedule; no partial early run is used as evidence. Source schedule
+selection, arithmetic, and generated Zig are unaffected by this Python-only
+validation acceleration.

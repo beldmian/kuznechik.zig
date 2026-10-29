@@ -1,0 +1,38 @@
+{
+  "id": "bx_rkpswsaz",
+  "owner": "gfni-pressure-scheduling implementation worker",
+  "created_by_this_worker": true,
+  "events": [
+    {
+      "event": "created",
+      "hostedPorts": null,
+      "id": "bx_rkpswsaz",
+      "org": null,
+      "team": null,
+      "ttlSeconds": 10800
+    },
+    {
+      "event": "state",
+      "id": "bx_rkpswsaz",
+      "state": "starting"
+    },
+    {
+      "event": "state",
+      "id": "bx_rkpswsaz",
+      "state": "ready"
+    },
+    {
+      "archiveAfter": "2026-10-29T15:53:32.801Z",
+      "commands": {
+        "forward": "boat forward bx_rkpswsaz --remote 3000 --local 3000",
+        "ssh": "boat ssh bx_rkpswsaz"
+      },
+      "desktopUrl": null,
+      "event": "ready",
+      "id": "bx_rkpswsaz",
+      "ip": "2001:41d0:8:ce71:100::35",
+      "state": "ready",
+      "url": "https://box-node-8b807755b4b62a1f.on.boat.dev"
+    }
+  ]
+}
