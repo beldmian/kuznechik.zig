@@ -1,0 +1,25 @@
+{
+  "baseline_commit": "b9bdd65",
+  "baseline_release": "v0.4.0",
+  "benchmark": "scripts/perf-pairs.zig",
+  "config": {
+    "type": "paired_config",
+    "zig": "0.15.1",
+    "cpu": "znver5",
+    "optimize": "ReleaseFast",
+    "backend": "stage2_llvm",
+    "seed": 264575,
+    "samples": 31,
+    "minimum_blocks": 1048576,
+    "alternates_buffers": true
+  },
+  "source_sha256": {
+    "src/toeplitz.zig": "44bb15838017ee2b51f5441806410378841f8dcc9229359311f4b355b8e89933",
+    "src/toeplitz_core.zig": "a38c7bc95a4af489a0e77d741183d5adadf8bbceb57c4098865f4fc452d6908c",
+    "src/sliced.zig": "68dc5415ee6751dc24e5bbd7db1e53719252878e841a75dc0f9cb75413d98d86",
+    "src/kuznechik.zig": "0629261c866bf20786db318cc0b2c79e51af05a705365b3c95f87318e04b5047",
+    "scripts/perf-pairs.zig": "cc72766827f343f8fd0b14e6f632afee908efbfd06266930440e254272f84d70"
+  },
+  "validation": "21 standalone kernel tests and27 complete native mode/block tests passed; nativeReleaseFast,ReleaseSafe,LLVM Debug; portableReleaseSafe passed.",
+  "scope": "Measured publicbatchmethods; all preparation included; all outputs checked outside each timed pair; execution order andbufferallocationalternate."
+}

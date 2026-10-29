@@ -35,10 +35,11 @@ does not establish a constant-time implementation.
 - Select batch tails using measurements of all lengths 1–63, including internal
   padding and copies. Reuse matrix kernels for 4/8/12/16/20/24 blocks and the
   byte-sliced 64-block kernel rather than maintaining a second narrow algorithm.
-- For measured Zen 5 buffers of at least 512 blocks, prepare compensated feedback
-  keys once per call. Inject the compensation into existing ternary XORs so each
-  linear layer includes its required round key. Include preparation and threshold
-  tails in alternating public-API measurements; retain ordinary kernels below it.
+- On measured Zen 5 targets use a diagonally encoded Toeplitz circuit for
+  64-block batches. Absorb row/column scales into fixed substitution tables and
+  prepare encoded round keys once per call. Seed final output reductions with
+  the next key. Keep the recurrence fallback for other CPU profiles. Record the
+  earlier compensated-feedback key experiment separately.
 
 ## Risks / Trade-offs
 

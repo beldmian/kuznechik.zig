@@ -9,6 +9,7 @@ const broadwell = @import("broadwell.zig");
 const parallel = @import("parallel.zig");
 const gfni = @import("gfni.zig");
 const sliced = @import("sliced.zig");
+const toeplitz = @import("toeplitz.zig");
 
 const use_scalar = builtin.cpu.arch == .x86_64 and std.mem.eql(u8, builtin.cpu.model.name, "znver5");
 const use_gfni = gfni.supported;
@@ -157,15 +158,14 @@ pub const Cipher = struct {
         }
         var remaining = messages;
         if (comptime use_gfni) {
-            // Preparation pays off across at least eight 64-block batches on
-            // the measured Zen 5 target; short buffers keep the ordinary path.
             if (comptime use_scalar) {
-                if (remaining.len >= 512) {
-                    const injection = sliced.prepareInjectionKeys(&self.ik, false);
+                if (remaining.len >= 64) {
+                    const encoded_keys = toeplitz.prepareKeys(&self.ik, false);
                     while (remaining.len >= 64) {
-                        sliced.encryptPrepared(&self.ik, &injection, remaining[0..64]);
+                        cryptToeplitzBatch(false, &self, &encoded_keys, remaining[0..64]);
                         remaining = remaining[64..];
                     }
+                    return cryptToeplitzTail(false, &self, &encoded_keys, remaining);
                 }
             }
             while (remaining.len >= 64) {
@@ -197,12 +197,13 @@ pub const Cipher = struct {
         var remaining = messages;
         if (comptime use_gfni) {
             if (comptime use_scalar) {
-                if (remaining.len >= 512) {
-                    const injection = sliced.prepareInjectionKeys(&self.ik_inv, true);
+                if (remaining.len >= 64) {
+                    const encoded_keys = toeplitz.prepareKeys(&self.ik_inv, true);
                     while (remaining.len >= 64) {
-                        sliced.decryptPrepared(&self.ik, &injection, remaining[0..64]);
+                        cryptToeplitzBatch(true, &self, &encoded_keys, remaining[0..64]);
                         remaining = remaining[64..];
                     }
+                    return cryptToeplitzTail(true, &self, &encoded_keys, remaining);
                 }
             }
             while (remaining.len >= 64) {
@@ -226,11 +227,26 @@ pub const Cipher = struct {
     }
 };
 
+fn cryptToeplitzBatch(comptime inverse: bool, cipher: *const Cipher, encoded_keys: *const [10]block, messages: *align(16) [64]block) void {
+    if (inverse) toeplitz.decryptPrepared(&cipher.ik, encoded_keys, messages) else toeplitz.encryptPrepared(encoded_keys, messages);
+}
+fn cryptToeplitzTail(comptime inverse: bool, cipher: *const Cipher, encoded_keys: *const [10]block, messages: []align(16) block) void {
+    if (messages.len <= 24) return cryptGfniTail(inverse, cipher, messages);
+    var padded: [64]block align(16) = @splat(@as(block, @splat(0)));
+    @memcpy(padded[0..messages.len], messages);
+    cryptToeplitzBatch(inverse, cipher, encoded_keys, &padded);
+    @memcpy(messages, padded[0..messages.len]);
+}
+
 // The batch kernels are stateless, so unused lanes can be zero-padded and
 // discarded. On the measured Zen 5 targets this avoids expensive combinations
 // of small kernels and scalar tail calls without changing Cipher's layout.
 fn cryptGfniBatch(comptime inverse: bool, comptime width: usize, cipher: *const Cipher, messages: *align(16) [width]block) void {
     if (width == 64) {
+        if (comptime use_scalar) {
+            const encoded_keys = toeplitz.prepareKeys(if (inverse) &cipher.ik_inv else &cipher.ik, inverse);
+            return cryptToeplitzBatch(inverse, cipher, &encoded_keys, messages);
+        }
         if (inverse) sliced.decrypt(&cipher.ik, messages) else sliced.encrypt(&cipher.ik, messages);
     } else {
         if (inverse) gfni.decrypt(width / 4, &cipher.ik, messages) else gfni.encrypt(width / 4, &cipher.ik, messages);

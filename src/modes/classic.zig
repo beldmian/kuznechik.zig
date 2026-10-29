@@ -21,6 +21,12 @@ pub fn Modes(comptime Cipher: type) type {
         }
         fn ecb(comptime inverse: bool, cipher: *const Cipher, data: []u8) !void {
             if (data.len % 16 != 0) return error.InvalidLength;
+            if (data.len == 0) return;
+            if (@intFromPtr(data.ptr) % 16 == 0) {
+                const blocks: [*]align(16) B = @ptrCast(@alignCast(data.ptr));
+                if (inverse) cipher.decryptBlocks(blocks[0 .. data.len / 16]) else cipher.encryptBlocks(blocks[0 .. data.len / 16]);
+                return;
+            }
             var at: usize = 0;
             while (at < data.len) {
                 const count: usize = @min(64, (data.len - at) / 16);
@@ -444,4 +450,12 @@ test "Kuznechik classic modes preserve streaming and feedback across batch bound
     try M.ecbEncrypt(&cipher, &ecb);
     try M.ecbDecrypt(&cipher, &ecb);
     try testing.expectEqualSlices(u8, plain[0..1056], &ecb);
+    for (0..16) |offset| {
+        var guarded: [1088]u8 align(16) = @splat(0xa5);
+        @memcpy(guarded[offset..][0..1056], plain[0..1056]);
+        const expected = guarded;
+        try M.ecbEncrypt(&cipher, guarded[offset..][0..1056]);
+        try M.ecbDecrypt(&cipher, guarded[offset..][0..1056]);
+        try testing.expectEqual(expected, guarded);
+    }
 }

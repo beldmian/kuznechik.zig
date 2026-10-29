@@ -103,12 +103,29 @@ round. GFNI-capable builds additionally use:
   substitute through register permutations, and evaluate cyclic diagonals of L
   using GFNI products and lane-local rotations. Eight-block decryption uses
   independent reduction trees; other widths share coefficient scheduling.
-- A 64-block byte-sliced kernel: transpose blocks into sixteen byte-position
+- A 64-block byte-sliced recurrence fallback: transpose blocks into sixteen byte-position
   vectors. The transpose works separately in each 128-bit lane, retaining a
   harmless block permutation that its inverse removes. Encode each constant
   multiplication directly as a GFNI affine map in Kuznechik's original field.
 
-Every remainder size 1–63 was measured with zero filling and copies inside the
+On measured Zen 5 targets, the main 64-block kernel instead uses a diagonally
+normalized Toeplitz factorization, `L = Drow^-1 * T * Dcolumn^-1`. A generated
+Karatsuba circuit evaluates `T` with 75 constant GFNI maps. Position-specific
+substitution tables absorb the diagonal maps between rounds, and round keys
+are prepared in nine GFNI operations per public call. Final ternary XORs seed
+the next encoded key. A single 2 KiB matrix pool supplies explicit qword
+broadcasts; the inline assembly declares its memory access through a memory
+clobber. The generated scalar/vector circuit is shared, and its derivation is
+reproducible with [reproduce-toeplitz.py](performance/reproduce-toeplitz.py).
+
+The [linear-factor receipt](performance/hypotheses-linear-factor.json) records
+the mathematical derivation and experimental variants. The final implementation
+adds conservative compiler-memory constraints and a reordered reduction;
+[public API pairs](performance/2026-10-29/continuation-1/toeplitz-contract-j.jsonl)
+include key preparation, tails, buffer resets outside timing, and complete output
+comparisons. Earlier prototype measurements have their own source hashes.
+
+In the initial recurrence investigation, every remainder size 1–63 was measured with zero filling and copies inside the
 timed section. A single matrix kernel rounded to a multiple of four handles
 2–24 blocks; 25–63 blocks use a padded 64-block kernel. Exact sizes avoid the
 copies, and a lone block uses the single-block method. Padding is internal;
@@ -116,8 +133,8 @@ only the requested blocks are copied back. A separate 32-block YMM recurrence
 was correct but offered no convincing advantage over padding the existing
 64-block kernel, so its extra implementation was not retained.
 
-The R coefficients contain symmetric pairs and satisfy
-`148 = 133 ^ 16 ^ 1`. The selected recurrence isolates the newest feedback in
+The fallback R coefficients contain symmetric pairs and satisfy
+`148 = 133 ^ 16 ^ 1`. Its recurrence isolates the newest feedback in
 one `148` multiplication, folds the independent partner into the `133` and `16`
 products using that identity, and ends with one XOR. This retains seven GFNI
 operations while shortening the serial feedback dependency. Pure register
@@ -147,12 +164,12 @@ The benchmark module is private, so it no longer overwrites the exported
 library module. A separate local dependency consumer verifies both existing and
 batch APIs; this export fix leaves the benchmark executable byte-identical.
 
-For long buffers on the measured Zen 5 target, compensated feedback keys fuse
+An intermediate long-buffer optimization used compensated feedback keys to fuse
 round-key XORs into existing ternary-XOR operations. The compensation accounts
 for previously keyed feedback values, so all sixteen steps still produce the
 required linear output plus key. Preparation handles four round keys per vector
 and is amortized over a public call of at least 512 blocks. `Cipher` keeps its
-original fields. Two-host paired tests include preparation; the
+original fields. It was superseded by the faster Toeplitz circuit. Two-host paired tests include preparation; the
 [receipt](performance/2026-10-29/continuation-1/key-injection.json) also records the
 slower final-feedback seeding variant. Full API comparisons cover the threshold
 and tails, with every output compared after each sample.
@@ -252,13 +269,14 @@ resources and cleanup separately. Other account resources were left alone.
 
 ## Performance limits
 
-The selected 64-block formula executes `7 * 16 * 9 / 64 = 15.75` GFNI operations
-per block. A hardware-counter microbenchmark on one Boat VM sustained about two
-independent GFNI operations per core cycle, giving a GFNI-only resource floor
-of 7.875 cycles/block for this formula. The feedback chain supplies a separate
-dependency constraint. These constraints overlap; they must not be added as if
-they were independent elapsed times. Substitution, keys, transposes, loads,
-register scheduling, and loop overhead still contribute to measured time.
+The selected Toeplitz core executes `75 * 9 / 64 = 10.546875` GFNI operations
+per block, plus entry/exit conversions and amortized key preparation. The
+recurrence fallback executes `7 * 16 * 9 / 64 = 15.75`. A hardware-counter
+microbenchmark on one Boat VM sustained about two independent GFNI operations
+per core cycle. Under that resource model, the respective core-only floors are
+5.2734 and 7.875 cycles/block. Dependency, load, and execution constraints overlap;
+they must not be added as independent elapsed times. Substitution, keys,
+transposes, register scheduling, and loop overhead still contribute.
 
 This bounds a particular implementation model on tested hardware. It is not a
 proof of a physical optimum. Other algorithms, CPU families, compiler versions,

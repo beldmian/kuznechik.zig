@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.1 — 2026-10-29
+
+- Use a 75-map diagonally encoded Toeplitz circuit for Zen 5 batches, replacing the serial recurrence and intermediate compensated-key path.
+- Preserve the original recurrence fallback for other CPU profiles and the existing Cipher layout.
+- Record paired comparisons against v0.4.0, complete output checks, component proofs, and native mode integration tests.
+- Process aligned ECB buffers directly through the batch API; retain staging for unaligned buffers and test all 16 byte alignments with guards.
+
 ## 0.4.0 — 2026-10-29
 
 - Add allocation-free byte APIs for ECB, CTR, CBC, full-block CFB, OFB, and CMAC/OMAC.
