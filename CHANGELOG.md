@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.1 — 2026-10-29
+
+- Bound OCB offset schedule initialization by the full-block counts of AAD and payload, avoiding unused entries for short messages while preserving the inclusive L48 endpoint.
+- Preserve public APIs, fixed bounded storage, validation and overlap checks, and authentication before plaintext writes.
+- Add 280 independent OpenSSL boundary cases and arithmetic checks through the maximum schedule index; retain all existing RFC and independent fixtures.
+- Archive paired native/portable Boat comparisons against v0.9.0, including unchanged controls, reversed module placement, raw timings and small large-call regressions. Benefits are concentrated in short messages and records.
+- Verify 101 native tests in ReleaseSafe/ReleaseFast, portable Debug/Safe/Fast, and linked AArch64 compilation; confirm benchmark VM deletion.
+
 ## 0.9.0 — 2026-10-29
 
 - Add RFC 9367 TLS 1.3 MGM_L/MGM_S and RFC 9227 ESP/IKEv2 MGM-KTREE and ESP MGM-MAC-KTREE cipher profiles, with checked metadata helpers and caller-derived keys. Protocol state, framing and HMAC-Streebog key derivation remain external.

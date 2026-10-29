@@ -191,7 +191,14 @@ AES vectors validate the generic construction; no Kuznechik-specific OCB registr
 assignment or official Kuznechik OCB test vector is claimed. See
 [OCB evidence](performance/modes/ocb/README.md).
 
-The same release adds three allocation-free compositions with independently
+Version 0.9.1 initializes only the OCB offset schedule entries reachable by the
+full-block AAD or payload counts. Empty and partial-only messages need no L_i
+entries; the inclusive L48 endpoint and bounded storage remain supported.
+It adds 280 independent OpenSSL boundary cases. See the
+[setup performance report](performance/2026-10-29/ocb-schedule/report.md) for
+paired results, controls, large-call costs and reproduction commands.
+
+Version 0.8.0 also adds three allocation-free compositions with independently
 derived ENC/MAC ciphers. All use a fixed encrypted 16-byte tag; this tag is part
 of the encrypted stream, rather than a detached AEAD tag.
 
