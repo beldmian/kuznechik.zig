@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "llvm_sha256": "8fd1cd7ab9b2591ea4c77fc19f34c6b05eef61848fed0035b8db81d43f2353e4",
+    "text_sha256": "31bd707b3a2745b6c628e7f61b007aa880518c7f5dc05ecd9a8ce902a136120b"
+  },
+  "explicit-clobber": {
+    "llvm_sha256": "db17e9833760a438ddec393f715c156ca38d966205f0fb30a9f4dcd0897caa5d",
+    "explicit_calls": 325,
+    "operand_type": "[1 x i64], exactly eight bytes",
+    "memory_clobber": true,
+    "constant_bytes": 752,
+    "rip_relative_all_linear": true,
+    "stack_broadcasts": 0,
+    "text_sha256": "5e1a9df51b3315450fbd0ac5a8a88a60eb33d035a8eb5d9a4c0ca1b91ed96fe9"
+  },
+  "explicit-read": {
+    "llvm_sha256": "d91befdad6b1b4673c1c271cb3c6dd52557406c7d0f1e23dfb4a7fc183a0fe8a",
+    "explicit_calls": 325,
+    "operand_type": "[1 x i64], exactly eight bytes",
+    "memory_clobber": false,
+    "constant_bytes": 752,
+    "rip_relative_all_linear": true,
+    "stack_broadcasts": 0,
+    "text_sha256": "d7dd11ff54a661b9f0571a4e7079ecc555b83413025117c10eab1d1dcb8a5d6a"
+  }
+}

@@ -1,0 +1,785 @@
+{
+  "baseline": {
+    "assembly_sha256": "046f83acb09da351eee3b440d46ceda1f856fb8401df4dc373bbcbbd5b6e9729",
+    "functions": {
+      "linear": {
+        "instructions": 310,
+        "gfni": 70,
+        "stackops": 36,
+        "frame": [
+          "sub\trsp, 1216"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 3,
+          "and": 1,
+          "sub": 1,
+          "vpbroadcastb": 16,
+          "vmovdqa64": 39,
+          "vpxorq": 93,
+          "vgf2p8affineqb": 70,
+          "vpternlogq": 35,
+          "vmovaps": 32,
+          "vpternlogd": 16,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "encrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.encryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 653,
+          "gfni": 109,
+          "stackops": 36
+        },
+        "complete_symbols": [
+          "encrypt",
+          "toeplitz.encryptPrepared"
+        ]
+      },
+      "toeplitz.encryptPrepared": {
+        "instructions": 625,
+        "gfni": 100,
+        "stackops": 32,
+        "frame": [
+          "sub\trsp, 1088"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 5,
+          "and": 1,
+          "sub": 1,
+          "vmovups": 32,
+          "vpunpcklbw": 16,
+          "vpunpckhbw": 16,
+          "vpunpcklwd": 16,
+          "vpunpckhwd": 16,
+          "vpunpckldq": 16,
+          "vpunpckhdq": 16,
+          "vpunpcklqdq": 16,
+          "vpunpckhqdq": 16,
+          "vgf2p8affineqb": 100,
+          "vpbroadcastb": 32,
+          "vpxorq": 109,
+          "vpmovb2m": 16,
+          "vmovdqa64": 49,
+          "vmovaps": 46,
+          "vpermi2b": 32,
+          "vmovdqu8": 16,
+          "add": 1,
+          "vpternlogq": 35,
+          "vpternlogd": 16,
+          "cmp": 1,
+          "jne": 1,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "decrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.decryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 1038,
+          "gfni": 164,
+          "stackops": 80
+        },
+        "complete_symbols": [
+          "decrypt",
+          "toeplitz.decryptPrepared"
+        ]
+      },
+      "toeplitz.decryptPrepared": {
+        "instructions": 1010,
+        "gfni": 155,
+        "stackops": 76,
+        "frame": [
+          "sub\trsp, 1408"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 4,
+          "and": 1,
+          "sub": 1,
+          "vmovups": 32,
+          "vpunpcklbw": 16,
+          "vpunpckhbw": 16,
+          "vpunpcklwd": 16,
+          "vpunpckhwd": 16,
+          "vpunpckldq": 16,
+          "vpunpckhdq": 16,
+          "vpunpcklqdq": 16,
+          "vpunpckhqdq": 16,
+          "vgf2p8affineqb": 155,
+          "vmovdqa64": 109,
+          "vpxorq": 202,
+          "vpbroadcastb": 48,
+          "vpternlogq": 70,
+          "vmovaps": 94,
+          "vpternlogd": 32,
+          "vpmovb2m": 32,
+          "vpermi2b": 64,
+          "vmovdqu8": 32,
+          "add": 1,
+          "jne": 1,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "apiEncrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.encryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 653,
+          "gfni": 109,
+          "stackops": 36
+        },
+        "complete_symbols": [
+          "apiEncrypt",
+          "toeplitz.encryptPrepared"
+        ]
+      },
+      "apiDecrypt": {
+        "instructions": 47,
+        "gfni": 9,
+        "stackops": 17,
+        "frame": [
+          "sub\trsp, 512"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 2,
+          "sub": 1,
+          "vmovups": 16,
+          "lea": 2,
+          "vbroadcastsd": 2,
+          "vbroadcastf32x4": 1,
+          "vinsertf32x4": 7,
+          "vmovaps": 1,
+          "vgf2p8affineqb": 6,
+          "vgf2p8mulb": 3,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.decryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 1057,
+          "gfni": 164,
+          "stackops": 93
+        },
+        "complete_symbols": [
+          "apiDecrypt",
+          "toeplitz.decryptPrepared"
+        ]
+      }
+    }
+  },
+  "explicit-clobber": {
+    "assembly_sha256": "faf566ec0b48534f25894c599ac902952983acdfcebcc33f0d13215e297be84f",
+    "functions": {
+      "linear": {
+        "instructions": 309,
+        "gfni": 70,
+        "stackops": 36,
+        "frame": [
+          "sub\trsp, 1216"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 2,
+          "and": 1,
+          "sub": 1,
+          "vpbroadcastb": 16,
+          "vmovdqa64": 39,
+          "vpxorq": 93,
+          "vgf2p8affineqb": 70,
+          "vpternlogq": 35,
+          "vmovaps": 32,
+          "vpternlogd": 16,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "encrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.encryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 651,
+          "gfni": 109,
+          "stackops": 36
+        },
+        "complete_symbols": [
+          "encrypt",
+          "toeplitz.encryptPrepared"
+        ]
+      },
+      "toeplitz.encryptPrepared": {
+        "instructions": 623,
+        "gfni": 100,
+        "stackops": 32,
+        "frame": [
+          "sub\trsp, 1088"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 3,
+          "and": 1,
+          "sub": 1,
+          "vmovups": 32,
+          "vpunpcklbw": 16,
+          "vpunpckhbw": 16,
+          "vpunpcklwd": 16,
+          "vpunpckhwd": 16,
+          "vpunpckldq": 16,
+          "vpunpckhdq": 16,
+          "vpunpcklqdq": 16,
+          "vpunpckhqdq": 16,
+          "vgf2p8affineqb": 100,
+          "vpbroadcastb": 32,
+          "vpxorq": 109,
+          "vpmovb2m": 16,
+          "vmovdqa64": 49,
+          "vmovaps": 46,
+          "vpermi2b": 32,
+          "vmovdqu8": 16,
+          "add": 1,
+          "vpternlogq": 35,
+          "vpternlogd": 16,
+          "cmp": 1,
+          "jne": 1,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "decrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.decryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 1037,
+          "gfni": 164,
+          "stackops": 80
+        },
+        "complete_symbols": [
+          "decrypt",
+          "toeplitz.decryptPrepared"
+        ]
+      },
+      "toeplitz.decryptPrepared": {
+        "instructions": 1009,
+        "gfni": 155,
+        "stackops": 76,
+        "frame": [
+          "sub\trsp, 1408"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 3,
+          "and": 1,
+          "sub": 1,
+          "vmovups": 32,
+          "vpunpcklbw": 16,
+          "vpunpckhbw": 16,
+          "vpunpcklwd": 16,
+          "vpunpckhwd": 16,
+          "vpunpckldq": 16,
+          "vpunpckhdq": 16,
+          "vpunpcklqdq": 16,
+          "vpunpckhqdq": 16,
+          "vgf2p8affineqb": 155,
+          "vmovdqa64": 109,
+          "vpxorq": 202,
+          "vpbroadcastb": 48,
+          "vpternlogq": 70,
+          "vmovaps": 94,
+          "vpternlogd": 32,
+          "vpmovb2m": 32,
+          "vpermi2b": 64,
+          "vmovdqu8": 32,
+          "add": 1,
+          "jne": 1,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "apiEncrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.encryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 651,
+          "gfni": 109,
+          "stackops": 36
+        },
+        "complete_symbols": [
+          "apiEncrypt",
+          "toeplitz.encryptPrepared"
+        ]
+      },
+      "apiDecrypt": {
+        "instructions": 47,
+        "gfni": 9,
+        "stackops": 17,
+        "frame": [
+          "sub\trsp, 512"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 2,
+          "sub": 1,
+          "vmovups": 16,
+          "lea": 2,
+          "vbroadcastsd": 2,
+          "vbroadcastf32x4": 1,
+          "vinsertf32x4": 7,
+          "vmovaps": 1,
+          "vgf2p8affineqb": 6,
+          "vgf2p8mulb": 3,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.decryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 1056,
+          "gfni": 164,
+          "stackops": 93
+        },
+        "complete_symbols": [
+          "apiDecrypt",
+          "toeplitz.decryptPrepared"
+        ]
+      }
+    }
+  },
+  "explicit-read": {
+    "assembly_sha256": "b05111f2f1f845cd26678df6927322a3c20ff3370a07927713130d5f5b082887",
+    "functions": {
+      "linear": {
+        "instructions": 309,
+        "gfni": 70,
+        "stackops": 36,
+        "frame": [
+          "sub\trsp, 1216"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 2,
+          "and": 1,
+          "sub": 1,
+          "vpbroadcastb": 16,
+          "vmovdqa64": 39,
+          "vpxorq": 93,
+          "vgf2p8affineqb": 70,
+          "vpternlogq": 35,
+          "vmovaps": 32,
+          "vpternlogd": 16,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "encrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.encryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 651,
+          "gfni": 109,
+          "stackops": 36
+        },
+        "complete_symbols": [
+          "encrypt",
+          "toeplitz.encryptPrepared"
+        ]
+      },
+      "toeplitz.encryptPrepared": {
+        "instructions": 623,
+        "gfni": 100,
+        "stackops": 32,
+        "frame": [
+          "sub\trsp, 1088"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 3,
+          "and": 1,
+          "sub": 1,
+          "vmovups": 32,
+          "vpunpcklbw": 16,
+          "vpunpckhbw": 16,
+          "vpunpcklwd": 16,
+          "vpunpckhwd": 16,
+          "vpunpckldq": 16,
+          "vpunpckhdq": 16,
+          "vpunpcklqdq": 16,
+          "vpunpckhqdq": 16,
+          "vgf2p8affineqb": 100,
+          "vpbroadcastb": 32,
+          "vpxorq": 109,
+          "vpmovb2m": 16,
+          "vmovdqa64": 49,
+          "vmovaps": 46,
+          "vpermi2b": 32,
+          "vmovdqu8": 16,
+          "add": 1,
+          "vpternlogq": 35,
+          "vpternlogd": 16,
+          "cmp": 1,
+          "jne": 1,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "decrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.decryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 1037,
+          "gfni": 164,
+          "stackops": 80
+        },
+        "complete_symbols": [
+          "decrypt",
+          "toeplitz.decryptPrepared"
+        ]
+      },
+      "toeplitz.decryptPrepared": {
+        "instructions": 1009,
+        "gfni": 155,
+        "stackops": 76,
+        "frame": [
+          "sub\trsp, 1408"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 3,
+          "and": 1,
+          "sub": 1,
+          "vmovups": 32,
+          "vpunpcklbw": 16,
+          "vpunpckhbw": 16,
+          "vpunpcklwd": 16,
+          "vpunpckhwd": 16,
+          "vpunpckldq": 16,
+          "vpunpckhdq": 16,
+          "vpunpcklqdq": 16,
+          "vpunpckhqdq": 16,
+          "vgf2p8affineqb": 155,
+          "vmovdqa64": 109,
+          "vpxorq": 202,
+          "vpbroadcastb": 48,
+          "vpternlogq": 70,
+          "vmovaps": 94,
+          "vpternlogd": 32,
+          "vpmovb2m": 32,
+          "vpermi2b": 64,
+          "vmovdqu8": 32,
+          "add": 1,
+          "jne": 1,
+          "pop": 1,
+          "vzeroupper": 1,
+          "ret": 1
+        },
+        "calls": []
+      },
+      "apiEncrypt": {
+        "instructions": 28,
+        "gfni": 9,
+        "stackops": 4,
+        "frame": [
+          "sub\trsp, 160"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 1,
+          "sub": 1,
+          "vmovaps": 1,
+          "vmovups": 5,
+          "vbroadcastsd": 2,
+          "vgf2p8affineqb": 6,
+          "vbroadcastf32x4": 1,
+          "vgf2p8mulb": 3,
+          "vinsertf32x4": 1,
+          "lea": 1,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.encryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 651,
+          "gfni": 109,
+          "stackops": 36
+        },
+        "complete_symbols": [
+          "apiEncrypt",
+          "toeplitz.encryptPrepared"
+        ]
+      },
+      "apiDecrypt": {
+        "instructions": 47,
+        "gfni": 9,
+        "stackops": 17,
+        "frame": [
+          "sub\trsp, 512"
+        ],
+        "counts": {
+          "push": 1,
+          "mov": 2,
+          "sub": 1,
+          "vmovups": 16,
+          "lea": 2,
+          "vbroadcastsd": 2,
+          "vbroadcastf32x4": 1,
+          "vinsertf32x4": 7,
+          "vmovaps": 1,
+          "vgf2p8affineqb": 6,
+          "vgf2p8mulb": 3,
+          "vzeroupper": 1,
+          "call": 1,
+          "add": 1,
+          "pop": 1,
+          "ret": 1
+        },
+        "calls": [
+          "toeplitz.decryptPrepared"
+        ],
+        "complete_static": {
+          "instructions": 1056,
+          "gfni": 164,
+          "stackops": 93
+        },
+        "complete_symbols": [
+          "apiDecrypt",
+          "toeplitz.decryptPrepared"
+        ]
+      }
+    }
+  }
+}

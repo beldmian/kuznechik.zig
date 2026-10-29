@@ -1,0 +1,25 @@
+{
+  "baseline": "released v0.9.4 cd9c731",
+  "root_at_start": "11816fe",
+  "read_before_experiment": [
+    "AGENTS.md", "openspec/AGENTS.md",
+    "openspec/changes/optimize-block-cipher/proposal.md",
+    "openspec/changes/optimize-block-cipher/design.md",
+    "openspec/changes/optimize-block-cipher/specs/block-cipher-performance/spec.md",
+    "openspec/changes/add-rfc-cipher-modes/proposal.md",
+    "openspec/changes/add-rfc-cipher-modes/design.md",
+    "openspec/changes/add-rfc-cipher-modes/specs/cipher-modes/spec.md",
+    "docs/performance/hypotheses-linear-factor.json",
+    "docs/performance/reproduce-toeplitz.py",
+    "docs/performance/2026-10-29/bitwise-normalization/RESULTS.md",
+    "docs/performance/2026-10-29/operand-scheduling/RESULTS.md",
+    "docs/performance/2026-10-29/gfni-pressure-scheduling/RESULTS.md"
+  ],
+  "known_duplicate_rejection": "Original coefficient_loads.scalar_m_probe used scalar m(holder.value), broadcasting pointer bits from a stack pointer slot. The new probe and indirect pointer probe diagnose the same Zig 0.15.1 scalar-address staging problem; neither is timed or claimed as a fresh speed hypothesis.",
+  "new_form": "Eight-byte by-reference [1]u64 aggregate passed with LLVM *m and elementtype([1 x i64]); retains EVEX qword {1to8}. Compare explicit-clobber first; explicit-read differs only by removing the global clobber after the actual read is represented.",
+  "excluded_repetitions": "No normalization, uniform child order, DFS order, ready-node scheduling, graph/map count, scales, S-boxes, key injection, endpoints, calling convention or dispatch changes.",
+  "documentation": [
+    "https://raw.githubusercontent.com/ziglang/zig/0.15.1/src/codegen/llvm.zig",
+    "https://llvm.org/docs/LangRef.html#inline-asm-constraint-string"
+  ]
+}

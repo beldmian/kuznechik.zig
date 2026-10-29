@@ -1,0 +1,9 @@
+e7226b35e2fb26922103f16722c54bafecb810c31acfc1261877e916abedee19  docs/performance/2026-10-29/gfni-memory-operands/build.sh
+12ff86b20f81c8f5170b608872936cfc15637ec115aa81739e4a95743580f2a9  docs/performance/2026-10-29/gfni-memory-operands/measure.sh
+b193abc834fe6aa6fd9f28d50d95b034ab809f3774528b4561f662253476d71a  docs/performance/2026-10-29/gfni-memory-operands/validate.sh
+4f041f1288aac775428bff4142c0ae2b05d0c39352148204b3198ee676fa9d94  docs/performance/2026-10-29/gfni-memory-operands/algebra.zig
+3c587a2b8333d62476104f399dc64169495292dc76a163c36b3e1aa3358f7430  docs/performance/2026-10-29/gfni-memory-operands/codegen.zig
+f806e47f84b52ba1392cbd5555ce9b69bf97cfa152b69b639e329324e31949b8  docs/performance/2026-10-29/gfni-memory-operands/pairs.zig
+cb76f4fb5d02375ba3562dec2e85fa69b67e0d18448872e21caa46252c1c61f4  docs/performance/2026-10-29/gfni-memory-operands/products.zig
+7d2da21ee105e2804cf0260a88561543e28d101d607b4e0e8a1ec780cf707b88  docs/performance/2026-10-29/gfni-memory-operands/codegen.py
+dd3b6884bf30454280c4d21c6876460ac4cbd7fe3f4dde91003ecab1d538961b  docs/performance/2026-10-29/gfni-memory-operands/prepare.py

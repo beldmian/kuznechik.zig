@@ -1,0 +1,16 @@
+{
+  "all_fixture_sources_byte_identical": true,
+  "baseline": "cd9c73106043fd6b9f8d4cbc9f404264ca1e1626",
+  "variants": [
+    "baseline",
+    "candidate",
+    "explicit-clobber",
+    "explicit-read"
+  ],
+  "core_sha256": {
+    "baseline": "84ce2fa6c350638e646bf1d069ed6a589faaa0a273747d023372ad7ae16f6b68",
+    "candidate": "84ce2fa6c350638e646bf1d069ed6a589faaa0a273747d023372ad7ae16f6b68",
+    "explicit-clobber": "2106cbed2afedce8bc6c5c9df7f94ed2369089088d7d2d0e4e2670bebf1e6136",
+    "explicit-read": "deb9df23b5979f42cddec8d5f72ea1d4eb6ff3349ff120866546527f143d3de7"
+  }
+}

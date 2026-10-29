@@ -1,0 +1,3 @@
+baseline linear:310/36 encrypt:28/4 toeplitz.encryptPrepared:625/32 decrypt:28/4 toeplitz.decryptPrepared:1010/76 apiEncrypt:28/4 apiDecrypt:47/17
+explicit-clobber linear:309/36 encrypt:28/4 toeplitz.encryptPrepared:623/32 decrypt:28/4 toeplitz.decryptPrepared:1009/76 apiEncrypt:28/4 apiDecrypt:47/17
+explicit-read linear:309/36 encrypt:28/4 toeplitz.encryptPrepared:623/32 decrypt:28/4 toeplitz.decryptPrepared:1009/76 apiEncrypt:28/4 apiDecrypt:47/17

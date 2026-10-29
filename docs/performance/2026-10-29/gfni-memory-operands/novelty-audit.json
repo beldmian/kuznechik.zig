@@ -1,0 +1,98 @@
+{
+  "original_sha256": "6466852a528d95d39dc51a5f8c1470847a7efdf8c4fbb9d176f985bf8c3997bb",
+  "known_scalar_m_duplicate": "Zig0.15.1 actual scalar m(holder.value) lowered through a stack pointer slot; the affine broadcasts pointer bits. This invalid variant was inspected in assembly and not timed.",
+  "all_original_frozen_sources": {
+    "reproduce_toeplitz.py": {
+      "sha256": "e74b584db8dd8343739cba02952ad600e6de9f7f1c892e0d802c6acdd8d23b7e",
+      "explicit_indirect_m": false
+    },
+    "src/toeplitz_core_broadcast.zig": {
+      "sha256": "04c144b94d1519b6785e86846ade7717fc6991c11662ece26a29e2c39d5c90ec",
+      "explicit_indirect_m": false
+    },
+    "src/encoded_seeded_broadcast.zig": {
+      "sha256": "76c0cc9c04655874ec5c9b9fb3859a1e660194d41b083b851e8eea2a44b3eae0",
+      "explicit_indirect_m": false
+    },
+    "bench_repeat.zig": {
+      "sha256": "f199adb51daab444b1d2c27ff9731514b53cc08dcd89d042d3818f214006f54c",
+      "explicit_indirect_m": false
+    },
+    "bench_toeplitz.zig": {
+      "sha256": "937b6fb869921d0dae2cac51a33881937d769ee9c09154e28a07d2dc5b3e26db",
+      "explicit_indirect_m": false
+    },
+    "factor.zig": {
+      "sha256": "005dcd838c76f4afcfce0f4e8e7f0dd5c6a53403ef86627e20998d7f50a1b0a3",
+      "explicit_indirect_m": false
+    },
+    "circuits.py": {
+      "sha256": "938b5c9b8a4055abe97da655f12e457d2e9b424e394375a45985347e67bbb4b4",
+      "explicit_indirect_m": false
+    },
+    "derive.py": {
+      "sha256": "4d16fdab87c6b4b37ccb59d4829fc07d89722fa8c75da9b8996e8dd2eb5d48d5",
+      "explicit_indirect_m": false
+    },
+    "src/toeplitz_core_pool.zig": {
+      "sha256": "dc139cec6a81ed7d3ec828176433dbc04441965f32948dd21afd130df2904d14",
+      "explicit_indirect_m": false
+    },
+    "src/encoded_seeded_pool.zig": {
+      "sha256": "10355f4b5556b6e67cbf34971fe62992b8797eaad924fb5e47d4a94bc9b938e0",
+      "explicit_indirect_m": false
+    },
+    "bench_pool.zig": {
+      "sha256": "08302655c8fdf9350e890623382f391c404a4b1af7cc48adc440e9b121f683be",
+      "explicit_indirect_m": false
+    },
+    "rip_scalar_probe.zig": {
+      "sha256": "d073dbb3afd53eac08cbd51b757623bf3df6b7a03f4e6e8b455e31f2f861b991",
+      "explicit_indirect_m": false
+    },
+    "src/toeplitz_core_pool_safe.zig": {
+      "sha256": "844d0aa74b1873a9657de3fd1cc686af62faf7578f0542f19b8f4fdf2b404e2d",
+      "explicit_indirect_m": false
+    },
+    "src/encoded_seeded_pool_safe.zig": {
+      "sha256": "84b8660def06081e52d8326014796e54f1a5d0872433f04f4f870f1b03991ec0",
+      "explicit_indirect_m": false
+    },
+    "src/encoded_first_pool.zig": {
+      "sha256": "3670b799679772860493e4cb8b1493ab483c88cd3698c5d7a5c0ebcc5b35f3b3",
+      "explicit_indirect_m": false
+    },
+    "src/encoded_first_pool_safe.zig": {
+      "sha256": "dfe9429cc41c3c47f992cc8037bb7999e7fe7fb416fbc42defe0b84a6b46bcc1",
+      "explicit_indirect_m": false
+    },
+    "bench_first_sbox.zig": {
+      "sha256": "237a8f60a8c9986415f63f62b6454d2829e7dd287542abbd7e9f80369bddbcd9",
+      "explicit_indirect_m": false
+    },
+    "bench_first_safe.zig": {
+      "sha256": "66e465f376314842b883e7efeb06ff37dbb3661dfc74f06fcb4a0c8743aa7797",
+      "explicit_indirect_m": false
+    },
+    "core_safe_exports.zig": {
+      "sha256": "d7e3f707ad37044480e4fbdcb543bfafc47012943dea15dfa34be54abbda14b7",
+      "explicit_indirect_m": false
+    }
+  },
+  "prior_reports": {
+    "bitwise-normalization": {
+      "report_sha256": "7ee6fb5870d46f27ea98ab3c72f59a742cb55b307917e5b4d9a612d0b24369f0",
+      "preserves_hidden_pointer_memory_clobber": true
+    },
+    "operand-scheduling": {
+      "report_sha256": "29d8bb0306d8f17ee36544aee58e86489c98fc97fa08df8e3c6cd417be44a545",
+      "preserves_hidden_pointer_memory_clobber": true
+    },
+    "gfni-pressure-scheduling": {
+      "report_sha256": "e063897df173f9a929151e9041660e25c70b4c0bdaf35d8d3f7caebb99fdfed2",
+      "preserves_hidden_pointer_memory_clobber": true
+    }
+  },
+  "new_form": "*m by-reference [1]u64 / LLVM elementtype([1 x i64])",
+  "passed": true
+}

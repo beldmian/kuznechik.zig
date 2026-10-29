@@ -1,0 +1,56 @@
+{
+  "pairs-candidate-forward": {
+    "binary_sha256": "0f76ba31323375aa79732d2b438d2529d39e2c00bc2f2dcd0cc68fbac24a95c3",
+    "address": 16777792,
+    "bytes": 313516,
+    "rodata_sha256": "68e5b60d84d893ebdb42c77b32dd97147692e0e822e04bc13443f8e32a121c03"
+  },
+  "pairs-candidate-portable": {
+    "binary_sha256": "9e050bf04b8695aa68eed3ec5b03c3f119b8dda633b13aad3f070daab1954d9f",
+    "address": 16777792,
+    "bytes": 281416,
+    "rodata_sha256": "beffe0ec29b47a430df4a11d94a7ead589e0699ae5e9e2674f31d65ddef05ce6"
+  },
+  "pairs-candidate-reverse": {
+    "binary_sha256": "b58bebb13e6e5d25b7276c0311e0fc98ebc2bee5ccc6d8bc6e9146c9eaf17417",
+    "address": 16777792,
+    "bytes": 313516,
+    "rodata_sha256": "68e5b60d84d893ebdb42c77b32dd97147692e0e822e04bc13443f8e32a121c03"
+  },
+  "pairs-explicit-clobber-forward": {
+    "binary_sha256": "e05d782edbe97045d6bb8ed78c0f473dbfacac8b3a6a744b610cc2ae888d0bfb",
+    "address": 16777792,
+    "bytes": 325996,
+    "rodata_sha256": "ec3ab75b66373c245683658a78f650830a5b81b47a664418e3f5aa5816024881"
+  },
+  "pairs-explicit-clobber-portable": {
+    "binary_sha256": "443dfd0d78f2932168d17ce52aea0f4a830c03cd09e3fb15e5e91a65210cdd5a",
+    "address": 16777792,
+    "bytes": 281416,
+    "rodata_sha256": "beffe0ec29b47a430df4a11d94a7ead589e0699ae5e9e2674f31d65ddef05ce6"
+  },
+  "pairs-explicit-clobber-reverse": {
+    "binary_sha256": "8c3e8e29955e8c117f1b9e040e6ee0a354f3ad958f13d30dbfcb8ceb91144a3f",
+    "address": 16777792,
+    "bytes": 325996,
+    "rodata_sha256": "ec3ab75b66373c245683658a78f650830a5b81b47a664418e3f5aa5816024881"
+  },
+  "pairs-explicit-read-forward": {
+    "binary_sha256": "ee96d25f5063f5032b1b33e4aa8cc4d708c39fdc1a655faa245cb72b7387100e",
+    "address": 16777792,
+    "bytes": 325996,
+    "rodata_sha256": "ec3ab75b66373c245683658a78f650830a5b81b47a664418e3f5aa5816024881"
+  },
+  "pairs-explicit-read-portable": {
+    "binary_sha256": "a4f20c5a97b19eb2d529c7e04aa1cef10349601e58d6825a59b4b5ae23edd28b",
+    "address": 16777792,
+    "bytes": 281416,
+    "rodata_sha256": "beffe0ec29b47a430df4a11d94a7ead589e0699ae5e9e2674f31d65ddef05ce6"
+  },
+  "pairs-explicit-read-reverse": {
+    "binary_sha256": "7ac29614f934bf33311ee3f0d98089ae28a2afeb1cfac2b53ac35798c8499774",
+    "address": 16777792,
+    "bytes": 325996,
+    "rodata_sha256": "ec3ab75b66373c245683658a78f650830a5b81b47a664418e3f5aa5816024881"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "bx_fkjyea7w",
+  "owner": "gfni-memory-operands implementation worker",
+  "exclusive": true,
+  "type": "large",
+  "events": [
+    {
+      "event": "created",
+      "hostedPorts": null,
+      "id": "bx_fkjyea7w",
+      "org": null,
+      "team": null,
+      "ttlSeconds": 10800
+    },
+    {
+      "event": "state",
+      "id": "bx_fkjyea7w",
+      "state": "starting"
+    },
+    {
+      "event": "state",
+      "id": "bx_fkjyea7w",
+      "state": "ready"
+    },
+    {
+      "archiveAfter": "2026-10-29T16:41:01.322Z",
+      "commands": {
+        "forward": "boat forward bx_fkjyea7w --remote 3000 --local 3000",
+        "ssh": "boat ssh bx_fkjyea7w"
+      },
+      "desktopUrl": null,
+      "event": "ready",
+      "id": "bx_fkjyea7w",
+      "ip": "2001:41d0:8:8d3f:100::26",
+      "state": "ready",
+      "url": "https://box-node-beeadc147ac7cb57.on.boat.dev"
+    }
+  ]
+}
