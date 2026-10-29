@@ -132,185 +132,20 @@ taskset -c 0 zig-out/bin/benchmark --api both --seed 123 2> candidate.jsonl
 python3 scripts/perf-compare.py baseline.jsonl candidate.jsonl
 ```
 
-### Fuzzing
+### Fuzz harnesses
 
-This project includes fuzzing infrastructure using AFL++ to continuously test cipher properties and discover edge cases.
+Build the existing harness executables and run their deterministic smoke checks:
 
-**Quick Links:**
-- [Comprehensive Fuzzing Guide](docs/FUZZING.md) - Detailed documentation on AFL++ usage
-- [Helper Scripts](#helper-scripts) - Convenient scripts for common fuzzing workflows
-
-#### Available Fuzzers
-
-1. **roundtrip** - Tests encryption/decryption round-trip property
-2. **key_schedule** - Tests key schedule generation and validation
-3. **ls_roundtrip** - Tests LS (Linear Substitution) transformation round-trip property
-
-#### Installation
-
-**macOS:**
-```bash
-brew install afl++
-```
-
-**Linux (Debian/Ubuntu):**
-```bash
-sudo apt-get install afl++
-```
-
-**Linux (Fedora/RHEL):**
-```bash
-sudo dnf install afl++
-```
-
-Verify your installation:
-```bash
-afl-fuzz --version
-```
-
-#### Building Fuzzers
-
-Build a specific fuzzer:
-```bash
-zig build fuzz-ls-roundtrip
-```
-
-Build all fuzzers:
 ```bash
 zig build fuzz-build
-```
-
-#### Helper Scripts
-
-Convenience scripts are provided in the `scripts/` directory for common fuzzing workflows:
-
-**Quick Start (Dumb Mode - Works Everywhere):**
-```bash
-./scripts/fuzz-dumb.sh ls_roundtrip
-```
-
-**QEMU Mode (Binary Instrumentation - Recommended):**
-```bash
-./scripts/fuzz-qemu.sh ls_roundtrip
-```
-
-**Parallel Fuzzing (Multiple Instances):**
-```bash
-./scripts/fuzz-parallel.sh ls_roundtrip dumb 4  # 4 parallel instances
-./scripts/fuzz-parallel.sh ls_roundtrip qemu 4  # with QEMU mode
-```
-
-**View Statistics:**
-```bash
-./scripts/fuzz-stats.sh
-```
-
-**Reproduce a Crash:**
-```bash
-./scripts/fuzz-reproduce.sh ls_roundtrip test/fuzz/output/ls_roundtrip_dumb/default/crashes/id:000000,...
-```
-
-**Clean Output Directories:**
-```bash
-./scripts/fuzz-clean.sh
-```
-
-**All Scripts:**
-- `fuzz-dumb.sh` - Run AFL++ in dumb mode (no instrumentation)
-- `fuzz-qemu.sh` - Run AFL++ in QEMU mode (binary instrumentation)
-- `fuzz-parallel.sh` - Run multiple AFL++ instances in parallel
-- `fuzz-stats.sh` - Display statistics for all fuzzing sessions
-- `fuzz-reproduce.sh` - Reproduce crashes found by AFL++
-- `fuzz-clean.sh` - Clean up fuzzing output directories
-
-#### Running Fuzzers
-
-**Quick Start with Helper Scripts:**
-
-The easiest way to start fuzzing is using the provided helper scripts:
-
-```bash
-# Dumb mode (works everywhere, no setup required)
-./scripts/fuzz-dumb.sh ls_roundtrip
-
-# QEMU mode (recommended, requires AFL++ built with QEMU support)
-./scripts/fuzz-qemu.sh ls_roundtrip
-
-# Parallel fuzzing (4 instances for better coverage)
-./scripts/fuzz-parallel.sh ls_roundtrip dumb 4
-```
-
-**Manual AFL++ Usage:**
-
-If you prefer to use AFL++ directly:
-
-**Important Note:** Zig uses its own compiler backend which does not support AFL++'s compile-time instrumentation. To use AFL++ with Zig binaries, you must use one of the following modes:
-
-**Option 1: Dumb Mode (No instrumentation, simplest)**
-```bash
-# Build the fuzzer first
-zig build fuzz-ls-roundtrip
-
-# Run AFL++ in dumb mode (-n flag)
-# This mode doesn't use coverage guidance but still provides mutation and crash detection
-afl-fuzz -n -i test/fuzz/corpus/ls_roundtrip -o test/fuzz/output/ls_roundtrip -- ./zig-out/bin/ls_roundtrip
-```
-
-**Option 2: QEMU Mode (Binary instrumentation, recommended for Zig)**
-```bash
-# Install AFL++ with QEMU mode (requires building from source)
-# See: https://github.com/AFLplusplus/AFLplusplus#qemu-mode
-
-# Run AFL++ with QEMU mode (-Q flag)
-afl-fuzz -Q -i test/fuzz/corpus/ls_roundtrip -o test/fuzz/output/ls_roundtrip -- ./zig-out/bin/ls_roundtrip
-```
-
-**Option 3: FRIDA Mode (Dynamic instrumentation)**
-```bash
-# Install FRIDA and AFL++ FRIDA mode
-# See: https://github.com/AFLplusplus/AFLplusplus#frida-mode
-
-# Run AFL++ with FRIDA mode (-O flag)
-afl-fuzz -O -i test/fuzz/corpus/ls_roundtrip -o test/fuzz/output/ls_roundtrip -- ./zig-out/bin/ls_roundtrip
-```
-
-**For more detailed information, see [FUZZING.md](docs/FUZZING.md)**
-
-#### Understanding Results
-
-AFL++ creates an output directory with the following structure:
-
-```
-test/fuzz/output/ls_roundtrip/
-├── default/
-│   ├── crashes/          # Inputs that triggered crashes
-│   ├── hangs/            # Inputs that caused timeouts
-│   ├── queue/            # Interesting inputs discovered
-│   └── fuzzer_stats      # Statistics and progress
-```
-
-**Crashes:**
-- Check `default/crashes/` for files that triggered assertion failures or panics
-- Each crash file contains the input that reproduces the issue
-- Run the fuzzer directly with a crash file to reproduce: `./zig-out/bin/ls_roundtrip < default/crashes/id:000000...`
-
-**Hangs:**
-- Inputs in `default/hangs/` exceeded the timeout threshold (default: 1 second)
-- May indicate infinite loops or performance issues
-- Adjust timeout with AFL++'s `-t` option
-
-**Statistics:**
-- Monitor `default/fuzzer_stats` for execution speed, coverage, and discovered paths
-- `execs_per_sec`: Executions per second (higher is better)
-- `unique_crashes`: Total unique crashes found
-- `saved_crashes`: Crashes saved to disk
-
-#### Testing Fuzzers Standalone
-
-Validate that fuzz harnesses work correctly without AFL++:
-```bash
 zig build fuzz-test
 ```
+
+The standalone AFL runners still need input delivery and target-name fixes
+([#3](https://github.com/beldmian/kuznechik.zig/issues/3)); the key-schedule
+harness also needs a valid oracle ([#4](https://github.com/beldmian/kuznechik.zig/issues/4)).
+These smoke checks are not evidence of a fuzzing campaign. See the
+[fuzzing status and build targets](docs/FUZZING.md).
 
 ## Performance
 
@@ -327,13 +162,8 @@ these optimizations do not establish a constant-time cipher API.
 
 ## Algorithm Details
 
-Kuznechik is a symmetric block cipher that operates on 128-bit blocks using a 256-bit key. The encryption process consists of:
-- 10 rounds of transformations
-- Key schedule generating 10 round keys
-- Each round applies:
-  - Key addition (XOR)
-  - Substitution layer (S-box)
-  - Linear transformation (L)
+Kuznechik is a symmetric block cipher that operates on 128-bit blocks using a 256-bit key. The key schedule generates ten round keys. Encryption applies nine rounds of
+key XOR, substitution and the linear transformation, followed by the final key XOR.
 
 ## References
 
@@ -347,11 +177,10 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Future Plans
+## Follow-up work
 
-- [x] Add fuzzing harnesses (encryption/decryption round-trip, key schedule, LS transformation)
-- [ ] Improve performance further
-- [x] Add cipher operation modes (CTR, CBC, GCM, etc.)
+See [tracked issues](docs/OPEN-WORK.md) for remaining performance, validation,
+fuzzing and API work.
 
 ## Author
 
