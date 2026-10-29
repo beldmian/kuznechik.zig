@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 — 2026-10-29
+
+- Add allocation-free RFC 3610 CCM with all length-field and byte-tag dimensions, batched counters, and authentication before plaintext writes.
+- Validate message and per-call cipher budgets; reject buffer overlap before writes.
+- Verify all 24 RFC packet vectors, 49 independent Node/OpenSSL fixtures, Kuznechik alignment/tail boundaries, and unchanged ciphertext on rejection.
+- Record native Boat comparisons of serial and batched counter processing for both sealing and opening.
+
 ## 0.4.2 — 2026-10-29
 
 - Reject overlapping GCM AAD/payload and detached output-tag buffers before writes, fixing authentication of accidentally overwritten AAD.
