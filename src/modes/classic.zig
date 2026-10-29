@@ -219,6 +219,21 @@ pub fn Modes(comptime Cipher: type) type {
                     while (at < data.len) {
                         if (self.used == 16) {
                             if (self.head == 0) self.cipher.encryptBlocks(&self.register);
+                            // Amortize ring bookkeeping only for larger IVs. Small
+                            // rings keep the measured existing path.
+                            if (iv_blocks >= 64 and data.len - at >= 64) {
+                                const count: usize = @min(iv_blocks - self.head, (data.len - at) / 16);
+                                if (count >= 4) {
+                                    for (0..count) |i| {
+                                        const gamma = self.register[self.head + i];
+                                        store(data[at + i * 16 ..][0..16], load(data[at + i * 16 ..][0..16]) ^ gamma);
+                                    }
+                                    self.stream = self.register[self.head + count - 1];
+                                    self.head = (self.head + count) % iv_blocks;
+                                    at += count * 16;
+                                    continue;
+                                }
+                            }
                             self.stream = self.register[self.head];
                             self.head = (self.head + 1) % iv_blocks;
                             self.used = 0;
@@ -458,4 +473,155 @@ test "Kuznechik classic modes preserve streaming and feedback across batch bound
         try M.ecbDecrypt(&cipher, guarded[offset..][0..1056]);
         try testing.expectEqual(expected, guarded);
     }
+}
+
+// These references deliberately use a physical byte shift register and a
+// one-shot MAC, independently of the streaming/ring/full-block implementations.
+fn feedbackReference(comptime C: type, comptime width: usize, cipher: C, iv: [width * 16]u8, data: []u8, comptime ofb: bool) void {
+    var register = iv;
+    var gamma: B = undefined;
+    var feedback: [16]u8 = undefined;
+    for (data, 0..) |*byte, i| {
+        const pos = i % 16;
+        if (pos == 0) {
+            gamma = load(register[0..16]);
+            cipher.encrypt(&gamma);
+        }
+        const stream: [16]u8 = gamma;
+        byte.* ^= stream[pos];
+        feedback[pos] = if (ofb) stream[pos] else byte.*;
+        if (pos == 15) {
+            std.mem.copyForwards(u8, register[0 .. register.len - 16], register[16..]);
+            @memcpy(register[register.len - 16 ..], &feedback);
+        }
+    }
+}
+
+fn macReference(comptime C: type, cipher: C, data: []const u8) [16]u8 {
+    var l: B = @splat(0);
+    cipher.encrypt(&l);
+    var subkey: [16]u8 = l;
+    // Byte-wise big-endian GF doubling; no u128 or production double helper.
+    var keys: [2][16]u8 = undefined;
+    for (&keys) |*key| {
+        const carry = subkey[0] >> 7;
+        for (0..15) |i| subkey[i] = (subkey[i] << 1) | (subkey[i + 1] >> 7);
+        subkey[15] = (subkey[15] << 1) ^ (@as(u8, 0x87) * carry);
+        key.* = subkey;
+    }
+    var state: B = @splat(0);
+    var at: usize = 0;
+    while (data.len - at > 16) : (at += 16) {
+        state ^= load(data[at..][0..16]);
+        cipher.encrypt(&state);
+    }
+    const n = data.len - at;
+    var last: [16]u8 = @splat(0);
+    @memcpy(last[0..n], data[at..]);
+    if (n < 16) last[n] = 0x80;
+    state ^= load(&last) ^ load(&keys[@intFromBool(n < 16)]);
+    cipher.encrypt(&state);
+    return state;
+}
+
+fn checkFeedback(comptime C: type, cipher: C) !void {
+    const M = Modes(C);
+    var rng = std.Random.DefaultPrng.init(0x4346424f46425245);
+    const random = rng.random();
+    var plain: [2097]u8 = undefined;
+    random.bytes(&plain);
+    inline for (.{ 1, 2, 3, 16, 64, 65 }) |width| {
+        var iv: [width * 16]u8 = undefined;
+        random.bytes(&iv);
+        inline for (.{ false, true }) |ofb| {
+            var expected = plain;
+            feedbackReference(C, width, cipher, iv, &expected, ofb);
+            // Every split in a short message, plus both sides of ring/batch
+            // boundaries and a continuation after a long partial update.
+            for (0..98) |case| {
+                const split: usize = if (case <= 81) case else ([_]usize{ 127, 128, 129, 1023, 1024, 1025, 1039, 1040, 1041, 1055, 1056, 1057, 2079, 2080, 2081, 2097 })[case - 82];
+                const n: usize = if (case <= 81) 81 else plain.len;
+                const offset: usize = case % 16;
+                var guarded: [2130]u8 align(16) = @splat(0xa5);
+                const data = guarded[offset..][0..n];
+                @memcpy(data, plain[0..n]);
+                var ctx = if (ofb) M.Ofb(width).init(cipher, iv) else M.Cfb(width).init(cipher, iv);
+                if (ofb) {
+                    ctx.xor(data[0..split]);
+                    ctx.xor(data[split..split]);
+                    ctx.xor(data[split..]);
+                } else {
+                    ctx.encrypt(data[0..split]);
+                    ctx.encrypt(data[split..split]);
+                    ctx.encrypt(data[split..]);
+                }
+                try std.testing.expectEqualSlices(u8, expected[0..n], data);
+                for (guarded[0..offset]) |b| try std.testing.expectEqual(@as(u8, 0xa5), b);
+                for (guarded[offset + n ..]) |b| try std.testing.expectEqual(@as(u8, 0xa5), b);
+                // Independent expected ciphertext also exercises the inverse,
+                // including 65-block IVs exceeding the 64-block batch size.
+                var inverse = if (ofb) M.Ofb(width).init(cipher, iv) else M.Cfb(width).init(cipher, iv);
+                if (ofb) {
+                    inverse.xor(data[0..split]);
+                    inverse.xor(data[split..]);
+                } else {
+                    inverse.decrypt(data[0..split]);
+                    inverse.decrypt(data[split..]);
+                }
+                try std.testing.expectEqualSlices(u8, plain[0..n], data);
+            }
+        }
+    }
+}
+
+test "CFB and OFB match independent AES byte shift registers with unaligned guards and splits" {
+    const h = @import("test_helpers.zig");
+    try checkFeedback(h.Aes128, h.Aes128.init(@splat(0x39)));
+}
+
+test "CFB and OFB match independent Kuznechik byte shift registers including m65" {
+    const C = @import("../kuznechik.zig").Cipher;
+    try checkFeedback(C, C.init(@splat(0x71)));
+}
+
+fn checkMac(comptime C: type, cipher: C) !void {
+    const M = Modes(C);
+    var rng = std.Random.DefaultPrng.init(0x434d4143524546);
+    var guarded: [2113]u8 align(16) = undefined;
+    rng.random().bytes(&guarded);
+    const original = guarded;
+    for (0..88) |case| {
+        const n: usize = if (case <= 81) case else ([_]usize{ 1024, 1025, 1040, 1041, 2080, 2081 })[case - 82];
+        const data = guarded[case % 16 ..][0..n];
+        const expected = macReference(C, cipher, data);
+        var whole = M.Cmac.init(cipher);
+        whole.update(data);
+        try std.testing.expectEqual(expected, whole.final());
+        var bytes = M.Cmac.init(cipher);
+        for (data) |byte| bytes.update(&.{byte});
+        try std.testing.expectEqual(expected, bytes.final());
+        // All short splits, selected large splits. final() is a snapshot;
+        // finalize a prefix repeatedly, then append without reinitializing.
+        const cases = if (n <= 81) n + 1 else 50;
+        for (0..cases) |i| {
+            const split: usize = if (n <= 81) i else @min(n, if (i < 32) i else n - (i - 32));
+            var ctx = M.Cmac.init(cipher);
+            ctx.update(data[0..split]);
+            const prefix = macReference(C, cipher, data[0..split]);
+            try std.testing.expectEqual(prefix, ctx.final());
+            try std.testing.expectEqual(prefix, ctx.final());
+            ctx.update(data[split..split]);
+            try std.testing.expectEqual(prefix, ctx.final());
+            ctx.update(data[split..]);
+            try std.testing.expectEqual(expected, ctx.final());
+        }
+    }
+    try std.testing.expectEqual(original, guarded);
+}
+
+test "CMAC independent byte subkeys retain final block across splits snapshot final and append" {
+    const h = @import("test_helpers.zig");
+    const C = @import("../kuznechik.zig").Cipher;
+    try checkMac(h.Aes128, h.Aes128.init(@splat(0x93)));
+    try checkMac(C, C.init(@splat(0x72)));
 }

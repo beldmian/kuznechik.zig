@@ -1,0 +1,2 @@
+Zig=0.15.1; CPU=znver5; GFNI=true; AVX2=true; AVX512VL=true; Cipher=352 bytes
+Zig=0.15.1; CPU=x86_64; GFNI=false; AVX2=false; AVX512VL=false; Cipher=352 bytes

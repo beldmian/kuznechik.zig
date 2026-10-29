@@ -1,0 +1,40 @@
+6 runs; 816 cells; 7 measured + 2 warmup pairs/cell
+native CFB-encrypt 1 1/16KiB ratios 0.988, 1.019, 0.993, 1.007
+native CFB-encrypt 2 1/16KiB ratios 1.016, 0.994, 0.997, 1.001
+native CFB-encrypt 3 1/16KiB ratios 0.982, 1.001, 0.994, 1.015
+native CFB-encrypt 16 1/16KiB ratios 0.994, 1.007, 0.980, 0.997
+native CFB-encrypt 64 1/16KiB ratios 0.993, 0.999, 1.005, 0.995
+native CFB-encrypt 65 1/16KiB ratios 1.013, 0.998, 1.000, 1.009
+native OFB-xor 1 1/16KiB ratios 1.006, 0.998, 0.985, 0.995
+native OFB-xor 2 1/16KiB ratios 1.001, 1.003, 1.004, 1.003
+native OFB-xor 3 1/16KiB ratios 1.000, 1.001, 1.000, 1.002
+native OFB-xor 16 1/16KiB ratios 0.995, 0.995, 1.010, 1.007
+native OFB-xor 64 1/16KiB ratios 0.781, 0.797, 0.773, 0.766
+native OFB-xor 65 1/16KiB ratios 0.714, 0.738, 0.711, 0.712
+native CMAC 1 1/16KiB ratios 0.984, 1.016, 1.011, 1.006
+portable CFB-encrypt 1 1/16KiB ratios 0.999, 1.000, 1.000, 1.000
+portable CFB-encrypt 2 1/16KiB ratios 0.988, 0.998, 1.006, 1.001
+portable CFB-encrypt 3 1/16KiB ratios 1.001, 0.997, 0.998, 1.002
+portable CFB-encrypt 16 1/16KiB ratios 0.997, 0.996, 1.000, 0.998
+portable CFB-encrypt 64 1/16KiB ratios 1.004, 1.001, 0.996, 1.004
+portable CFB-encrypt 65 1/16KiB ratios 0.991, 1.003, 0.999, 1.001
+portable OFB-xor 1 1/16KiB ratios 1.005, 1.005, 1.000, 1.003
+portable OFB-xor 2 1/16KiB ratios 0.997, 1.009, 1.004, 1.001
+portable OFB-xor 3 1/16KiB ratios 1.004, 0.999, 1.000, 1.000
+portable OFB-xor 16 1/16KiB ratios 0.997, 1.003, 0.998, 0.996
+portable OFB-xor 64 1/16KiB ratios 0.957, 0.970, 0.962, 0.965
+portable OFB-xor 65 1/16KiB ratios 0.958, 0.954, 0.951, 0.941
+portable CMAC 1 1/16KiB ratios 0.992, 1.005, 1.003, 1.000
+Cells with cross-run median ratio > 1.05:
+Single-run ratios > 1.05:
+native CFB-encrypt 1 64 False {'retained-native-123.jsonl': 1.0604536854370565, 'retained-native-456.jsonl': 0.9929554839502206, 'reversed-native-789.jsonl': 0.9799351773511227}
+native CFB-encrypt 1 1024 True {'retained-native-123.jsonl': 1.093708307564004, 'retained-native-456.jsonl': 1.0192190326031745, 'reversed-native-789.jsonl': 0.9990849167360806}
+native CFB-encrypt 1 16384 True {'retained-native-123.jsonl': 0.9826849224844274, 'retained-native-456.jsonl': 1.0069016716333004, 'reversed-native-789.jsonl': 1.052410013496424}
+native CFB-encrypt 2 64 True {'retained-native-123.jsonl': 1.05662557374058, 'retained-native-456.jsonl': 0.9846323160471376, 'reversed-native-789.jsonl': 0.9954837817749056}
+native CFB-encrypt 3 64 False {'retained-native-123.jsonl': 1.051554037705462, 'retained-native-456.jsonl': 0.9889755423797332, 'reversed-native-789.jsonl': 1.006251196970333}
+native CFB-encrypt 8 1024 False {'retained-native-123.jsonl': 1.0897835708895638, 'retained-native-456.jsonl': 0.9946412127102143, 'reversed-native-789.jsonl': 1.0064496566082928}
+native CFB-encrypt 8 1024 True {'retained-native-123.jsonl': 1.1001168385516757, 'retained-native-456.jsonl': 1.0015580763512224, 'reversed-native-789.jsonl': 1.038173487013617}
+native CFB-encrypt 16 1024 True {'retained-native-123.jsonl': 1.068604369556272, 'retained-native-456.jsonl': 0.9771262290306331, 'reversed-native-789.jsonl': 1.007064022298651}
+native CFB-encrypt 64 1024 True {'retained-native-123.jsonl': 1.0657096764419356, 'retained-native-456.jsonl': 0.9988585284819369, 'reversed-native-789.jsonl': 0.9809373192665474}
+native CFB-encrypt 65 16 True {'retained-native-123.jsonl': 1.1105204402238813, 'retained-native-456.jsonl': 1.0122189059974427, 'reversed-native-789.jsonl': 1.0064924834663835}
+native OFB-xor 8 16384 True {'retained-native-123.jsonl': 1.0633539498055697, 'retained-native-456.jsonl': 1.0203766443854347, 'reversed-native-789.jsonl': 1.0260713663866279}

@@ -1,0 +1,26 @@
+candidate5 native
+000000000104fef0 t modes.classic.Modes(kuznechik.Cipher).Cfb(16).encrypt
+000000000104a590 t modes.classic.Modes(kuznechik.Cipher).Cfb(1).encrypt
+000000000104b740 t modes.classic.Modes(kuznechik.Cipher).Cfb(2).encrypt
+000000000104c990 t modes.classic.Modes(kuznechik.Cipher).Cfb(3).encrypt
+000000000104dba0 t modes.classic.Modes(kuznechik.Cipher).Cfb(4).encrypt
+0000000001050f00 t modes.classic.Modes(kuznechik.Cipher).Cfb(64).encrypt
+0000000001051f30 t modes.classic.Modes(kuznechik.Cipher).Cfb(65).encrypt
+000000000104ee50 t modes.classic.Modes(kuznechik.Cipher).Cfb(8).encrypt
+candidate6 portable
+0000000001048290 t modes.classic.Modes(kuznechik.Cipher).Cfb(16).encrypt
+0000000001066c70 t modes.classic.Modes(kuznechik.Cipher).Cfb(16).encryptFull
+0000000001044e80 t modes.classic.Modes(kuznechik.Cipher).Cfb(1).encrypt
+0000000001066250 t modes.classic.Modes(kuznechik.Cipher).Cfb(1).encryptFull
+0000000001045880 t modes.classic.Modes(kuznechik.Cipher).Cfb(2).encrypt
+0000000001066450 t modes.classic.Modes(kuznechik.Cipher).Cfb(2).encryptFull
+00000000010462f0 t modes.classic.Modes(kuznechik.Cipher).Cfb(3).encrypt
+0000000001066650 t modes.classic.Modes(kuznechik.Cipher).Cfb(3).encryptFull
+0000000001046d80 t modes.classic.Modes(kuznechik.Cipher).Cfb(4).encrypt
+0000000001066870 t modes.classic.Modes(kuznechik.Cipher).Cfb(4).encryptFull
+0000000001048cb0 t modes.classic.Modes(kuznechik.Cipher).Cfb(64).encrypt
+0000000001066e70 t modes.classic.Modes(kuznechik.Cipher).Cfb(64).encryptFull
+0000000001049700 t modes.classic.Modes(kuznechik.Cipher).Cfb(65).encrypt
+0000000001067070 t modes.classic.Modes(kuznechik.Cipher).Cfb(65).encryptFull
+0000000001047870 t modes.classic.Modes(kuznechik.Cipher).Cfb(8).encrypt
+0000000001066a70 t modes.classic.Modes(kuznechik.Cipher).Cfb(8).encryptFull

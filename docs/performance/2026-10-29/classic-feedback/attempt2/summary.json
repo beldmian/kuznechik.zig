@@ -1,0 +1,4626 @@
+[
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9128202950253405,
+    "min_run_ratio": 0.897883132216072,
+    "max_run_ratio": 0.9705154504250284,
+    "old_ns_per_op": 50.06465148925781,
+    "new_ns_per_op": 48.43867492675781,
+    "runs": {
+      "retained-native-123.jsonl": 0.9705154504250284,
+      "retained-native-456.jsonl": 0.897883132216072,
+      "reversed-native-789.jsonl": 0.9128202950253405
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.021983559922452,
+    "min_run_ratio": 1.0207820276577058,
+    "max_run_ratio": 1.0824826385573416,
+    "old_ns_per_op": 49.69927978515625,
+    "new_ns_per_op": 53.56614685058594,
+    "runs": {
+      "retained-native-123.jsonl": 1.0824826385573416,
+      "retained-native-456.jsonl": 1.0207820276577058,
+      "reversed-native-789.jsonl": 1.021983559922452
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.889154565913572,
+    "min_run_ratio": 0.8787508656074108,
+    "max_run_ratio": 0.9011112479638965,
+    "old_ns_per_op": 203.77783203125,
+    "new_ns_per_op": 182.56842041015625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9011112479638965,
+      "retained-native-456.jsonl": 0.8787508656074108,
+      "reversed-native-789.jsonl": 0.889154565913572
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9192245528012349,
+    "min_run_ratio": 0.9160952990792466,
+    "max_run_ratio": 0.9341945843765943,
+    "old_ns_per_op": 202.9443359375,
+    "new_ns_per_op": 188.5550537109375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9341945843765943,
+      "retained-native-456.jsonl": 0.9192245528012349,
+      "reversed-native-789.jsonl": 0.9160952990792466
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8896025641345229,
+    "min_run_ratio": 0.889568479715157,
+    "max_run_ratio": 0.8907699237946425,
+    "old_ns_per_op": 3394.91796875,
+    "new_ns_per_op": 3024.74609375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8907699237946425,
+      "retained-native-456.jsonl": 0.889568479715157,
+      "reversed-native-789.jsonl": 0.8896025641345229
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8956351125227429,
+    "min_run_ratio": 0.8883985590397774,
+    "max_run_ratio": 0.9027044334438304,
+    "old_ns_per_op": 3412.1376953125,
+    "new_ns_per_op": 3072.599609375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8956351125227429,
+      "retained-native-456.jsonl": 0.9027044334438304,
+      "reversed-native-789.jsonl": 0.8883985590397774
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8889089817107315,
+    "min_run_ratio": 0.8866025412454767,
+    "max_run_ratio": 0.891848738251885,
+    "old_ns_per_op": 54741.5,
+    "new_ns_per_op": 48467.96875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8889089817107315,
+      "retained-native-456.jsonl": 0.8866025412454767,
+      "reversed-native-789.jsonl": 0.891848738251885
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8878212669303479,
+    "min_run_ratio": 0.88761733928313,
+    "max_run_ratio": 0.891472153643913,
+    "old_ns_per_op": 55479.609375,
+    "new_ns_per_op": 48645.15625,
+    "runs": {
+      "retained-native-123.jsonl": 0.891472153643913,
+      "retained-native-456.jsonl": 0.88761733928313,
+      "reversed-native-789.jsonl": 0.8878212669303479
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.8704490526419628,
+    "min_run_ratio": 0.8486408926418734,
+    "max_run_ratio": 0.9401625562720025,
+    "old_ns_per_op": 67.52799987792969,
+    "new_ns_per_op": 57.45393371582031,
+    "runs": {
+      "retained-native-123.jsonl": 0.8704490526419628,
+      "retained-native-456.jsonl": 0.9401625562720025,
+      "reversed-native-789.jsonl": 0.8486408926418734
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 0.9630103209222253,
+    "min_run_ratio": 0.9507011207778433,
+    "max_run_ratio": 1.0352653659527389,
+    "old_ns_per_op": 66.55953979492188,
+    "new_ns_per_op": 63.34820556640625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9630103209222253,
+      "retained-native-456.jsonl": 1.0352653659527389,
+      "reversed-native-789.jsonl": 0.9507011207778433
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.8643226234381444,
+    "min_run_ratio": 0.8608053022467061,
+    "max_run_ratio": 0.8643525343331694,
+    "old_ns_per_op": 207.1636962890625,
+    "new_ns_per_op": 179.7628173828125,
+    "runs": {
+      "retained-native-123.jsonl": 0.8608053022467061,
+      "retained-native-456.jsonl": 0.8643226234381444,
+      "reversed-native-789.jsonl": 0.8643525343331694
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.8955260118070288,
+    "min_run_ratio": 0.8901639101572513,
+    "max_run_ratio": 0.9219221900765154,
+    "old_ns_per_op": 206.43359375,
+    "new_ns_per_op": 188.3153076171875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8955260118070288,
+      "retained-native-456.jsonl": 0.9219221900765154,
+      "reversed-native-789.jsonl": 0.8901639101572513
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8518837541415784,
+    "min_run_ratio": 0.8495566928272589,
+    "max_run_ratio": 0.8540030706107814,
+    "old_ns_per_op": 3105.798828125,
+    "new_ns_per_op": 2647.2392578125,
+    "runs": {
+      "retained-native-123.jsonl": 0.8495566928272589,
+      "retained-native-456.jsonl": 0.8518837541415784,
+      "reversed-native-789.jsonl": 0.8540030706107814
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8522837088692289,
+    "min_run_ratio": 0.846251395213566,
+    "max_run_ratio": 0.8594296190779721,
+    "old_ns_per_op": 3158.896484375,
+    "new_ns_per_op": 2681.0029296875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8522837088692289,
+      "retained-native-456.jsonl": 0.8594296190779721,
+      "reversed-native-789.jsonl": 0.846251395213566
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8534790161288099,
+    "min_run_ratio": 0.8458963527179545,
+    "max_run_ratio": 0.8550265764598136,
+    "old_ns_per_op": 50225.328125,
+    "new_ns_per_op": 42773.015625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8550265764598136,
+      "retained-native-456.jsonl": 0.8534790161288099,
+      "reversed-native-789.jsonl": 0.8458963527179545
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8530640074488323,
+    "min_run_ratio": 0.8499977240543758,
+    "max_run_ratio": 0.8710058454000824,
+    "old_ns_per_op": 51699.359375,
+    "new_ns_per_op": 44413.140625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8499977240543758,
+      "retained-native-456.jsonl": 0.8530640074488323,
+      "reversed-native-789.jsonl": 0.8710058454000824
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9361703653069624,
+    "min_run_ratio": 0.8568083280201129,
+    "max_run_ratio": 0.9575899939573822,
+    "old_ns_per_op": 70.04313659667969,
+    "new_ns_per_op": 62.60845947265625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9575899939573822,
+      "retained-native-456.jsonl": 0.9361703653069624,
+      "reversed-native-789.jsonl": 0.8568083280201129
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.015011229764664,
+    "min_run_ratio": 0.9387231961115626,
+    "max_run_ratio": 1.0378612764732535,
+    "old_ns_per_op": 71.40556335449219,
+    "new_ns_per_op": 68.66462707519531,
+    "runs": {
+      "retained-native-123.jsonl": 1.0378612764732535,
+      "retained-native-456.jsonl": 1.015011229764664,
+      "reversed-native-789.jsonl": 0.9387231961115626
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.8662883420404408,
+    "min_run_ratio": 0.8426796491690451,
+    "max_run_ratio": 0.8784618290017455,
+    "old_ns_per_op": 214.10430908203125,
+    "new_ns_per_op": 186.95965576171875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8662883420404408,
+      "retained-native-456.jsonl": 0.8784618290017455,
+      "reversed-native-789.jsonl": 0.8426796491690451
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9074864600378086,
+    "min_run_ratio": 0.8832178424972801,
+    "max_run_ratio": 0.9155029370398898,
+    "old_ns_per_op": 212.107177734375,
+    "new_ns_per_op": 194.1673583984375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9074864600378086,
+      "retained-native-456.jsonl": 0.9155029370398898,
+      "reversed-native-789.jsonl": 0.8832178424972801
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8478523183755909,
+    "min_run_ratio": 0.8464679894487714,
+    "max_run_ratio": 0.8487241741048427,
+    "old_ns_per_op": 3229.6953125,
+    "new_ns_per_op": 2749.19921875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8478523183755909,
+      "retained-native-456.jsonl": 0.8487241741048427,
+      "reversed-native-789.jsonl": 0.8464679894487714
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8500823767830129,
+    "min_run_ratio": 0.8471706086348589,
+    "max_run_ratio": 0.8522541254028628,
+    "old_ns_per_op": 3246.4443359375,
+    "new_ns_per_op": 2749.765625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8500823767830129,
+      "retained-native-456.jsonl": 0.8471706086348589,
+      "reversed-native-789.jsonl": 0.8522541254028628
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8466269649019506,
+    "min_run_ratio": 0.8460845177835944,
+    "max_run_ratio": 0.8617618588357102,
+    "old_ns_per_op": 52156.96875,
+    "new_ns_per_op": 44334.859375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8460845177835944,
+      "retained-native-456.jsonl": 0.8466269649019506,
+      "reversed-native-789.jsonl": 0.8617618588357102
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8446266633921831,
+    "min_run_ratio": 0.8445914170901062,
+    "max_run_ratio": 0.8478702975697926,
+    "old_ns_per_op": 51860.921875,
+    "new_ns_per_op": 43790.078125,
+    "runs": {
+      "retained-native-123.jsonl": 0.8478702975697926,
+      "retained-native-456.jsonl": 0.8446266633921831,
+      "reversed-native-789.jsonl": 0.8445914170901062
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9586137886648132,
+    "min_run_ratio": 0.8397848352582521,
+    "max_run_ratio": 0.9737850978906731,
+    "old_ns_per_op": 65.81884765625,
+    "new_ns_per_op": 60.907867431640625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9586137886648132,
+      "retained-native-456.jsonl": 0.9737850978906731,
+      "reversed-native-789.jsonl": 0.8397848352582521
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0211741281265214,
+    "min_run_ratio": 0.9220256729848052,
+    "max_run_ratio": 1.0652297174998226,
+    "old_ns_per_op": 65.84501647949219,
+    "new_ns_per_op": 66.38984680175781,
+    "runs": {
+      "retained-native-123.jsonl": 1.0211741281265214,
+      "retained-native-456.jsonl": 1.0652297174998226,
+      "reversed-native-789.jsonl": 0.9220256729848052
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.8844817934391759,
+    "min_run_ratio": 0.8447054881707005,
+    "max_run_ratio": 0.891817215727949,
+    "old_ns_per_op": 207.25970458984375,
+    "new_ns_per_op": 183.42083740234375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8844817934391759,
+      "retained-native-456.jsonl": 0.891817215727949,
+      "reversed-native-789.jsonl": 0.8447054881707005
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9261000678142948,
+    "min_run_ratio": 0.8865371465799143,
+    "max_run_ratio": 0.9333735664291308,
+    "old_ns_per_op": 215.01361083984375,
+    "new_ns_per_op": 192.69061279296875,
+    "runs": {
+      "retained-native-123.jsonl": 0.9261000678142948,
+      "retained-native-456.jsonl": 0.9333735664291308,
+      "reversed-native-789.jsonl": 0.8865371465799143
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8485920014532562,
+    "min_run_ratio": 0.8394202066404762,
+    "max_run_ratio": 0.8531439369795081,
+    "old_ns_per_op": 3336.8095703125,
+    "new_ns_per_op": 2714.2587890625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8485920014532562,
+      "retained-native-456.jsonl": 0.8531439369795081,
+      "reversed-native-789.jsonl": 0.8394202066404762
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8542257711054614,
+    "min_run_ratio": 0.8541344704353675,
+    "max_run_ratio": 0.8652820037415744,
+    "old_ns_per_op": 3146.9794921875,
+    "new_ns_per_op": 2695.875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8541344704353675,
+      "retained-native-456.jsonl": 0.8542257711054614,
+      "reversed-native-789.jsonl": 0.8652820037415744
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8549851180305638,
+    "min_run_ratio": 0.8494778413885842,
+    "max_run_ratio": 0.8570150490299125,
+    "old_ns_per_op": 50056.140625,
+    "new_ns_per_op": 42766.59375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8570150490299125,
+      "retained-native-456.jsonl": 0.8549851180305638,
+      "reversed-native-789.jsonl": 0.8494778413885842
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8539240688251027,
+    "min_run_ratio": 0.8340591015930293,
+    "max_run_ratio": 0.8594053705853247,
+    "old_ns_per_op": 50150.96875,
+    "new_ns_per_op": 42960.375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8594053705853247,
+      "retained-native-456.jsonl": 0.8539240688251027,
+      "reversed-native-789.jsonl": 0.8340591015930293
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9087651060062452,
+    "min_run_ratio": 0.8867058565985138,
+    "max_run_ratio": 0.9880667537824783,
+    "old_ns_per_op": 68.93827819824219,
+    "new_ns_per_op": 62.72557067871094,
+    "runs": {
+      "retained-native-123.jsonl": 0.9087651060062452,
+      "retained-native-456.jsonl": 0.8867058565985138,
+      "reversed-native-789.jsonl": 0.9880667537824783
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0056968711394056,
+    "min_run_ratio": 0.9847932245243337,
+    "max_run_ratio": 1.0854859599914926,
+    "old_ns_per_op": 68.55120849609375,
+    "new_ns_per_op": 69.9805908203125,
+    "runs": {
+      "retained-native-123.jsonl": 1.0056968711394056,
+      "retained-native-456.jsonl": 0.9847932245243337,
+      "reversed-native-789.jsonl": 1.0854859599914926
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.8708977922919536,
+    "min_run_ratio": 0.8688239403308052,
+    "max_run_ratio": 0.8879633205136147,
+    "old_ns_per_op": 208.1494140625,
+    "new_ns_per_op": 181.1490478515625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8708977922919536,
+      "retained-native-456.jsonl": 0.8688239403308052,
+      "reversed-native-789.jsonl": 0.8879633205136147
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9042293334244795,
+    "min_run_ratio": 0.9019910163135301,
+    "max_run_ratio": 0.9288182945459481,
+    "old_ns_per_op": 208.69805908203125,
+    "new_ns_per_op": 188.2437744140625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9019910163135301,
+      "retained-native-456.jsonl": 0.9042293334244795,
+      "reversed-native-789.jsonl": 0.9288182945459481
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8523321401761184,
+    "min_run_ratio": 0.845114800209972,
+    "max_run_ratio": 0.8537322272637152,
+    "old_ns_per_op": 3120.484375,
+    "new_ns_per_op": 2652.9716796875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8523321401761184,
+      "retained-native-456.jsonl": 0.8537322272637152,
+      "reversed-native-789.jsonl": 0.845114800209972
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.853080215471065,
+    "min_run_ratio": 0.8512135089164082,
+    "max_run_ratio": 0.8540121177079345,
+    "old_ns_per_op": 3134.3779296875,
+    "new_ns_per_op": 2670.1533203125,
+    "runs": {
+      "retained-native-123.jsonl": 0.8540121177079345,
+      "retained-native-456.jsonl": 0.853080215471065,
+      "reversed-native-789.jsonl": 0.8512135089164082
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.851215869123611,
+    "min_run_ratio": 0.8438520193267406,
+    "max_run_ratio": 0.8522337659712624,
+    "old_ns_per_op": 49281.234375,
+    "new_ns_per_op": 41960.375,
+    "runs": {
+      "retained-native-123.jsonl": 0.851215869123611,
+      "retained-native-456.jsonl": 0.8522337659712624,
+      "reversed-native-789.jsonl": 0.8438520193267406
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8506071038068728,
+    "min_run_ratio": 0.8477838266072221,
+    "max_run_ratio": 0.8514439647012823,
+    "old_ns_per_op": 49520.890625,
+    "new_ns_per_op": 42075.59375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8514439647012823,
+      "retained-native-456.jsonl": 0.8506071038068728,
+      "reversed-native-789.jsonl": 0.8477838266072221
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.8713236094399225,
+    "min_run_ratio": 0.8502130519705674,
+    "max_run_ratio": 0.9888531814665995,
+    "old_ns_per_op": 70.4324951171875,
+    "new_ns_per_op": 61.41249084472656,
+    "runs": {
+      "retained-native-123.jsonl": 0.8713236094399225,
+      "retained-native-456.jsonl": 0.9888531814665995,
+      "reversed-native-789.jsonl": 0.8502130519705674
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 0.9473796007945543,
+    "min_run_ratio": 0.9300680958966507,
+    "max_run_ratio": 1.0821920938749912,
+    "old_ns_per_op": 70.11073303222656,
+    "new_ns_per_op": 69.45179748535156,
+    "runs": {
+      "retained-native-123.jsonl": 0.9473796007945543,
+      "retained-native-456.jsonl": 1.0821920938749912,
+      "reversed-native-789.jsonl": 0.9300680958966507
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.8488493201785783,
+    "min_run_ratio": 0.8455043782872745,
+    "max_run_ratio": 0.8973578322340612,
+    "old_ns_per_op": 210.60833740234375,
+    "new_ns_per_op": 180.6177978515625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8488493201785783,
+      "retained-native-456.jsonl": 0.8973578322340612,
+      "reversed-native-789.jsonl": 0.8455043782872745
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.8885217885478697,
+    "min_run_ratio": 0.8815897232479712,
+    "max_run_ratio": 0.933932017990256,
+    "old_ns_per_op": 209.47100830078125,
+    "new_ns_per_op": 186.79150390625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8885217885478697,
+      "retained-native-456.jsonl": 0.933932017990256,
+      "reversed-native-789.jsonl": 0.8815897232479712
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8558729477425246,
+    "min_run_ratio": 0.8527635469772971,
+    "max_run_ratio": 0.8568789948158154,
+    "old_ns_per_op": 3109.388671875,
+    "new_ns_per_op": 2666.4052734375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8558729477425246,
+      "retained-native-456.jsonl": 0.8568789948158154,
+      "reversed-native-789.jsonl": 0.8527635469772971
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8575590840673343,
+    "min_run_ratio": 0.8507156726077865,
+    "max_run_ratio": 0.8587945676374182,
+    "old_ns_per_op": 3107.4716796875,
+    "new_ns_per_op": 2665.07421875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8587945676374182,
+      "retained-native-456.jsonl": 0.8575590840673343,
+      "reversed-native-789.jsonl": 0.8507156726077865
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.851992881585535,
+    "min_run_ratio": 0.8512671831474016,
+    "max_run_ratio": 0.8545299780175031,
+    "old_ns_per_op": 49727.0625,
+    "new_ns_per_op": 42575.46875,
+    "runs": {
+      "retained-native-123.jsonl": 0.8545299780175031,
+      "retained-native-456.jsonl": 0.8512671831474016,
+      "reversed-native-789.jsonl": 0.851992881585535
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8527966156776059,
+    "min_run_ratio": 0.8520164657686576,
+    "max_run_ratio": 0.8581711409185817,
+    "old_ns_per_op": 50331.625,
+    "new_ns_per_op": 42614.265625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8527966156776059,
+      "retained-native-456.jsonl": 0.8520164657686576,
+      "reversed-native-789.jsonl": 0.8581711409185817
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9019373061437176,
+    "min_run_ratio": 0.9014539059509326,
+    "max_run_ratio": 0.9147225324297623,
+    "old_ns_per_op": 80.51788330078125,
+    "new_ns_per_op": 72.55274963378906,
+    "runs": {
+      "retained-native-123.jsonl": 0.9019373061437176,
+      "retained-native-456.jsonl": 0.9147225324297623,
+      "reversed-native-789.jsonl": 0.9014539059509326
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 0.9681581872610481,
+    "min_run_ratio": 0.9500469014699896,
+    "max_run_ratio": 1.009549815351091,
+    "old_ns_per_op": 85.00772094726562,
+    "new_ns_per_op": 81.55178833007812,
+    "runs": {
+      "retained-native-123.jsonl": 0.9681581872610481,
+      "retained-native-456.jsonl": 1.009549815351091,
+      "reversed-native-789.jsonl": 0.9500469014699896
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.8696443153594534,
+    "min_run_ratio": 0.8618518840725455,
+    "max_run_ratio": 0.8749679209673605,
+    "old_ns_per_op": 223.07696533203125,
+    "new_ns_per_op": 194.28424072265625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8696443153594534,
+      "retained-native-456.jsonl": 0.8749679209673605,
+      "reversed-native-789.jsonl": 0.8618518840725455
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9052846237009308,
+    "min_run_ratio": 0.8954849891015668,
+    "max_run_ratio": 0.9064626843053505,
+    "old_ns_per_op": 224.82647705078125,
+    "new_ns_per_op": 201.3287353515625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8954849891015668,
+      "retained-native-456.jsonl": 0.9064626843053505,
+      "reversed-native-789.jsonl": 0.9052846237009308
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8516864354554868,
+    "min_run_ratio": 0.8501523717508332,
+    "max_run_ratio": 0.8544243108230477,
+    "old_ns_per_op": 3205.33203125,
+    "new_ns_per_op": 2716.224609375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8501523717508332,
+      "retained-native-456.jsonl": 0.8544243108230477,
+      "reversed-native-789.jsonl": 0.8516864354554868
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8569161833006377,
+    "min_run_ratio": 0.8555497678102828,
+    "max_run_ratio": 0.8588229617447566,
+    "old_ns_per_op": 3299.0029296875,
+    "new_ns_per_op": 2833.8095703125,
+    "runs": {
+      "retained-native-123.jsonl": 0.8588229617447566,
+      "retained-native-456.jsonl": 0.8555497678102828,
+      "reversed-native-789.jsonl": 0.8569161833006377
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8536193211626213,
+    "min_run_ratio": 0.8487007268302394,
+    "max_run_ratio": 0.8578090828109444,
+    "old_ns_per_op": 50161.171875,
+    "new_ns_per_op": 42738.25,
+    "runs": {
+      "retained-native-123.jsonl": 0.8487007268302394,
+      "retained-native-456.jsonl": 0.8536193211626213,
+      "reversed-native-789.jsonl": 0.8578090828109444
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8516927065343132,
+    "min_run_ratio": 0.8508493212978053,
+    "max_run_ratio": 0.8538104754728284,
+    "old_ns_per_op": 50004.765625,
+    "new_ns_per_op": 42756.09375,
+    "runs": {
+      "retained-native-123.jsonl": 0.8538104754728284,
+      "retained-native-456.jsonl": 0.8516927065343132,
+      "reversed-native-789.jsonl": 0.8508493212978053
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9235650234291859,
+    "min_run_ratio": 0.9103709939863138,
+    "max_run_ratio": 0.9322268173094161,
+    "old_ns_per_op": 80.3975830078125,
+    "new_ns_per_op": 74.42562866210938,
+    "runs": {
+      "retained-native-123.jsonl": 0.9322268173094161,
+      "retained-native-456.jsonl": 0.9235650234291859,
+      "reversed-native-789.jsonl": 0.9103709939863138
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0065936138786449,
+    "min_run_ratio": 0.9938305376850339,
+    "max_run_ratio": 1.0129566165052741,
+    "old_ns_per_op": 81.54002380371094,
+    "new_ns_per_op": 81.88856506347656,
+    "runs": {
+      "retained-native-123.jsonl": 1.0129566165052741,
+      "retained-native-456.jsonl": 0.9938305376850339,
+      "reversed-native-789.jsonl": 1.0065936138786449
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.8713616069686407,
+    "min_run_ratio": 0.8673848893948948,
+    "max_run_ratio": 0.8799712349720122,
+    "old_ns_per_op": 226.36859130859375,
+    "new_ns_per_op": 198.0963134765625,
+    "runs": {
+      "retained-native-123.jsonl": 0.8799712349720122,
+      "retained-native-456.jsonl": 0.8713616069686407,
+      "reversed-native-789.jsonl": 0.8673848893948948
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9070404335463985,
+    "min_run_ratio": 0.8953151762510467,
+    "max_run_ratio": 0.9087447235567006,
+    "old_ns_per_op": 227.51708984375,
+    "new_ns_per_op": 206.3333740234375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9070404335463985,
+      "retained-native-456.jsonl": 0.8953151762510467,
+      "reversed-native-789.jsonl": 0.9087447235567006
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8472504451260061,
+    "min_run_ratio": 0.8394524921167349,
+    "max_run_ratio": 0.8473776333247087,
+    "old_ns_per_op": 3342.845703125,
+    "new_ns_per_op": 2820.5048828125,
+    "runs": {
+      "retained-native-123.jsonl": 0.8473776333247087,
+      "retained-native-456.jsonl": 0.8472504451260061,
+      "reversed-native-789.jsonl": 0.8394524921167349
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.849253850098131,
+    "min_run_ratio": 0.840203043449773,
+    "max_run_ratio": 0.850250144397465,
+    "old_ns_per_op": 3397.0703125,
+    "new_ns_per_op": 2889.8046875,
+    "runs": {
+      "retained-native-123.jsonl": 0.849253850098131,
+      "retained-native-456.jsonl": 0.840203043449773,
+      "reversed-native-789.jsonl": 0.850250144397465
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.847052184172915,
+    "min_run_ratio": 0.8453118189465237,
+    "max_run_ratio": 0.8475770049151946,
+    "old_ns_per_op": 53663.078125,
+    "new_ns_per_op": 44570.609375,
+    "runs": {
+      "retained-native-123.jsonl": 0.847052184172915,
+      "retained-native-456.jsonl": 0.8475770049151946,
+      "reversed-native-789.jsonl": 0.8453118189465237
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.845476886172988,
+    "min_run_ratio": 0.8423035935035594,
+    "max_run_ratio": 0.8626860408981041,
+    "old_ns_per_op": 53185.90625,
+    "new_ns_per_op": 45040.546875,
+    "runs": {
+      "retained-native-123.jsonl": 0.845476886172988,
+      "retained-native-456.jsonl": 0.8626860408981041,
+      "reversed-native-789.jsonl": 0.8423035935035594
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.0013152119093296,
+    "min_run_ratio": 0.9999767891964984,
+    "max_run_ratio": 1.0020363710707616,
+    "old_ns_per_op": 92.66497802734375,
+    "new_ns_per_op": 92.72337341308594,
+    "runs": {
+      "retained-native-123.jsonl": 1.0013152119093296,
+      "retained-native-456.jsonl": 1.0020363710707616,
+      "reversed-native-789.jsonl": 0.9999767891964984
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0013546846222297,
+    "min_run_ratio": 0.9962176782581419,
+    "max_run_ratio": 1.012981161783297,
+    "old_ns_per_op": 96.00042724609375,
+    "new_ns_per_op": 96.26658630371094,
+    "runs": {
+      "retained-native-123.jsonl": 1.012981161783297,
+      "retained-native-456.jsonl": 0.9962176782581419,
+      "reversed-native-789.jsonl": 1.0013546846222297
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9995132072550483,
+    "min_run_ratio": 0.9974085868013616,
+    "max_run_ratio": 0.9996798878606268,
+    "old_ns_per_op": 216.0335693359375,
+    "new_ns_per_op": 215.80120849609375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9995132072550483,
+      "retained-native-456.jsonl": 0.9996798878606268,
+      "reversed-native-789.jsonl": 0.9974085868013616
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.0019869667883952,
+    "min_run_ratio": 1.0001680519876268,
+    "max_run_ratio": 1.0136873372317796,
+    "old_ns_per_op": 219.4476318359375,
+    "new_ns_per_op": 219.8836669921875,
+    "runs": {
+      "retained-native-123.jsonl": 1.0019869667883952,
+      "retained-native-456.jsonl": 1.0136873372317796,
+      "reversed-native-789.jsonl": 1.0001680519876268
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9964742960156662,
+    "min_run_ratio": 0.994669894650128,
+    "max_run_ratio": 0.9978875986499738,
+    "old_ns_per_op": 2852.09765625,
+    "new_ns_per_op": 2837.4013671875,
+    "runs": {
+      "retained-native-123.jsonl": 0.9978875986499738,
+      "retained-native-456.jsonl": 0.994669894650128,
+      "reversed-native-789.jsonl": 0.9964742960156662
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.9988257841050615,
+    "min_run_ratio": 0.9952953052649703,
+    "max_run_ratio": 0.9999067250867025,
+    "old_ns_per_op": 2851.7841796875,
+    "new_ns_per_op": 2847.0380859375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9999067250867025,
+      "retained-native-456.jsonl": 0.9988257841050615,
+      "reversed-native-789.jsonl": 0.9952953052649703
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 1.001922998086909,
+    "min_run_ratio": 1.0002797151664944,
+    "max_run_ratio": 1.0030814022586987,
+    "old_ns_per_op": 44988.09375,
+    "new_ns_per_op": 45100.828125,
+    "runs": {
+      "retained-native-123.jsonl": 1.0002797151664944,
+      "retained-native-456.jsonl": 1.0030814022586987,
+      "reversed-native-789.jsonl": 1.001922998086909
+    }
+  },
+  {
+    "target": "native",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 1.0007337715190925,
+    "min_run_ratio": 0.9985865721937561,
+    "max_run_ratio": 1.0014707092245358,
+    "old_ns_per_op": 45520.21875,
+    "new_ns_per_op": 45714.15625,
+    "runs": {
+      "retained-native-123.jsonl": 1.0007337715190925,
+      "retained-native-456.jsonl": 0.9985865721937561,
+      "reversed-native-789.jsonl": 1.0014707092245358
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9960036260222968,
+    "min_run_ratio": 0.9959958941680855,
+    "max_run_ratio": 1.0148881396375498,
+    "old_ns_per_op": 50.192291259765625,
+    "new_ns_per_op": 50.12138366699219,
+    "runs": {
+      "retained-native-123.jsonl": 1.0148881396375498,
+      "retained-native-456.jsonl": 0.9959958941680855,
+      "reversed-native-789.jsonl": 0.9960036260222968
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0022349782276023,
+    "min_run_ratio": 0.9921053126180017,
+    "max_run_ratio": 1.0134158720841866,
+    "old_ns_per_op": 52.93565368652344,
+    "new_ns_per_op": 52.60986328125,
+    "runs": {
+      "retained-native-123.jsonl": 1.0022349782276023,
+      "retained-native-456.jsonl": 1.0134158720841866,
+      "reversed-native-789.jsonl": 0.9921053126180017
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 1.0020453083200704,
+    "min_run_ratio": 1.0016898458101775,
+    "max_run_ratio": 1.0050325585315358,
+    "old_ns_per_op": 178.21929931640625,
+    "new_ns_per_op": 177.57049560546875,
+    "runs": {
+      "retained-native-123.jsonl": 1.0016898458101775,
+      "retained-native-456.jsonl": 1.0050325585315358,
+      "reversed-native-789.jsonl": 1.0020453083200704
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.0042067487775732,
+    "min_run_ratio": 0.9966913791696084,
+    "max_run_ratio": 1.0054363009754075,
+    "old_ns_per_op": 186.70404052734375,
+    "new_ns_per_op": 186.3187255859375,
+    "runs": {
+      "retained-native-123.jsonl": 1.0042067487775732,
+      "retained-native-456.jsonl": 0.9966913791696084,
+      "reversed-native-789.jsonl": 1.0054363009754075
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9974642095618319,
+    "min_run_ratio": 0.9971847618931536,
+    "max_run_ratio": 1.0013771325197984,
+    "old_ns_per_op": 2877.859375,
+    "new_ns_per_op": 2875.724609375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9974642095618319,
+      "retained-native-456.jsonl": 1.0013771325197984,
+      "reversed-native-789.jsonl": 0.9971847618931536
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.9978386647553583,
+    "min_run_ratio": 0.997122618454465,
+    "max_run_ratio": 1.0027824905064058,
+    "old_ns_per_op": 2882.291015625,
+    "new_ns_per_op": 2873.916015625,
+    "runs": {
+      "retained-native-123.jsonl": 0.997122618454465,
+      "retained-native-456.jsonl": 0.9978386647553583,
+      "reversed-native-789.jsonl": 1.0027824905064058
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 1.0029176713232273,
+    "min_run_ratio": 0.9987016995686773,
+    "max_run_ratio": 1.006160661091407,
+    "old_ns_per_op": 46243.0,
+    "new_ns_per_op": 46377.921875,
+    "runs": {
+      "retained-native-123.jsonl": 0.9987016995686773,
+      "retained-native-456.jsonl": 1.006160661091407,
+      "reversed-native-789.jsonl": 1.0029176713232273
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 1.0006063111101378,
+    "min_run_ratio": 0.9987914409317491,
+    "max_run_ratio": 1.0123375564708352,
+    "old_ns_per_op": 46339.421875,
+    "new_ns_per_op": 46472.953125,
+    "runs": {
+      "retained-native-123.jsonl": 1.0123375564708352,
+      "retained-native-456.jsonl": 0.9987914409317491,
+      "reversed-native-789.jsonl": 1.0006063111101378
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9968779562325903,
+    "min_run_ratio": 0.98869851342715,
+    "max_run_ratio": 1.0006858953081947,
+    "old_ns_per_op": 81.58526611328125,
+    "new_ns_per_op": 81.23550415039062,
+    "runs": {
+      "retained-native-123.jsonl": 0.9968779562325903,
+      "retained-native-456.jsonl": 0.98869851342715,
+      "reversed-native-789.jsonl": 1.0006858953081947
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 0.9985582224170445,
+    "min_run_ratio": 0.9979601877414743,
+    "max_run_ratio": 1.0054714831267324,
+    "old_ns_per_op": 88.35951232910156,
+    "new_ns_per_op": 88.17927551269531,
+    "runs": {
+      "retained-native-123.jsonl": 0.9979601877414743,
+      "retained-native-456.jsonl": 1.0054714831267324,
+      "reversed-native-789.jsonl": 0.9985582224170445
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 1.0003395889482847,
+    "min_run_ratio": 0.9989597762216011,
+    "max_run_ratio": 1.0016132104782556,
+    "old_ns_per_op": 147.56768798828125,
+    "new_ns_per_op": 147.4306640625,
+    "runs": {
+      "retained-native-123.jsonl": 1.0003395889482847,
+      "retained-native-456.jsonl": 1.0016132104782556,
+      "reversed-native-789.jsonl": 0.9989597762216011
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.000510478333716,
+    "min_run_ratio": 0.9988218323319892,
+    "max_run_ratio": 1.0014702563944853,
+    "old_ns_per_op": 154.84771728515625,
+    "new_ns_per_op": 154.30096435546875,
+    "runs": {
+      "retained-native-123.jsonl": 1.000510478333716,
+      "retained-native-456.jsonl": 1.0014702563944853,
+      "reversed-native-789.jsonl": 0.9988218323319892
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9975802391762059,
+    "min_run_ratio": 0.9928974946523873,
+    "max_run_ratio": 1.0010381697519446,
+    "old_ns_per_op": 2120.1103515625,
+    "new_ns_per_op": 2131.2353515625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9975802391762059,
+      "retained-native-456.jsonl": 0.9928974946523873,
+      "reversed-native-789.jsonl": 1.0010381697519446
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.0020231422134038,
+    "min_run_ratio": 1.0001884352247021,
+    "max_run_ratio": 1.002872158706535,
+    "old_ns_per_op": 2135.970703125,
+    "new_ns_per_op": 2144.2587890625,
+    "runs": {
+      "retained-native-123.jsonl": 1.0001884352247021,
+      "retained-native-456.jsonl": 1.002872158706535,
+      "reversed-native-789.jsonl": 1.0020231422134038
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9989233912794271,
+    "min_run_ratio": 0.9960650817264397,
+    "max_run_ratio": 1.000346746881702,
+    "old_ns_per_op": 33889.0625,
+    "new_ns_per_op": 34011.78125,
+    "runs": {
+      "retained-native-123.jsonl": 0.9960650817264397,
+      "retained-native-456.jsonl": 0.9989233912794271,
+      "reversed-native-789.jsonl": 1.000346746881702
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9985610349675298,
+    "min_run_ratio": 0.998094242423959,
+    "max_run_ratio": 1.008121476030147,
+    "old_ns_per_op": 34215.171875,
+    "new_ns_per_op": 34451.984375,
+    "runs": {
+      "retained-native-123.jsonl": 1.008121476030147,
+      "retained-native-456.jsonl": 0.9985610349675298,
+      "reversed-native-789.jsonl": 0.998094242423959
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9991310483081516,
+    "min_run_ratio": 0.9980352689698256,
+    "max_run_ratio": 1.0023045236920594,
+    "old_ns_per_op": 87.02215576171875,
+    "new_ns_per_op": 87.29641723632812,
+    "runs": {
+      "retained-native-123.jsonl": 0.9980352689698256,
+      "retained-native-456.jsonl": 0.9991310483081516,
+      "reversed-native-789.jsonl": 1.0023045236920594
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0013378169717702,
+    "min_run_ratio": 0.9977508916136923,
+    "max_run_ratio": 1.0013504498478931,
+    "old_ns_per_op": 94.49366760253906,
+    "new_ns_per_op": 94.24555969238281,
+    "runs": {
+      "retained-native-123.jsonl": 1.0013378169717702,
+      "retained-native-456.jsonl": 1.0013504498478931,
+      "reversed-native-789.jsonl": 0.9977508916136923
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9991486621114387,
+    "min_run_ratio": 0.9987077071576468,
+    "max_run_ratio": 1.0011783840628248,
+    "old_ns_per_op": 159.9476318359375,
+    "new_ns_per_op": 159.87359619140625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9987077071576468,
+      "retained-native-456.jsonl": 0.9991486621114387,
+      "reversed-native-789.jsonl": 1.0011783840628248
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.0001164959871016,
+    "min_run_ratio": 0.9949329427201755,
+    "max_run_ratio": 1.0120373514183834,
+    "old_ns_per_op": 167.538818359375,
+    "new_ns_per_op": 170.5028076171875,
+    "runs": {
+      "retained-native-123.jsonl": 0.9949329427201755,
+      "retained-native-456.jsonl": 1.0001164959871016,
+      "reversed-native-789.jsonl": 1.0120373514183834
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 1.0013351948950797,
+    "min_run_ratio": 0.9999422933791489,
+    "max_run_ratio": 1.0021593759534078,
+    "old_ns_per_op": 1550.7373046875,
+    "new_ns_per_op": 1551.216796875,
+    "runs": {
+      "retained-native-123.jsonl": 1.0021593759534078,
+      "retained-native-456.jsonl": 0.9999422933791489,
+      "reversed-native-789.jsonl": 1.0013351948950797
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.0005236326788578,
+    "min_run_ratio": 0.9983817563448292,
+    "max_run_ratio": 1.001450927879253,
+    "old_ns_per_op": 1571.341796875,
+    "new_ns_per_op": 1575.998046875,
+    "runs": {
+      "retained-native-123.jsonl": 0.9983817563448292,
+      "retained-native-456.jsonl": 1.0005236326788578,
+      "reversed-native-789.jsonl": 1.001450927879253
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9997037796429643,
+    "min_run_ratio": 0.9966869475020513,
+    "max_run_ratio": 1.0001559711759818,
+    "old_ns_per_op": 24045.8125,
+    "new_ns_per_op": 24050.8125,
+    "runs": {
+      "retained-native-123.jsonl": 0.9966869475020513,
+      "retained-native-456.jsonl": 1.0001559711759818,
+      "reversed-native-789.jsonl": 0.9997037796429643
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 1.0001982656186978,
+    "min_run_ratio": 0.9995997623128337,
+    "max_run_ratio": 1.0003469202791626,
+    "old_ns_per_op": 23824.3125,
+    "new_ns_per_op": 23818.203125,
+    "runs": {
+      "retained-native-123.jsonl": 0.9995997623128337,
+      "retained-native-456.jsonl": 1.0001982656186978,
+      "reversed-native-789.jsonl": 1.0003469202791626
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9994014427197544,
+    "min_run_ratio": 0.9966043134454262,
+    "max_run_ratio": 1.001065302408087,
+    "old_ns_per_op": 86.08351135253906,
+    "new_ns_per_op": 85.87193298339844,
+    "runs": {
+      "retained-native-123.jsonl": 0.9966043134454262,
+      "retained-native-456.jsonl": 1.001065302408087,
+      "reversed-native-789.jsonl": 0.9994014427197544
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.002935399912106,
+    "min_run_ratio": 1.0018658586878944,
+    "max_run_ratio": 1.003335199244306,
+    "old_ns_per_op": 87.2283935546875,
+    "new_ns_per_op": 87.419189453125,
+    "runs": {
+      "retained-native-123.jsonl": 1.002935399912106,
+      "retained-native-456.jsonl": 1.003335199244306,
+      "reversed-native-789.jsonl": 1.0018658586878944
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 1.0028004957692358,
+    "min_run_ratio": 1.0008116010977226,
+    "max_run_ratio": 1.0036478013860288,
+    "old_ns_per_op": 89.84234619140625,
+    "new_ns_per_op": 89.6478271484375,
+    "runs": {
+      "retained-native-123.jsonl": 1.0008116010977226,
+      "retained-native-456.jsonl": 1.0036478013860288,
+      "reversed-native-789.jsonl": 1.0028004957692358
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.99813810853732,
+    "min_run_ratio": 0.9967223913971729,
+    "max_run_ratio": 1.0029492029287552,
+    "old_ns_per_op": 93.1805419921875,
+    "new_ns_per_op": 93.3131103515625,
+    "runs": {
+      "retained-native-123.jsonl": 1.0029492029287552,
+      "retained-native-456.jsonl": 0.99813810853732,
+      "reversed-native-789.jsonl": 0.9967223913971729
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 1.0004605628420422,
+    "min_run_ratio": 1.0003266025981237,
+    "max_run_ratio": 1.0018050136676855,
+    "old_ns_per_op": 1088.5478515625,
+    "new_ns_per_op": 1089.1630859375,
+    "runs": {
+      "retained-native-123.jsonl": 1.0018050136676855,
+      "retained-native-456.jsonl": 1.0003266025981237,
+      "reversed-native-789.jsonl": 1.0004605628420422
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.0019037430073017,
+    "min_run_ratio": 1.001150964378463,
+    "max_run_ratio": 1.0050570160693282,
+    "old_ns_per_op": 1106.7158203125,
+    "new_ns_per_op": 1112.5078125,
+    "runs": {
+      "retained-native-123.jsonl": 1.0050570160693282,
+      "retained-native-456.jsonl": 1.001150964378463,
+      "reversed-native-789.jsonl": 1.0019037430073017
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9993171915531356,
+    "min_run_ratio": 0.9946458556013754,
+    "max_run_ratio": 1.0033439065169591,
+    "old_ns_per_op": 17392.171875,
+    "new_ns_per_op": 17377.921875,
+    "runs": {
+      "retained-native-123.jsonl": 0.9946458556013754,
+      "retained-native-456.jsonl": 0.9993171915531356,
+      "reversed-native-789.jsonl": 1.0033439065169591
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 1.0007580639676603,
+    "min_run_ratio": 0.9953967120679554,
+    "max_run_ratio": 1.0072130119314051,
+    "old_ns_per_op": 17488.140625,
+    "new_ns_per_op": 17577.671875,
+    "runs": {
+      "retained-native-123.jsonl": 1.0072130119314051,
+      "retained-native-456.jsonl": 1.0007580639676603,
+      "reversed-native-789.jsonl": 0.9953967120679554
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9987264598527507,
+    "min_run_ratio": 0.9969486517560732,
+    "max_run_ratio": 1.0045448035835245,
+    "old_ns_per_op": 104.23847961425781,
+    "new_ns_per_op": 104.30665588378906,
+    "runs": {
+      "retained-native-123.jsonl": 0.9969486517560732,
+      "retained-native-456.jsonl": 1.0045448035835245,
+      "reversed-native-789.jsonl": 0.9987264598527507
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0014354424423186,
+    "min_run_ratio": 0.998815687080371,
+    "max_run_ratio": 1.002709067027804,
+    "old_ns_per_op": 109.468505859375,
+    "new_ns_per_op": 109.713134765625,
+    "runs": {
+      "retained-native-123.jsonl": 0.998815687080371,
+      "retained-native-456.jsonl": 1.0014354424423186,
+      "reversed-native-789.jsonl": 1.002709067027804
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9997633410205541,
+    "min_run_ratio": 0.998031520097142,
+    "max_run_ratio": 1.004934491269347,
+    "old_ns_per_op": 108.24127197265625,
+    "new_ns_per_op": 108.71820068359375,
+    "runs": {
+      "retained-native-123.jsonl": 1.004934491269347,
+      "retained-native-456.jsonl": 0.9997633410205541,
+      "reversed-native-789.jsonl": 0.998031520097142
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9991006058355615,
+    "min_run_ratio": 0.9984763173190712,
+    "max_run_ratio": 1.014321949540735,
+    "old_ns_per_op": 116.78759765625,
+    "new_ns_per_op": 116.6475830078125,
+    "runs": {
+      "retained-native-123.jsonl": 1.014321949540735,
+      "retained-native-456.jsonl": 0.9984763173190712,
+      "reversed-native-789.jsonl": 0.9991006058355615
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.995182951915335,
+    "min_run_ratio": 0.9752012878723045,
+    "max_run_ratio": 1.006653911535922,
+    "old_ns_per_op": 772.7568359375,
+    "new_ns_per_op": 743.580078125,
+    "runs": {
+      "retained-native-123.jsonl": 0.9752012878723045,
+      "retained-native-456.jsonl": 0.995182951915335,
+      "reversed-native-789.jsonl": 1.006653911535922
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.9973002053935751,
+    "min_run_ratio": 0.9960158676091097,
+    "max_run_ratio": 1.0013140084185623,
+    "old_ns_per_op": 743.970703125,
+    "new_ns_per_op": 743.4033203125,
+    "runs": {
+      "retained-native-123.jsonl": 0.9973002053935751,
+      "retained-native-456.jsonl": 1.0013140084185623,
+      "reversed-native-789.jsonl": 0.9960158676091097
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9999364954371972,
+    "min_run_ratio": 0.9938058303636031,
+    "max_run_ratio": 1.0000940408109862,
+    "old_ns_per_op": 11591.859375,
+    "new_ns_per_op": 11510.75,
+    "runs": {
+      "retained-native-123.jsonl": 0.9938058303636031,
+      "retained-native-456.jsonl": 0.9999364954371972,
+      "reversed-native-789.jsonl": 1.0000940408109862
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 1.0028835262829618,
+    "min_run_ratio": 0.9994961619394802,
+    "max_run_ratio": 1.0073884304732195,
+    "old_ns_per_op": 11460.0625,
+    "new_ns_per_op": 11544.734375,
+    "runs": {
+      "retained-native-123.jsonl": 1.0073884304732195,
+      "retained-native-456.jsonl": 0.9994961619394802,
+      "reversed-native-789.jsonl": 1.0028835262829618
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9741188730474155,
+    "min_run_ratio": 0.9505552970452892,
+    "max_run_ratio": 1.0307034300050566,
+    "old_ns_per_op": 171.46347045898438,
+    "new_ns_per_op": 167.3048095703125,
+    "runs": {
+      "retained-native-123.jsonl": 0.9741188730474155,
+      "retained-native-456.jsonl": 1.0307034300050566,
+      "reversed-native-789.jsonl": 0.9505552970452892
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 0.9436375454835839,
+    "min_run_ratio": 0.9302159422346722,
+    "max_run_ratio": 1.0593240345091055,
+    "old_ns_per_op": 176.67364501953125,
+    "new_ns_per_op": 170.73960876464844,
+    "runs": {
+      "retained-native-123.jsonl": 0.9302159422346722,
+      "retained-native-456.jsonl": 1.0593240345091055,
+      "reversed-native-789.jsonl": 0.9436375454835839
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9548731728432291,
+    "min_run_ratio": 0.920680288390039,
+    "max_run_ratio": 1.005731016325603,
+    "old_ns_per_op": 173.65020751953125,
+    "new_ns_per_op": 165.6468505859375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9548731728432291,
+      "retained-native-456.jsonl": 1.005731016325603,
+      "reversed-native-789.jsonl": 0.920680288390039
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.994773559363751,
+    "min_run_ratio": 0.9779146496556146,
+    "max_run_ratio": 1.1019835083933425,
+    "old_ns_per_op": 175.0206298828125,
+    "new_ns_per_op": 174.459228515625,
+    "runs": {
+      "retained-native-123.jsonl": 0.994773559363751,
+      "retained-native-456.jsonl": 1.1019835083933425,
+      "reversed-native-789.jsonl": 0.9779146496556146
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9132754994742377,
+    "min_run_ratio": 0.8894633968136624,
+    "max_run_ratio": 0.9310365860008302,
+    "old_ns_per_op": 668.671875,
+    "new_ns_per_op": 610.8095703125,
+    "runs": {
+      "retained-native-123.jsonl": 0.9132754994742377,
+      "retained-native-456.jsonl": 0.9310365860008302,
+      "reversed-native-789.jsonl": 0.8894633968136624
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.925232771001255,
+    "min_run_ratio": 0.908598456860805,
+    "max_run_ratio": 0.9436433084833449,
+    "old_ns_per_op": 668.57421875,
+    "new_ns_per_op": 617.2958984375,
+    "runs": {
+      "retained-native-123.jsonl": 0.925232771001255,
+      "retained-native-456.jsonl": 0.9436433084833449,
+      "reversed-native-789.jsonl": 0.908598456860805
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9185743514370684,
+    "min_run_ratio": 0.9079569957100891,
+    "max_run_ratio": 0.9291299821284702,
+    "old_ns_per_op": 10364.0625,
+    "new_ns_per_op": 9533.921875,
+    "runs": {
+      "retained-native-123.jsonl": 0.9185743514370684,
+      "retained-native-456.jsonl": 0.9291299821284702,
+      "reversed-native-789.jsonl": 0.9079569957100891
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9194820631032993,
+    "min_run_ratio": 0.9137083980529136,
+    "max_run_ratio": 0.9284482005088169,
+    "old_ns_per_op": 10371.265625,
+    "new_ns_per_op": 9525.0,
+    "runs": {
+      "retained-native-123.jsonl": 0.9137083980529136,
+      "retained-native-456.jsonl": 0.9284482005088169,
+      "reversed-native-789.jsonl": 0.9194820631032993
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9951987239026281,
+    "min_run_ratio": 0.9879776702984733,
+    "max_run_ratio": 1.0049385437104934,
+    "old_ns_per_op": 234.95785522460938,
+    "new_ns_per_op": 233.0004119873047,
+    "runs": {
+      "retained-native-123.jsonl": 0.9879776702984733,
+      "retained-native-456.jsonl": 0.9951987239026281,
+      "reversed-native-789.jsonl": 1.0049385437104934
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0076628962890717,
+    "min_run_ratio": 0.9712685492413459,
+    "max_run_ratio": 1.012637498801219,
+    "old_ns_per_op": 237.09671020507812,
+    "new_ns_per_op": 239.91226196289062,
+    "runs": {
+      "retained-native-123.jsonl": 0.9712685492413459,
+      "retained-native-456.jsonl": 1.012637498801219,
+      "reversed-native-789.jsonl": 1.0076628962890717
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9848833595012004,
+    "min_run_ratio": 0.9760189968873343,
+    "max_run_ratio": 0.9908945544533935,
+    "old_ns_per_op": 237.75482177734375,
+    "new_ns_per_op": 233.4437255859375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9848833595012004,
+      "retained-native-456.jsonl": 0.9760189968873343,
+      "reversed-native-789.jsonl": 0.9908945544533935
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.0055003318696776,
+    "min_run_ratio": 0.9981086326029514,
+    "max_run_ratio": 1.0424730197419134,
+    "old_ns_per_op": 240.22161865234375,
+    "new_ns_per_op": 244.3353271484375,
+    "runs": {
+      "retained-native-123.jsonl": 0.9981086326029514,
+      "retained-native-456.jsonl": 1.0055003318696776,
+      "reversed-native-789.jsonl": 1.0424730197419134
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.793203403518361,
+    "min_run_ratio": 0.771803215983696,
+    "max_run_ratio": 0.8181271133891508,
+    "old_ns_per_op": 318.5888671875,
+    "new_ns_per_op": 255.609375,
+    "runs": {
+      "retained-native-123.jsonl": 0.793203403518361,
+      "retained-native-456.jsonl": 0.771803215983696,
+      "reversed-native-789.jsonl": 0.8181271133891508
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.7636536335106952,
+    "min_run_ratio": 0.7633399209486166,
+    "max_run_ratio": 0.8129945289616258,
+    "old_ns_per_op": 338.2548828125,
+    "new_ns_per_op": 265.4609375,
+    "runs": {
+      "retained-native-123.jsonl": 0.7636536335106952,
+      "retained-native-456.jsonl": 0.7633399209486166,
+      "reversed-native-789.jsonl": 0.8129945289616258
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.7510515888739203,
+    "min_run_ratio": 0.7358209807863374,
+    "max_run_ratio": 0.8031168076538472,
+    "old_ns_per_op": 4829.109375,
+    "new_ns_per_op": 3666.734375,
+    "runs": {
+      "retained-native-123.jsonl": 0.7358209807863374,
+      "retained-native-456.jsonl": 0.7510515888739203,
+      "reversed-native-789.jsonl": 0.8031168076538472
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.7879903060766538,
+    "min_run_ratio": 0.7866040080309591,
+    "max_run_ratio": 0.8123622065517573,
+    "old_ns_per_op": 4730.953125,
+    "new_ns_per_op": 3708.6875,
+    "runs": {
+      "retained-native-123.jsonl": 0.7866040080309591,
+      "retained-native-456.jsonl": 0.7879903060766538,
+      "reversed-native-789.jsonl": 0.8123622065517573
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.0000584363695626,
+    "min_run_ratio": 0.9993029834621006,
+    "max_run_ratio": 1.0044926409979005,
+    "old_ns_per_op": 267.1237335205078,
+    "new_ns_per_op": 268.79254150390625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9993029834621006,
+      "retained-native-456.jsonl": 1.0000584363695626,
+      "reversed-native-789.jsonl": 1.0044926409979005
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0018492746092456,
+    "min_run_ratio": 0.9963948688445703,
+    "max_run_ratio": 1.0043822379665721,
+    "old_ns_per_op": 271.11244201660156,
+    "new_ns_per_op": 270.9817352294922,
+    "runs": {
+      "retained-native-123.jsonl": 1.0043822379665721,
+      "retained-native-456.jsonl": 0.9963948688445703,
+      "reversed-native-789.jsonl": 1.0018492746092456
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 1.0126584922655684,
+    "min_run_ratio": 0.9858352848979767,
+    "max_run_ratio": 1.0169350855025947,
+    "old_ns_per_op": 268.33868408203125,
+    "new_ns_per_op": 270.5601806640625,
+    "runs": {
+      "retained-native-123.jsonl": 0.9858352848979767,
+      "retained-native-456.jsonl": 1.0126584922655684,
+      "reversed-native-789.jsonl": 1.0169350855025947
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.0117027385821233,
+    "min_run_ratio": 0.9752558612930373,
+    "max_run_ratio": 1.0211991998881564,
+    "old_ns_per_op": 272.4228515625,
+    "new_ns_per_op": 275.4541015625,
+    "runs": {
+      "retained-native-123.jsonl": 1.0211991998881564,
+      "retained-native-456.jsonl": 1.0117027385821233,
+      "reversed-native-789.jsonl": 0.9752558612930373
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.7189219887449017,
+    "min_run_ratio": 0.7187434613047895,
+    "max_run_ratio": 0.7248155557412422,
+    "old_ns_per_op": 387.3798828125,
+    "new_ns_per_op": 281.7607421875,
+    "runs": {
+      "retained-native-123.jsonl": 0.7189219887449017,
+      "retained-native-456.jsonl": 0.7187434613047895,
+      "reversed-native-789.jsonl": 0.7248155557412422
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.7200687402315539,
+    "min_run_ratio": 0.715672506714929,
+    "max_run_ratio": 0.7236933972926137,
+    "old_ns_per_op": 391.6572265625,
+    "new_ns_per_op": 285.919921875,
+    "runs": {
+      "retained-native-123.jsonl": 0.7236933972926137,
+      "retained-native-456.jsonl": 0.7200687402315539,
+      "reversed-native-789.jsonl": 0.715672506714929
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.7196465908511398,
+    "min_run_ratio": 0.7148941095389536,
+    "max_run_ratio": 0.7264317577035313,
+    "old_ns_per_op": 6125.78125,
+    "new_ns_per_op": 4376.0625,
+    "runs": {
+      "retained-native-123.jsonl": 0.7148941095389536,
+      "retained-native-456.jsonl": 0.7196465908511398,
+      "reversed-native-789.jsonl": 0.7264317577035313
+    }
+  },
+  {
+    "target": "native",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.7208107978386135,
+    "min_run_ratio": 0.7091433996124686,
+    "max_run_ratio": 0.7233752178947395,
+    "old_ns_per_op": 6118.09375,
+    "new_ns_per_op": 4419.109375,
+    "runs": {
+      "retained-native-123.jsonl": 0.7091433996124686,
+      "retained-native-456.jsonl": 0.7233752178947395,
+      "reversed-native-789.jsonl": 0.7208107978386135
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9267639787520742,
+    "min_run_ratio": 0.9141011664902295,
+    "max_run_ratio": 0.9344484641924264,
+    "old_ns_per_op": 87.2823486328125,
+    "new_ns_per_op": 81.591796875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9141011664902295,
+      "retained-portable-456.jsonl": 0.9344484641924264,
+      "reversed-portable-789.jsonl": 0.9267639787520742
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0029931534093537,
+    "min_run_ratio": 0.9946880211413561,
+    "max_run_ratio": 1.0064236834485631,
+    "old_ns_per_op": 91.64501953125,
+    "new_ns_per_op": 91.0567626953125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0064236834485631,
+      "retained-portable-456.jsonl": 1.0029931534093537,
+      "reversed-portable-789.jsonl": 0.9946880211413561
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9448559362003173,
+    "min_run_ratio": 0.9442782897928071,
+    "max_run_ratio": 0.946416362002814,
+    "old_ns_per_op": 352.13916015625,
+    "new_ns_per_op": 332.6875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.946416362002814,
+      "retained-portable-456.jsonl": 0.9442782897928071,
+      "reversed-portable-789.jsonl": 0.9448559362003173
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9645060668297573,
+    "min_run_ratio": 0.9555899943619833,
+    "max_run_ratio": 0.9707162738862888,
+    "old_ns_per_op": 350.06396484375,
+    "new_ns_per_op": 336.66455078125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9555899943619833,
+      "retained-portable-456.jsonl": 0.9645060668297573,
+      "reversed-portable-789.jsonl": 0.9707162738862888
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9654950311720469,
+    "min_run_ratio": 0.9579193118042139,
+    "max_run_ratio": 0.968880262500105,
+    "old_ns_per_op": 6475.890625,
+    "new_ns_per_op": 6264.2265625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.968880262500105,
+      "retained-portable-456.jsonl": 0.9654950311720469,
+      "reversed-portable-789.jsonl": 0.9579193118042139
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.9618557970568314,
+    "min_run_ratio": 0.8991676595786154,
+    "max_run_ratio": 0.9731215727630639,
+    "old_ns_per_op": 6388.921875,
+    "new_ns_per_op": 6240.9765625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9731215727630639,
+      "retained-portable-456.jsonl": 0.8991676595786154,
+      "reversed-portable-789.jsonl": 0.9618557970568314
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9633568520575485,
+    "min_run_ratio": 0.9512734540923948,
+    "max_run_ratio": 0.9654950613253288,
+    "old_ns_per_op": 102971.625,
+    "new_ns_per_op": 99024.375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9633568520575485,
+      "retained-portable-456.jsonl": 0.9512734540923948,
+      "reversed-portable-789.jsonl": 0.9654950613253288
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 1,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9678765600422033,
+    "min_run_ratio": 0.9622643800420607,
+    "max_run_ratio": 0.9680575380386225,
+    "old_ns_per_op": 103348.75,
+    "new_ns_per_op": 100493.375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9678765600422033,
+      "retained-portable-456.jsonl": 0.9680575380386225,
+      "reversed-portable-789.jsonl": 0.9622643800420607
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9642060149264761,
+    "min_run_ratio": 0.9176242295106918,
+    "max_run_ratio": 0.9754277617972664,
+    "old_ns_per_op": 98.5047607421875,
+    "new_ns_per_op": 94.6707763671875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9754277617972664,
+      "retained-portable-456.jsonl": 0.9176242295106918,
+      "reversed-portable-789.jsonl": 0.9642060149264761
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.008474905019481,
+    "min_run_ratio": 1.0033083570374988,
+    "max_run_ratio": 1.0094794446756936,
+    "old_ns_per_op": 99.75244140625,
+    "new_ns_per_op": 100.4764404296875,
+    "runs": {
+      "retained-portable-123.jsonl": 1.008474905019481,
+      "retained-portable-456.jsonl": 1.0033083570374988,
+      "reversed-portable-789.jsonl": 1.0094794446756936
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9040148538440259,
+    "min_run_ratio": 0.8982973767872019,
+    "max_run_ratio": 0.9113445267787568,
+    "old_ns_per_op": 336.3173828125,
+    "new_ns_per_op": 305.51806640625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9040148538440259,
+      "retained-portable-456.jsonl": 0.8982973767872019,
+      "reversed-portable-789.jsonl": 0.9113445267787568
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9300356499886678,
+    "min_run_ratio": 0.9251360732373536,
+    "max_run_ratio": 0.9482688851855559,
+    "old_ns_per_op": 340.7158203125,
+    "new_ns_per_op": 318.78466796875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9251360732373536,
+      "retained-portable-456.jsonl": 0.9300356499886678,
+      "reversed-portable-789.jsonl": 0.9482688851855559
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8912134853968657,
+    "min_run_ratio": 0.845758658713183,
+    "max_run_ratio": 0.8939549180327869,
+    "old_ns_per_op": 5771.8125,
+    "new_ns_per_op": 5117.3828125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8939549180327869,
+      "retained-portable-456.jsonl": 0.845758658713183,
+      "reversed-portable-789.jsonl": 0.8912134853968657
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8847296423969369,
+    "min_run_ratio": 0.8461333175576634,
+    "max_run_ratio": 0.8942415768468492,
+    "old_ns_per_op": 5847.7578125,
+    "new_ns_per_op": 5176.8671875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8847296423969369,
+      "retained-portable-456.jsonl": 0.8461333175576634,
+      "reversed-portable-789.jsonl": 0.8942415768468492
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8898852581520811,
+    "min_run_ratio": 0.8719544862791454,
+    "max_run_ratio": 0.8942758691763139,
+    "old_ns_per_op": 94016.0,
+    "new_ns_per_op": 82302.625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8898852581520811,
+      "retained-portable-456.jsonl": 0.8719544862791454,
+      "reversed-portable-789.jsonl": 0.8942758691763139
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 2,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8930535509115962,
+    "min_run_ratio": 0.8893873747644926,
+    "max_run_ratio": 0.8970042112441139,
+    "old_ns_per_op": 91969.75,
+    "new_ns_per_op": 82435.375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8893873747644926,
+      "retained-portable-456.jsonl": 0.8930535509115962,
+      "reversed-portable-789.jsonl": 0.8970042112441139
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.948261415250062,
+    "min_run_ratio": 0.9456626227473504,
+    "max_run_ratio": 0.9602028363629206,
+    "old_ns_per_op": 99.567626953125,
+    "new_ns_per_op": 95.09375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9456626227473504,
+      "retained-portable-456.jsonl": 0.9602028363629206,
+      "reversed-portable-789.jsonl": 0.948261415250062
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0066794833875579,
+    "min_run_ratio": 1.0034625498529166,
+    "max_run_ratio": 1.0175398064777568,
+    "old_ns_per_op": 99.574951171875,
+    "new_ns_per_op": 100.9300537109375,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0034625498529166,
+      "retained-portable-456.jsonl": 1.0066794833875579,
+      "reversed-portable-789.jsonl": 1.0175398064777568
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9057100288850538,
+    "min_run_ratio": 0.8584438180697039,
+    "max_run_ratio": 0.9134970873759328,
+    "old_ns_per_op": 350.12255859375,
+    "new_ns_per_op": 317.44921875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9057100288850538,
+      "retained-portable-456.jsonl": 0.8584438180697039,
+      "reversed-portable-789.jsonl": 0.9134970873759328
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9352883908247243,
+    "min_run_ratio": 0.9328446602632009,
+    "max_run_ratio": 0.9371206373292867,
+    "old_ns_per_op": 348.61181640625,
+    "new_ns_per_op": 326.01513671875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9328446602632009,
+      "retained-portable-456.jsonl": 0.9371206373292867,
+      "reversed-portable-789.jsonl": 0.9352883908247243
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8641112706506323,
+    "min_run_ratio": 0.8607930849553613,
+    "max_run_ratio": 0.8779725118446532,
+    "old_ns_per_op": 5965.7109375,
+    "new_ns_per_op": 5274.3203125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8779725118446532,
+      "retained-portable-456.jsonl": 0.8607930849553613,
+      "reversed-portable-789.jsonl": 0.8641112706506323
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8976743566696628,
+    "min_run_ratio": 0.8433986991740767,
+    "max_run_ratio": 0.9023095981447143,
+    "old_ns_per_op": 5868.875,
+    "new_ns_per_op": 5286.5234375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9023095981447143,
+      "retained-portable-456.jsonl": 0.8976743566696628,
+      "reversed-portable-789.jsonl": 0.8433986991740767
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8945470848667127,
+    "min_run_ratio": 0.8913489535758962,
+    "max_run_ratio": 0.8953096609118986,
+    "old_ns_per_op": 93849.375,
+    "new_ns_per_op": 83759.375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8913489535758962,
+      "retained-portable-456.jsonl": 0.8953096609118986,
+      "reversed-portable-789.jsonl": 0.8945470848667127
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 3,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8952173555645693,
+    "min_run_ratio": 0.8947554534292783,
+    "max_run_ratio": 0.8978207014431294,
+    "old_ns_per_op": 92759.875,
+    "new_ns_per_op": 83164.25,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8952173555645693,
+      "retained-portable-456.jsonl": 0.8978207014431294,
+      "reversed-portable-789.jsonl": 0.8947554534292783
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9591616285926097,
+    "min_run_ratio": 0.9498695977064825,
+    "max_run_ratio": 0.9689174729523928,
+    "old_ns_per_op": 99.47705078125,
+    "new_ns_per_op": 95.8204345703125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9591616285926097,
+      "retained-portable-456.jsonl": 0.9498695977064825,
+      "reversed-portable-789.jsonl": 0.9689174729523928
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0084503489447574,
+    "min_run_ratio": 1.0016352814389509,
+    "max_run_ratio": 1.012790275982758,
+    "old_ns_per_op": 100.2060546875,
+    "new_ns_per_op": 101.326416015625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.012790275982758,
+      "retained-portable-456.jsonl": 1.0016352814389509,
+      "reversed-portable-789.jsonl": 1.0084503489447574
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9205261968822527,
+    "min_run_ratio": 0.9135834650085595,
+    "max_run_ratio": 0.9206201492676208,
+    "old_ns_per_op": 336.7041015625,
+    "new_ns_per_op": 308.56982421875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9135834650085595,
+      "retained-portable-456.jsonl": 0.9205261968822527,
+      "reversed-portable-789.jsonl": 0.9206201492676208
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9362977516263871,
+    "min_run_ratio": 0.9328061792275086,
+    "max_run_ratio": 0.9445091213895712,
+    "old_ns_per_op": 335.53515625,
+    "new_ns_per_op": 314.20556640625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9328061792275086,
+      "retained-portable-456.jsonl": 0.9445091213895712,
+      "reversed-portable-789.jsonl": 0.9362977516263871
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8867999104601708,
+    "min_run_ratio": 0.8855785653425804,
+    "max_run_ratio": 0.8956341142113664,
+    "old_ns_per_op": 5928.9921875,
+    "new_ns_per_op": 5217.6484375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8867999104601708,
+      "retained-portable-456.jsonl": 0.8956341142113664,
+      "reversed-portable-789.jsonl": 0.8855785653425804
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8937665423058305,
+    "min_run_ratio": 0.880029552853064,
+    "max_run_ratio": 0.896245117213521,
+    "old_ns_per_op": 5809.078125,
+    "new_ns_per_op": 5207.7890625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.896245117213521,
+      "retained-portable-456.jsonl": 0.8937665423058305,
+      "reversed-portable-789.jsonl": 0.880029552853064
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8917041554428233,
+    "min_run_ratio": 0.8891304727593282,
+    "max_run_ratio": 0.8919618251177692,
+    "old_ns_per_op": 92719.75,
+    "new_ns_per_op": 82638.25,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8917041554428233,
+      "retained-portable-456.jsonl": 0.8919618251177692,
+      "reversed-portable-789.jsonl": 0.8891304727593282
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 4,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8929417103254816,
+    "min_run_ratio": 0.8899557572624555,
+    "max_run_ratio": 0.9011181956169033,
+    "old_ns_per_op": 93189.375,
+    "new_ns_per_op": 82905.125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8929417103254816,
+      "retained-portable-456.jsonl": 0.8899557572624555,
+      "reversed-portable-789.jsonl": 0.9011181956169033
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9566475627071087,
+    "min_run_ratio": 0.9529313713598792,
+    "max_run_ratio": 0.9599140596547232,
+    "old_ns_per_op": 102.071044921875,
+    "new_ns_per_op": 97.6451416015625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9599140596547232,
+      "retained-portable-456.jsonl": 0.9529313713598792,
+      "reversed-portable-789.jsonl": 0.9566475627071087
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0066196491270625,
+    "min_run_ratio": 1.0015489372143669,
+    "max_run_ratio": 1.0111993109605182,
+    "old_ns_per_op": 100.7711181640625,
+    "new_ns_per_op": 101.8204345703125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0066196491270625,
+      "retained-portable-456.jsonl": 1.0015489372143669,
+      "reversed-portable-789.jsonl": 1.0111993109605182
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9098693749191676,
+    "min_run_ratio": 0.9070712739981253,
+    "max_run_ratio": 0.9117385121659937,
+    "old_ns_per_op": 337.15869140625,
+    "new_ns_per_op": 305.87451171875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9070712739981253,
+      "retained-portable-456.jsonl": 0.9098693749191676,
+      "reversed-portable-789.jsonl": 0.9117385121659937
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9090424409069504,
+    "min_run_ratio": 0.894312085646684,
+    "max_run_ratio": 0.9404288269635603,
+    "old_ns_per_op": 364.03662109375,
+    "new_ns_per_op": 329.9482421875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9404288269635603,
+      "retained-portable-456.jsonl": 0.9090424409069504,
+      "reversed-portable-789.jsonl": 0.894312085646684
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8902699548076055,
+    "min_run_ratio": 0.8854863174736864,
+    "max_run_ratio": 0.8936661614583831,
+    "old_ns_per_op": 5833.4921875,
+    "new_ns_per_op": 5203.953125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8936661614583831,
+      "retained-portable-456.jsonl": 0.8854863174736864,
+      "reversed-portable-789.jsonl": 0.8902699548076055
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8923382459161212,
+    "min_run_ratio": 0.8916873392443915,
+    "max_run_ratio": 0.898006190651632,
+    "old_ns_per_op": 5848.6875,
+    "new_ns_per_op": 5192.9140625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.898006190651632,
+      "retained-portable-456.jsonl": 0.8916873392443915,
+      "reversed-portable-789.jsonl": 0.8923382459161212
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8966385386677256,
+    "min_run_ratio": 0.8734357212650514,
+    "max_run_ratio": 0.8967260126657904,
+    "old_ns_per_op": 93854.625,
+    "new_ns_per_op": 84191.125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8734357212650514,
+      "retained-portable-456.jsonl": 0.8966385386677256,
+      "reversed-portable-789.jsonl": 0.8967260126657904
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 8,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.881380097695604,
+    "min_run_ratio": 0.879757480146528,
+    "max_run_ratio": 0.8950858848258092,
+    "old_ns_per_op": 93497.5,
+    "new_ns_per_op": 82084.75,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8950858848258092,
+      "retained-portable-456.jsonl": 0.881380097695604,
+      "reversed-portable-789.jsonl": 0.879757480146528
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9509367539589813,
+    "min_run_ratio": 0.9411694057538684,
+    "max_run_ratio": 0.9591071637975862,
+    "old_ns_per_op": 103.7479248046875,
+    "new_ns_per_op": 98.788330078125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9509367539589813,
+      "retained-portable-456.jsonl": 0.9591071637975862,
+      "reversed-portable-789.jsonl": 0.9411694057538684
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0049698079736185,
+    "min_run_ratio": 0.9978518133358965,
+    "max_run_ratio": 1.0063412273335774,
+    "old_ns_per_op": 108.3084716796875,
+    "new_ns_per_op": 108.46630859375,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0049698079736185,
+      "retained-portable-456.jsonl": 1.0063412273335774,
+      "reversed-portable-789.jsonl": 0.9978518133358965
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9131202736169679,
+    "min_run_ratio": 0.8694054233776862,
+    "max_run_ratio": 0.9165888280381996,
+    "old_ns_per_op": 345.470703125,
+    "new_ns_per_op": 318.63232421875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8694054233776862,
+      "retained-portable-456.jsonl": 0.9131202736169679,
+      "reversed-portable-789.jsonl": 0.9165888280381996
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9303476937751232,
+    "min_run_ratio": 0.9283688598290273,
+    "max_run_ratio": 0.9309831382124603,
+    "old_ns_per_op": 352.13916015625,
+    "new_ns_per_op": 329.2783203125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9283688598290273,
+      "retained-portable-456.jsonl": 0.9309831382124603,
+      "reversed-portable-789.jsonl": 0.9303476937751232
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8913135563396053,
+    "min_run_ratio": 0.8748505824880755,
+    "max_run_ratio": 0.9009819768851531,
+    "old_ns_per_op": 6097.8984375,
+    "new_ns_per_op": 5287.7890625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8913135563396053,
+      "retained-portable-456.jsonl": 0.9009819768851531,
+      "reversed-portable-789.jsonl": 0.8748505824880755
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8949836806558585,
+    "min_run_ratio": 0.8915198000021598,
+    "max_run_ratio": 0.8955661592139736,
+    "old_ns_per_op": 5802.421875,
+    "new_ns_per_op": 5211.15625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8915198000021598,
+      "retained-portable-456.jsonl": 0.8949836806558585,
+      "reversed-portable-789.jsonl": 0.8955661592139736
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8913707860480641,
+    "min_run_ratio": 0.8880297425342345,
+    "max_run_ratio": 0.894097443158604,
+    "old_ns_per_op": 94376.625,
+    "new_ns_per_op": 83809.25,
+    "runs": {
+      "retained-portable-123.jsonl": 0.894097443158604,
+      "retained-portable-456.jsonl": 0.8913707860480641,
+      "reversed-portable-789.jsonl": 0.8880297425342345
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 16,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8900893323848563,
+    "min_run_ratio": 0.8876389046855452,
+    "max_run_ratio": 0.8907304871040801,
+    "old_ns_per_op": 96086.25,
+    "new_ns_per_op": 85879.375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8907304871040801,
+      "retained-portable-456.jsonl": 0.8876389046855452,
+      "reversed-portable-789.jsonl": 0.8900893323848563
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.95141355001064,
+    "min_run_ratio": 0.9303119144754688,
+    "max_run_ratio": 0.957767262873252,
+    "old_ns_per_op": 126.987548828125,
+    "new_ns_per_op": 120.1239013671875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.957767262873252,
+      "retained-portable-456.jsonl": 0.9303119144754688,
+      "reversed-portable-789.jsonl": 0.95141355001064
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0654884707561292,
+    "min_run_ratio": 1.0223120310961902,
+    "max_run_ratio": 1.0823571067075204,
+    "old_ns_per_op": 125.3670654296875,
+    "new_ns_per_op": 133.10498046875,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0223120310961902,
+      "retained-portable-456.jsonl": 1.0654884707561292,
+      "reversed-portable-789.jsonl": 1.0823571067075204
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9137029450214623,
+    "min_run_ratio": 0.9062287335467852,
+    "max_run_ratio": 0.9155389615477094,
+    "old_ns_per_op": 369.2998046875,
+    "new_ns_per_op": 339.10107421875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9062287335467852,
+      "retained-portable-456.jsonl": 0.9155389615477094,
+      "reversed-portable-789.jsonl": 0.9137029450214623
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9387903591353998,
+    "min_run_ratio": 0.9338555494452002,
+    "max_run_ratio": 0.9412677405497135,
+    "old_ns_per_op": 368.06787109375,
+    "new_ns_per_op": 346.82568359375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9387903591353998,
+      "retained-portable-456.jsonl": 0.9412677405497135,
+      "reversed-portable-789.jsonl": 0.9338555494452002
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8856709264557291,
+    "min_run_ratio": 0.8841155320429562,
+    "max_run_ratio": 0.8932232437028377,
+    "old_ns_per_op": 5945.0390625,
+    "new_ns_per_op": 5272.2890625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8932232437028377,
+      "retained-portable-456.jsonl": 0.8841155320429562,
+      "reversed-portable-789.jsonl": 0.8856709264557291
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.8951658654563913,
+    "min_run_ratio": 0.8825303541259918,
+    "max_run_ratio": 0.895939643921105,
+    "old_ns_per_op": 5967.1015625,
+    "new_ns_per_op": 5352.2734375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.895939643921105,
+      "retained-portable-456.jsonl": 0.8825303541259918,
+      "reversed-portable-789.jsonl": 0.8951658654563913
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8901260747093818,
+    "min_run_ratio": 0.8699120490368227,
+    "max_run_ratio": 0.8914737050916486,
+    "old_ns_per_op": 95839.5,
+    "new_ns_per_op": 83226.875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8914737050916486,
+      "retained-portable-456.jsonl": 0.8699120490368227,
+      "reversed-portable-789.jsonl": 0.8901260747093818
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 64,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8831788541757559,
+    "min_run_ratio": 0.8830463848687271,
+    "max_run_ratio": 0.8940982243724974,
+    "old_ns_per_op": 95930.875,
+    "new_ns_per_op": 84277.75,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8940982243724974,
+      "retained-portable-456.jsonl": 0.8830463848687271,
+      "reversed-portable-789.jsonl": 0.8831788541757559
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9570483489817928,
+    "min_run_ratio": 0.9503940933132894,
+    "max_run_ratio": 0.9602466560977504,
+    "old_ns_per_op": 124.8729248046875,
+    "new_ns_per_op": 122.163818359375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9570483489817928,
+      "retained-portable-456.jsonl": 0.9503940933132894,
+      "reversed-portable-789.jsonl": 0.9602466560977504
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.035854478468427,
+    "min_run_ratio": 1.0222710172499623,
+    "max_run_ratio": 1.0651383978739926,
+    "old_ns_per_op": 126.0384521484375,
+    "new_ns_per_op": 131.2813720703125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0222710172499623,
+      "retained-portable-456.jsonl": 1.0651383978739926,
+      "reversed-portable-789.jsonl": 1.035854478468427
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9147053673910083,
+    "min_run_ratio": 0.9133111708985345,
+    "max_run_ratio": 0.9252556538711436,
+    "old_ns_per_op": 376.49658203125,
+    "new_ns_per_op": 346.27783203125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9133111708985345,
+      "retained-portable-456.jsonl": 0.9252556538711436,
+      "reversed-portable-789.jsonl": 0.9147053673910083
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9370319670438086,
+    "min_run_ratio": 0.9340239856580601,
+    "max_run_ratio": 0.9500805532325338,
+    "old_ns_per_op": 377.96826171875,
+    "new_ns_per_op": 354.466796875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9340239856580601,
+      "retained-portable-456.jsonl": 0.9370319670438086,
+      "reversed-portable-789.jsonl": 0.9500805532325338
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.8908963771456252,
+    "min_run_ratio": 0.8761378795700464,
+    "max_run_ratio": 0.895616328043613,
+    "old_ns_per_op": 6111.9921875,
+    "new_ns_per_op": 5430.703125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8908963771456252,
+      "retained-portable-456.jsonl": 0.8761378795700464,
+      "reversed-portable-789.jsonl": 0.895616328043613
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.9015182833865671,
+    "min_run_ratio": 0.8946715770826534,
+    "max_run_ratio": 0.9019846874114149,
+    "old_ns_per_op": 5986.6875,
+    "new_ns_per_op": 5398.296875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8946715770826534,
+      "retained-portable-456.jsonl": 0.9015182833865671,
+      "reversed-portable-789.jsonl": 0.9019846874114149
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.8930174165667722,
+    "min_run_ratio": 0.8546320376453194,
+    "max_run_ratio": 0.8932638331996793,
+    "old_ns_per_op": 95249.625,
+    "new_ns_per_op": 85161.75,
+    "runs": {
+      "retained-portable-123.jsonl": 0.8932638331996793,
+      "retained-portable-456.jsonl": 0.8546320376453194,
+      "reversed-portable-789.jsonl": 0.8930174165667722
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CFB-encrypt",
+    "m": 65,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.8957855134490815,
+    "min_run_ratio": 0.889529949436792,
+    "max_run_ratio": 0.8966268176235063,
+    "old_ns_per_op": 95587.75,
+    "new_ns_per_op": 85826.75,
+    "runs": {
+      "retained-portable-123.jsonl": 0.889529949436792,
+      "retained-portable-456.jsonl": 0.8966268176235063,
+      "reversed-portable-789.jsonl": 0.8957855134490815
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.0002061711791723,
+    "min_run_ratio": 0.9958590900661433,
+    "max_run_ratio": 1.0023032214306187,
+    "old_ns_per_op": 154.6004638671875,
+    "new_ns_per_op": 155.444580078125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9958590900661433,
+      "retained-portable-456.jsonl": 1.0023032214306187,
+      "reversed-portable-789.jsonl": 1.0002061711791723
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.004055725764495,
+    "min_run_ratio": 1.0006878710857834,
+    "max_run_ratio": 1.0065538597318806,
+    "old_ns_per_op": 158.5863037109375,
+    "new_ns_per_op": 158.9053955078125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0065538597318806,
+      "retained-portable-456.jsonl": 1.004055725764495,
+      "reversed-portable-789.jsonl": 1.0006878710857834
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 1.0013124709224026,
+    "min_run_ratio": 0.9996550918074565,
+    "max_run_ratio": 1.0020371427741916,
+    "old_ns_per_op": 404.10693359375,
+    "new_ns_per_op": 405.4033203125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9996550918074565,
+      "retained-portable-456.jsonl": 1.0020371427741916,
+      "reversed-portable-789.jsonl": 1.0013124709224026
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.001431437363014,
+    "min_run_ratio": 1.0005586097349262,
+    "max_run_ratio": 1.0037973380162644,
+    "old_ns_per_op": 411.82666015625,
+    "new_ns_per_op": 410.94140625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0037973380162644,
+      "retained-portable-456.jsonl": 1.001431437363014,
+      "reversed-portable-789.jsonl": 1.0005586097349262
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9999391809960886,
+    "min_run_ratio": 0.9998683336353205,
+    "max_run_ratio": 1.0004861983638145,
+    "old_ns_per_op": 6098.5234375,
+    "new_ns_per_op": 6135.8671875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9998683336353205,
+      "retained-portable-456.jsonl": 0.9999391809960886,
+      "reversed-portable-789.jsonl": 1.0004861983638145
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.0042204669106234,
+    "min_run_ratio": 0.9863899281110338,
+    "max_run_ratio": 1.0048344018422453,
+    "old_ns_per_op": 6140.09375,
+    "new_ns_per_op": 6134.5390625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0048344018422453,
+      "retained-portable-456.jsonl": 1.0042204669106234,
+      "reversed-portable-789.jsonl": 0.9863899281110338
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 1.0033290217520137,
+    "min_run_ratio": 0.9973948409266198,
+    "max_run_ratio": 1.0051322738821107,
+    "old_ns_per_op": 96648.375,
+    "new_ns_per_op": 96212.625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0051322738821107,
+      "retained-portable-456.jsonl": 1.0033290217520137,
+      "reversed-portable-789.jsonl": 0.9973948409266198
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "CMAC",
+    "m": 1,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9951519811342662,
+    "min_run_ratio": 0.9887863345639852,
+    "max_run_ratio": 1.007601409616667,
+    "old_ns_per_op": 95957.125,
+    "new_ns_per_op": 95076.75,
+    "runs": {
+      "retained-portable-123.jsonl": 1.007601409616667,
+      "retained-portable-456.jsonl": 0.9951519811342662,
+      "reversed-portable-789.jsonl": 0.9887863345639852
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.9986025758247099,
+    "min_run_ratio": 0.9855195563934531,
+    "max_run_ratio": 0.9996530333450925,
+    "old_ns_per_op": 84.4022216796875,
+    "new_ns_per_op": 83.0850830078125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9986025758247099,
+      "retained-portable-456.jsonl": 0.9855195563934531,
+      "reversed-portable-789.jsonl": 0.9996530333450925
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0010083505459737,
+    "min_run_ratio": 0.9907923464976394,
+    "max_run_ratio": 1.0065776641680635,
+    "old_ns_per_op": 79.2987060546875,
+    "new_ns_per_op": 77.8568115234375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9907923464976394,
+      "retained-portable-456.jsonl": 1.0065776641680635,
+      "reversed-portable-789.jsonl": 1.0010083505459737
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9987196837223448,
+    "min_run_ratio": 0.9938179076935615,
+    "max_run_ratio": 1.0019091361850478,
+    "old_ns_per_op": 322.0576171875,
+    "new_ns_per_op": 322.45458984375,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0019091361850478,
+      "retained-portable-456.jsonl": 0.9987196837223448,
+      "reversed-portable-789.jsonl": 0.9938179076935615
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.000983464245595,
+    "min_run_ratio": 0.9986195200811487,
+    "max_run_ratio": 1.002479627761931,
+    "old_ns_per_op": 315.271484375,
+    "new_ns_per_op": 316.44091796875,
+    "runs": {
+      "retained-portable-123.jsonl": 1.002479627761931,
+      "retained-portable-456.jsonl": 0.9986195200811487,
+      "reversed-portable-789.jsonl": 1.000983464245595
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.996834781964868,
+    "min_run_ratio": 0.9921849726219432,
+    "max_run_ratio": 1.0051313585094916,
+    "old_ns_per_op": 5861.515625,
+    "new_ns_per_op": 5887.1171875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.996834781964868,
+      "retained-portable-456.jsonl": 0.9921849726219432,
+      "reversed-portable-789.jsonl": 1.0051313585094916
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.0003377648250935,
+    "min_run_ratio": 0.997285917691923,
+    "max_run_ratio": 1.0029853699492366,
+    "old_ns_per_op": 5843.6015625,
+    "new_ns_per_op": 5885.078125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0029853699492366,
+      "retained-portable-456.jsonl": 1.0003377648250935,
+      "reversed-portable-789.jsonl": 0.997285917691923
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 1.0013347435613942,
+    "min_run_ratio": 0.9936652185255047,
+    "max_run_ratio": 1.0045571466185972,
+    "old_ns_per_op": 93988.5,
+    "new_ns_per_op": 95462.625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0013347435613942,
+      "retained-portable-456.jsonl": 1.0045571466185972,
+      "reversed-portable-789.jsonl": 0.9936652185255047
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 1,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 1.0038527349315878,
+    "min_run_ratio": 1.0001426889242917,
+    "max_run_ratio": 1.0063737001006374,
+    "old_ns_per_op": 93695.625,
+    "new_ns_per_op": 93378.625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0063737001006374,
+      "retained-portable-456.jsonl": 1.0001426889242917,
+      "reversed-portable-789.jsonl": 1.0038527349315878
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.0000595476285752,
+    "min_run_ratio": 0.9814423277061446,
+    "max_run_ratio": 1.000729364556275,
+    "old_ns_per_op": 103.701416015625,
+    "new_ns_per_op": 103.6988525390625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.000729364556275,
+      "retained-portable-456.jsonl": 0.9814423277061446,
+      "reversed-portable-789.jsonl": 1.0000595476285752
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0025969916759967,
+    "min_run_ratio": 0.9990299258083567,
+    "max_run_ratio": 1.0041740814861924,
+    "old_ns_per_op": 103.1790771484375,
+    "new_ns_per_op": 103.815185546875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9990299258083567,
+      "retained-portable-456.jsonl": 1.0041740814861924,
+      "reversed-portable-789.jsonl": 1.0025969916759967
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9985430500686447,
+    "min_run_ratio": 0.9912333744175096,
+    "max_run_ratio": 0.9994082519141371,
+    "old_ns_per_op": 193.13720703125,
+    "new_ns_per_op": 192.6826171875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9985430500686447,
+      "retained-portable-456.jsonl": 0.9912333744175096,
+      "reversed-portable-789.jsonl": 0.9994082519141371
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9975271746649863,
+    "min_run_ratio": 0.9922331637735716,
+    "max_run_ratio": 1.0039358757772905,
+    "old_ns_per_op": 194.10205078125,
+    "new_ns_per_op": 193.8369140625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9975271746649863,
+      "retained-portable-456.jsonl": 1.0039358757772905,
+      "reversed-portable-789.jsonl": 0.9922331637735716
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 1.0006745028021624,
+    "min_run_ratio": 0.9929376395349871,
+    "max_run_ratio": 1.0028951310953862,
+    "old_ns_per_op": 3171.7578125,
+    "new_ns_per_op": 3165.7421875,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0006745028021624,
+      "retained-portable-456.jsonl": 1.0028951310953862,
+      "reversed-portable-789.jsonl": 0.9929376395349871
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.002857311326549,
+    "min_run_ratio": 1.0010895350161697,
+    "max_run_ratio": 1.0029179879494754,
+    "old_ns_per_op": 3270.6953125,
+    "new_ns_per_op": 3191.40625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.002857311326549,
+      "retained-portable-456.jsonl": 1.0010895350161697,
+      "reversed-portable-789.jsonl": 1.0029179879494754
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 1.0049391612433476,
+    "min_run_ratio": 0.9953295395862656,
+    "max_run_ratio": 1.0127074621438403,
+    "old_ns_per_op": 50087.125,
+    "new_ns_per_op": 50204.625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0049391612433476,
+      "retained-portable-456.jsonl": 0.9953295395862656,
+      "reversed-portable-789.jsonl": 1.0127074621438403
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 2,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 1.00823327093701,
+    "min_run_ratio": 1.0010270580008547,
+    "max_run_ratio": 1.0105944525150494,
+    "old_ns_per_op": 50329.75,
+    "new_ns_per_op": 50843.375,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0105944525150494,
+      "retained-portable-456.jsonl": 1.00823327093701,
+      "reversed-portable-789.jsonl": 1.0010270580008547
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.006662644232811,
+    "min_run_ratio": 1.001377227274478,
+    "max_run_ratio": 1.0077731092436975,
+    "old_ns_per_op": 167.9630126953125,
+    "new_ns_per_op": 167.8189697265625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.001377227274478,
+      "retained-portable-456.jsonl": 1.006662644232811,
+      "reversed-portable-789.jsonl": 1.0077731092436975
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0033246150647304,
+    "min_run_ratio": 1.0016284863670195,
+    "max_run_ratio": 1.011076799602005,
+    "old_ns_per_op": 171.6749267578125,
+    "new_ns_per_op": 172.4515380859375,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0033246150647304,
+      "retained-portable-456.jsonl": 1.011076799602005,
+      "reversed-portable-789.jsonl": 1.0016284863670195
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 1.0028086578494444,
+    "min_run_ratio": 0.9951905619822063,
+    "max_run_ratio": 1.0089251061491655,
+    "old_ns_per_op": 340.79345703125,
+    "new_ns_per_op": 340.82861328125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0089251061491655,
+      "retained-portable-456.jsonl": 1.0028086578494444,
+      "reversed-portable-789.jsonl": 0.9951905619822063
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.9997994615328819,
+    "min_run_ratio": 0.9976638184779814,
+    "max_run_ratio": 1.0005548789510226,
+    "old_ns_per_op": 343.31396484375,
+    "new_ns_per_op": 343.18603515625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0005548789510226,
+      "retained-portable-456.jsonl": 0.9997994615328819,
+      "reversed-portable-789.jsonl": 0.9976638184779814
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 1.0000774813899387,
+    "min_run_ratio": 0.9898228420655861,
+    "max_run_ratio": 1.0060494792069707,
+    "old_ns_per_op": 4025.625,
+    "new_ns_per_op": 4033.3828125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9898228420655861,
+      "retained-portable-456.jsonl": 1.0060494792069707,
+      "reversed-portable-789.jsonl": 1.0000774813899387
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.0017517360429988,
+    "min_run_ratio": 0.9989163751199728,
+    "max_run_ratio": 1.0019959135051555,
+    "old_ns_per_op": 3977.890625,
+    "new_ns_per_op": 3989.6328125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9989163751199728,
+      "retained-portable-456.jsonl": 1.0017517360429988,
+      "reversed-portable-789.jsonl": 1.0019959135051555
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 1.0020228028797133,
+    "min_run_ratio": 0.99525557695394,
+    "max_run_ratio": 1.002230021278205,
+    "old_ns_per_op": 61374.625,
+    "new_ns_per_op": 61429.625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.99525557695394,
+      "retained-portable-456.jsonl": 1.0020228028797133,
+      "reversed-portable-789.jsonl": 1.002230021278205
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 3,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 1.0007780543739522,
+    "min_run_ratio": 0.9993651785608341,
+    "max_run_ratio": 1.0012778984232513,
+    "old_ns_per_op": 62383.75,
+    "new_ns_per_op": 62188.625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0012778984232513,
+      "retained-portable-456.jsonl": 1.0007780543739522,
+      "reversed-portable-789.jsonl": 0.9993651785608341
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 0.998325117811886,
+    "min_run_ratio": 0.9848326698609576,
+    "max_run_ratio": 1.006181621077635,
+    "old_ns_per_op": 131.43310546875,
+    "new_ns_per_op": 132.3955078125,
+    "runs": {
+      "retained-portable-123.jsonl": 0.998325117811886,
+      "retained-portable-456.jsonl": 0.9848326698609576,
+      "reversed-portable-789.jsonl": 1.006181621077635
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0018824166802573,
+    "min_run_ratio": 1.0009603666190439,
+    "max_run_ratio": 1.0031540031614288,
+    "old_ns_per_op": 133.595458984375,
+    "new_ns_per_op": 133.2603759765625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0018824166802573,
+      "retained-portable-456.jsonl": 1.0031540031614288,
+      "reversed-portable-789.jsonl": 1.0009603666190439
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 1.0125162804677326,
+    "min_run_ratio": 0.9902686543958898,
+    "max_run_ratio": 1.027082029904466,
+    "old_ns_per_op": 138.18505859375,
+    "new_ns_per_op": 139.3935546875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9902686543958898,
+      "retained-portable-456.jsonl": 1.0125162804677326,
+      "reversed-portable-789.jsonl": 1.027082029904466
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 0.994138193079286,
+    "min_run_ratio": 0.985129314073177,
+    "max_run_ratio": 0.9998928207167183,
+    "old_ns_per_op": 140.666015625,
+    "new_ns_per_op": 140.744140625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.985129314073177,
+      "retained-portable-456.jsonl": 0.994138193079286,
+      "reversed-portable-789.jsonl": 0.9998928207167183
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 1.0179145220314778,
+    "min_run_ratio": 0.9965541864254719,
+    "max_run_ratio": 1.0296345178443995,
+    "old_ns_per_op": 2088.1640625,
+    "new_ns_per_op": 2099.5,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9965541864254719,
+      "retained-portable-456.jsonl": 1.0296345178443995,
+      "reversed-portable-789.jsonl": 1.0179145220314778
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.0076019113377077,
+    "min_run_ratio": 0.9063022499572126,
+    "max_run_ratio": 1.0078578257844975,
+    "old_ns_per_op": 2219.265625,
+    "new_ns_per_op": 2137.859375,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0078578257844975,
+      "retained-portable-456.jsonl": 1.0076019113377077,
+      "reversed-portable-789.jsonl": 0.9063022499572126
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 1.0126461747902502,
+    "min_run_ratio": 0.9715471122871606,
+    "max_run_ratio": 1.013813655382076,
+    "old_ns_per_op": 35761.25,
+    "new_ns_per_op": 39356.625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9715471122871606,
+      "retained-portable-456.jsonl": 1.0126461747902502,
+      "reversed-portable-789.jsonl": 1.013813655382076
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 4,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9966208875602208,
+    "min_run_ratio": 0.9602929850830135,
+    "max_run_ratio": 1.0048387830915693,
+    "old_ns_per_op": 35832.5,
+    "new_ns_per_op": 35873.875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9602929850830135,
+      "retained-portable-456.jsonl": 0.9966208875602208,
+      "reversed-portable-789.jsonl": 1.0048387830915693
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.0034973021875182,
+    "min_run_ratio": 1.0017984661357784,
+    "max_run_ratio": 1.008493584167558,
+    "old_ns_per_op": 318.875244140625,
+    "new_ns_per_op": 318.850830078125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.008493584167558,
+      "retained-portable-456.jsonl": 1.0034973021875182,
+      "reversed-portable-789.jsonl": 1.0017984661357784
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0002172170660595,
+    "min_run_ratio": 0.9995125017837653,
+    "max_run_ratio": 1.0021209989365918,
+    "old_ns_per_op": 320.0528564453125,
+    "new_ns_per_op": 316.67138671875,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0002172170660595,
+      "retained-portable-456.jsonl": 0.9995125017837653,
+      "reversed-portable-789.jsonl": 1.0021209989365918
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 1.0091371008151742,
+    "min_run_ratio": 0.9959732448727402,
+    "max_run_ratio": 1.0121741765255596,
+    "old_ns_per_op": 325.51611328125,
+    "new_ns_per_op": 329.0869140625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9959732448727402,
+      "retained-portable-456.jsonl": 1.0121741765255596,
+      "reversed-portable-789.jsonl": 1.0091371008151742
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.000149543891132,
+    "min_run_ratio": 0.9985078316500523,
+    "max_run_ratio": 1.0005611030714752,
+    "old_ns_per_op": 322.5126953125,
+    "new_ns_per_op": 323.14306640625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9985078316500523,
+      "retained-portable-456.jsonl": 1.000149543891132,
+      "reversed-portable-789.jsonl": 1.0005611030714752
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9985826682372803,
+    "min_run_ratio": 0.9845750900043498,
+    "max_run_ratio": 1.0161633951651847,
+    "old_ns_per_op": 2453.375,
+    "new_ns_per_op": 2459.4765625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0161633951651847,
+      "retained-portable-456.jsonl": 0.9985826682372803,
+      "reversed-portable-789.jsonl": 0.9845750900043498
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 1.0039919528304273,
+    "min_run_ratio": 0.9866584850516833,
+    "max_run_ratio": 1.0055648090864386,
+    "old_ns_per_op": 2479.4375,
+    "new_ns_per_op": 2477.796875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9866584850516833,
+      "retained-portable-456.jsonl": 1.0055648090864386,
+      "reversed-portable-789.jsonl": 1.0039919528304273
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9980881429814136,
+    "min_run_ratio": 0.9887515359960474,
+    "max_run_ratio": 1.0008162470842712,
+    "old_ns_per_op": 39228.875,
+    "new_ns_per_op": 39153.875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9887515359960474,
+      "retained-portable-456.jsonl": 1.0008162470842712,
+      "reversed-portable-789.jsonl": 0.9980881429814136
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 8,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9942665571538601,
+    "min_run_ratio": 0.991424496850297,
+    "max_run_ratio": 1.0171769128188506,
+    "old_ns_per_op": 39528.125,
+    "new_ns_per_op": 39365.625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9942665571538601,
+      "retained-portable-456.jsonl": 1.0171769128188506,
+      "reversed-portable-789.jsonl": 0.991424496850297
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.001250109730048,
+    "min_run_ratio": 0.9959624333379767,
+    "max_run_ratio": 1.0349894161639521,
+    "old_ns_per_op": 608.5963134765625,
+    "new_ns_per_op": 616.216796875,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0349894161639521,
+      "retained-portable-456.jsonl": 0.9959624333379767,
+      "reversed-portable-789.jsonl": 1.001250109730048
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.000110901411408,
+    "min_run_ratio": 0.9945230059074844,
+    "max_run_ratio": 1.0208181345289458,
+    "old_ns_per_op": 607.387939453125,
+    "new_ns_per_op": 612.1710205078125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.000110901411408,
+      "retained-portable-456.jsonl": 0.9945230059074844,
+      "reversed-portable-789.jsonl": 1.0208181345289458
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9975897315368639,
+    "min_run_ratio": 0.98453549576913,
+    "max_run_ratio": 1.003723598928019,
+    "old_ns_per_op": 616.2744140625,
+    "new_ns_per_op": 610.6337890625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.003723598928019,
+      "retained-portable-456.jsonl": 0.9975897315368639,
+      "reversed-portable-789.jsonl": 0.98453549576913
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.01057428301896,
+    "min_run_ratio": 1.0102784466159913,
+    "max_run_ratio": 1.0185677839641867,
+    "old_ns_per_op": 607.8603515625,
+    "new_ns_per_op": 616.328125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0185677839641867,
+      "retained-portable-456.jsonl": 1.01057428301896,
+      "reversed-portable-789.jsonl": 1.0102784466159913
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9704619457148539,
+    "min_run_ratio": 0.9549999531151835,
+    "max_run_ratio": 0.9709740778587413,
+    "old_ns_per_op": 2490.7109375,
+    "new_ns_per_op": 2382.9296875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9704619457148539,
+      "retained-portable-456.jsonl": 0.9549999531151835,
+      "reversed-portable-789.jsonl": 0.9709740778587413
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.9685639317791906,
+    "min_run_ratio": 0.955702310549527,
+    "max_run_ratio": 0.9697850627247611,
+    "old_ns_per_op": 2498.296875,
+    "new_ns_per_op": 2421.984375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9685639317791906,
+      "retained-portable-456.jsonl": 0.9697850627247611,
+      "reversed-portable-789.jsonl": 0.955702310549527
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9578515772275984,
+    "min_run_ratio": 0.9576399779865311,
+    "max_run_ratio": 0.965750844476269,
+    "old_ns_per_op": 39291.625,
+    "new_ns_per_op": 37797.375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9578515772275984,
+      "retained-portable-456.jsonl": 0.9576399779865311,
+      "reversed-portable-789.jsonl": 0.965750844476269
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 16,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9715797795956564,
+    "min_run_ratio": 0.971570765212037,
+    "max_run_ratio": 0.9876910976748758,
+    "old_ns_per_op": 38978.5,
+    "new_ns_per_op": 37684.75,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9715797795956564,
+      "retained-portable-456.jsonl": 0.971570765212037,
+      "reversed-portable-789.jsonl": 0.9876910976748758
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.0019465289355938,
+    "min_run_ratio": 0.9979160617259896,
+    "max_run_ratio": 1.0181507126823433,
+    "old_ns_per_op": 2370.0693359375,
+    "new_ns_per_op": 2360.8857421875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9979160617259896,
+      "retained-portable-456.jsonl": 1.0019465289355938,
+      "reversed-portable-789.jsonl": 1.0181507126823433
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0071532474847407,
+    "min_run_ratio": 1.0011273925206008,
+    "max_run_ratio": 1.028564765699055,
+    "old_ns_per_op": 2337.3917236328125,
+    "new_ns_per_op": 2356.7667236328125,
+    "runs": {
+      "retained-portable-123.jsonl": 1.028564765699055,
+      "retained-portable-456.jsonl": 1.0011273925206008,
+      "reversed-portable-789.jsonl": 1.0071532474847407
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9976112264158282,
+    "min_run_ratio": 0.9971022167803261,
+    "max_run_ratio": 1.0047807469262597,
+    "old_ns_per_op": 2342.29296875,
+    "new_ns_per_op": 2362.91650390625,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9971022167803261,
+      "retained-portable-456.jsonl": 0.9976112264158282,
+      "reversed-portable-789.jsonl": 1.0047807469262597
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.0102147189343824,
+    "min_run_ratio": 1.0004571324788414,
+    "max_run_ratio": 1.0107242760060076,
+    "old_ns_per_op": 2345.6767578125,
+    "new_ns_per_op": 2366.36181640625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0004571324788414,
+      "retained-portable-456.jsonl": 1.0107242760060076,
+      "reversed-portable-789.jsonl": 1.0102147189343824
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9687335977834541,
+    "min_run_ratio": 0.9613580444160409,
+    "max_run_ratio": 0.977001690696331,
+    "old_ns_per_op": 2455.9609375,
+    "new_ns_per_op": 2379.171875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.977001690696331,
+      "retained-portable-456.jsonl": 0.9687335977834541,
+      "reversed-portable-789.jsonl": 0.9613580444160409
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.9516023524231846,
+    "min_run_ratio": 0.9409492076003487,
+    "max_run_ratio": 0.9783286018681241,
+    "old_ns_per_op": 2500.8984375,
+    "new_ns_per_op": 2392.71875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9409492076003487,
+      "retained-portable-456.jsonl": 0.9516023524231846,
+      "reversed-portable-789.jsonl": 0.9783286018681241
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9671278931923742,
+    "min_run_ratio": 0.9509205864820037,
+    "max_run_ratio": 0.9671954135280356,
+    "old_ns_per_op": 38897.0,
+    "new_ns_per_op": 37664.75,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9509205864820037,
+      "retained-portable-456.jsonl": 0.9671954135280356,
+      "reversed-portable-789.jsonl": 0.9671278931923742
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 64,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9703676016511197,
+    "min_run_ratio": 0.9469643620254841,
+    "max_run_ratio": 0.9708670211553553,
+    "old_ns_per_op": 38816.875,
+    "new_ns_per_op": 37659.75,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9469643620254841,
+      "retained-portable-456.jsonl": 0.9708670211553553,
+      "reversed-portable-789.jsonl": 0.9703676016511197
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 16,
+    "split1": false,
+    "median_ratio": 1.0066837122367482,
+    "min_run_ratio": 0.9995277194197693,
+    "max_run_ratio": 1.0074174784856116,
+    "old_ns_per_op": 2416.337158203125,
+    "new_ns_per_op": 2415.2938232421875,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0074174784856116,
+      "retained-portable-456.jsonl": 0.9995277194197693,
+      "reversed-portable-789.jsonl": 1.0066837122367482
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 16,
+    "split1": true,
+    "median_ratio": 1.0022797816765965,
+    "min_run_ratio": 1.0017319264377926,
+    "max_run_ratio": 1.004649348150848,
+    "old_ns_per_op": 2402.58544921875,
+    "new_ns_per_op": 2410.4615478515625,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0017319264377926,
+      "retained-portable-456.jsonl": 1.004649348150848,
+      "reversed-portable-789.jsonl": 1.0022797816765965
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 64,
+    "split1": false,
+    "median_ratio": 0.9991447468682374,
+    "min_run_ratio": 0.9951488000103127,
+    "max_run_ratio": 0.9997969211050654,
+    "old_ns_per_op": 2404.6318359375,
+    "new_ns_per_op": 2413.11474609375,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9951488000103127,
+      "retained-portable-456.jsonl": 0.9991447468682374,
+      "reversed-portable-789.jsonl": 0.9997969211050654
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 64,
+    "split1": true,
+    "median_ratio": 1.0071034653358772,
+    "min_run_ratio": 1.0010770525922945,
+    "max_run_ratio": 1.007279605513601,
+    "old_ns_per_op": 2410.22314453125,
+    "new_ns_per_op": 2438.00537109375,
+    "runs": {
+      "retained-portable-123.jsonl": 1.0010770525922945,
+      "retained-portable-456.jsonl": 1.007279605513601,
+      "reversed-portable-789.jsonl": 1.0071034653358772
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 1024,
+    "split1": false,
+    "median_ratio": 0.9532647444651293,
+    "min_run_ratio": 0.9466592960019123,
+    "max_run_ratio": 0.9598931712483308,
+    "old_ns_per_op": 2595.59375,
+    "new_ns_per_op": 2460.96875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9532647444651293,
+      "retained-portable-456.jsonl": 0.9466592960019123,
+      "reversed-portable-789.jsonl": 0.9598931712483308
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 1024,
+    "split1": true,
+    "median_ratio": 0.9624851602690938,
+    "min_run_ratio": 0.9552729110512129,
+    "max_run_ratio": 0.9639596333196573,
+    "old_ns_per_op": 2562.71875,
+    "new_ns_per_op": 2450.171875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9624851602690938,
+      "retained-portable-456.jsonl": 0.9552729110512129,
+      "reversed-portable-789.jsonl": 0.9639596333196573
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 16384,
+    "split1": false,
+    "median_ratio": 0.9501411072233603,
+    "min_run_ratio": 0.9432557271497224,
+    "max_run_ratio": 0.9531421587461012,
+    "old_ns_per_op": 40711.75,
+    "new_ns_per_op": 38523.875,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9531421587461012,
+      "retained-portable-456.jsonl": 0.9501411072233603,
+      "reversed-portable-789.jsonl": 0.9432557271497224
+    }
+  },
+  {
+    "target": "portable",
+    "mode": "OFB-xor",
+    "m": 65,
+    "bytes": 16384,
+    "split1": true,
+    "median_ratio": 0.9474695510299755,
+    "min_run_ratio": 0.9375661343016064,
+    "max_run_ratio": 0.9576227917900542,
+    "old_ns_per_op": 40470.125,
+    "new_ns_per_op": 38406.25,
+    "runs": {
+      "retained-portable-123.jsonl": 0.9474695510299755,
+      "retained-portable-456.jsonl": 0.9375661343016064,
+      "reversed-portable-789.jsonl": 0.9576227917900542
+    }
+  }
+]
