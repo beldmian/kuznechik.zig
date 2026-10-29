@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.1 — 2026-10-29
+
+- Feed complete CCM MAC blocks directly into the cipher, reducing copying and partial-buffer bookkeeping while preserving unaligned input support.
+- Retain the measured native opening improvement after multiple seeds and reversed module layout; portable performance and large-message sealing remain approximately tied.
+- Record the rejected tail-retuning experiment: its gains did not repeat and some unchanged tails regressed, so the existing policy remains.
+- Verify 5,184 alignment/boundary cases, native and portable optimization modes, and AArch64 compilation.
+
 ## 0.7.0 — 2026-10-29
 
 - Add all seven RFC 8645 internal modes: CTR/GCM-ACPKM, CTR/GCM/CBC/CFB/OMAC-ACPKM-Master, plus ACPKM and ACPKM-Master derivations.
