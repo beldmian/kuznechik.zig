@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/home/t3/.local/bin/boat",
+    "exec",
+    "bx_3xm8e3yn",
+    "--timeout",
+    "120",
+    "--",
+    "taskset",
+    "-c",
+    "0",
+    "/home/user/toeplitz-tails/public-pairs",
+    "838383"
+  ],
+  "returncode": 0,
+  "stderr": ""
+}

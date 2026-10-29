@@ -96,6 +96,11 @@ test "S and S inverse transition test" {
     const vect_s_test_out = @Vector(16, u8){ 0xb6, 0x6c, 0xd8, 0x88, 0x7d, 0x38, 0xe8, 0xd7, 0x77, 0x65, 0xae, 0xea, 0x0c, 0x9a, 0x7e, 0xfc };
     try testing.expectEqual(s_trans(vect_s_test), vect_s_test_out);
     try testing.expectEqual(s_inv_trans(vect_s_test_out), vect_s_test);
+    for (0..256) |value| {
+        const input: block = @splat(@intCast(value));
+        try testing.expectEqual(input, s_inv_trans(s_trans(input)));
+        try testing.expectEqual(input, s_trans(s_inv_trans(input)));
+    }
 }
 
 test "L and L inverse transition test" {

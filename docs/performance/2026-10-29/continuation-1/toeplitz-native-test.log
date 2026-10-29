@@ -1,0 +1,22 @@
+1/21 kuznechik.test.LS transition test...OK
+2/21 kuznechik.test.LS inverse transition test...OK
+3/21 kuznechik.test.Iterational constants test...OK
+4/21 kuznechik.test.Iterational keys test...OK
+5/21 kuznechik.test.lookup key setup matches every basic Feistel and inverse key...OK
+6/21 kuznechik.test.Cipher test...OK
+7/21 kuznechik.test.optimized cipher matches basic transformations for independent inputs...OK
+8/21 kuznechik.test.bulk operations match independent blocks at every batch and tail boundary...OK
+9/21 luts.test.generated lookup tables match basic transformations exhaustively...OK
+10/21 transitions.test.X transition test...OK
+11/21 transitions.test.S and S inverse transition test...OK
+12/21 transitions.test.L and L inverse transition test...OK
+13/21 hybrid.test.hybrid contributions and endpoint match every byte...OK
+14/21 gfni.test.field isomorphism preserves every byte product...OK
+15/21 gfni.test.GFNI affine and S-box instructions agree for every byte...OK
+16/21 gfni.test.GFNI linear layers match every binary basis vector...OK
+17/21 toeplitz.test.Toeplitz position substitutions and key encoding match every byte...OK
+18/21 toeplitz.test.Toeplitz normalized linear layers match every binary basis vector...OK
+19/21 sliced.test.sliced GFNI constant multipliers and S-boxes match every byte...OK
+20/21 sliced.test.sliced linear layers match every binary basis vector...OK
+21/21 transpose.test.byte transpose mapping and inverse at every block alignment...OK
+All 21 tests passed.

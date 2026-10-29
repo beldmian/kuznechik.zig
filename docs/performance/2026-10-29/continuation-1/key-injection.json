@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-29",
+  "scope": "Incremental batch optimization over the already optimized first-pass source, not the original repository.",
+  "selected": "Compensated feedback key injection seeded into the existing unit-term ternary XOR.",
+  "dispatch": "GFNI-capable LLVM build, measured znver5 CPU model, public bulk length>=512; other paths unchanged.",
+  "math": "q[r]=target[r] XOR sum(c[r-j-1]*target[j],j<r), in feedback-generation order; each injected feedback equals its unkeyed value XOR the requested final output-key byte.",
+  "preparation": "Three four-key ZMM chunks. Symmetric shifts and148=133 XOR16 XOR1 reduce each triangular key transform to six GFNI operations. Preparation is inside whole-buffer timing.",
+  "evidence": {
+    "discovery": "discovery.jsonl",
+    "unit_seed_discovery": "unit.jsonl",
+    "confirmation_H_31pairs": "confirmation.jsonl",
+    "replication_F_31pairs": "replication.jsonl",
+    "public_API_31pairs": "api.jsonl",
+    "consolidated_API_31pairs": "consolidated.jsonl"
+  },
+  "correctness": [
+    "8192 single-byte target-key values and2000 random linear identity checks",
+    "Exhaustive triangular preparation checks across all byte values/positions and10keys",
+    "Native public API tests including511/512/513 and1023/1024/1025 with guards/alignment offsets",
+    "Full output comparison after every paired sample, independent encryption and arbitrary-input decryption"
+  ],
+  "rejected": "Seeding the final feedback ternary XOR was slower for decryption; unit-term seeding preserves more favorable scheduling.",
+  "limits": "Small gains vary with frequency and code layout. Kernel-only results exclude setup; only including_preparation and public_API results include it.",
+  "source_sha256": {
+    "derive.py": "d79f90d2d8c1356e210568f5e46895e3a1b05b8c2e106ff1160a3d978933c1b0",
+    "sliced_inject.zig": "63baacfbb593f4416019259f786a051e4c93e9cc10764d84b89dc570c5d2d5a1",
+    "sliced_inject_unit.zig": "60ba8a733192f74739f2dd5a506bbf6ca61fb316835f531539b9ccfe5f7360e4",
+    "bench_confirm.zig": "5c8502fb9ea33c285cc3d7427091e92b055d31d31de5d7718e431daaed4c0b49",
+    "bench_api.zig": "ea4f7f63894f9d7ea8f704c0f7ddcce0861fa6c1e113b72b24066f25b46be6b8"
+  }
+}

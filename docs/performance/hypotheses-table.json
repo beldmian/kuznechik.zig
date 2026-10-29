@@ -1,0 +1,2797 @@
+{
+  "toolchain": "Zig 0.15.1",
+  "measurement": "Runtime random key; evolving ciphertext chain; correctness comparison before timing; pinned core 1; release-fast; native target unless explicitly generic; repeated full-process runs",
+  "zen5": {
+    "cpu": "AMD Ryzen 9 9950X",
+    "encryption_ns": {
+      "baseline_vector_lut": [
+        71.34,
+        74.18
+      ],
+      "scalar_index_but_vector_state": [
+        70.7,
+        72.9
+      ],
+      "u64_aos_accumulator_but_vector_state": [
+        81.5,
+        83.5
+      ],
+      "u64_split_table_vector_state": [
+        71.4,
+        73.0
+      ],
+      "nibble_l_table_8k_plus_pi": [
+        99.5,
+        103.1
+      ],
+      "vector_roundloop": [
+        70.6,
+        72.5
+      ],
+      "opaque_gpr_index_vector_accum": [
+        64.5,
+        65.4
+      ],
+      "manual_offset_vector_accum": [
+        66.5,
+        68.0
+      ],
+      "scalar_state_u64_aos": [
+        55.4,
+        56.4
+      ],
+      "scalar_manual_offset_unforced_group4": [
+        53.6,
+        54.3
+      ],
+      "scalar_manual_forced_group2": [
+        50.2,
+        50.6
+      ],
+      "scalar_manual_forced_group4": [
+        49.0,
+        49.7
+      ],
+      "scalar_manual_forced_group4_key_seeded": [
+        48.18,
+        49.83
+      ],
+      "scalar_dynamic_roundloop": [
+        68.1,
+        69.1
+      ],
+      "avx512_qword_gather": [
+        123.9,
+        125.2
+      ],
+      "fused16bit_table_1m": [
+        63.2,
+        64.6
+      ],
+      "fused16bit_table_2m": [
+        98.3,
+        103.6
+      ],
+      "fused16bit_table_4m": [
+        119.6,
+        120.7
+      ],
+      "fused16bit_table_8m": [
+        127.9,
+        128.1
+      ],
+      "gpr_extraction_balanced_vector_accumulators": [
+        58.28,
+        62.16
+      ]
+    },
+    "decryption_ns": {
+      "baseline_vector_lut": [
+        79.3,
+        84.0
+      ],
+      "scalar_state_scalar_endpoints": [
+        62.0,
+        62.6
+      ],
+      "scalar_state_vector_endpoints": [
+        68.6,
+        72.6
+      ],
+      "pure_inverse_first_l_table": [
+        63.9,
+        65.8
+      ],
+      "scalar_manual_offset": [
+        60.8,
+        61.6
+      ],
+      "scalar_manual_vbmi_endpoints": [
+        59.9,
+        60.8
+      ],
+      "scalar_forced_group4": [
+        58.2,
+        61.2
+      ],
+      "scalar_forced_group4_key_seeded": [
+        55.6,
+        58.3
+      ]
+    },
+    "perf_3_runs_10m_plus_100k_warmup": {
+      "encryption_baseline": {
+        "cycles": 4021580839,
+        "instructions": 4583358313,
+        "ipc": 1.14,
+        "elapsed_ns_per_block": [
+          75.299,
+          75.705,
+          75.641
+        ]
+      },
+      "encryption_seeded4": {
+        "cycles": 2708878009,
+        "instructions": 7874248330,
+        "ipc": 2.91,
+        "elapsed_ns_per_block": [
+          52.286,
+          50.047,
+          50.895
+        ]
+      },
+      "decryption_baseline": {
+        "cycles": 4489010271,
+        "instructions": 5078789647,
+        "ipc": 1.13,
+        "elapsed_ns_per_block": [
+          84.132,
+          84.064,
+          83.998
+        ]
+      },
+      "decryption_seeded4": {
+        "cycles": 2996683511,
+        "instructions": 9096770559,
+        "ipc": 3.04,
+        "elapsed_ns_per_block": [
+          57.008,
+          56.169,
+          56.505
+        ]
+      },
+      "cache": "LLC misses around 0.02\u20130.03% of reported cache references. L1 load-miss counter always zero, so unsuitable for L1 conclusions in this VM.",
+      "encryption_unseeded": {
+        "cycles": 2820476507,
+        "instructions": 7864348252,
+        "ipc": 2.79,
+        "elapsed_ns_per_block": [
+          55.591,
+          52.724,
+          53.561
+        ]
+      },
+      "decryption_unseeded": {
+        "cycles": 3160821059,
+        "instructions": 9066678809,
+        "ipc": 2.87,
+        "elapsed_ns_per_block": [
+          59.537,
+          62.431,
+          59.029
+        ]
+      }
+    }
+  },
+  "broadwell": {
+    "cpu": "Intel Xeon E5-2690 v4",
+    "encryption_ns": {
+      "baseline": [
+        112.3,
+        118.6
+      ],
+      "scalar_state_u64_aos": [
+        127.6,
+        134.2
+      ],
+      "scalar_state_manual_offset_group4": [
+        126.3,
+        127.8
+      ],
+      "scalar_nibble_table": [
+        164.8,
+        166.0
+      ],
+      "forced_vector_group4": [
+        134.5,
+        136.4
+      ],
+      "forced_vector_group8": [
+        117.9,
+        120.1
+      ],
+      "gpr_manual_vector_accum_group2": [
+        108.7,
+        113.5
+      ],
+      "gpr_manual_vector_accum_group4": [
+        109.7,
+        111.6
+      ]
+    },
+    "decryption_ns": {
+      "baseline": [
+        123.0,
+        125.5
+      ],
+      "scalar_state": [
+        138.5,
+        141.7
+      ],
+      "forced_vector_group4": [
+        145.9,
+        149.4
+      ],
+      "gpr_vector_accum": [
+        129.2,
+        134.3
+      ]
+    }
+  },
+  "interpretation": "Zen5 benefits from avoiding 16 SIMD byte extracts per round and enforcing four independent short XOR chains. Seed round keys into the first partial accumulator to remove key XOR from final reduction dependency. This uses more integer instructions and loads but substantially improves IPC. Broadwell has a different tradeoff and must retain a separately measured backend. None of these experiments proves a physical optimum.",
+  "date": "2026-10-29",
+  "notes": [
+    "Microbenchmark ranges summarize several independent runs and code-shape matrices; compare variants within their recorded run because VM scheduling and CPU clock changes add noise.",
+    "These experiments test single-block dependency latency, rather than bulk throughput. The retained bulk backend has separate measurements.",
+    "No evidence here establishes a physical performance optimum.",
+    "All tested kernels were checked against the pre-change table implementation before timing. The gather prototype additionally passed 10,000 randomized block comparisons."
+  ],
+  "raw_logs": {
+    "zen5_forced_scalar_xor_groups": "baseline: 72.69 ns best 73.11 ns mean\nscalar_manual4: 53.37 ns best 53.56 ns mean\nforced2_manual0: 53.07 ns best 53.45 ns mean\nforced2_manual1: 50.22 ns best 50.38 ns mean\nforced4_manual0: 51.94 ns best 52.01 ns mean\nforced4_manual1: 49.00 ns best 49.09 ns mean\nbaseline-end: 72.28 ns best 72.55 ns mean",
+    "zen5_key_seeded_encrypt": "baseline: 72.04 ns best 72.62 ns mean\nbalanced2_seed0: 50.46 ns best 50.63 ns mean\nbalanced2_seed1: 49.94 ns best 50.01 ns mean\nbalanced3_seed0: 49.75 ns best 50.52 ns mean\nbalanced3_seed1: 49.25 ns best 50.66 ns mean\nbalanced4_seed0: 49.00 ns best 49.08 ns mean\nbalanced4_seed1: 48.32 ns best 49.83 ns mean\nbalanced5_seed0: 49.13 ns best 49.38 ns mean\nbalanced5_seed1: 48.18 ns best 48.49 ns mean\nbalanced8_seed0: 50.29 ns best 50.43 ns mean\nbalanced8_seed1: 49.35 ns best 49.40 ns mean\nbaseline-end: 72.55 ns best 72.71 ns mean",
+    "zen5_key_seeded_decrypt": "baseline: 83.45 ns best 84.01 ns mean\nforced4_ends0: 58.83 ns best 60.39 ns mean\nforced5_ends0: 59.43 ns best 61.46 ns mean\nseeded3: 57.37 ns best 60.24 ns mean\nseeded4: 55.63 ns best 57.28 ns mean\nseeded5: 58.44 ns best 61.01 ns mean\nbaseline-end: 84.03 ns best 86.43 ns mean",
+    "zen5_gather_rejected": "baseline: median73.200ns min72.785ns\nscalar_manual4: median53.813ns min53.134ns\ngather: median125.207ns min120.628ns\nscalar_manual4: median52.888ns min52.625ns\nbaseline: median72.874ns min72.570ns",
+    "zen5_fused_tables_rejected": "baseline: 72.38 ns best 73.45 ns mean\nscalar_forced4: 50.57 ns best 51.64 ns mean\npair1_1MiB: 64.56 ns best 67.20 ns mean\npair2_2MiB: 98.27 ns best 108.29 ns mean\npair4_4MiB: 119.55 ns best 126.16 ns mean\npair8_8MiB: 128.09 ns best 156.23 ns mean\nbaseline-end: 72.74 ns best 73.40 ns mean",
+    "broadwell_gpr_extract_balanced_vector_encrypt": "baseline: 114.41 ns best 127.67 ns mean\ngpr_enc1: 109.21 ns best 114.06 ns mean\ngpr_enc2: 108.67 ns best 112.18 ns mean\ngpr_enc3: 111.44 ns best 122.83 ns mean\ngpr_enc4: 110.71 ns best 114.39 ns mean\ngpr_enc5: 110.25 ns best 111.49 ns mean\ngpr_enc8: 110.88 ns best 113.24 ns mean\nbaseline-end: 114.98 ns best 116.23 ns mean",
+    "broadwell_long_chains_5m_blocks_each": "baseline,117.643ns\ngpr1,114.113ns\nbaseline,118.561ns\ngpr2,113.470ns\nbaseline,125.999ns\ngpr4,111.630ns\ngpr2,108.711ns\nbaseline,115.775ns",
+    "broadwell_decrypt_gpr_rejected": "baseline: 123.72 ns best 126.13 ns mean\ngpr_dec1: 134.14 ns best 137.54 ns mean\ngpr_dec2: 132.20 ns best 134.44 ns mean\ngpr_dec3: 134.34 ns best 137.69 ns mean\ngpr_dec4: 129.89 ns best 132.08 ns mean\ngpr_dec5: 129.81 ns best 130.98 ns mean\ngpr_dec8: 129.22 ns best 131.09 ns mean\nbaseline-end: 125.49 ns best 127.00 ns mean"
+  },
+  "byte_sliced_lfsr": {
+    "cpu": "AMD Ryzen 9 9950X",
+    "toolchain": "Zig 0.15.1, ReleaseFast, native target",
+    "workload": {
+      "pin_cpu": 1,
+      "blocks_per_sample": 4194304,
+      "warmup_blocks": 524288,
+      "samples": 9,
+      "batch_widths": [
+        64,
+        1024
+      ],
+      "includes_transpose": true,
+      "runtime_random_keys_and_inputs": true,
+      "dependent_batches": true
+    },
+    "correctness": "Each candidate: 32 runtime keys, 64 arbitrary plaintext blocks per key and 64 arbitrary ciphertext blocks per key, encryption and decryption checked against scalar reference and original seven-multiplication kernel; roundtrip also checked. Final candidate matrix passed all 16 tests; full coefficient-choice matrix passed all 19 tests.",
+    "algebra": {
+      "identity": "0x94 XOR 0x85 XOR 0x10 = 1",
+      "six_flat_multipliers": "148*a0 XOR 133*a2 XOR 16*a3 = a0 XOR 133*(a0 XOR a2) XOR 16*(a0 XOR a3)",
+      "winning_seven_multipliers": "Compute 148*critical separately. Replace 148*independent XOR 133*a2 XOR 16*a3 with independent XOR 133*(independent XOR a2) XOR 16*(independent XOR a3). XOR the separate critical product with the complete independent sum only at the end.",
+      "critical_byte": "Forward R: state[0]; inverse R: state[15].",
+      "independent_byte": "Forward R: state[14]; inverse R: state[1]."
+    },
+    "assembly_observation": "The third vm-constrained operand of xor3 became stack memory even for computed vector values. Register-only v constraints removed those stores and memory dependencies. The fastest algebra keeps the newest feedback in one GFNI multiplication followed by one final XOR.",
+    "rejected": [
+      "Naive six-multiplication algebra with original vm xor3 operands: around 10.8 ns/block versus 5.3 ns/block original; correctness passed but throughput regressed.",
+      "Register-only xor3, six products by eliminating coefficient 148, 133, or 16: still slower than unsplit seven-product register-only kernel.",
+      "Five-TERNLOG partition replacing final XOR saved one instruction per R but did not consistently improve measured performance; retain the simpler final-XOR reduction."
+    ],
+    "coefficient_choices_original_transpose_vm": [
+      {
+        "kernel": "seven_mul",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 5.3854,
+        "min_ns_per_block": 5.2806,
+        "checksum": "fb499de53c1fa53a",
+        "samples": [
+          22148348,
+          22609521,
+          22588092,
+          22861604,
+          22696956,
+          22491650,
+          22821338,
+          22553245,
+          22507449
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 4.9891,
+        "min_ns_per_block": 4.9074,
+        "checksum": "fb499de53c1fa53a",
+        "samples": [
+          20583018,
+          21085859,
+          20925739,
+          21077383,
+          20886415,
+          20834859,
+          21017231,
+          21056515,
+          20831593
+        ]
+      },
+      {
+        "kernel": "six_remove148",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 5.9629,
+        "min_ns_per_block": 5.9263,
+        "checksum": "fb499de53c1fa53a",
+        "samples": [
+          25010106,
+          25228686,
+          24958210,
+          25239977,
+          24856598,
+          24916210,
+          24944693,
+          25172770,
+          25231059
+        ]
+      },
+      {
+        "kernel": "six_remove133",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 5.3665,
+        "min_ns_per_block": 5.2671,
+        "checksum": "fb499de53c1fa53a",
+        "samples": [
+          22508533,
+          22698348,
+          23249009,
+          22845934,
+          22344556,
+          22091752,
+          22105397,
+          22595416,
+          22263785
+        ]
+      },
+      {
+        "kernel": "six_remove16",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 5.2958,
+        "min_ns_per_block": 5.2384,
+        "checksum": "fb499de53c1fa53a",
+        "samples": [
+          22015720,
+          22269215,
+          22584735,
+          22212017,
+          22030668,
+          22164880,
+          22262142,
+          22365435,
+          21971436
+        ]
+      },
+      {
+        "kernel": "seven_split",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 4.3328,
+        "min_ns_per_block": 4.2447,
+        "checksum": "fb499de53c1fa53a",
+        "samples": [
+          17988169,
+          18024057,
+          18173145,
+          18252754,
+          18458579,
+          18221817,
+          18207850,
+          17803514,
+          18129173
+        ]
+      },
+      {
+        "kernel": "seven_mul_repeat",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 5.3941,
+        "min_ns_per_block": 5.2805,
+        "checksum": "fb499de53c1fa53a",
+        "samples": [
+          22788106,
+          24637660,
+          23262574,
+          22148077,
+          22431168,
+          22583774,
+          22628968,
+          22609563,
+          22624289
+        ]
+      },
+      {
+        "kernel": "seven_mul",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 5.2224,
+        "min_ns_per_block": 5.1945,
+        "checksum": "85def3aadd8b752b",
+        "samples": [
+          21815234,
+          21904362,
+          21787232,
+          21935480,
+          22008566,
+          21967039,
+          22250089,
+          21843567,
+          21806027
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 4.9511,
+        "min_ns_per_block": 4.9356,
+        "checksum": "85def3aadd8b752b",
+        "samples": [
+          21003154,
+          20825451,
+          20753307,
+          20715164,
+          20701280,
+          20731706,
+          20824640,
+          20766301,
+          20787269
+        ]
+      },
+      {
+        "kernel": "six_remove148",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 5.9634,
+        "min_ns_per_block": 5.9338,
+        "checksum": "85def3aadd8b752b",
+        "samples": [
+          25010087,
+          24957228,
+          24888048,
+          25207997,
+          25019544,
+          25689539,
+          25678106,
+          24947389,
+          25012331
+        ]
+      },
+      {
+        "kernel": "six_remove133",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 5.2755,
+        "min_ns_per_block": 5.2248,
+        "checksum": "85def3aadd8b752b",
+        "samples": [
+          22092072,
+          22082586,
+          22149822,
+          22100718,
+          22126979,
+          26316893,
+          22208982,
+          21914200,
+          22599103
+        ]
+      },
+      {
+        "kernel": "six_remove16",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 5.2338,
+        "min_ns_per_block": 5.2191,
+        "checksum": "85def3aadd8b752b",
+        "samples": [
+          21937343,
+          22055615,
+          22156013,
+          21968060,
+          21890456,
+          21952161,
+          21940589,
+          21946621,
+          22073478
+        ]
+      },
+      {
+        "kernel": "seven_split",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 4.2463,
+        "min_ns_per_block": 4.2249,
+        "checksum": "85def3aadd8b752b",
+        "samples": [
+          17720477,
+          17810357,
+          17829653,
+          17929940,
+          17788396,
+          17791240,
+          17788225,
+          17812690,
+          17844020
+        ]
+      },
+      {
+        "kernel": "seven_mul_repeat",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 5.1438,
+        "min_ns_per_block": 5.1172,
+        "checksum": "85def3aadd8b752b",
+        "samples": [
+          21546652,
+          21462895,
+          21469276,
+          21574645,
+          21642951,
+          21721249,
+          21894442,
+          21574804,
+          21525993
+        ]
+      },
+      {
+        "kernel": "seven_mul",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 5.3869,
+        "min_ns_per_block": 5.3461,
+        "checksum": "837d6a1f91ebe024",
+        "samples": [
+          22655797,
+          22806290,
+          22594422,
+          22533880,
+          22443331,
+          22423123,
+          22576520,
+          22890378,
+          22657081
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 4.9406,
+        "min_ns_per_block": 4.9326,
+        "checksum": "837d6a1f91ebe024",
+        "samples": [
+          20829479,
+          20698503,
+          20689007,
+          20690909,
+          20722288,
+          20745351,
+          20837424,
+          20808510,
+          20716938
+        ]
+      },
+      {
+        "kernel": "six_remove148",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 6.005,
+        "min_ns_per_block": 5.9936,
+        "checksum": "837d6a1f91ebe024",
+        "samples": [
+          25186648,
+          25197428,
+          25212045,
+          25334514,
+          25227053,
+          25163454,
+          25147291,
+          25167340,
+          25138977
+        ]
+      },
+      {
+        "kernel": "six_remove133",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 5.315,
+        "min_ns_per_block": 5.3014,
+        "checksum": "837d6a1f91ebe024",
+        "samples": [
+          22269204,
+          22344324,
+          22264896,
+          22235591,
+          22278322,
+          22292648,
+          22344656,
+          22309540,
+          22323175
+        ]
+      },
+      {
+        "kernel": "six_remove16",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 5.2897,
+        "min_ns_per_block": 5.2671,
+        "checksum": "837d6a1f91ebe024",
+        "samples": [
+          22146184,
+          22107792,
+          22091653,
+          22106238,
+          22186449,
+          22211818,
+          22422922,
+          22689261,
+          23044686
+        ]
+      },
+      {
+        "kernel": "seven_split",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 4.4217,
+        "min_ns_per_block": 4.3356,
+        "checksum": "837d6a1f91ebe024",
+        "samples": [
+          18650759,
+          19386799,
+          18545994,
+          18599964,
+          18184727,
+          19455055,
+          18514284,
+          18338805,
+          18438502
+        ]
+      },
+      {
+        "kernel": "seven_mul_repeat",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 5.5446,
+        "min_ns_per_block": 5.3815,
+        "checksum": "837d6a1f91ebe024",
+        "samples": [
+          22897771,
+          23255722,
+          24331907,
+          24174761,
+          22926186,
+          23327817,
+          23789190,
+          22571591,
+          23020081
+        ]
+      },
+      {
+        "kernel": "seven_mul",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 5.3044,
+        "min_ns_per_block": 5.1748,
+        "checksum": "ad2e651386eede47",
+        "samples": [
+          22649316,
+          22065935,
+          21704698,
+          22248256,
+          23979086,
+          22810999,
+          22036769,
+          22219121,
+          22868136
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 5.3252,
+        "min_ns_per_block": 5.259,
+        "checksum": "ad2e651386eede47",
+        "samples": [
+          22397745,
+          22277149,
+          22414477,
+          22264164,
+          22057980,
+          22162995,
+          22335358,
+          22383530,
+          22449130
+        ]
+      },
+      {
+        "kernel": "six_remove148",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 6.4349,
+        "min_ns_per_block": 6.2846,
+        "checksum": "ad2e651386eede47",
+        "samples": [
+          27034467,
+          26801911,
+          27002135,
+          26807753,
+          26359502,
+          26989753,
+          26982999,
+          27729377,
+          27445717
+        ]
+      },
+      {
+        "kernel": "six_remove133",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 5.5357,
+        "min_ns_per_block": 5.3644,
+        "checksum": "ad2e651386eede47",
+        "samples": [
+          23509467,
+          23334079,
+          23147239,
+          23218471,
+          23156407,
+          23427925,
+          24125078,
+          22661039,
+          22499847
+        ]
+      },
+      {
+        "kernel": "six_remove16",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 5.276,
+        "min_ns_per_block": 5.2457,
+        "checksum": "ad2e651386eede47",
+        "samples": [
+          22308909,
+          22129233,
+          22100118,
+          22194195,
+          22002114,
+          22070863,
+          22098214,
+          23193104,
+          23327607
+        ]
+      },
+      {
+        "kernel": "seven_split",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 4.3462,
+        "min_ns_per_block": 4.3041,
+        "checksum": "ad2e651386eede47",
+        "samples": [
+          18959679,
+          18331783,
+          18189096,
+          18052619,
+          18342793,
+          18602098,
+          18214693,
+          18214263,
+          18229171
+        ]
+      },
+      {
+        "kernel": "seven_mul_repeat",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 5.3145,
+        "min_ns_per_block": 5.2446,
+        "checksum": "ad2e651386eede47",
+        "samples": [
+          22702125,
+          23907371,
+          22226345,
+          21997527,
+          22086972,
+          22515656,
+          22290836,
+          22930002,
+          22266890
+        ]
+      }
+    ],
+    "latest_feedback_split_original_transpose_vm": [
+      {
+        "kernel": "seven_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 5.1648,
+        "min_ns_per_block": 5.0825,
+        "checksum": "9ac4b796f3f51c3b",
+        "samples": [
+          22024248,
+          21375544,
+          21317365,
+          21544730,
+          21658034,
+          21662862,
+          21724627,
+          21692808,
+          21735308
+        ]
+      },
+      {
+        "kernel": "eight_split_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 4.4184,
+        "min_ns_per_block": 4.3857,
+        "checksum": "9ac4b796f3f51c3b",
+        "samples": [
+          19044479,
+          19394915,
+          18531929,
+          18468261,
+          18476046,
+          18553398,
+          18609766,
+          18448663,
+          18394933
+        ]
+      },
+      {
+        "kernel": "seven_split_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 4.4604,
+        "min_ns_per_block": 4.36,
+        "checksum": "9ac4b796f3f51c3b",
+        "samples": [
+          18674046,
+          18708349,
+          18805041,
+          18744378,
+          19349158,
+          18696068,
+          18287131,
+          18548350,
+          18986762
+        ]
+      },
+      {
+        "kernel": "seven_split_final_xor_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 4.301,
+        "min_ns_per_block": 4.2308,
+        "checksum": "9ac4b796f3f51c3b",
+        "samples": [
+          17935463,
+          18089982,
+          18439947,
+          18039688,
+          18322127,
+          18044096,
+          17914664,
+          17805720,
+          17745286
+        ]
+      },
+      {
+        "kernel": "seven_reg_repeat",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 5.2121,
+        "min_ns_per_block": 5.1211,
+        "checksum": "9ac4b796f3f51c3b",
+        "samples": [
+          21479518,
+          21589063,
+          21955440,
+          21797444,
+          22115369,
+          21770073,
+          21861033,
+          22040878,
+          22340461
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 5.0659,
+        "min_ns_per_block": 5.0332,
+        "checksum": "2d24a2fa8fabf8dd",
+        "samples": [
+          23426034,
+          21433413,
+          21275066,
+          21110869,
+          21149331,
+          21248075,
+          21261311,
+          21208341,
+          21128792
+        ]
+      },
+      {
+        "kernel": "eight_split_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 4.376,
+        "min_ns_per_block": 4.2087,
+        "checksum": "2d24a2fa8fabf8dd",
+        "samples": [
+          17662963,
+          17652673,
+          17849442,
+          18126751,
+          18354157,
+          18673054,
+          19417597,
+          19066641,
+          20074537
+        ]
+      },
+      {
+        "kernel": "seven_split_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 4.4216,
+        "min_ns_per_block": 4.2882,
+        "checksum": "2d24a2fa8fabf8dd",
+        "samples": [
+          19240506,
+          18883046,
+          23496604,
+          18545555,
+          18915858,
+          18275591,
+          18142229,
+          18011676,
+          17986169
+        ]
+      },
+      {
+        "kernel": "seven_split_final_xor_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 4.1329,
+        "min_ns_per_block": 4.0234,
+        "checksum": "2d24a2fa8fabf8dd",
+        "samples": [
+          17677570,
+          17334478,
+          17369633,
+          16975015,
+          17547136,
+          17780032,
+          16875197,
+          17303070,
+          17101041
+        ]
+      },
+      {
+        "kernel": "seven_reg_repeat",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 5.1585,
+        "min_ns_per_block": 5.0748,
+        "checksum": "2d24a2fa8fabf8dd",
+        "samples": [
+          21714559,
+          21484076,
+          21592801,
+          21621075,
+          21636432,
+          22143952,
+          24447086,
+          22519897,
+          21285285
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 5.0121,
+        "min_ns_per_block": 4.9876,
+        "checksum": "8817db430bb576d2",
+        "samples": [
+          21061295,
+          20994280,
+          20987717,
+          20992448,
+          20919460,
+          21029487,
+          21149150,
+          21102171,
+          21022093
+        ]
+      },
+      {
+        "kernel": "eight_split_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 4.3215,
+        "min_ns_per_block": 4.2479,
+        "checksum": "8817db430bb576d2",
+        "samples": [
+          18594406,
+          21272892,
+          18212873,
+          18125789,
+          18019450,
+          18000234,
+          18276261,
+          18077117,
+          17817111
+        ]
+      },
+      {
+        "kernel": "seven_split_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 4.3317,
+        "min_ns_per_block": 4.3213,
+        "checksum": "8817db430bb576d2",
+        "samples": [
+          18324572,
+          18268747,
+          18161136,
+          18125038,
+          18153671,
+          18217882,
+          18136610,
+          18168520,
+          18786537
+        ]
+      },
+      {
+        "kernel": "seven_split_final_xor_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 4.1712,
+        "min_ns_per_block": 4.1317,
+        "checksum": "8817db430bb576d2",
+        "samples": [
+          17757961,
+          17613831,
+          17993581,
+          17674564,
+          17487475,
+          17495448,
+          17347111,
+          17429736,
+          17329790
+        ]
+      },
+      {
+        "kernel": "seven_reg_repeat",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 4.9723,
+        "min_ns_per_block": 4.9575,
+        "checksum": "8817db430bb576d2",
+        "samples": [
+          20855220,
+          20793224,
+          20847285,
+          20814454,
+          20861341,
+          21354524,
+          20971508,
+          20894573,
+          20841134
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 5.039,
+        "min_ns_per_block": 4.9834,
+        "checksum": "8db321f502d68e18",
+        "samples": [
+          20959165,
+          20966900,
+          20901777,
+          21135034,
+          21156575,
+          21149842,
+          20995282,
+          21215284,
+          21225514
+        ]
+      },
+      {
+        "kernel": "eight_split_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 4.1817,
+        "min_ns_per_block": 4.1605,
+        "checksum": "8db321f502d68e18",
+        "samples": [
+          17604353,
+          17661059,
+          17523030,
+          17450274,
+          17461234,
+          17537547,
+          17599894,
+          17584085,
+          17539291
+        ]
+      },
+      {
+        "kernel": "seven_split_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 4.3068,
+        "min_ns_per_block": 4.2355,
+        "checksum": "8db321f502d68e18",
+        "samples": [
+          18077759,
+          18120890,
+          17978343,
+          17765013,
+          17847137,
+          17866966,
+          18063934,
+          18087456,
+          18425960
+        ]
+      },
+      {
+        "kernel": "seven_split_final_xor_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 4.0532,
+        "min_ns_per_block": 3.976,
+        "checksum": "8db321f502d68e18",
+        "samples": [
+          17326794,
+          16814866,
+          17105759,
+          17148008,
+          17042721,
+          17000152,
+          16959745,
+          16717313,
+          16676665
+        ]
+      },
+      {
+        "kernel": "seven_reg_repeat",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 5.0543,
+        "min_ns_per_block": 4.9727,
+        "checksum": "8db321f502d68e18",
+        "samples": [
+          20857214,
+          20946821,
+          21100358,
+          21199354,
+          21229431,
+          21190507,
+          21228107,
+          21358882,
+          22351401
+        ]
+      }
+    ],
+    "final_partition_comparison_transpose_registers": [
+      {
+        "kernel": "seven_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 4.6021,
+        "min_ns_per_block": 4.5945,
+        "checksum": "4bf411020a251f3",
+        "samples": [
+          19301784,
+          19325478,
+          19441115,
+          19486490,
+          19302577,
+          19328615,
+          19274031,
+          19282679,
+          19270836
+        ]
+      },
+      {
+        "kernel": "eight_split_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 3.8963,
+        "min_ns_per_block": 3.8364,
+        "checksum": "4bf411020a251f3",
+        "samples": [
+          16091212,
+          16171884,
+          16303930,
+          16460985,
+          16729608,
+          16375915,
+          16292680,
+          16342461,
+          16651281
+        ]
+      },
+      {
+        "kernel": "seven_split_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 4.0327,
+        "min_ns_per_block": 3.9708,
+        "checksum": "4bf411020a251f3",
+        "samples": [
+          17206040,
+          17035190,
+          17039678,
+          16966942,
+          16914272,
+          16783880,
+          16750697,
+          16731371,
+          16654877
+        ]
+      },
+      {
+        "kernel": "seven_split_final_xor_reg",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 3.7812,
+        "min_ns_per_block": 3.7533,
+        "checksum": "4bf411020a251f3",
+        "samples": [
+          15859578,
+          15790229,
+          15932785,
+          15861512,
+          15747790,
+          15742418,
+          15876150,
+          15910973,
+          15845683
+        ]
+      },
+      {
+        "kernel": "seven_split_final_ternlog",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 3.7584,
+        "min_ns_per_block": 3.7497,
+        "checksum": "4bf411020a251f3",
+        "samples": [
+          15808102,
+          15727360,
+          15740416,
+          15782614,
+          15732560,
+          15772115,
+          15800218,
+          15763979,
+          15756255
+        ]
+      },
+      {
+        "kernel": "eight_split_final_ternlog",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 3.8772,
+        "min_ns_per_block": 3.8529,
+        "checksum": "4bf411020a251f3",
+        "samples": [
+          16191711,
+          16203582,
+          16176672,
+          16160111,
+          16261962,
+          16396183,
+          16278593,
+          16314831,
+          16311476
+        ]
+      },
+      {
+        "kernel": "seven_reg_repeat",
+        "decrypt": false,
+        "width": 64,
+        "ns_per_block": 4.6058,
+        "min_ns_per_block": 4.5988,
+        "checksum": "4bf411020a251f3",
+        "samples": [
+          19288920,
+          19318086,
+          19658203,
+          19410077,
+          19478325,
+          19312054,
+          19324356,
+          19314888,
+          19313426
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 4.6216,
+        "min_ns_per_block": 4.6094,
+        "checksum": "d1cc3dfd766c35dc",
+        "samples": [
+          19387154,
+          19388767,
+          19422899,
+          19378769,
+          19400919,
+          19384218,
+          19363029,
+          19352530,
+          19333323
+        ]
+      },
+      {
+        "kernel": "eight_split_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 3.7489,
+        "min_ns_per_block": 3.7337,
+        "checksum": "d1cc3dfd766c35dc",
+        "samples": [
+          15721531,
+          15800727,
+          15794697,
+          15748059,
+          15724035,
+          15747698,
+          15689139,
+          15700630,
+          15660475
+        ]
+      },
+      {
+        "kernel": "seven_split_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 3.8311,
+        "min_ns_per_block": 3.8148,
+        "checksum": "d1cc3dfd766c35dc",
+        "samples": [
+          16000442,
+          16030548,
+          16055677,
+          16178565,
+          16172655,
+          16070954,
+          16068739,
+          16010671,
+          16166993
+        ]
+      },
+      {
+        "kernel": "seven_split_final_xor_reg",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 3.5585,
+        "min_ns_per_block": 3.552,
+        "checksum": "d1cc3dfd766c35dc",
+        "samples": [
+          14949304,
+          14925349,
+          14921672,
+          14941780,
+          14898198,
+          14921772,
+          15001581,
+          14925530,
+          14993166
+        ]
+      },
+      {
+        "kernel": "seven_split_final_ternlog",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 3.633,
+        "min_ns_per_block": 3.6203,
+        "checksum": "d1cc3dfd766c35dc",
+        "samples": [
+          15224239,
+          15206215,
+          15184824,
+          15230340,
+          15375652,
+          15246029,
+          15238094,
+          15255287,
+          15246841
+        ]
+      },
+      {
+        "kernel": "eight_split_final_ternlog",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 3.7896,
+        "min_ns_per_block": 3.7817,
+        "checksum": "d1cc3dfd766c35dc",
+        "samples": [
+          15868585,
+          15927956,
+          15868155,
+          15895125,
+          15906166,
+          15949977,
+          15882531,
+          15894855,
+          15861492
+        ]
+      },
+      {
+        "kernel": "seven_reg_repeat",
+        "decrypt": true,
+        "width": 64,
+        "ns_per_block": 4.6083,
+        "min_ns_per_block": 4.6042,
+        "checksum": "d1cc3dfd766c35dc",
+        "samples": [
+          19328584,
+          19332821,
+          19329797,
+          19347881,
+          19318025,
+          19330287,
+          19314889,
+          19324607,
+          19311422
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 4.5229,
+        "min_ns_per_block": 4.5203,
+        "checksum": "ce93cc18e13586fa",
+        "samples": [
+          18995692,
+          18984960,
+          18997233,
+          18963030,
+          18967188,
+          19031247,
+          18959714,
+          18959704,
+          18970513
+        ]
+      },
+      {
+        "kernel": "eight_split_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 3.8015,
+        "min_ns_per_block": 3.7342,
+        "checksum": "ce93cc18e13586fa",
+        "samples": [
+          15909741,
+          16024768,
+          15944567,
+          16183896,
+          16145372,
+          16166913,
+          15662339,
+          15773176,
+          15881871
+        ]
+      },
+      {
+        "kernel": "seven_split_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 3.8612,
+        "min_ns_per_block": 3.8556,
+        "checksum": "ce93cc18e13586fa",
+        "samples": [
+          16195047,
+          16279926,
+          16186139,
+          16171693,
+          16188124,
+          16238166,
+          16399440,
+          16447479,
+          16177344
+        ]
+      },
+      {
+        "kernel": "seven_split_final_xor_reg",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 3.6596,
+        "min_ns_per_block": 3.6435,
+        "checksum": "ce93cc18e13586fa",
+        "samples": [
+          15282056,
+          15309740,
+          15389778,
+          15493753,
+          15346276,
+          15396492,
+          15349281,
+          15349544,
+          15393246
+        ]
+      },
+      {
+        "kernel": "seven_split_final_ternlog",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 3.6871,
+        "min_ns_per_block": 3.683,
+        "checksum": "ce93cc18e13586fa",
+        "samples": [
+          15530853,
+          15956329,
+          15521384,
+          15456173,
+          15470339,
+          15463217,
+          15447798,
+          15452827,
+          15464880
+        ]
+      },
+      {
+        "kernel": "eight_split_final_ternlog",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 3.7731,
+        "min_ns_per_block": 3.7693,
+        "checksum": "ce93cc18e13586fa",
+        "samples": [
+          15822258,
+          15875839,
+          15845682,
+          15825385,
+          15886089,
+          15819833,
+          15809655,
+          15813401,
+          15826517
+        ]
+      },
+      {
+        "kernel": "seven_reg_repeat",
+        "decrypt": false,
+        "width": 1024,
+        "ns_per_block": 4.5173,
+        "min_ns_per_block": 4.5117,
+        "checksum": "ce93cc18e13586fa",
+        "samples": [
+          18923625,
+          19015638,
+          18946819,
+          18961587,
+          18941770,
+          18946328,
+          19063299,
+          18957158,
+          18936470
+        ]
+      },
+      {
+        "kernel": "seven_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 4.5463,
+        "min_ns_per_block": 4.5233,
+        "checksum": "b91e04ced7368b17",
+        "samples": [
+          19083846,
+          19068427,
+          19106207,
+          19014565,
+          19042739,
+          18972276,
+          18984139,
+          19085579,
+          19496718
+        ]
+      },
+      {
+        "kernel": "eight_split_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 3.6704,
+        "min_ns_per_block": 3.6207,
+        "checksum": "b91e04ced7368b17",
+        "samples": [
+          15186258,
+          15282068,
+          15361235,
+          15359211,
+          15394980,
+          15458337,
+          15694520,
+          15481951,
+          15489655
+        ]
+      },
+      {
+        "kernel": "seven_split_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 3.7547,
+        "min_ns_per_block": 3.7464,
+        "checksum": "b91e04ced7368b17",
+        "samples": [
+          15713394,
+          15745064,
+          15741368,
+          15755242,
+          15748361,
+          15750454,
+          15748510,
+          15767737,
+          15768658
+        ]
+      },
+      {
+        "kernel": "seven_split_final_xor_reg",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 3.5137,
+        "min_ns_per_block": 3.5058,
+        "checksum": "b91e04ced7368b17",
+        "samples": [
+          14728059,
+          14723750,
+          14752496,
+          14734813,
+          14737707,
+          14755983,
+          14704185,
+          14774957,
+          14960545
+        ]
+      },
+      {
+        "kernel": "seven_split_final_ternlog",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 3.5468,
+        "min_ns_per_block": 3.5227,
+        "checksum": "b91e04ced7368b17",
+        "samples": [
+          14781830,
+          14775458,
+          14821555,
+          14839438,
+          14927313,
+          14876457,
+          14910721,
+          14917242,
+          14903298
+        ]
+      },
+      {
+        "kernel": "eight_split_final_ternlog",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 3.697,
+        "min_ns_per_block": 3.6714,
+        "checksum": "b91e04ced7368b17",
+        "samples": [
+          15515094,
+          15845602,
+          15767585,
+          15398935,
+          15474408,
+          15488795,
+          15506398,
+          15488692,
+          15586307
+        ]
+      },
+      {
+        "kernel": "seven_reg_repeat",
+        "decrypt": true,
+        "width": 1024,
+        "ns_per_block": 4.5519,
+        "min_ns_per_block": 4.5475,
+        "checksum": "b91e04ced7368b17",
+        "samples": [
+          19091911,
+          19089637,
+          19126735,
+          19106709,
+          19106197,
+          19083396,
+          19073787,
+          19080580,
+          19102441
+        ]
+      }
+    ]
+  },
+  "expanded_round_key_broadcast": {
+    "hypothesis": "Expand each of 160 round-key bytes into a repeated-byte u32, once per bulk call (640-byte temporary), then use VPXORD with m32{1to16} instead of byte broadcast followed by XOR.",
+    "baseline": "Final seven-multiplication critical-feedback split, register-only GFNI matrices, direct key-byte broadcasts, register-only XOR3 and transpose operands.",
+    "cpu": "AMD Ryzen 9 9950X",
+    "toolchain": "Zig 0.15.1, ReleaseFast, native target",
+    "workload": {
+      "blocks_per_sample": 8388608,
+      "warmup_blocks": 1048576,
+      "samples": 9,
+      "batch_widths": [
+        64,
+        1024,
+        16384
+      ],
+      "preparation_included_once_per_batch_call": true,
+      "runtime_keys": true,
+      "includes_transpose": true
+    },
+    "correctness": "All 20 tests passed, including 256 key-byte XOR primitive values and 16 runtime random keys with arbitrary plaintext encryption and arbitrary ciphertext decryption per candidate. All timed workload output checksums agreed with baseline.",
+    "implementations": {
+      "explicit_pointer": "One pointer-based VPXORD m32 broadcast with a memory clobber preserving key initialization.",
+      "literal_offset": "One VPXORD m32 broadcast using a shared key-row pointer plus compile-time byte displacement.",
+      "native_u32_vector": "Pure Zig u32-lane XOR with @splat(u32); assembly retained separate VPBROADCASTD and XOR instructions."
+    },
+    "result": "Reject as a new production path: prep-inclusive throughput differences were approximately 0\u20131%, changed with run/operation, and did not establish a material consistent gain. No Cipher field or public API changes.",
+    "assembly": "Correct explicit-pointer versions emitted single VPXORD DWORD BCST instructions; a preliminary scalar m-constraint draft failed correctness and was excluded from every recorded timing.",
+    "first_pointer_comparison": [
+      {
+        "kernel": "baseline_keybyte",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4799,
+        "min_ns": 3.4312,
+        "checksum": "5f61262e85be3a2f",
+        "samples": [
+          29252865,
+          29345907,
+          29215013,
+          29191228,
+          28988099,
+          28782943,
+          29138020,
+          29532908,
+          28890385
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4508,
+        "min_ns": 3.4357,
+        "checksum": "5f61262e85be3a2f",
+        "samples": [
+          28934497,
+          28916334,
+          29742841,
+          29171221,
+          29118091,
+          28947412,
+          28820474,
+          28873674,
+          29045746
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4475,
+        "min_ns": 3.4423,
+        "checksum": "5f61262e85be3a2f",
+        "samples": [
+          29018363,
+          28969834,
+          28936701,
+          28876309,
+          28890504,
+          28892890,
+          28900024,
+          28919470,
+          28930471
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4604,
+        "min_ns": 3.4397,
+        "checksum": "5f61262e85be3a2f",
+        "samples": [
+          29108494,
+          29086272,
+          29027682,
+          28923326,
+          28854608,
+          28899722,
+          28964714,
+          29126476,
+          29211416
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.4377,
+        "min_ns": 3.4131,
+        "checksum": "a16c44fb0349575d",
+        "samples": [
+          29109255,
+          28910112,
+          28811748,
+          28736807,
+          28839480,
+          28837176,
+          28661767,
+          28630798,
+          28870869
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.473,
+        "min_ns": 3.4443,
+        "checksum": "a16c44fb0349575d",
+        "samples": [
+          29107541,
+          29839572,
+          30406754,
+          29535594,
+          29246371,
+          29035869,
+          28892860,
+          29046187,
+          29133671
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.4802,
+        "min_ns": 3.4396,
+        "checksum": "a16c44fb0349575d",
+        "samples": [
+          29207720,
+          30311145,
+          29423133,
+          29148598,
+          29170019,
+          29515616,
+          29194375,
+          28853105,
+          28984421
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.4421,
+        "min_ns": 3.4308,
+        "checksum": "a16c44fb0349575d",
+        "samples": [
+          29384501,
+          29188873,
+          28829191,
+          28779617,
+          28825893,
+          29019787,
+          28874345,
+          28818692,
+          28931101
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3812,
+        "min_ns": 3.3495,
+        "checksum": "62af3e8b886b0130",
+        "samples": [
+          28572129,
+          28363929,
+          28432727,
+          29065373,
+          28622704,
+          28097791,
+          28206925,
+          28223086,
+          28342289
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3556,
+        "min_ns": 3.3497,
+        "checksum": "62af3e8b886b0130",
+        "samples": [
+          28238875,
+          28177239,
+          28172420,
+          28128587,
+          28129029,
+          28149187,
+          28183109,
+          28099584,
+          28141191
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3462,
+        "min_ns": 3.3422,
+        "checksum": "62af3e8b886b0130",
+        "samples": [
+          28181067,
+          28149317,
+          28070259,
+          28062795,
+          28036286,
+          28077964,
+          28046766,
+          28083134,
+          28060441
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3546,
+        "min_ns": 3.3511,
+        "checksum": "62af3e8b886b0130",
+        "samples": [
+          28156900,
+          28131084,
+          28144017,
+          28123037,
+          28142023,
+          28116005,
+          28111245,
+          28159886,
+          28140350
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3288,
+        "min_ns": 3.3253,
+        "checksum": "26e033c239c0592b",
+        "samples": [
+          27960684,
+          27944153,
+          27919297,
+          27914878,
+          27929746,
+          27894600,
+          27910599,
+          27924015,
+          27936839
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3331,
+        "min_ns": 3.3294,
+        "checksum": "26e033c239c0592b",
+        "samples": [
+          27957458,
+          27953780,
+          27954042,
+          27928644,
+          27960073,
+          28081400,
+          28038629,
+          28230629,
+          28166639
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3372,
+        "min_ns": 3.3201,
+        "checksum": "26e033c239c0592b",
+        "samples": [
+          28135000,
+          28290071,
+          27994677,
+          28102058,
+          28706911,
+          27850717,
+          27964913,
+          27958500,
+          27985640
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3172,
+        "min_ns": 3.302,
+        "checksum": "26e033c239c0592b",
+        "samples": [
+          28135611,
+          27699405,
+          27789222,
+          27807598,
+          27839047,
+          27834107,
+          27812396,
+          27837943,
+          27826321
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3591,
+        "min_ns": 3.3321,
+        "checksum": "2f0505557a103add",
+        "samples": [
+          28093562,
+          28531432,
+          27951859,
+          28379076,
+          28538126,
+          28224086,
+          28178543,
+          27987746,
+          28111085
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3403,
+        "min_ns": 3.335,
+        "checksum": "2f0505557a103add",
+        "samples": [
+          27993696,
+          28053569,
+          28053177,
+          28085979,
+          28082501,
+          27975673,
+          28017169,
+          28020215,
+          28006520
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3584,
+        "min_ns": 3.3266,
+        "checksum": "2f0505557a103add",
+        "samples": [
+          28069007,
+          28454016,
+          28148847,
+          28099464,
+          28183831,
+          28315668,
+          28411188,
+          28172029,
+          27905290
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3756,
+        "min_ns": 3.3513,
+        "checksum": "2f0505557a103add",
+        "samples": [
+          28112509,
+          28549155,
+          28553936,
+          28533928,
+          28178080,
+          28254034,
+          28342309,
+          28316620,
+          28302524
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3646,
+        "min_ns": 3.3493,
+        "checksum": "c01f1457f16298a3",
+        "samples": [
+          28224078,
+          28246209,
+          28234347,
+          28164797,
+          28142104,
+          28354861,
+          28174715,
+          28095756,
+          28439802
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3483,
+        "min_ns": 3.333,
+        "checksum": "c01f1457f16298a3",
+        "samples": [
+          29071744,
+          28177130,
+          28343731,
+          28087351,
+          27988136,
+          27995679,
+          27982846,
+          28164145,
+          27958902
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3163,
+        "min_ns": 3.307,
+        "checksum": "c01f1457f16298a3",
+        "samples": [
+          27741424,
+          28050984,
+          27809480,
+          27799713,
+          27878701,
+          27816644,
+          27819370,
+          28480828,
+          28189844
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3379,
+        "min_ns": 3.3212,
+        "checksum": "c01f1457f16298a3",
+        "samples": [
+          27860075,
+          27975241,
+          28057235,
+          28657488,
+          27995008,
+          28026397,
+          27971543,
+          28000519,
+          28000518
+        ]
+      }
+    ],
+    "final_native_comparison": [
+      {
+        "kernel": "baseline_keybyte",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4206,
+        "min_ns": 3.3928,
+        "checksum": "9c3d8cc5e11a3e4",
+        "samples": [
+          28460971,
+          28488842,
+          28979762,
+          28614989,
+          28903000,
+          28915422,
+          29432561,
+          28694398,
+          28644534
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4112,
+        "min_ns": 3.4052,
+        "checksum": "9c3d8cc5e11a3e4",
+        "samples": [
+          28623747,
+          28603959,
+          28662359,
+          28578171,
+          28564846,
+          28593801,
+          28615360,
+          28659293,
+          28678339
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4076,
+        "min_ns": 3.4034,
+        "checksum": "9c3d8cc5e11a3e4",
+        "samples": [
+          28584944,
+          28597166,
+          28619209,
+          28731857,
+          28583873,
+          28568823,
+          28549497,
+          28554647,
+          28593840
+        ]
+      },
+      {
+        "kernel": "expanded_m32_native",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4099,
+        "min_ns": 3.387,
+        "checksum": "9c3d8cc5e11a3e4",
+        "samples": [
+          29275969,
+          28626120,
+          28536262,
+          28559806,
+          28412069,
+          28582329,
+          28642972,
+          28644475,
+          28604068
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 64,
+        "decrypt": false,
+        "median_ns": 3.4019,
+        "min_ns": 3.3998,
+        "checksum": "9c3d8cc5e11a3e4",
+        "samples": [
+          28519872,
+          28532004,
+          28535612,
+          28519550,
+          28558224,
+          28552784,
+          28537244,
+          28548525,
+          28541502
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.3849,
+        "min_ns": 3.3789,
+        "checksum": "50347184c6f35898",
+        "samples": [
+          28394957,
+          28601766,
+          28536403,
+          28417871,
+          28376524,
+          28405927,
+          28390699,
+          28344454,
+          28378478
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.3981,
+        "min_ns": 3.3959,
+        "checksum": "50347184c6f35898",
+        "samples": [
+          28486790,
+          28786490,
+          28597988,
+          28501417,
+          28626161,
+          28488743,
+          28534219,
+          28505554,
+          28491959
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.3919,
+        "min_ns": 3.3662,
+        "checksum": "50347184c6f35898",
+        "samples": [
+          28453707,
+          28570767,
+          28237753,
+          28567902,
+          28257770,
+          28424914,
+          28457585,
+          28766153,
+          28360211
+        ]
+      },
+      {
+        "kernel": "expanded_m32_native",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.3982,
+        "min_ns": 3.3875,
+        "checksum": "50347184c6f35898",
+        "samples": [
+          28622913,
+          28506005,
+          29207730,
+          28618325,
+          28416047,
+          28439902,
+          28479967,
+          28560648,
+          28447816
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 64,
+        "decrypt": true,
+        "median_ns": 3.3751,
+        "min_ns": 3.3511,
+        "checksum": "50347184c6f35898",
+        "samples": [
+          28181878,
+          28348691,
+          28245968,
+          28312353,
+          28368268,
+          28356165,
+          28717592,
+          28110715,
+          28206064
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3328,
+        "min_ns": 3.3114,
+        "checksum": "b45e3634c0e709c1",
+        "samples": [
+          27957288,
+          28215722,
+          27778432,
+          27915561,
+          27958651,
+          28198399,
+          27909659,
+          28135813,
+          27880913
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3275,
+        "min_ns": 3.323,
+        "checksum": "b45e3634c0e709c1",
+        "samples": [
+          27875314,
+          27994668,
+          27954873,
+          27932001,
+          27879712,
+          27904560,
+          27914578,
+          27877288,
+          27912935
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3293,
+        "min_ns": 3.3076,
+        "checksum": "b45e3634c0e709c1",
+        "samples": [
+          27954653,
+          28547374,
+          28380351,
+          27745742,
+          27923695,
+          27928364,
+          27927323,
+          27978579,
+          27914118
+        ]
+      },
+      {
+        "kernel": "expanded_m32_native",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3485,
+        "min_ns": 3.3425,
+        "checksum": "b45e3634c0e709c1",
+        "samples": [
+          28038651,
+          28060953,
+          28245127,
+          28406910,
+          28069128,
+          28086109,
+          28089436,
+          28110936,
+          28113891
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 1024,
+        "decrypt": false,
+        "median_ns": 3.3476,
+        "min_ns": 3.3242,
+        "checksum": "b45e3634c0e709c1",
+        "samples": [
+          28079257,
+          28200904,
+          28081841,
+          28093945,
+          28301975,
+          28108762,
+          28081210,
+          27937631,
+          27885383
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3153,
+        "min_ns": 3.3114,
+        "checksum": "5438f2c0b497fbaf",
+        "samples": [
+          27778062,
+          27841261,
+          27810454,
+          27827214,
+          27803630,
+          27835188,
+          27841501,
+          27808310,
+          27810451
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3265,
+        "min_ns": 3.3163,
+        "checksum": "5438f2c0b497fbaf",
+        "samples": [
+          27823297,
+          27819230,
+          27823869,
+          27905081,
+          28453207,
+          28116006,
+          27961095,
+          27900091,
+          28063196
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3229,
+        "min_ns": 3.3209,
+        "checksum": "5438f2c0b497fbaf",
+        "samples": [
+          27897055,
+          27881567,
+          27903226,
+          27872930,
+          27882829,
+          27871137,
+          27874293,
+          27857772,
+          27864926
+        ]
+      },
+      {
+        "kernel": "expanded_m32_native",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3229,
+        "min_ns": 3.3181,
+        "checksum": "5438f2c0b497fbaf",
+        "samples": [
+          27869985,
+          27874142,
+          27898629,
+          27853063,
+          27890894,
+          27907415,
+          27904699,
+          27840379,
+          27834096
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 1024,
+        "decrypt": true,
+        "median_ns": 3.3164,
+        "min_ns": 3.3127,
+        "checksum": "5438f2c0b497fbaf",
+        "samples": [
+          27826403,
+          27812047,
+          27825792,
+          27819970,
+          27820082,
+          27847242,
+          27812617,
+          27818968,
+          27788853
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3521,
+        "min_ns": 3.3458,
+        "checksum": "eefc55bd6df5060e",
+        "samples": [
+          28165949,
+          28078414,
+          28123049,
+          28118369,
+          28119833,
+          28143638,
+          28145060,
+          28066943,
+          28078947
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3281,
+        "min_ns": 3.3193,
+        "checksum": "eefc55bd6df5060e",
+        "samples": [
+          27882639,
+          28007341,
+          27959242,
+          27844547,
+          27926361,
+          27918125,
+          27876306,
+          27927303,
+          27885884
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3281,
+        "min_ns": 3.3259,
+        "checksum": "eefc55bd6df5060e",
+        "samples": [
+          27912795,
+          27914668,
+          27907744,
+          27900021,
+          27936981,
+          27933072,
+          27917865,
+          27938892,
+          27995950
+        ]
+      },
+      {
+        "kernel": "expanded_m32_native",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3447,
+        "min_ns": 3.3425,
+        "checksum": "eefc55bd6df5060e",
+        "samples": [
+          28071381,
+          28061465,
+          28046335,
+          28071172,
+          28047947,
+          28116466,
+          28051945,
+          28057606,
+          28039060
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 16384,
+        "decrypt": false,
+        "median_ns": 3.3435,
+        "min_ns": 3.3416,
+        "checksum": "eefc55bd6df5060e",
+        "samples": [
+          28050162,
+          28043108,
+          28042539,
+          28055321,
+          28047237,
+          28051563,
+          28031437,
+          28044450,
+          28100827
+        ]
+      },
+      {
+        "kernel": "baseline_keybyte",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3298,
+        "min_ns": 3.3203,
+        "checksum": "575e33c45ecb58a1",
+        "samples": [
+          27932000,
+          27904549,
+          27852642,
+          27863302,
+          27883500,
+          28300269,
+          28195463,
+          28204582,
+          27936729
+        ]
+      },
+      {
+        "kernel": "expanded_m32_pointer",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3193,
+        "min_ns": 3.3176,
+        "checksum": "575e33c45ecb58a1",
+        "samples": [
+          27843574,
+          27856849,
+          27843134,
+          27829629,
+          27853413,
+          27837845,
+          27880164,
+          27871378,
+          27844397
+        ]
+      },
+      {
+        "kernel": "expanded_m32_offset",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3251,
+        "min_ns": 3.3146,
+        "checksum": "575e33c45ecb58a1",
+        "samples": [
+          27847071,
+          27837243,
+          27919997,
+          27892968,
+          27804803,
+          27866107,
+          27968539,
+          27954614,
+          28066924
+        ]
+      },
+      {
+        "kernel": "expanded_m32_native",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3643,
+        "min_ns": 3.3461,
+        "checksum": "575e33c45ecb58a1",
+        "samples": [
+          28091680,
+          28221874,
+          28152054,
+          28386581,
+          28543146,
+          28289180,
+          28133518,
+          28068837,
+          28233524
+        ]
+      },
+      {
+        "kernel": "baseline_repeat",
+        "width": 16384,
+        "decrypt": true,
+        "median_ns": 3.3316,
+        "min_ns": 3.3229,
+        "checksum": "575e33c45ecb58a1",
+        "samples": [
+          27986553,
+          28014084,
+          27925288,
+          27905910,
+          27874424,
+          28013023,
+          27949575,
+          27923714,
+          27947650
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "checked_at_utc": "2026-10-28T23:34:17.818823+00:00",
+  "verification": "boat list --json; none of the investigation VM IDs remained",
+  "resources": [
+    {
+      "id": "bx_3q32ehag",
+      "name": "kuz-perf-a",
+      "disposition": "deleted",
+      "present_after_cleanup": false
+    },
+    {
+      "id": "bx_ryfxsbqx",
+      "name": "kuz-perf-b",
+      "disposition": "deleted",
+      "present_after_cleanup": false
+    },
+    {
+      "id": "bx_k3vdpxxy",
+      "name": "kuz-perf-final-c",
+      "disposition": "deleted",
+      "present_after_cleanup": false
+    },
+    {
+      "id": "bx_jxsjtghb",
+      "name": "kuz-perf-final-d",
+      "disposition": "deleted",
+      "present_after_cleanup": false
+    },
+    {
+      "id": "bx_jupbwh8s",
+      "name": "kuz-perf-final-e",
+      "disposition": "deleted",
+      "present_after_cleanup": false
+    },
+    {
+      "id": "bx_cq4bpx9k",
+      "name": "small CPU probe",
+      "disposition": "deleted earlier",
+      "present_after_cleanup": false
+    },
+    {
+      "id": "bx_ku7ch2sn",
+      "name": "kuz-perf-cpu-large",
+      "disposition": "expired automatically",
+      "present_after_cleanup": false
+    }
+  ],
+  "other_resources": "Only the investigation VM IDs were deleted."
+}

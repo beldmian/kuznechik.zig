@@ -1,0 +1,24 @@
+{
+  "coefficients": [
+    148,
+    32,
+    133,
+    16,
+    194,
+    192,
+    1,
+    251,
+    1,
+    192,
+    194,
+    16,
+    133,
+    32,
+    148,
+    1
+  ],
+  "basis_checks": 8192,
+  "random_checks": 2000,
+  "identity": "R^16 with compensated per-feedback key injection equals L(x) XOR targetKey",
+  "formula": "q[r]=target[r] XOR sum(c[r-j-1]*target[j],j<r), target in feedback generation order"
+}

@@ -1,0 +1,564 @@
+{
+  "schema": "kuz-stream-validation-v1",
+  "boat_vm": "bx_ryfxsbqx",
+  "date_utc": "2026-10-28T21:55:43+00:00",
+  "source": {
+    "baseline_head": "5a4e3b0671032469d905c664d7fb3ef9dd44eb28",
+    "baseline_matches_git_head": {
+      "kuznechik.zig": true,
+      "definitions.zig": true,
+      "luts.zig": true,
+      "transitions.zig": true
+    },
+    "current_files_sha256": {
+      "transpose.zig": "aa3121b2d2dbf5dd43be2dbc8275eee522e6e3d39fd3bbd5ed5ed46f3488fd5b",
+      "sliced.zig": "68dc5415ee6751dc24e5bbd7db1e53719252878e841a75dc0f9cb75413d98d86",
+      "kuznechik.zig": "4730df9ae4e349e906dcb3423928e91ee6f5f6aa10b32f3b80b68edfbf1b6be1",
+      "gfni.zig": "9b379b98784c5f4079a66016e58e3870c6e8742a2f672eee66fc8daeb3a2f816",
+      "definitions.zig": "403fe5b3b5e93badea33580f12d4ea4e74da14aff9153b2e0776019c1fe9dfa2",
+      "parallel.zig": "166c172ac3bc89dfd0f5644b0d13c363476178eebe2b3b221499f9f1688f1afb",
+      "luts.zig": "06cc0b2cc320c2f77ac6f937ecb484bca9ebebfe77e4216beed3df1fa314d696",
+      "scalar.zig": "ac5edf0b038e5e79306f67a0480a844027adb0cdeb53ee189fa9e960bd963b48",
+      "broadwell.zig": "96d6b4fee8414d28151bbbf051b075725e36e749903382a9e9ff170d155d1fb3",
+      "transitions.zig": "58bdc061c1d4ea0046e594335f74aa5c3786c515ea73b11e8567d0ae76fc9e6f"
+    },
+    "baseline_files_sha256": {
+      "kuznechik.zig": "940a4b900820ece670a9747ebe0855eb362ed8a9aa1754a7693374652fef0544",
+      "definitions.zig": "403fe5b3b5e93badea33580f12d4ea4e74da14aff9153b2e0776019c1fe9dfa2",
+      "luts.zig": "aff6d89612f8122a2a60ab85d1e1cecf83a453e04ad4882ba456b23dba35f39a",
+      "transitions.zig": "58bdc061c1d4ea0046e594335f74aa5c3786c515ea73b11e8567d0ae76fc9e6f"
+    },
+    "compiler": "Zig 0.15.1",
+    "flags": "ReleaseFast -mcpu=znver5 (all Zig modules); C driver zig cc -O3 -march=znver5",
+    "probe": "one full-buffer pass/sample; 5 samples/direction/size; alternating baseline/candidate first; allocation/commit/key setup/correctness/hash outside cipher timing"
+  },
+  "cpu_profile": {
+    "lscpu": [
+      {
+        "field": "Architecture:",
+        "data": "x86_64"
+      },
+      {
+        "field": "CPU op-mode(s):",
+        "data": "32-bit, 64-bit"
+      },
+      {
+        "field": "Address sizes:",
+        "data": "48 bits physical, 48 bits virtual"
+      },
+      {
+        "field": "Byte Order:",
+        "data": "Little Endian"
+      },
+      {
+        "field": "CPU(s):",
+        "data": "4"
+      },
+      {
+        "field": "On-line CPU(s) list:",
+        "data": "0-3"
+      },
+      {
+        "field": "Vendor ID:",
+        "data": "AuthenticAMD"
+      },
+      {
+        "field": "Model name:",
+        "data": "AMD Ryzen 9 9950X 16-Core Processor"
+      },
+      {
+        "field": "CPU family:",
+        "data": "26"
+      },
+      {
+        "field": "Model:",
+        "data": "68"
+      },
+      {
+        "field": "Thread(s) per core:",
+        "data": "1"
+      },
+      {
+        "field": "Core(s) per socket:",
+        "data": "4"
+      },
+      {
+        "field": "Socket(s):",
+        "data": "1"
+      },
+      {
+        "field": "Stepping:",
+        "data": "0"
+      },
+      {
+        "field": "BogoMIPS:",
+        "data": "8583.87"
+      },
+      {
+        "field": "Flags:",
+        "data": "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm rep_good nopl cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw perfctr_core ssbd ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 clzero xsaveerptr wbnoinvd arat npt lbrv nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload vgif vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid movdiri movdir64b fsrm avx512_vp2intersect flush_l1d arch_capabilities srso_user_kernel_no"
+      },
+      {
+        "field": "Virtualization:",
+        "data": "AMD-V"
+      },
+      {
+        "field": "Hypervisor vendor:",
+        "data": "KVM"
+      },
+      {
+        "field": "Virtualization type:",
+        "data": "full"
+      },
+      {
+        "field": "L1d cache:",
+        "data": "256 KiB (4 instances)"
+      },
+      {
+        "field": "L1i cache:",
+        "data": "256 KiB (4 instances)"
+      },
+      {
+        "field": "L2 cache:",
+        "data": "2 MiB (4 instances)"
+      },
+      {
+        "field": "L3 cache:",
+        "data": "64 MiB (4 instances)"
+      },
+      {
+        "field": "NUMA node(s):",
+        "data": "1"
+      },
+      {
+        "field": "NUMA node0 CPU(s):",
+        "data": "0-3"
+      },
+      {
+        "field": "Vulnerability Gather data sampling:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Indirect target selection:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Itlb multihit:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability L1tf:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Mds:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Meltdown:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Mmio stale data:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Reg file data sampling:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Retbleed:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Spec rstack overflow:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Spec store bypass:",
+        "data": "Mitigation; Speculative Store Bypass disabled via prctl"
+      },
+      {
+        "field": "Vulnerability Spectre v1:",
+        "data": "Mitigation; usercopy/swapgs barriers and __user pointer sanitization"
+      },
+      {
+        "field": "Vulnerability Spectre v2:",
+        "data": "Mitigation; Enhanced / Automatic IBRS; IBPB conditional; STIBP disabled; PBRSB-eIBRS Not affected; BHI Not affected"
+      },
+      {
+        "field": "Vulnerability Srbds:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Tsa:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Tsx async abort:",
+        "data": "Not affected"
+      },
+      {
+        "field": "Vulnerability Vmscape:",
+        "data": "Not affected"
+      }
+    ]
+  },
+  "command": "taskset -c 1 /tmp/stream-probe 0x8d07b62412345679 5",
+  "probe_binary_sha256": "0b31a196d8691609b9a194d85df445cbf1b9df3c642b70b076584a17d0f0f5c4",
+  "summary": [
+    {
+      "bytes": 8388608,
+      "mib": 8,
+      "direction": "encrypt",
+      "sample_count": 5,
+      "baseline_median_ns_per_block": 60.842105865478516,
+      "candidate_median_ns_per_block": 3.4984569549560547,
+      "speedup_from_medians": 17.391126044665818,
+      "paired_speedup_median": 17.311743400856056,
+      "candidate_payload_GB_per_s": 4.573444866124123,
+      "candidate_payload_MiB_per_s": 4361.576906322597,
+      "memcpy_payload_GB_per_s": 46.06037710984944,
+      "memcpy_read_plus_write_GB_per_s": 92.12075421969888,
+      "all_samples_full_byte_equal": true
+    },
+    {
+      "bytes": 8388608,
+      "mib": 8,
+      "direction": "decrypt",
+      "sample_count": 5,
+      "baseline_median_ns_per_block": 68.6123161315918,
+      "candidate_median_ns_per_block": 3.3897628784179688,
+      "speedup_from_medians": 20.24103708505232,
+      "paired_speedup_median": 20.344809625531173,
+      "candidate_payload_GB_per_s": 4.720094169969593,
+      "candidate_payload_MiB_per_s": 4501.432580918878,
+      "memcpy_payload_GB_per_s": 51.11950176114273,
+      "memcpy_read_plus_write_GB_per_s": 102.23900352228546,
+      "all_samples_full_byte_equal": true
+    },
+    {
+      "bytes": 134217728,
+      "mib": 128,
+      "direction": "encrypt",
+      "sample_count": 5,
+      "baseline_median_ns_per_block": 59.86656081676483,
+      "candidate_median_ns_per_block": 3.4841928482055664,
+      "speedup_from_medians": 17.18233273097882,
+      "paired_speedup_median": 17.198416411402555,
+      "candidate_payload_GB_per_s": 4.592168314747658,
+      "candidate_payload_MiB_per_s": 4379.4329783894145,
+      "memcpy_payload_GB_per_s": 17.523152507927787,
+      "memcpy_read_plus_write_GB_per_s": 35.04630501585557,
+      "all_samples_full_byte_equal": true
+    },
+    {
+      "bytes": 134217728,
+      "mib": 128,
+      "direction": "decrypt",
+      "sample_count": 5,
+      "baseline_median_ns_per_block": 68.26961898803711,
+      "candidate_median_ns_per_block": 3.5162452459335327,
+      "speedup_from_medians": 19.41548845803334,
+      "paired_speedup_median": 19.45666113507906,
+      "candidate_payload_GB_per_s": 4.550308320645063,
+      "candidate_payload_MiB_per_s": 4339.512177128851,
+      "memcpy_payload_GB_per_s": 17.829551806737246,
+      "memcpy_read_plus_write_GB_per_s": 35.65910361347449,
+      "all_samples_full_byte_equal": true
+    }
+  ],
+  "raw": {
+    "schema": "kuz-stream-probe-v1",
+    "seed": 10162291350225311353,
+    "pid": 24102,
+    "affinity_cpu": 1,
+    "clock": "CLOCK_MONOTONIC_RAW",
+    "started_epoch_ns": 1793224543191445352,
+    "samples_per_case": 5,
+    "allocation_alignment": 64,
+    "setup_outside_cipher_timing": true,
+    "cases": [
+      {
+        "bytes": 8388608,
+        "blocks": 524288,
+        "direction": "encrypt",
+        "input_checksum": "746c79a0794a9b94",
+        "warmup_passes": 1,
+        "memcpy_ns": [
+          230402,
+          182122,
+          148759
+        ],
+        "samples": [
+          {
+            "index": 0,
+            "epoch_ns": 1793224543230673127,
+            "baseline_first": true,
+            "baseline_ns": 31551466,
+            "candidate_ns": 1822547,
+            "baseline_checksum": "e5fda2ddc656947b",
+            "candidate_checksum": "e5fda2ddc656947b",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          },
+          {
+            "index": 1,
+            "epoch_ns": 1793224543266084458,
+            "baseline_first": false,
+            "baseline_ns": 31898786,
+            "candidate_ns": 1816617,
+            "baseline_checksum": "32054319fde291a5",
+            "candidate_checksum": "32054319fde291a5",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          },
+          {
+            "index": 2,
+            "epoch_ns": 1793224543301913505,
+            "baseline_first": true,
+            "baseline_ns": 31621667,
+            "candidate_ns": 1886757,
+            "baseline_checksum": "b67bb3ab74fe49b8",
+            "candidate_checksum": "b67bb3ab74fe49b8",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          },
+          {
+            "index": 3,
+            "epoch_ns": 1793224543337451925,
+            "baseline_first": false,
+            "baseline_ns": 32271375,
+            "candidate_ns": 1834199,
+            "baseline_checksum": "797a5ef2537e64cf",
+            "candidate_checksum": "797a5ef2537e64cf",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          },
+          {
+            "index": 4,
+            "epoch_ns": 1793224543373451865,
+            "baseline_first": true,
+            "baseline_ns": 32575756,
+            "candidate_ns": 1987056,
+            "baseline_checksum": "f0d8e512042e038a",
+            "candidate_checksum": "f0d8e512042e038a",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          }
+        ]
+      },
+      {
+        "bytes": 8388608,
+        "blocks": 524288,
+        "direction": "decrypt",
+        "input_checksum": "ae9c898e2bf51ad4",
+        "warmup_passes": 1,
+        "memcpy_ns": [
+          234400,
+          164098,
+          137810
+        ],
+        "samples": [
+          {
+            "index": 0,
+            "epoch_ns": 1793224543454757327,
+            "baseline_first": true,
+            "baseline_ns": 35505599,
+            "candidate_ns": 1745192,
+            "baseline_checksum": "59e138ee1fb626f4",
+            "candidate_checksum": "59e138ee1fb626f4",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          },
+          {
+            "index": 1,
+            "epoch_ns": 1793224543494031300,
+            "baseline_first": false,
+            "baseline_ns": 36581145,
+            "candidate_ns": 1875667,
+            "baseline_checksum": "0c23226f8499cc69",
+            "candidate_checksum": "0c23226f8499cc69",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          },
+          {
+            "index": 2,
+            "epoch_ns": 1793224543534535031,
+            "baseline_first": true,
+            "baseline_ns": 35972614,
+            "candidate_ns": 2045635,
+            "baseline_checksum": "f4a033ce07941b83",
+            "candidate_checksum": "f4a033ce07941b83",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          },
+          {
+            "index": 3,
+            "epoch_ns": 1793224543574562343,
+            "baseline_first": false,
+            "baseline_ns": 36172900,
+            "candidate_ns": 1777212,
+            "baseline_checksum": "9e4978ca14a216e3",
+            "candidate_checksum": "9e4978ca14a216e3",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          },
+          {
+            "index": 4,
+            "epoch_ns": 1793224543614550813,
+            "baseline_first": true,
+            "baseline_ns": 35668664,
+            "candidate_ns": 1745432,
+            "baseline_checksum": "75aea1522b49adab",
+            "candidate_checksum": "75aea1522b49adab",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:43Z"
+          }
+        ]
+      },
+      {
+        "bytes": 134217728,
+        "blocks": 8388608,
+        "direction": "encrypt",
+        "input_checksum": "5287b6669ff3f3cb",
+        "warmup_passes": 1,
+        "memcpy_ns": [
+          7791419,
+          7636628,
+          7659451
+        ],
+        "samples": [
+          {
+            "index": 0,
+            "epoch_ns": 1793224544308386645,
+            "baseline_first": true,
+            "baseline_ns": 499880237,
+            "candidate_ns": 29249469,
+            "baseline_checksum": "3801b6b7fd726e32",
+            "candidate_checksum": "3801b6b7fd726e32",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:44Z"
+          },
+          {
+            "index": 1,
+            "epoch_ns": 1793224544869578496,
+            "baseline_first": false,
+            "baseline_ns": 506259117,
+            "candidate_ns": 29227528,
+            "baseline_checksum": "f69c955f1958ebe3",
+            "candidate_checksum": "f69c955f1958ebe3",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:44Z"
+          },
+          {
+            "index": 2,
+            "epoch_ns": 1793224545437237270,
+            "baseline_first": true,
+            "baseline_ns": 503676556,
+            "candidate_ns": 29613022,
+            "baseline_checksum": "8f5b4e238b1174c9",
+            "candidate_checksum": "8f5b4e238b1174c9",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:45Z"
+          },
+          {
+            "index": 3,
+            "epoch_ns": 1793224546003109757,
+            "baseline_first": false,
+            "baseline_ns": 502089640,
+            "candidate_ns": 29193946,
+            "baseline_checksum": "81c1b5b411a6b137",
+            "candidate_checksum": "81c1b5b411a6b137",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:46Z"
+          },
+          {
+            "index": 4,
+            "epoch_ns": 1793224546566130319,
+            "baseline_first": true,
+            "baseline_ns": 502197111,
+            "candidate_ns": 28987197,
+            "baseline_checksum": "934779a4debbe020",
+            "candidate_checksum": "934779a4debbe020",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:46Z"
+          }
+        ]
+      },
+      {
+        "bytes": 134217728,
+        "blocks": 8388608,
+        "direction": "decrypt",
+        "input_checksum": "c0c62c171d8e08b1",
+        "warmup_passes": 1,
+        "memcpy_ns": [
+          7833717,
+          7500222,
+          7527824
+        ],
+        "samples": [
+          {
+            "index": 0,
+            "epoch_ns": 1793224547839064816,
+            "baseline_first": true,
+            "baseline_ns": 572687072,
+            "candidate_ns": 29433985,
+            "baseline_checksum": "c21f90cd3f216da2",
+            "candidate_checksum": "c21f90cd3f216da2",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:47Z"
+          },
+          {
+            "index": 1,
+            "epoch_ns": 1793224548473231118,
+            "baseline_first": false,
+            "baseline_ns": 572712791,
+            "candidate_ns": 28990603,
+            "baseline_checksum": "6ebd143ab9acc17f",
+            "candidate_checksum": "6ebd143ab9acc17f",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:48Z"
+          },
+          {
+            "index": 2,
+            "epoch_ns": 1793224549106772733,
+            "baseline_first": true,
+            "baseline_ns": 597454908,
+            "candidate_ns": 29600538,
+            "baseline_checksum": "9af5cdb5cc7d16cb",
+            "candidate_checksum": "9af5cdb5cc7d16cb",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:49Z"
+          },
+          {
+            "index": 3,
+            "epoch_ns": 1793224549766433760,
+            "baseline_first": false,
+            "baseline_ns": 570156516,
+            "candidate_ns": 29496403,
+            "baseline_checksum": "f724566cc3c06704",
+            "candidate_checksum": "f724566cc3c06704",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:49Z"
+          },
+          {
+            "index": 4,
+            "epoch_ns": 1793224550398143623,
+            "baseline_first": true,
+            "baseline_ns": 569695282,
+            "candidate_ns": 29548189,
+            "baseline_checksum": "5889309debc5078f",
+            "candidate_checksum": "5889309debc5078f",
+            "bytes_equal": true,
+            "date_utc": "2026-10-28T21:55:50Z"
+          }
+        ]
+      }
+    ],
+    "finished_epoch_ns": 1793224551034162058,
+    "all_outputs_equal": true,
+    "seed_hex": "0x8d07b62412345679"
+  },
+  "finding": "No gross streaming regression: 128MiB per-block time is close to 8MiB. Cipher payload throughput is substantially below memcpy bandwidth, so no prefetch or non-temporal-store change was tested."
+}

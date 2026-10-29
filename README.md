@@ -7,6 +7,7 @@ A fast implementation of the Kuznechik (GOST R 34.12-2015) block cipher in Zig. 
 - Pure Zig implementation
 - Optimized using precomputed lookup tables
 - Includes both encryption and decryption
+- In-place independent-block batches with portable and AVX-512/GFNI kernels
 - Performance benchmarks
 
 ## Usage
@@ -39,13 +40,25 @@ cipher.encrypt(&block);
 cipher.decrypt(&block);
 ```
 
+For independent block operations, use `cipher.encryptBlocks(blocks[0..])` and
+`cipher.decryptBlocks(blocks[0..])` with a mutable array of `kuznechik.block`.
+Both accept empty slices and arbitrary lengths with 16-byte alignment. The
+batch methods process raw blocks; the caller supplies the cipher mode.
+
 ### Building
 
 ```bash
 zig build
 ```
 
-*To achieve better performance, compile with `-Doptimize=ReleaseFast`*
+Validated with Zig 0.15.1. For optimized code targeting the build machine:
+
+```bash
+zig build -Doptimize=ReleaseFast -Dcpu=native
+```
+
+Kernel selection happens at compile time. Use `-Dcpu=baseline` for portable
+binaries; a native build requires the target machine's enabled CPU features.
 
 ### Running Tests
 
@@ -56,7 +69,17 @@ zig build test
 ### Running Benchmarks
 
 ```bash
-zig build bench
+zig build bench -Doptimize=ReleaseFast -- --api both --seed 123
+```
+
+Width 1 measures a dependent chain. Larger widths measure independent blocks;
+`--api bulk` exercises the batch methods. JSONL output includes raw samples,
+median/minimum nanoseconds per block, throughput, CPU features, and checksums.
+
+```bash
+zig build build_bench -Doptimize=ReleaseFast
+taskset -c 0 zig-out/bin/benchmark --api both --seed 123 2> candidate.jsonl
+python3 scripts/perf-compare.py baseline.jsonl candidate.jsonl
 ```
 
 ### Fuzzing
@@ -241,26 +264,16 @@ zig build fuzz-test
 
 ## Performance
 
-The implementation is optimized using precomputed lookup tables for the S-box, inverse S-box, and linear transformations. Benchmark results on Apple M2:
+Single-block kernels use precomputed substitution/linear tables, with scheduling
+tuned separately for measured Zen 5 and Broadwell targets. Independent batches
+interleave portable table operations or use AVX-512 VBMI/GFNI instructions when
+the compilation target enables them. The 64-block kernel transposes bytes and
+evaluates the linear recurrence with GFNI affine maps in Kuznechik's field.
 
-```
-Running benchmark: Encrypt Benchmark (65535 iterations)
-Encrypt Benchmark:
-  Iterations: 65535
-  Total time: 5056195 ns
-  Average time: 77 ns
-  Min time: 0 ns
-  Max time: 18375 ns
-
-Running benchmark: Decrypt Benchmark (65535 iterations)
-Decrypt Benchmark:
-  Iterations: 65535
-  Total time: 5698981 ns
-  Average time: 86 ns
-  Min time: 0 ns
-  Max time: 10167 ns
-```
-
+See [performance measurements and reproduction](docs/PERFORMANCE.md) for the
+Boat VM comparisons, correctness checks, rejected hypotheses, and measurement
+limits. The retained table paths and key expansion use secret-dependent lookups;
+these optimizations do not establish a constant-time cipher API.
 
 ## Algorithm Details
 

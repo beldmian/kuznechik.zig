@@ -1,0 +1,91 @@
+{
+  "before": "docs/performance/2026-10-29/boat-c-tail-baseline.jsonl",
+  "after": "docs/performance/2026-10-29/boat-c-tail-candidate.jsonl",
+  "config": {
+    "type": "config",
+    "zig": "0.15.1",
+    "arch": "x86_64",
+    "cpu": "znver5",
+    "optimize": "ReleaseFast",
+    "zig_backend": "stage2_llvm",
+    "seed": 123,
+    "blocks": 1048576,
+    "samples": 11,
+    "mode": "both",
+    "api": "both",
+    "width_filter": 63,
+    "cpu_features": [
+      "1de164fd5f8400f0",
+      "500fc0a1e99f3403",
+      "c02fd82023068803",
+      "00000000000003d5",
+      "0000000000000000"
+    ]
+  },
+  "results": [
+    {
+      "operation": "decrypt",
+      "api": "bulk",
+      "width": 63,
+      "blocks": 1048635,
+      "samples": 11,
+      "checksum": "676050967595bd11",
+      "before_bulk_available": false,
+      "after_bulk_available": true,
+      "before_median_ns_per_block": 70.22465300128262,
+      "after_median_ns_per_block": 3.7127408488177487,
+      "median_speedup": 18.91450436774878,
+      "before_min_ns_per_block": 69.90225006794547,
+      "after_min_ns_per_block": 3.69057679745574,
+      "min_speedup": 18.94073850898744
+    },
+    {
+      "operation": "decrypt",
+      "api": "single",
+      "width": 63,
+      "blocks": 1048635,
+      "samples": 11,
+      "checksum": "676050967595bd11",
+      "before_bulk_available": false,
+      "after_bulk_available": true,
+      "before_median_ns_per_block": 71.22632660553958,
+      "after_median_ns_per_block": 49.23982701321241,
+      "median_speedup": 1.446518619702453,
+      "before_min_ns_per_block": 70.85648771974996,
+      "after_min_ns_per_block": 48.944833998483745,
+      "min_speedup": 1.4476806218598068
+    },
+    {
+      "operation": "encrypt",
+      "api": "bulk",
+      "width": 63,
+      "blocks": 1048635,
+      "samples": 11,
+      "checksum": "7144b699c0010821",
+      "before_bulk_available": false,
+      "after_bulk_available": true,
+      "before_median_ns_per_block": 61.02221840773959,
+      "after_median_ns_per_block": 3.7340866936541315,
+      "median_speedup": 16.341939385457597,
+      "before_min_ns_per_block": 60.72077796373381,
+      "after_min_ns_per_block": 3.694580096983221,
+      "min_speedup": 16.435095834927182
+    },
+    {
+      "operation": "encrypt",
+      "api": "single",
+      "width": 63,
+      "blocks": 1048635,
+      "samples": 11,
+      "checksum": "7144b699c0010821",
+      "before_bulk_available": false,
+      "after_bulk_available": true,
+      "before_median_ns_per_block": 60.74346746007905,
+      "after_median_ns_per_block": 45.56450814630448,
+      "median_speedup": 1.3331312008249048,
+      "before_min_ns_per_block": 60.395402594801816,
+      "after_min_ns_per_block": 45.24270694760331,
+      "min_speedup": 1.3349201820471799
+    }
+  ]
+}

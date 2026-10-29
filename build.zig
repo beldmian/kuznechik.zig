@@ -2,9 +2,15 @@ const std = @import("std");
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
-    const optimize = b.standardOptimizeOption(.{
-        .preferred_optimize_mode = .ReleaseFast,
-    });
+    const requested_optimize = b.option(std.builtin.OptimizeMode, "optimize", "Prioritize performance, safety, or binary size");
+    // Keep the existing -Drelease / bare --release behavior while accepting
+    // the documented -Doptimize flag and explicit --release=safe/small modes.
+    const preferred_optimize = b.standardOptimizeOption(.{ .preferred_optimize_mode = .ReleaseFast });
+    const optimize = requested_optimize orelse switch (b.release_mode) {
+        .safe => .ReleaseSafe,
+        .small => .ReleaseSmall,
+        else => preferred_optimize,
+    };
 
     const libModule = b.addModule("kuznechik", .{
         .root_source_file = b.path("src/kuznechik.zig"),
@@ -29,7 +35,8 @@ pub fn build(b: *std.Build) void {
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
 
-    const benchmarkModule = b.addModule("kuznechik", .{
+    // Keep the benchmark private so it cannot replace the exported library.
+    const benchmarkModule = b.createModule(.{
         .root_source_file = b.path("test/benchmarks.zig"),
         .target = target,
         .optimize = optimize,
@@ -50,6 +57,7 @@ pub fn build(b: *std.Build) void {
     benchmark.root_module.addImport("kuznechik", kuznechik_module);
 
     const run_lib_benchmark = b.addRunArtifact(benchmark);
+    if (b.args) |args| run_lib_benchmark.addArgs(args);
     const run_benchmark_step = b.step("bench", "Run lib benchmark");
     run_benchmark_step.dependOn(&run_lib_benchmark.step);
 
