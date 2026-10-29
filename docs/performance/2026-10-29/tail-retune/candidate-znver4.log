@@ -1,0 +1,31 @@
+1/30 kuznechik.test_0...OK
+2/30 kuznechik.test.LS transition test...OK
+3/30 kuznechik.test.LS inverse transition test...OK
+4/30 kuznechik.test.Iterational constants test...OK
+5/30 kuznechik.test.Iterational keys test...OK
+6/30 kuznechik.test.lookup key setup matches every basic Feistel and inverse key...OK
+7/30 kuznechik.test.Cipher test...OK
+8/30 kuznechik.test.optimized cipher matches basic transformations for independent inputs...OK
+9/30 kuznechik.test.bulk operations match independent blocks at every batch and tail boundary...OK
+10/30 modes.classic.test.RFC3602 CBC and RFC4493 CMAC vectors using the generic construction...OK
+11/30 modes.classic.test.RFC8645 CTR base vectors and counter exhaustion preserve input...OK
+12/30 modes.classic.test.NIST800-38A ECB CBC CFB128 and OFB known-answer vectors...OK
+13/30 modes.classic.test.Kuznechik classic modes preserve streaming and feedback across batch boundaries...OK
+14/30 modes.gcm.test.GCM rejects overlapping buffers atomically and accepts adjacent slices...OK
+15/30 modes.gcm.test.GCM known-answer vectors and standard-library differential cases...OK
+16/30 modes.ccm.test.RFC3610 CCM packet vector1 and unchanged ciphertext on rejection...OK
+17/30 modes.ccm.test.all24 RFC3610 CCM packet vectors...OK
+18/30 modes.ccm.test.CCM all dimensions and AAD prefix boundaries match independent OpenSSL fixtures...OK
+19/30 modes.ccm.test.Kuznechik CCM tails alignment guards and rejected inputs...OK
+20/30 modes.ccm.test.CCM length budgets tags and overlap reject before mutation...OK
+21/30 gfni.test.field isomorphism preserves every byte product...OK
+22/30 gfni.test.GFNI affine and S-box instructions agree for every byte...OK
+23/30 gfni.test.GFNI linear layers match every binary basis vector...OK
+24/30 sliced.test.sliced GFNI constant multipliers and S-boxes match every byte...OK
+25/30 sliced.test.sliced linear layers match every binary basis vector...OK
+26/30 luts.test.generated lookup tables match basic transformations exhaustively...OK
+27/30 transitions.test.X transition test...OK
+28/30 transitions.test.S and S inverse transition test...OK
+29/30 transitions.test.L and L inverse transition test...OK
+30/30 transpose.test.byte transpose mapping and inverse at every block alignment...OK
+All 30 tests passed.

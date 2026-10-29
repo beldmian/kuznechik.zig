@@ -1,0 +1,28 @@
+1/27 kuznechik.test_0...OK
+2/27 kuznechik.test.LS transition test...OK
+3/27 kuznechik.test.LS inverse transition test...OK
+4/27 kuznechik.test.Iterational constants test...OK
+5/27 kuznechik.test.Iterational keys test...OK
+6/27 kuznechik.test.lookup key setup matches every basic Feistel and inverse key...OK
+7/27 kuznechik.test.Cipher test...OK
+8/27 kuznechik.test.optimized cipher matches basic transformations for independent inputs...OK
+9/27 kuznechik.test.bulk operations match independent blocks at every batch and tail boundary...OK
+10/27 modes.classic.test.RFC3602 CBC and RFC4493 CMAC vectors using the generic construction...OK
+11/27 modes.classic.test.RFC8645 CTR base vectors and counter exhaustion preserve input...OK
+12/27 modes.classic.test.NIST800-38A ECB CBC CFB128 and OFB known-answer vectors...OK
+13/27 modes.classic.test.Kuznechik classic modes preserve streaming and feedback across batch boundaries...OK
+14/27 modes.gcm.test.GCM rejects overlapping buffers atomically and accepts adjacent slices...OK
+15/27 modes.gcm.test.GCM known-answer vectors and standard-library differential cases...OK
+16/27 modes.ccm.test.RFC3610 CCM packet vector1 and unchanged ciphertext on rejection...OK
+17/27 modes.ccm.test.all24 RFC3610 CCM packet vectors...OK
+18/27 modes.ccm.test.CCM all dimensions and AAD prefix boundaries match independent OpenSSL fixtures...OK
+19/27 modes.ccm.test.Kuznechik CCM tails alignment guards and rejected inputs...OK
+20/27 modes.ccm.test.CCM length budgets tags and overlap reject before mutation...OK
+21/27 gfni.test.field isomorphism preserves every byte product...OK
+22/27 gfni.test.GFNI affine and S-box instructions agree for every byte...SKIP
+23/27 gfni.test.GFNI linear layers match every binary basis vector...SKIP
+24/27 luts.test.generated lookup tables match basic transformations exhaustively...OK
+25/27 transitions.test.X transition test...OK
+26/27 transitions.test.S and S inverse transition test...OK
+27/27 transitions.test.L and L inverse transition test...OK
+25 passed; 2 skipped; 0 failed.

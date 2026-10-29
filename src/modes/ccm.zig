@@ -17,20 +17,32 @@ pub fn Ccm(comptime Cipher: type, comptime length_bytes: u4) type {
             state: B = @splat(0),
             buffer: [16]u8 = @splat(0),
             used: usize = 0,
-            fn flush(self: *@This()) void {
-                self.state ^= @as(B, self.buffer);
+            fn fullBlock(self: *@This(), input: B) void {
+                self.state ^= input;
                 self.cipher.encrypt(&self.state);
+            }
+            fn flush(self: *@This()) void {
+                self.fullBlock(self.buffer);
                 self.used = 0;
             }
             fn update(self: *@This(), input: []const u8) void {
                 var data = input;
-                while (data.len > 0) {
+                if (self.used != 0) {
                     const n = @min(16 - self.used, data.len);
                     @memcpy(self.buffer[self.used..][0..n], data[0..n]);
                     self.used += n;
                     data = data[n..];
-                    if (self.used == 16) self.flush();
+                    if (self.used < 16) return;
+                    self.flush();
                 }
+                // Payload and long AAD runs need no intermediate buffer.
+                // Load through a byte array so unaligned input remains valid.
+                while (data.len >= 16) {
+                    self.fullBlock(data[0..16].*);
+                    data = data[16..];
+                }
+                @memcpy(self.buffer[0..data.len], data);
+                self.used = data.len;
             }
             fn pad(self: *@This()) void {
                 if (self.used != 0) {
@@ -142,10 +154,17 @@ pub fn Ccm(comptime Cipher: type, comptime length_bytes: u4) type {
                 cipher.encryptBlocks(gamma[0..count]);
                 for (0..count) |i| {
                     const n = @min(16, take - i * 16);
-                    var plain: [16]u8 = @splat(0);
-                    @memcpy(plain[0..n], data[at + i * 16 ..][0..n]);
-                    plain = @as(B, plain) ^ gamma[i];
-                    mac.update(plain[0..n]);
+                    if (n == 16) {
+                        // Payload MAC input starts at a block boundary. Keep
+                        // decrypted full blocks private until authentication.
+                        const encrypted: [16]u8 = data[at + i * 16 ..][0..16].*;
+                        mac.fullBlock(@as(B, encrypted) ^ gamma[i]);
+                    } else {
+                        var plain: [16]u8 = @splat(0);
+                        @memcpy(plain[0..n], data[at + i * 16 ..][0..n]);
+                        plain = @as(B, plain) ^ gamma[i];
+                        mac.update(plain[0..n]);
+                    }
                 }
                 at += take;
             }
