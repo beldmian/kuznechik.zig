@@ -215,6 +215,26 @@ pub fn Modes(comptime Cipher: type) type {
                     return self;
                 }
                 pub fn xor(self: *Self, data: []u8) void {
+                    if (iv_blocks >= 64 and data.len >= 64) return self.xorBatched(data);
+                    self.xorScalar(data);
+                }
+                fn xorScalar(self: *Self, data: []u8) void {
+                    var at: usize = 0;
+                    while (at < data.len) {
+                        if (self.used == 16) {
+                            if (self.head == 0) self.cipher.encryptBlocks(&self.register);
+                            self.stream = self.register[self.head];
+                            self.head = (self.head + 1) % iv_blocks;
+                            self.used = 0;
+                        }
+                        const n = @min(16 - self.used, data.len - at);
+                        const gamma: [16]u8 = self.stream;
+                        xorBytes(data[at..][0..n], gamma[self.used..]);
+                        self.used += n;
+                        at += n;
+                    }
+                }
+                fn xorBatched(self: *Self, data: []u8) void {
                     var at: usize = 0;
                     while (at < data.len) {
                         if (self.used == 16) {
