@@ -360,3 +360,46 @@ test "generic RFC7253 empty nonce is distinct from named AES profile limits" {
         try M.open(&cipher, &.{}, &.{}, &empty, tag);
     }
 }
+
+test "OCB bounded schedule independent AAD and payload powers full and partial" {
+    const Case = struct { index: usize, p: usize, a: usize, tag_length: usize, sha256: []const u8, tag: []const u8 };
+    const Document = struct { cases: []const Case };
+    const parsed = try std.json.parseFromSlice(Document, t.allocator, @embedFile("ocb_schedule_oracle.json"), .{ .ignore_unknown_fields = true });
+    defer parsed.deinit();
+    try t.expectEqual(@as(usize, 280), parsed.value.cases.len);
+    inline for (.{ 1, 8, 12, 16 }) |tag_len| {
+        const M = ocb.OcbWithTag(h.Aes128, tag_len);
+        for (parsed.value.cases) |case| {
+            if (case.tag_length != tag_len) continue;
+            var key: [16]u8 = undefined;
+            for (&key, 0..) |*v, i| v.* = @truncate(i * 11 + case.index * 7);
+            const cipher = h.Aes128.init(key);
+            var nonce: [15]u8 = undefined;
+            for (&nonce, 0..) |*v, i| v.* = @truncate(i * 37 + case.index);
+            const n = nonce[0 .. 1 + case.index % 15];
+            var aad: [65567]u8 = undefined;
+            for (aad[0..case.a], 0..) |*v, i| v.* = @truncate(i * 29 + case.index * 3);
+            var guarded: [65569]u8 = @splat(0xa5);
+            const data = guarded[1 .. 1 + case.p];
+            for (data, 0..) |*v, i| v.* = @truncate(i * 17 + case.index);
+            const tag = try M.seal(&cipher, n, aad[0..case.a], data);
+            var expected_hash: [32]u8 = undefined;
+            _ = try std.fmt.hexToBytes(&expected_hash, case.sha256);
+            var actual_hash: [32]u8 = undefined;
+            std.crypto.hash.sha2.Sha256.hash(data, &actual_hash, .{});
+            try t.expectEqual(expected_hash, actual_hash);
+            var expected_tag: M.Tag = undefined;
+            _ = try std.fmt.hexToBytes(&expected_tag, case.tag);
+            try t.expectEqual(expected_tag, tag);
+            const before = guarded;
+            var bad = tag;
+            bad[tag_len - 1] ^= 1;
+            try t.expectError(error.AuthenticationFailed, M.open(&cipher, n, aad[0..case.a], data, bad));
+            try t.expectEqual(before, guarded);
+            try M.open(&cipher, n, aad[0..case.a], data, tag);
+            for (data, 0..) |v, i| try t.expectEqual(@as(u8, @truncate(i * 17 + case.index)), v);
+            try t.expectEqual(@as(u8, 0xa5), guarded[0]);
+            for (guarded[1 + case.p ..]) |v| try t.expectEqual(@as(u8, 0xa5), v);
+        }
+    }
+}

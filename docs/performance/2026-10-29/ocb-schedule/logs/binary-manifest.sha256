@@ -1,0 +1,7 @@
+61f743eb0ff4b91291ad049fa14e3b6dd056985fe0c15aaf44d605eb0aa7f6f9  ../bin/bench-native-control
+1e047d86ff29cb9919fe36e56928c4a95620eb496c6136231cae5bec94b1103f  ../bin/bench-native-forward
+e6b733d0e0a5ab9ff1ec7f4bbf916fb5ce5f6066e5fdc22cf4c867816e2e074e  ../bin/bench-native-reverse
+7a24d6755bcde12a5f5bf6d9bf134cd13ce41fc8a639c9bfde63cf9ef9578e4d  ../bin/bench-x86_64-control
+38f2620cf96436fd01631aa03e9e531c0cdb242554ddcd49d1b34ee14282c785  ../bin/bench-x86_64-forward
+3dab07319ee66692edcd68f0683335f785b0d9e700fd5731e7eb6f761f3684b2  ../bin/bench-x86_64-reverse
+48f01d91fe884594bebde71d70690b43d4002057a099d0290962224ca5b190a6  ../bin/tests-aarch64

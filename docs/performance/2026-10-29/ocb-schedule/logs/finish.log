@@ -1,0 +1,28 @@
++ cd /home/user/ocb/baseline
++ find src -type f -print0
++ sort -z
++ xargs -0 sha256sum
++ cd /home/user/ocb/source
++ Z=/home/user/zig-x86_64-linux-0.15.1/zig
++ /home/user/zig-x86_64-linux-0.15.1/zig test src/kuznechik.zig -O ReleaseSafe -target aarch64-linux -mcpu=baseline --test-no-exec -femit-bin=/home/user/ocb/bin/tests-aarch64 --cache-dir /home/user/.cache/ocb/aarch64-linked-local --global-cache-dir /home/user/.cache/ocb/aarch64-linked-global
++ file ../bin/tests-aarch64
++ sha256sum ../bin/bench-native-control ../bin/bench-native-forward ../bin/bench-native-reverse ../bin/bench-x86_64-control ../bin/bench-x86_64-forward ../bin/bench-x86_64-reverse ../bin/tests-aarch64
++ sort -z
++ find docs/performance/2026-10-29/ocb-schedule -type f -print0
++ xargs -0 sha256sum
++ for f in ../logs/disassembly*.log
++ gzip -n ../logs/disassembly-bench-native-control.log
++ for f in ../logs/disassembly*.log
++ gzip -n ../logs/disassembly-bench-native-forward.log
++ for f in ../logs/disassembly*.log
++ gzip -n ../logs/disassembly-bench-native-reverse.log
++ for f in ../logs/disassembly*.log
++ gzip -n ../logs/disassembly-bench-x86_64-control.log
++ for f in ../logs/disassembly*.log
++ gzip -n ../logs/disassembly-bench-x86_64-forward.log
++ for f in ../logs/disassembly*.log
++ gzip -n ../logs/disassembly-bench-x86_64-reverse.log
++ cd /home/user/ocb
++ tar -czf evidence.tar.gz logs
++ sha256sum evidence.tar.gz
+3b50e1c5981700a34e103d835860746c44cd770d8ee04439c6dca257d76214e1  evidence.tar.gz

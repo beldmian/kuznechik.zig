@@ -36,6 +36,12 @@ fn double(value: B) B {
     return out;
 }
 
+// The largest ntz among indices 1..n is floor(log2(n)). Partial blocks
+// use L_star instead. A zero full-block count therefore needs no L_i.
+fn scheduleLength(aad_blocks: u64, data_blocks: u64) usize {
+    return 64 - @clz(@max(aad_blocks, data_blocks));
+}
+
 pub fn Ocb(comptime Cipher: type) type {
     return OcbWithTag(Cipher, 16);
 }
@@ -51,13 +57,17 @@ pub fn OcbWithTag(comptime Cipher: type, comptime tag_bytes: usize) type {
             dollar: B,
             // ntz(2^48) ==48, so the inclusive limit needs L_48.
             l: [49]B,
-            fn init(cipher: *const Cipher) @This() {
+            fn init(cipher: *const Cipher, aad_len: usize, data_len: usize) @This() {
                 var s: @This() = undefined;
                 s.star = @splat(0);
                 cipher.encrypt(&s.star);
                 s.dollar = double(s.star);
-                s.l[0] = double(s.dollar);
-                for (1..s.l.len) |i| s.l[i] = double(s.l[i - 1]);
+                const count = scheduleLength(aad_len / 16, data_len / 16);
+                var value = s.dollar;
+                for (0..count) |i| {
+                    value = double(value);
+                    s.l[i] = value;
+                }
                 return s;
             }
         };
@@ -177,7 +187,7 @@ pub fn OcbWithTag(comptime Cipher: type, comptime tag_bytes: usize) type {
         pub fn sealDetached(cipher: *const Cipher, nonce: []const u8, aad: []const u8, data: []u8, tag: []u8) !void {
             try validate(nonce.len, aad.len, data.len, tag.len);
             try validateAliases(cipher, nonce, aad, data, tag, true);
-            const s = Schedule.init(cipher);
+            const s = Schedule.init(cipher, aad.len, data.len);
             const aad_hash = hash(cipher, &s, aad);
             const result = payload(cipher, &s, initialOffset(cipher, nonce), data, .seal);
             tag[0..tag_bytes].* = finish(cipher, &s, result, aad_hash);
@@ -188,7 +198,7 @@ pub fn OcbWithTag(comptime Cipher: type, comptime tag_bytes: usize) type {
         pub fn openDetached(cipher: *const Cipher, nonce: []const u8, aad: []const u8, data: []u8, tag: []const u8) !void {
             try validate(nonce.len, aad.len, data.len, tag.len);
             try validateAliases(cipher, nonce, aad, data, tag, false);
-            const s = Schedule.init(cipher);
+            const s = Schedule.init(cipher, aad.len, data.len);
             const initial = initialOffset(cipher, nonce);
             const result = payload(cipher, &s, initial, data, .verify);
             const expected = finish(cipher, &s, result, hash(cipher, &s, aad));
@@ -200,4 +210,17 @@ pub fn OcbWithTag(comptime Cipher: type, comptime tag_bytes: usize) type {
 
 test {
     _ = @import("ocb_test.zig");
+}
+
+test "OCB schedule length full-block powers including inclusive L48 endpoint" {
+    const t = std.testing;
+    try t.expectEqual(@as(usize, 0), scheduleLength(0, 0));
+    for (0..49) |shift| {
+        const n = @as(u64, 1) << @as(u6, @intCast(shift));
+        try t.expectEqual(shift, scheduleLength(n - 1, 0));
+        try t.expectEqual(shift, scheduleLength(0, n - 1));
+        try t.expectEqual(shift + 1, scheduleLength(n, n - 1));
+        try t.expectEqual(shift + 1, scheduleLength(n - 1, n));
+        if (shift != 0) try t.expectEqual(shift + 1, scheduleLength(n + 1, 0));
+    }
 }
