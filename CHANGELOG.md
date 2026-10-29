@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0 — 2026-10-29
+
+- Add RFC 9058 MGM with full and detached 4–16-byte tags, unaligned buffers, and verification before plaintext writes.
+- Batch independent counters, combine short-message work, and accelerate the authentication product with PCLMUL and deferred reduction; retain a portable implementation.
+- Verify both official Kuznechik examples and 1,688 independent AES/Kuznechik reference cases, including remainders, counter wrap, rejection preservation, and buffer overlaps.
+- Archive native Boat timing samples, compiler/configuration details, reference generators, and reproduction commands.
+
 ## 0.5.0 — 2026-10-29
 
 - Add allocation-free RFC 3610 CCM with all length-field and byte-tag dimensions, batched counters, and authentication before plaintext writes.

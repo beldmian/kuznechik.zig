@@ -13,6 +13,7 @@ pub fn Modes(comptime Cipher: type) type {
         pub const ecbEncrypt = classic.ecbEncrypt;
         pub const ecbDecrypt = classic.ecbDecrypt;
         pub const Gcm = @import("gcm.zig").Gcm(Cipher, 32);
+        pub const Mgm = @import("mgm.zig").Mgm(Cipher);
         pub const Ccm = @import("ccm.zig").Ccm(Cipher, 3);
         pub fn CcmWithLength(comptime length_bytes: u4) type {
             return @import("ccm.zig").Ccm(Cipher, length_bytes);

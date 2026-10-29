@@ -75,10 +75,12 @@ context across fragments rather than resetting its counter.
 - `Ccm` uses a 12-byte nonce and supports payloads smaller than 16 MiB.
   `CcmWithLength(L)` selects L=2–8 length bytes and a nonce of 15-L bytes.
   Detached CCM tags support every even byte length from 4 through 16.
+- `Mgm` uses a 16-byte nonce with its top bit clear. It supports full 16-byte
+  tags and detached 4–16-byte tags, including authentication-only messages.
 
 Authenticated decryption verifies the tag before modifying the ciphertext buffer.
-GCM and CCM reject overlapping AAD, payload, and detached output-tag buffers before writes.
-RFC 9058 MGM and the remaining RFC 8645 re-keying constructions are being added
+GCM, CCM, and MGM reject overlapping AAD, payload, and detached output-tag buffers before writes.
+The remaining RFC 8645 re-keying constructions are being added
 in subsequent increments; see [mode APIs and coverage](docs/MODES.md).
 
 ### Building

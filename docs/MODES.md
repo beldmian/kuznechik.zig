@@ -1,6 +1,6 @@
 # Cipher modes
 
-The library provides ECB, CTR, CBC, full-block CFB, OFB, CMAC/OMAC, GCM, and CCM through
+The library provides ECB, CTR, CBC, full-block CFB, OFB, CMAC/OMAC, GCM, CCM, and MGM through
 `@import("kuznechik").modes`. All operate in place on byte slices without allocation
 and accept unaligned message buffers. Existing block APIs and Cipher layout are
 unchanged.
@@ -15,6 +15,7 @@ unchanged.
 | `Cmac` | `.init(cipher)` | `.update(data)`, `.final()` returns 16 bytes; `.verify(tag)` |
 | `Gcm` | `&cipher`, nonce12 | `try .seal(cipher, nonce, aad, data)` returns a 16-byte tag; `.open(..., tag)` |
 | `Ccm` | `&cipher`, nonce12 | `try .seal(cipher, nonce, aad, data)` returns a 16-byte tag; `.open(..., tag)` |
+| `Mgm` | `&cipher`, nonce16 | `try .seal(cipher, nonce, aad, data)` returns a 16-byte tag; `.open(..., tag)` |
 
 CTR uses the nonce as the high bytes of a big-endian counter block and starts
 the low counter at zero. `CtrWithCounter(bits)` supports 32–96 counter bits in
@@ -55,6 +56,20 @@ plaintext only after verification. It uses bounded stack storage without
 allocation. A failed tag leaves ciphertext unchanged. CCM applies the same
 overlap checks as GCM, and both authenticated APIs are one-shot.
 
+Version 0.6.0 adds [RFC 9058 MGM](https://www.rfc-editor.org/rfc/rfc9058.html).
+Its nonce is 16 bytes with the most significant bit clear, and must be unique
+under the key. The combined AAD/payload must be nonempty and contain fewer than
+`2^64` bits; an empty payload with nonempty AAD is supported. Full-tag `seal` /
+`open` use 16 bytes; detached APIs accept every byte length from 4 through 16.
+The protocol must fix that tag length. `validate(nonce, aad_len, data_len)`
+checks public dimensions without processing buffers. MGM is one-shot, verifies
+before writing plaintext, and applies the same overlap rules as GCM.
+
+MGM batches independent encryption and authentication counters, combining them
+for short messages. On x86-64 with PCLMUL, authentication accumulates unreduced
+carryless products and reduces once; other targets use portable multiplication.
+This selection is compile-time, just like the block cipher backend.
+
 Nonce values must be unique for each message encrypted under a given key.
 Starting a fresh context for a fragment resets its counter; continue the existing
 context instead. These APIs do not construct TLS/IKE records or manage nonces
@@ -77,5 +92,9 @@ fixtures spanning every supported nonce and tag size, partial blocks, the
 64-block batch boundary, and the 0xff00-byte AAD encoding transition.
 Run `node scripts/ccm-oracle.cjs` to regenerate its checked-in oracle data.
 
-RFC 9058 MGM and RFC 8645 ACPKM/ACPKM-Master constructions are being implemented
-in later increments. Version 0.4.0 does not claim those modes are available.
+MGM passes both RFC Kuznechik examples and a SHA-256 digest of 1,688 complete
+AES/Kuznechik ciphertext-and-tag cases generated with an independent Go library.
+Its portable and PCLMUL products also match a polynomial long-division reference.
+Reference provenance and Boat measurements are in [MGM evidence](performance/modes/mgm/README.md).
+
+RFC 8645 ACPKM/ACPKM-Master constructions are being integrated in a later increment.
