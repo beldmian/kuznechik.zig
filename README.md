@@ -45,6 +45,38 @@ For independent block operations, use `cipher.encryptBlocks(blocks[0..])` and
 Both accept empty slices and arbitrary lengths with 16-byte alignment. The
 batch methods process raw blocks; the caller supplies the cipher mode.
 
+### Cipher modes
+
+The allocation-free `modes` namespace accepts mutable byte slices, including
+unaligned buffers. Stateful contexts preserve partial keystream across updates:
+
+```zig
+var ctr = kuznechik.modes.Ctr.init(cipher, nonce8);
+try ctr.xor(data); // The same operation encrypts and decrypts.
+
+const tag = try kuznechik.modes.Gcm.seal(&cipher, nonce12, associated_data, data);
+try kuznechik.modes.Gcm.open(&cipher, nonce12, associated_data, data, tag);
+```
+
+Use a unique nonce for each message under the same key. Continue the same stream
+context across fragments rather than resetting its counter.
+
+- `ecbEncrypt` / `ecbDecrypt` and `Cbc.encrypt` / `decrypt` require complete
+  16-byte blocks and add no padding. CBC uses a 16-byte IV by default.
+- `Ctr.xor` uses an 8-byte nonce and a big-endian 64-bit counter starting at zero.
+  `CtrWithCounter(bits)` supports RFC 8645 counters of 32–96 bits in byte steps.
+- `Cfb.encrypt` / `decrypt` use full-block feedback; `Ofb.xor` supplies a symmetric
+  stream operation. `CbcWithIv`, `CfbWithIv`, and `OfbWithIv` accept an IV length
+  expressed as a positive number of blocks.
+- `Cmac.init`, `update`, `final`, and `verify` implement CMAC/OMAC authentication.
+- `Gcm` uses a 12-byte nonce, a 32-bit counter, and the RFC 8645 message bounds.
+  `GcmWithCounter(bits)` supports 32–64 counter bits. Full tags are 16 bytes;
+  detached APIs also support the standard 4, 8, and 12–16-byte tag sizes.
+
+Authenticated decryption verifies the tag before modifying the ciphertext buffer.
+RFC 9058 MGM and the remaining RFC 8645 re-keying constructions are being added
+in subsequent increments; see [mode APIs and coverage](docs/MODES.md).
+
 ### Building
 
 ```bash

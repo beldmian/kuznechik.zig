@@ -15,6 +15,11 @@ const use_gfni = gfni.supported;
 
 pub const block = definitions.block;
 pub const key = definitions.key;
+pub const modes = @import("modes/root.zig").Modes(Cipher);
+
+test {
+    std.testing.refAllDecls(modes);
+}
 
 const testing = std.testing;
 
