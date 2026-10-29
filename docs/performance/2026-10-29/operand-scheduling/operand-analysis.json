@@ -1,0 +1,402 @@
+{
+  "historical75": {
+    "outputs": [
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284,
+      285
+    ],
+    "operand_uses": [
+      {
+        "output": 0,
+        "operands": [
+          98,
+          181
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 1,
+        "operands": [
+          99,
+          182
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 2,
+        "operands": [
+          100,
+          183
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 3,
+        "operands": [
+          101,
+          184
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 4,
+        "operands": [
+          102,
+          185
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 5,
+        "operands": [
+          103,
+          186
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 6,
+        "operands": [
+          104,
+          187
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 7,
+        "operands": [
+          105,
+          188
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 8,
+        "operands": [
+          98,
+          262
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 9,
+        "operands": [
+          99,
+          263
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 10,
+        "operands": [
+          100,
+          264
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 11,
+        "operands": [
+          101,
+          265
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 12,
+        "operands": [
+          102,
+          266
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 13,
+        "operands": [
+          103,
+          267
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 14,
+        "operands": [
+          104,
+          268
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 15,
+        "operands": [
+          105,
+          269
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      }
+    ],
+    "first_source_operands": [
+      181,
+      98
+    ]
+  },
+  "released70": {
+    "outputs": [
+      254,
+      255,
+      256,
+      257,
+      258,
+      259,
+      260,
+      261,
+      262,
+      263,
+      264,
+      265,
+      266,
+      267,
+      268,
+      269
+    ],
+    "operand_uses": [
+      {
+        "output": 0,
+        "operands": [
+          99,
+          173
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 1,
+        "operands": [
+          100,
+          174
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 2,
+        "operands": [
+          101,
+          175
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 3,
+        "operands": [
+          102,
+          176
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 4,
+        "operands": [
+          103,
+          177
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 5,
+        "operands": [
+          104,
+          178
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 6,
+        "operands": [
+          105,
+          179
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 7,
+        "operands": [
+          106,
+          180
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 8,
+        "operands": [
+          99,
+          246
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 9,
+        "operands": [
+          100,
+          247
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 10,
+        "operands": [
+          101,
+          248
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 11,
+        "operands": [
+          102,
+          249
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 12,
+        "operands": [
+          103,
+          250
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 13,
+        "operands": [
+          104,
+          251
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 14,
+        "operands": [
+          105,
+          252
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      },
+      {
+        "output": 15,
+        "operands": [
+          106,
+          253
+        ],
+        "counts": [
+          2,
+          1
+        ]
+      }
+    ]
+  }
+}

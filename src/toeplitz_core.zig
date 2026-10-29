@@ -1,6 +1,6 @@
 //! Diagonally normalized recursive equal-block circuit:70 constant GFNI maps.
 //! One generated graph serves scalar verification and the64-block vector path.
-//! See docs/performance/2026-10-29/bitwise-normalization/prepare.py for its exact derivation.
+//! See docs/performance/2026-10-29/operand-scheduling/prepare.py for its exact derivation.
 const std = @import("std");
 pub const W = @Vector(64, u8);
 fn kuzMul(a_in: u8, b_in: u8) u8 {
@@ -293,7 +293,7 @@ inline fn circuit(comptime T: type, input: [16]T, key: @Vector(16, u8)) [16]T {
     const w251 = w203 ^ w237;
     const w252 = w204 ^ w245;
     const w253 = w205 ^ w243;
-    return .{ xor3(T, w99, w173, (if (T == u8) key[0] else @as(T, @splat(key[0])))), xor3(T, w100, w174, (if (T == u8) key[1] else @as(T, @splat(key[1])))), xor3(T, w101, w175, (if (T == u8) key[2] else @as(T, @splat(key[2])))), xor3(T, w102, w176, (if (T == u8) key[3] else @as(T, @splat(key[3])))), xor3(T, w103, w177, (if (T == u8) key[4] else @as(T, @splat(key[4])))), xor3(T, w104, w178, (if (T == u8) key[5] else @as(T, @splat(key[5])))), xor3(T, w105, w179, (if (T == u8) key[6] else @as(T, @splat(key[6])))), xor3(T, w106, w180, (if (T == u8) key[7] else @as(T, @splat(key[7])))), xor3(T, w99, w246, (if (T == u8) key[8] else @as(T, @splat(key[8])))), xor3(T, w100, w247, (if (T == u8) key[9] else @as(T, @splat(key[9])))), xor3(T, w101, w248, (if (T == u8) key[10] else @as(T, @splat(key[10])))), xor3(T, w102, w249, (if (T == u8) key[11] else @as(T, @splat(key[11])))), xor3(T, w103, w250, (if (T == u8) key[12] else @as(T, @splat(key[12])))), xor3(T, w104, w251, (if (T == u8) key[13] else @as(T, @splat(key[13])))), xor3(T, w105, w252, (if (T == u8) key[14] else @as(T, @splat(key[14])))), xor3(T, w106, w253, (if (T == u8) key[15] else @as(T, @splat(key[15])))) };
+    return .{ xor3(T, w173, w99, (if (T == u8) key[0] else @as(T, @splat(key[0])))), xor3(T, w174, w100, (if (T == u8) key[1] else @as(T, @splat(key[1])))), xor3(T, w175, w101, (if (T == u8) key[2] else @as(T, @splat(key[2])))), xor3(T, w176, w102, (if (T == u8) key[3] else @as(T, @splat(key[3])))), xor3(T, w177, w103, (if (T == u8) key[4] else @as(T, @splat(key[4])))), xor3(T, w178, w104, (if (T == u8) key[5] else @as(T, @splat(key[5])))), xor3(T, w179, w105, (if (T == u8) key[6] else @as(T, @splat(key[6])))), xor3(T, w180, w106, (if (T == u8) key[7] else @as(T, @splat(key[7])))), xor3(T, w99, w246, (if (T == u8) key[8] else @as(T, @splat(key[8])))), xor3(T, w100, w247, (if (T == u8) key[9] else @as(T, @splat(key[9])))), xor3(T, w101, w248, (if (T == u8) key[10] else @as(T, @splat(key[10])))), xor3(T, w102, w249, (if (T == u8) key[11] else @as(T, @splat(key[11])))), xor3(T, w103, w250, (if (T == u8) key[12] else @as(T, @splat(key[12])))), xor3(T, w104, w251, (if (T == u8) key[13] else @as(T, @splat(key[13])))), xor3(T, w105, w252, (if (T == u8) key[14] else @as(T, @splat(key[14])))), xor3(T, w106, w253, (if (T == u8) key[15] else @as(T, @splat(key[15])))) };
 }
 pub inline fn forward(comptime T: type, input: [16]T) [16]T {
     return circuit(T, input, @splat(0));
