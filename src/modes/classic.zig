@@ -99,11 +99,7 @@ pub fn Modes(comptime Cipher: type) type {
             if (iv_blocks == 0) @compileError("CBC IV must contain at least one block");
             return struct {
                 const Self = @This();
-                // Keep unmeasured medium widths on their existing scalar path.
-                const batch_enabled = switch (iv_blocks) {
-                    2, 3, 4, 8, 16, 24, 31, 32, 63 => true,
-                    else => iv_blocks >= 64,
-                };
+                const batch_enabled = iv_blocks >= 2;
                 cipher: Cipher,
                 register: [iv_blocks]B,
                 head: usize = 0,
@@ -897,4 +893,93 @@ test "CBC CFB Kuznechik independent encryption registers and exact context acros
     const C = @import("../kuznechik.zig").Cipher;
     try std.testing.expectEqual(@as(usize, 352), @sizeOf(C));
     try checkFeedbackEncryptionBatches(C, C.init(@splat(0x61)));
+}
+
+// Only the newly eligible CBC widths: keep the unchanged CFB test matrix small.
+fn checkRemainingCbcWidths(comptime C: type, cipher: C) !void {
+    const M = Modes(C);
+    var rng = std.Random.DefaultPrng.init(0x4342435749445448);
+    var plain: [4304]u8 = undefined;
+    rng.random().bytes(&plain);
+    inline for (4..64) |width| {
+        if (comptime switch (width) {
+            4, 8, 16, 24, 31, 32, 63 => false,
+            else => true,
+        }) {
+            const Ref = FeedbackEncryptionReference(C, width, false);
+            var iv: [width * 16]u8 = undefined;
+            rng.random().bytes(&iv);
+            for (0..16) |offset| {
+                for ([_]usize{ 0, 16, 32, 48, 64, 80, 112, 128, width * 16 - 16, width * 16, width * 16 + 16, width * 32 - 16, width * 32 + 16 }) |prefix| {
+                    var guarded: [4336]u8 align(16) = @splat(0xa5);
+                    const data = guarded[offset..][0..plain.len];
+                    @memcpy(data, &plain);
+                    var expected = plain;
+                    var ref = Ref{ .cipher = cipher, .register = iv };
+                    var ctx = M.Cbc(width).init(cipher, iv);
+                    const cuts = [_]usize{ 0, prefix, prefix, 4176, plain.len };
+                    for (cuts[0 .. cuts.len - 1], cuts[1..]) |start, stop| {
+                        try ctx.encrypt(data[start..stop]);
+                        ref.encrypt(expected[start..stop]);
+                        try std.testing.expectEqualSlices(u8, &expected, data);
+                        try ref.check(ctx);
+                        try std.testing.expect(std.meta.eql(cipher, ctx.cipher));
+                        const saved = ctx;
+                        const saved_data = guarded;
+                        for ([_]usize{ 1, 15, 17, 47, 49, 63, 65, 127, 129, 1025 }) |n| {
+                            try std.testing.expectError(error.InvalidLength, ctx.encrypt(data[0..n]));
+                            try std.testing.expectError(error.InvalidLength, ctx.decrypt(data[0..n]));
+                            try std.testing.expect(std.meta.eql(saved, ctx));
+                            try std.testing.expectEqualSlices(u8, &saved_data, &guarded);
+                        }
+                    }
+                    for (guarded[0..offset]) |b| try std.testing.expectEqual(@as(u8, 0xa5), b);
+                    for (guarded[offset + data.len ..]) |b| try std.testing.expectEqual(@as(u8, 0xa5), b);
+                    var inverse = M.Cbc(width).init(cipher, iv);
+                    var inverse_ref = Ref{ .cipher = cipher, .register = iv };
+                    for (cuts[0 .. cuts.len - 1], cuts[1..]) |start, stop| {
+                        try inverse.decrypt(data[start..stop]);
+                        inverse_ref.decrypt(expected[start..stop]);
+                        try std.testing.expectEqualSlices(u8, &expected, data);
+                        try inverse_ref.check(inverse);
+                    }
+                    try std.testing.expectEqualSlices(u8, &plain, data);
+                }
+                // Continuing contexts alternate directions, including empty
+                // calls, partial groups and calls entering after a ring wrap.
+                var ctx = M.Cbc(width).init(cipher, iv);
+                var ref = Ref{ .cipher = cipher, .register = iv };
+                for (0..48) |step| {
+                    var guarded: [2192]u8 align(16) = undefined;
+                    rng.random().bytes(&guarded);
+                    var expected = guarded;
+                    const lengths = [_]usize{ 0, 16, 32, 48, 64, 80, 112, 128, width * 16 - 16, width * 16, width * 16 + 16, 2112 };
+                    const n = lengths[step % lengths.len];
+                    const data = guarded[offset..][0..n];
+                    const reference = expected[offset..][0..n];
+                    if (step % 3 == 0) {
+                        try ctx.decrypt(data);
+                        ref.decrypt(reference);
+                    } else {
+                        try ctx.encrypt(data);
+                        ref.encrypt(reference);
+                    }
+                    try std.testing.expectEqualSlices(u8, &expected, &guarded);
+                    try ref.check(ctx);
+                    try std.testing.expect(std.meta.eql(cipher, ctx.cipher));
+                }
+            }
+        }
+    }
+}
+
+test "CBC remaining widths AES physical shift register all alignments exact state and atomic rejection" {
+    const h = @import("test_helpers.zig");
+    try checkRemainingCbcWidths(h.Aes128, h.Aes128.init(@splat(0x72)));
+}
+
+test "CBC remaining widths Kuznechik physical shift register all alignments exact state and atomic rejection" {
+    const C = @import("../kuznechik.zig").Cipher;
+    try std.testing.expectEqual(@as(usize, 352), @sizeOf(C));
+    try checkRemainingCbcWidths(C, C.init(@splat(0x83)));
 }

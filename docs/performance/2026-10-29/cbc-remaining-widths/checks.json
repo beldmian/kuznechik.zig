@@ -1,0 +1,86 @@
+[
+  {
+    "file": "baseline-baseline-ReleaseFast.log",
+    "entries": 97,
+    "passed": 95,
+    "skipped": 2
+  },
+  {
+    "file": "baseline-native-ReleaseFast.log",
+    "entries": 103,
+    "passed": 103,
+    "skipped": 0
+  },
+  {
+    "file": "candidate-baseline-Debug.log",
+    "entries": 99,
+    "passed": 97,
+    "skipped": 2
+  },
+  {
+    "file": "candidate-baseline-ReleaseFast.log",
+    "entries": 99,
+    "passed": 97,
+    "skipped": 2
+  },
+  {
+    "file": "candidate-baseline-ReleaseSafe.log",
+    "entries": 99,
+    "passed": 97,
+    "skipped": 2
+  },
+  {
+    "file": "candidate-native-Debug-llvm.log",
+    "entries": 105,
+    "passed": 105,
+    "skipped": 0
+  },
+  {
+    "file": "candidate-native-Debug.log",
+    "entries": 100,
+    "passed": 97,
+    "skipped": 3
+  },
+  {
+    "file": "candidate-native-ReleaseFast.log",
+    "entries": 105,
+    "passed": 105,
+    "skipped": 0
+  },
+  {
+    "file": "candidate-native-ReleaseSafe.log",
+    "entries": 105,
+    "passed": 105,
+    "skipped": 0
+  },
+  {
+    "file": "continuation.log",
+    "entries": 8,
+    "passed": 8,
+    "skipped": 0
+  },
+  {
+    "file": "contracts.log",
+    "entries": 8,
+    "passed": 8,
+    "skipped": 0
+  },
+  {
+    "file": "gate-znver5-avx2.log",
+    "entries": 100,
+    "passed": 97,
+    "skipped": 3
+  },
+  {
+    "file": "gate-znver5-avx512vbmi.log",
+    "entries": 100,
+    "passed": 97,
+    "skipped": 3
+  },
+  {
+    "file": "gate-znver5-gfni.log",
+    "entries": 100,
+    "passed": 97,
+    "skipped": 3
+  }
+]
