@@ -49,7 +49,7 @@ These tasks are ordered to deliver visible progress incrementally. Each task sho
 - [ ] **TASK-5**: Implement key schedule harness
   - Implement `keySchedule()` function
   - Parse 32-byte input: [key]
-  - Assert all round keys are unique and non-zero
+  - Compare every round key with an independent reference; accept zero and equal-half keys
   - **Validation:** Unit test passes with known good key
   - **Dependencies:** TASK-4
   - **Estimated complexity:** Medium
@@ -144,3 +144,12 @@ A task is complete when:
 - Use `std.testing.expect` for assertions
 - Corpus files should be as small as possible while covering test vectors
 - AFL++ runs should use `-t` (timeout) to prevent hangs
+
+## Closeout status — 2026-10-29
+
+This draft remains unfinished. Current commands run fixed-vector smoke checks;
+AFL mutation input is not delivered to the callbacks. Actual status and commands
+are in [FUZZING.md](../../../docs/FUZZING.md).
+Repair input delivery and runner naming in [#3](https://github.com/beldmian/kuznechik.zig/issues/3),
+and replace the existing invalid key assertions in [#4](https://github.com/beldmian/kuznechik.zig/issues/4).
+These draft corrections do not change the harness or claim a fuzzing campaign.
