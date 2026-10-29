@@ -79,8 +79,12 @@ pub fn Mgm(comptime Cipher: type) type {
             if (overlaps(std.mem.sliceAsBytes(aad), data)) return error.InvalidOverlap;
             for (aad) |part| if (overlaps(part, data)) return error.InvalidOverlap;
             if (overlaps(std.mem.asBytes(cipher), data)) return error.InvalidOverlap;
-            xor(cipher, nonce, data);
-            return authenticateParts(cipher, nonce, aad, length, data);
+            // Value arguments may share caller storage in optimized builds.
+            // Own the nonce before encryption can overwrite its source bytes.
+            var captured_nonce: [16]u8 = undefined;
+            @memcpy(&captured_nonce, &nonce);
+            xor(cipher, captured_nonce, data);
+            return authenticateParts(cipher, captured_nonce, aad, length, data);
         }
 
         /// Verify privately before decrypting; invalid input preserves data.

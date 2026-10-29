@@ -449,3 +449,33 @@ test "Every byte alignment across profile short long and batch boundaries leaves
         }
     }
 }
+
+test "MGM multipart captures nonce values backed by the mutable payload" {
+    const K = @import("../kuznechik.zig");
+    const RawValue = @import("mgm.zig").Mgm(K.Cipher);
+    const cipher = K.Cipher.init(@splat(0x71));
+    const input_nonce: [16]u8 = @splat(0x4b);
+    const parts = [_][]const u8{ &.{}, &.{1}, &.{} };
+    for ([_]usize{ 64, 512, 1024, 1025, 2049 }) |n| {
+        for ([_]usize{ 0, 1, 7, 15 }) |offset| {
+            var reference: [2081]u8 = @splat(0xa5);
+            var aliased = reference;
+            const a = reference[offset..][0..n];
+            const b = aliased[offset..][0..n];
+            @memset(a, 0x4b);
+            @memset(b, 0x4b);
+            asm volatile (""
+                :
+                : [p] "r" (b.ptr),
+                : .{ .memory = true });
+            const expected = try RawValue.sealParts(&cipher, input_nonce, &parts, a);
+            const actual = try RawValue.sealParts(&cipher, b[0..16].*, &parts, b);
+            if (n == 64) try std.testing.expectEqual(@import("test_helpers.zig").hex("98cffa8005f2a24b96326d2ce0001ae6"), expected);
+            try std.testing.expectEqual(expected, actual);
+            try std.testing.expectEqual(reference, aliased);
+            try RawValue.openParts(&cipher, input_nonce, &parts, b, &actual);
+            @memset(a, 0x4b);
+            try std.testing.expectEqual(reference, aliased);
+        }
+    }
+}
