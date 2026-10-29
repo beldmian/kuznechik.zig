@@ -1,0 +1,9 @@
+0.15.1
+0ee27482eb2e7b19fad58579c107364aa93fbfb54be2d2b9c52cef5f955d6225  /tmp/kuz-toolchains/zig-x86_64-linux-0.15.1/zig
+c61c5da6edeea14ca51ecd5e4520c6f4189ef5250383db33d01848293bfafe05  /home/t3/.cache/kuz-other-toolchains/zig.tar.xz
+Linux 503802.yacolo.ru 6.12.85+deb13-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.12.85-1 (2026-04-30) x86_64 GNU/Linux
+Architecture:                            x86_64
+CPU(s):                                  4
+On-line CPU(s) list:                     0-3
+Model name:                              Intel(R) Xeon(R) CPU E5-2690 v4 @ 2.60GHz
+NUMA node0 CPU(s):                       0-3

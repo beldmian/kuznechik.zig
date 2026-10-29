@@ -1,0 +1,9 @@
+1/8 hybrid.test.hybrid contributions and endpoint match every byte...OK
+2/8 gfni.test.field isomorphism preserves every byte product...OK
+3/8 gfni.test.GFNI affine and S-box instructions agree for every byte...OK
+4/8 gfni.test.GFNI linear layers match every binary basis vector...OK
+5/8 transitions.test.X transition test...OK
+6/8 transitions.test.S and S inverse transition test...OK
+7/8 transitions.test.L and L inverse transition test...OK
+8/8 luts.test.generated lookup tables match basic transformations exhaustively...OK
+All 8 tests passed.

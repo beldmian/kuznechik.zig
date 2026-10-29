@@ -1,0 +1,9 @@
+{
+  "source_files_reproduced": 739,
+  "assembly_tar_stream_identical": true,
+  "source_tar_stream_sha256": "e1c734fae92b6e1a044baaf226df766c19b1c575a44b8b7052c026a95b1b90ed",
+  "assembly_tar_stream_sha256": "ad35c4128eb851616bbded41df33b3b215286d8f262bad1c9aa282f8908f59e5",
+  "compression": "xz lossless recompression of exact measured archives",
+  "validation_tar_stream_sha256": "1e927ce6d4eda2f9f306304bba86fa87ad552674e16953e8678742cb4c4a20ef",
+  "validation_transfer_sha256_verified": true
+}

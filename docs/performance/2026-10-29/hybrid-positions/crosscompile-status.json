@@ -1,0 +1,15 @@
+{
+  "target": "aarch64-linux-musl",
+  "mode": "ReleaseFast",
+  "llvm": true,
+  "emit_binary": false,
+  "variants": [
+    "baseline",
+    "boundary",
+    "spaced",
+    "split2"
+  ],
+  "script_exit_status": 0,
+  "runtime_test": false,
+  "logs": "*-aarch64.log; empty successful compilation output"
+}
