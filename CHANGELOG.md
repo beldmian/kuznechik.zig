@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.1 — 2026-10-29
+
+- Reduce the Zen 5 large-batch linear circuit from 75 to 70 GFNI maps and from 194 to 179 binary XOR nodes using a verified diagonal normalization.
+- Retain repeated public-API gains across affected tested widths, including reversed module placement; reject the 69-map candidate because its generated code and API results were worse.
+- Preserve Cipher layout, public APIs, tail policy, feature gates, and non-Zen fallbacks, including required assembly memory clobbers.
+- Archive algebraic checks, deterministic source generation, assembly, raw paired timings, and native/portable/feature/AArch64 validation.
+
 ## 0.8.0 — 2026-10-29
 
 - Add generic RFC 7253 OCB with batched encrypt/decrypt operations, fixed tag types, and private verification before plaintext writes.
