@@ -109,6 +109,28 @@ pub fn Modes(comptime Cipher: type) type {
                 }
                 pub fn encrypt(self: *Self, data: []u8) error{InvalidLength}!void {
                     if (data.len % 16 != 0) return error.InvalidLength;
+                    if (iv_blocks >= 64 and data.len >= 64) return self.encryptBatched(data);
+                    self.encryptScalar(data);
+                }
+                noinline fn encryptBatched(self: *Self, data: []u8) void {
+                    var at: usize = 0;
+                    while (data.len - at >= 64) {
+                        // Until the ring repeats, each plaintext block depends
+                        // only on a distinct entry of the existing register.
+                        const count: usize = @min(64, iv_blocks, (data.len - at) / 16);
+                        var blocks: [64]B = undefined;
+                        for (0..count) |i| blocks[i] = load(data[at + i * 16 ..][0..16]) ^ self.register[(self.head + i) % iv_blocks];
+                        self.cipher.encryptBlocks(blocks[0..count]);
+                        for (0..count) |i| {
+                            store(data[at + i * 16 ..][0..16], blocks[i]);
+                            self.register[(self.head + i) % iv_blocks] = blocks[i];
+                        }
+                        self.head = (self.head + count) % iv_blocks;
+                        at += count * 16;
+                    }
+                    self.encryptScalar(data[at..]);
+                }
+                fn encryptScalar(self: *Self, data: []u8) void {
                     var at: usize = 0;
                     while (at < data.len) : (at += 16) {
                         var value = load(data[at..][0..16]) ^ self.register[self.head];
@@ -154,7 +176,36 @@ pub fn Modes(comptime Cipher: type) type {
                     return self;
                 }
                 pub fn encrypt(self: *Self, data: []u8) void {
+                    // Restrict batching to the measured ring shapes that keep
+                    // short-call controls stable; IV65 retains its scalar path.
+                    if (iv_blocks >= 64 and std.math.isPowerOfTwo(iv_blocks) and data.len >= 64) return self.encryptBatched(data);
                     self.crypt(false, data);
+                }
+                noinline fn encryptBatched(self: *Self, data: []u8) void {
+                    var at: usize = 0;
+                    if (self.used < 16) {
+                        const n = @min(16 - self.used, data.len);
+                        self.crypt(false, data[0..n]);
+                        at = n;
+                    }
+                    while (data.len - at >= 64) {
+                        const count: usize = @min(64, iv_blocks, (data.len - at) / 16);
+                        var gamma: [64]B = undefined;
+                        for (0..count) |i| gamma[i] = self.register[(self.head + i) % iv_blocks];
+                        self.cipher.encryptBlocks(gamma[0..count]);
+                        for (0..count) |i| {
+                            const ct = load(data[at + i * 16 ..][0..16]) ^ gamma[i];
+                            store(data[at + i * 16 ..][0..16], ct);
+                            self.register[(self.head + i) % iv_blocks] = ct;
+                        }
+                        // These fields remain observable after a complete block
+                        // and must match the scalar encryption path exactly.
+                        self.stream = gamma[count - 1];
+                        self.feedback = data[at + (count - 1) * 16 ..][0..16].*;
+                        self.head = (self.head + count) % iv_blocks;
+                        at += count * 16;
+                    }
+                    self.crypt(false, data[at..]);
                 }
                 pub fn decrypt(self: *Self, data: []u8) void {
                     self.crypt(true, data);
@@ -644,4 +695,148 @@ test "CMAC independent byte subkeys retain final block across splits snapshot fi
     const C = @import("../kuznechik.zig").Cipher;
     try checkMac(h.Aes128, h.Aes128.init(@splat(0x93)));
     try checkMac(C, C.init(@splat(0x72)));
+}
+
+// Deliberately uses a shifting byte register and single-block encryption, so
+// neither circular indexing nor encryptBlocks is shared with the tested paths.
+fn FeedbackEncryptionReference(comptime C: type, comptime width: usize, comptime cfb: bool) type {
+    return struct {
+        cipher: C,
+        register: [width * 16]u8,
+        stream: [16]u8 = @splat(0),
+        feedback: [16]u8 = @splat(0),
+        used: usize = 16,
+        blocks: usize = 0,
+        fn encrypt(self: *@This(), data: []u8) void {
+            if (cfb) {
+                for (data) |*byte| {
+                    if (self.used == 16) {
+                        var gamma: B = self.register[0..16].*;
+                        self.cipher.encrypt(&gamma);
+                        self.stream = gamma;
+                        self.used = 0;
+                    }
+                    byte.* ^= self.stream[self.used];
+                    self.feedback[self.used] = byte.*;
+                    self.used += 1;
+                    if (self.used == 16) self.shift(&self.feedback);
+                }
+            } else {
+                var at: usize = 0;
+                while (at < data.len) : (at += 16) {
+                    var bytes: [16]u8 = undefined;
+                    for (&bytes, self.register[0..16], data[at..][0..16]) |*out, r, p| out.* = r ^ p;
+                    var value: B = bytes;
+                    self.cipher.encrypt(&value);
+                    bytes = value;
+                    @memcpy(data[at..][0..16], &bytes);
+                    self.shift(&bytes);
+                }
+            }
+        }
+        fn shift(self: *@This(), last: *const [16]u8) void {
+            std.mem.copyForwards(u8, self.register[0 .. self.register.len - 16], self.register[16..]);
+            @memcpy(self.register[self.register.len - 16 ..], last);
+            self.blocks += 1;
+        }
+        fn check(self: *const @This(), actual: anytype) !void {
+            try std.testing.expectEqual(self.blocks % width, actual.head);
+            for (0..width) |i| {
+                const bytes: [16]u8 = actual.register[(actual.head + i) % width];
+                try std.testing.expectEqualSlices(u8, self.register[i * 16 ..][0..16], &bytes);
+            }
+            if (cfb) {
+                const stream: [16]u8 = actual.stream;
+                try std.testing.expectEqual(self.used, actual.used);
+                try std.testing.expectEqual(self.stream, stream);
+                try std.testing.expectEqual(self.feedback, actual.feedback);
+            }
+        }
+    };
+}
+
+fn checkFeedbackEncryptionBatches(comptime C: type, cipher: C) !void {
+    const M = Modes(C);
+    var rng = std.Random.DefaultPrng.init(0x4241544348454e43);
+    var plain: [4304]u8 = undefined;
+    rng.random().bytes(&plain);
+    inline for (.{ 1, 2, 3, 63, 64, 65, 128 }) |width| {
+        var iv: [width * 16]u8 = undefined;
+        rng.random().bytes(&iv);
+        inline for (.{ false, true }) |cfb| {
+            const Ref = FeedbackEncryptionReference(C, width, cfb);
+            // Prefixes position the ring and partial feedback on both sides of
+            // the dispatch, 64-block batch and IV65/128 wrap boundaries.
+            for ([_]usize{ 0, 1, 15, 16, 17, 47, 48, 49, 63, 64, 65, 79, 80, 81, 1007, 1008, 1023, 1024, 1025, 1039, 1040, 1041, 1055, 1056, 1057, 2032, 2047, 2048, 2049, 2063, 2064, 2065 }) |prefix| {
+                if (!cfb and prefix % 16 != 0) continue;
+                for (0..16) |offset| {
+                    var guarded: [4336]u8 align(16) = @splat(0xa5);
+                    const data = guarded[offset..][0..plain.len];
+                    @memcpy(data, &plain);
+                    var expected = plain;
+                    var ref = Ref{ .cipher = cipher, .register = iv };
+                    var ctx = if (cfb) M.Cfb(width).init(cipher, iv) else M.Cbc(width).init(cipher, iv);
+                    // Four updates include an empty call, a long group crossing
+                    // the ring twice, and a continuation after a partial tail.
+                    const end: usize = if (cfb) 4183 else 4176;
+                    const cuts = [_]usize{ 0, prefix, prefix, end, plain.len };
+                    for (cuts[0 .. cuts.len - 1], cuts[1..]) |start, stop| {
+                        if (cfb) ctx.encrypt(data[start..stop]) else try ctx.encrypt(data[start..stop]);
+                        ref.encrypt(expected[start..stop]);
+                        try std.testing.expectEqualSlices(u8, &expected, data);
+                        try ref.check(ctx);
+                        // Incomplete CBC calls must reject before touching
+                        // either the output or any context field.
+                        if (!cfb) {
+                            const saved = ctx;
+                            const saved_data = guarded;
+                            try std.testing.expectError(error.InvalidLength, ctx.encrypt(data[0..65]));
+                            try std.testing.expect(std.meta.eql(saved, ctx));
+                            try std.testing.expectEqualSlices(u8, &saved_data, &guarded);
+                        }
+                    }
+                    for (guarded[0..offset]) |b| try std.testing.expectEqual(@as(u8, 0xa5), b);
+                    for (guarded[offset + data.len ..]) |b| try std.testing.expectEqual(@as(u8, 0xa5), b);
+                    var inverse = if (cfb) M.Cfb(width).init(cipher, iv) else M.Cbc(width).init(cipher, iv);
+                    for (cuts[0 .. cuts.len - 1], cuts[1..]) |start, stop| {
+                        if (cfb) inverse.decrypt(data[start..stop]) else try inverse.decrypt(data[start..stop]);
+                    }
+                    try std.testing.expectEqualSlices(u8, &plain, data);
+                }
+            }
+            if (cfb) {
+                // Every possible pending partial block length, with long calls
+                // immediately after it, followed by scalar byte continuations.
+                for (1..16) |split| {
+                    var data = plain;
+                    var expected = plain;
+                    var ctx = M.Cfb(width).init(cipher, iv);
+                    var ref = Ref{ .cipher = cipher, .register = iv };
+                    ctx.encrypt(data[0..split]);
+                    ref.encrypt(expected[0..split]);
+                    try ref.check(ctx);
+                    ctx.encrypt(data[split..4183]);
+                    ref.encrypt(expected[split..4183]);
+                    try ref.check(ctx);
+                    for (4183..data.len) |i| {
+                        ctx.encrypt(data[i..][0..1]);
+                        ref.encrypt(expected[i..][0..1]);
+                        try ref.check(ctx);
+                    }
+                    try std.testing.expectEqualSlices(u8, &expected, &data);
+                }
+            }
+        }
+    }
+}
+
+test "CBC CFB AES independent encryption registers and exact context across large IV batches" {
+    const h = @import("test_helpers.zig");
+    try checkFeedbackEncryptionBatches(h.Aes128, h.Aes128.init(@splat(0x51)));
+}
+
+test "CBC CFB Kuznechik independent encryption registers and exact context across large IV batches" {
+    const C = @import("../kuznechik.zig").Cipher;
+    try std.testing.expectEqual(@as(usize, 352), @sizeOf(C));
+    try checkFeedbackEncryptionBatches(C, C.init(@splat(0x61)));
 }

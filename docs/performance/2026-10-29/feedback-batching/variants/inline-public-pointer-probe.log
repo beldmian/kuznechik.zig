@@ -1,0 +1,7 @@
+docs/performance/2026-10-29/feedback-batching/variants/inline-public-pointer-probe.zig:3:38: error: expected type '*const fn (u32) u32', found '*const fn (u32) callconv(.@"inline") u32'
+fn get() *const fn(u32) u32 { return foo; }
+                                     ^~~
+docs/performance/2026-10-29/feedback-batching/variants/inline-public-pointer-probe.zig:3:38: note: pointer type child 'fn (u32) callconv(.@"inline") u32' cannot cast into pointer type child 'fn (u32) u32'
+docs/performance/2026-10-29/feedback-batching/variants/inline-public-pointer-probe.zig:3:38: note: calling convention 'inline' cannot cast into calling convention 'auto'
+referenced by:
+    test.pointer: docs/performance/2026-10-29/feedback-batching/variants/inline-public-pointer-probe.zig:4:29
