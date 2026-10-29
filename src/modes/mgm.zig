@@ -70,6 +70,82 @@ pub fn Mgm(comptime Cipher: type) type {
             xor(cipher, nonce, data);
         }
 
+        /// Authenticate the concatenation of AAD parts, padding only once at
+        /// the end of AAD (never at part boundaries). Allocation-free; useful
+        /// for protocol prefixes followed by a discontiguous read-only body.
+        /// Old contiguous APIs and their optimized paths are unchanged.
+        pub fn sealParts(cipher: *const Cipher, nonce: [16]u8, aad: []const []const u8, data: []u8) ![16]u8 {
+            const length = try partsLength(nonce, aad, data.len);
+            if (overlaps(std.mem.sliceAsBytes(aad), data)) return error.InvalidOverlap;
+            for (aad) |part| if (overlaps(part, data)) return error.InvalidOverlap;
+            if (overlaps(std.mem.asBytes(cipher), data)) return error.InvalidOverlap;
+            xor(cipher, nonce, data);
+            return authenticateParts(cipher, nonce, aad, length, data);
+        }
+
+        /// Verify privately before decrypting; invalid input preserves data.
+        pub fn openParts(cipher: *const Cipher, nonce: [16]u8, aad: []const []const u8, data: []u8, tag: []const u8) !void {
+            try validTag(tag.len);
+            const length = try partsLength(nonce, aad, data.len);
+            if (overlaps(std.mem.sliceAsBytes(aad), data)) return error.InvalidOverlap;
+            for (aad) |part| if (overlaps(part, data)) return error.InvalidOverlap;
+            if (overlaps(tag, data) or overlaps(std.mem.asBytes(cipher), data)) return error.InvalidOverlap;
+            const full = authenticateParts(cipher, nonce, aad, length, data);
+            try verifyTag(full, tag);
+            xor(cipher, nonce, data);
+        }
+
+        fn partsLength(nonce: [16]u8, aad: []const []const u8, data_len: usize) !usize {
+            var length: usize = 0;
+            for (aad) |part| {
+                length = std.math.add(usize, length, part.len) catch return error.MessageTooLong;
+            }
+            try validate(nonce, length, data_len);
+            return length;
+        }
+
+        fn authenticateParts(cipher: *const Cipher, nonce: [16]u8, aad: []const []const u8, length: usize, data: []const u8) [16]u8 {
+            var initial: B align(16) = nonce;
+            initial[0] |= 0x80;
+            cipher.encrypt(&initial);
+            var counter: [16]u8 = initial;
+            var sum: Product = .{};
+            var pending: [16]u8 = @splat(0);
+            var used: usize = 0;
+            for (aad) |part| {
+                var input = part;
+                if (used != 0) {
+                    const count: usize = @min(16 - used, input.len);
+                    @memcpy(pending[used..][0..count], input[0..count]);
+                    used += count;
+                    input = input[count..];
+                    if (used == 16) {
+                        add(cipher, &counter, &sum, &pending);
+                        pending = @splat(0);
+                        used = 0;
+                    }
+                }
+                const complete = input.len / 16 * 16;
+                add(cipher, &counter, &sum, input[0..complete]);
+                input = input[complete..];
+                if (input.len != 0) {
+                    @memcpy(pending[0..input.len], input);
+                    used = input.len;
+                }
+            }
+            if (used != 0) add(cipher, &counter, &sum, &pending);
+            add(cipher, &counter, &sum, data);
+            var lengths: [16]u8 = undefined;
+            std.mem.writeInt(u64, lengths[0..8], @as(u64, @intCast(length)) * 8, .big);
+            std.mem.writeInt(u64, lengths[8..16], @as(u64, @intCast(data.len)) * 8, .big);
+            add(cipher, &counter, &sum, &lengths);
+            var bytes: [16]u8 = undefined;
+            std.mem.writeInt(u128, &bytes, sum.final(), .big);
+            var final: B align(16) = bytes;
+            cipher.encrypt(&final);
+            return final;
+        }
+
         // For short messages, encryption and authentication counters all fit
         // in one independent batch, including the key for the lengths block.
         // Opening precomputes keystream, but forms no plaintext until verification.

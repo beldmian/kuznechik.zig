@@ -1,0 +1,22 @@
+RFC9367 A.1 record 0: seq 0, plaintext 7, checked 28 published wire bytes
+RFC9367 A.1 record 1: seq 1, plaintext 342, checked 363 published wire bytes
+RFC9367 A.1 record 2: seq 2, plaintext 73, checked 94 published wire bytes
+RFC9367 A.1 record 3: seq 3, plaintext 37, checked 58 published wire bytes
+RFC9367 A.1 record 4: seq 0, plaintext 24, checked 45 published wire bytes
+RFC9367 A.1 record 5: seq 0, plaintext 37, checked 58 published wire bytes
+RFC9367 A.1 record 6: seq 1, plaintext 58, checked 79 published wire bytes
+RFC9367 A.1 record 7: seq 2, plaintext 16385, checked 310 published wire bytes
+RFC9367 A.1 record 8: seq 3, plaintext 16385, checked 310 published wire bytes
+RFC9367 A.1 record 9: seq 8, plaintext 16385, checked 310 published wire bytes
+RFC9367 A.1 record 10: seq 9, plaintext 16385, checked 310 published wire bytes
+RFC9367 A.1 record 11: seq 0, plaintext 16385, checked 310 published wire bytes
+RFC9367 A.1 record 12: seq 1, plaintext 16385, checked 310 published wire bytes
+RFC9367 A.1 record 13: seq 8, plaintext 16385, checked 310 published wire bytes
+RFC9367 A.1 record 14: seq 9, plaintext 16385, checked 310 published wire bytes
+RFC9367 A.1 record 15: seq 10, plaintext 3, checked 24 published wire bytes
+RFC9367 A.1 record 16: seq 10, plaintext 3, checked 24 published wire bytes
+RFC9227 Appendix A example 1: all published cipher fields match
+RFC9227 Appendix A example 2: all published cipher fields match
+RFC9227 Appendix A example 5: all published cipher fields match
+RFC9227 Appendix A example 6: all published cipher fields match
+blob size 270839, SHA256 2e17c30f39114c5d15a64fca86f06eb98e661b5e657a9837f4a9f348aa910c5a
