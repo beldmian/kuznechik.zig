@@ -91,6 +91,8 @@
       },
       "sandboxes": []
     },
-    "remaining_work": "https://github.com/beldmian/kuznechik.zig/issues?q=is%3Aissue+is%3Aopen"
+    "remaining_work": "https://github.com/beldmian/kuznechik.zig/issues?q=is%3Aissue+is%3Aopen",
+    "openspec_strict": "passed: two current capability specs and the unfinished fuzzing draft",
+    "archival_pr": "https://github.com/beldmian/kuznechik.zig/pull/10"
   }
 }
