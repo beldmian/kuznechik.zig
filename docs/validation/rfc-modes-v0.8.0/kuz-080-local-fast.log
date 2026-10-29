@@ -1,0 +1,68 @@
+1/67 kuznechik.test_0...OK
+2/67 kuznechik.test.LS transition test...OK
+3/67 kuznechik.test.LS inverse transition test...OK
+4/67 kuznechik.test.Iterational constants test...OK
+5/67 kuznechik.test.Iterational keys test...OK
+6/67 kuznechik.test.lookup key setup matches every basic Feistel and inverse key...OK
+7/67 kuznechik.test.Cipher test...OK
+8/67 kuznechik.test.optimized cipher matches basic transformations for independent inputs...OK
+9/67 kuznechik.test.bulk operations match independent blocks at every batch and tail boundary...OK
+10/67 modes.classic.test.RFC3602 CBC and RFC4493 CMAC vectors using the generic construction...OK
+11/67 modes.classic.test.RFC8645 CTR base vectors and counter exhaustion preserve input...OK
+12/67 modes.classic.test.NIST800-38A ECB CBC CFB128 and OFB known-answer vectors...OK
+13/67 modes.classic.test.Kuznechik classic modes preserve streaming and feedback across batch boundaries...OK
+14/67 modes.acpkm.test_0...OK
+15/67 modes.compositions.test_0...OK
+16/67 modes.gcm.test.GCM rejects overlapping buffers atomically and accepts adjacent slices...OK
+17/67 modes.gcm.test.GCM known-answer vectors and standard-library differential cases...OK
+18/67 modes.mgm.test.MGM RFC 9058 Appendix A.1 Kuznechik examples 1 and 2...OK
+19/67 modes.mgm.test.MGM polynomial product matches long division and RFC intermediate sum...OK
+20/67 modes.mgm.test.MGM independent scalar differential all short remainders and batch boundaries...OK
+21/67 modes.mgm.test.MGM all tag lengths and authentication failures preserve ciphertext...OK
+22/67 modes.mgm.test.MGM rejects invalid nonce tags empty messages and lengths before mutation...OK
+23/67 modes.mgm.test.MGM modulo half-counter wrap never carries into the other half...OK
+24/67 modes.mgm.test.MGM 1688 independent BI.ZONE AES and Kuznechik ciphertext and tag fixtures...OK
+25/67 modes.mgm.test.MGM mode counters wrap across batches and empty payload failures preserve input...OK
+26/67 modes.mgm.test.MGM long messages every final remainder and failed opens...OK
+27/67 modes.mgm.test.MGM rejects all mutable overlaps before writes and accepts adjacent packet slices...OK
+28/67 modes.ocb.test_0...OK
+29/67 modes.ccm.test.RFC3610 CCM packet vector1 and unchanged ciphertext on rejection...OK
+30/67 modes.ccm.test.all24 RFC3610 CCM packet vectors...OK
+31/67 modes.ccm.test.CCM all dimensions and AAD prefix boundaries match independent OpenSSL fixtures...OK
+32/67 modes.ccm.test.Kuznechik CCM tails alignment guards and rejected inputs...OK
+33/67 modes.ccm.test.CCM length budgets tags and overlap reject before mutation...OK
+34/67 gfni.test.field isomorphism preserves every byte product...OK
+35/67 gfni.test.GFNI affine and S-box instructions agree for every byte...SKIP
+36/67 gfni.test.GFNI linear layers match every binary basis vector...SKIP
+37/67 luts.test.generated lookup tables match basic transformations exhaustively...OK
+38/67 transitions.test.X transition test...OK
+39/67 transitions.test.S and S inverse transition test...OK
+40/67 transitions.test.L and L inverse transition test...OK
+41/67 modes.acpkm_test.test.RFC8645 A.2.1 CTR-ACPKM AES256 all section keys and ciphertext...OK
+42/67 modes.acpkm_test.test.RFC8645 A.2.1 GCM-ACPKM AES128 initial authentication key and rekey...OK
+43/67 modes.acpkm_test.test.RFC8645 A.2.2 ACPKM-Master keys CTR CBC CFB OMAC AES256...OK
+44/67 modes.acpkm_test.test.RFC8645 A.2.2 GCM-Master vector specifies AES192 despite AES256 heading...OK
+45/67 modes.acpkm_test.test.Kuznechik every ACPKM construction matches independent scalar reference and chunk splits...OK
+46/67 modes.acpkm_test.test.ACPKM invalid parameters counters section budgets and transactional failures...OK
+47/67 modes.acpkm_test.test.ACPKM GCM bounds tags authentication failures preserve ciphertext...OK
+48/67 modes.acpkm_test.test.ACPKM whole-byte counter dimensions include full master range and omit nonce carry...OK
+49/67 modes.acpkm_test.test.ACPKM OMAC snapshot finalization allows appending at section boundaries...OK
+50/67 modes.acpkm_test.test.ACPKM GCM rejects forbidden aliases before writes and permits adjacent slices...OK
+51/67 modes.composition_test.test.RFC9189 A.1.3.2 Kuznyechik PMS export and import exact known answer...OK
+52/67 modes.composition_test.test.RFC9189 A.1.2.2 Kuznyechik TLS records 0 63 64 including meshing...OK
+53/67 modes.composition_test.test.independent Python Kuznyechik oracle full outputs all alignments and 64-block section boundaries...OK
+54/67 modes.composition_test.test.every ciphertext or tag byte corruption and wrong keys nonce metadata preserve all buffers...OK
+55/67 modes.composition_test.test.composition preflight lengths sections overlap adjacency and TLS IV modulo...OK
+56/67 modes.composition_test.test.expanded mode budget and immutable cipher configuration are checked before writes...OK
+57/67 modes.composition_test.test.composition altered nonce keys section truncation extension preserve caller outputs...OK
+58/67 modes.ocb_test.test.RFC7253 Appendix A all sixteen AES128 tuples and tag96 tuple...OK
+59/67 modes.ocb_test.test.RFC7253 Appendix A all nine aggregate checksums...OK
+60/67 modes.ocb_test.test.394 independent Node OpenSSL OCB fixtures all byte nonce and tag lengths all bottom bits...OK
+61/67 modes.ocb_test.test.Kuznechik OCB all small tails 64-block boundaries every alignment guards and rejection...OK
+62/67 modes.ocb_test.test.OCB fixed dimensions budget and alias failures preserve output...OK
+63/67 modes.ocb_test.test.OCB key storage aliases and read-only sharing...OK
+64/67 modes.ocb_test.test.OCB independent work batches stop at64 and open authenticates in a separate pass...OK
+65/67 modes.ocb_test.test.generic RFC7253 empty nonce is distinct from named AES profile limits...OK
+66/67 modes.acpkm_aes192_test.test.test-only AES192 matches FIPS197 C.2...OK
+67/67 modes.ocb_aes192_test.test.test-only AES192 matches FIPS197 C.2...OK
+65 passed; 2 skipped; 0 failed.

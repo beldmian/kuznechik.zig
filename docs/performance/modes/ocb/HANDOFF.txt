@@ -1,0 +1,171 @@
+OCB implementation handoff — 2026-10-29
+
+Ready source files (only these files created by this implementation agent):
+  src/modes/ocb.zig
+  src/modes/ocb_test.zig
+  src/modes/ocb_aes192_test.zig
+  src/modes/ocb_oracle.json
+  src/ocb_test.zig (permanent standalone test entrypoint; not a hidden driver)
+  scripts/ocb-oracle.cjs
+No integration exports, README, CHANGELOG, versions, OpenSpec, commits, pushes,
+or releases made by this implementation agent. Other workers changed other files.
+
+Primary specification read before implementation:
+  https://www.rfc-editor.org/rfc/rfc7253.html
+  Sections 3, 3.1, 4.1–4.3, 5–5.1 and Appendix A.
+
+Public factories:
+  pub fn Ocb(comptime Cipher: type) type  // tag16 default
+  pub fn OcbWithTag(comptime Cipher: type, comptime tag_bytes: usize) type
+Returned type:
+  pub const Tag = [tag_bytes]u8;
+  pub const tag_length = tag_bytes;
+  pub const max_blocks = @as(u64, 1) << 48;
+  pub fn validate(nonce_len: usize, aad_len: usize, data_len: usize,
+                  tag_len: usize) !void
+  pub fn seal(cipher: *const Cipher, nonce: []const u8, aad: []const u8,
+              data: []u8) !Tag
+  pub fn sealDetached(cipher: *const Cipher, nonce: []const u8, aad: []const u8,
+                      data: []u8, tag: []u8) !void
+  pub fn open(cipher: *const Cipher, nonce: []const u8, aad: []const u8,
+              data: []u8, tag: Tag) !void
+  pub fn openDetached(cipher: *const Cipher, nonce: []const u8, aad: []const u8,
+                      data: []u8, tag: []const u8) !void
+Errors: InvalidNonceLength, InvalidTagLength, MessageTooLong, InvalidOverlap;
+        additionally AuthenticationFailed on open.
+Cipher interface: encrypt/decrypt(*align(16) @Vector(16,u8)) and
+                  encryptBlocks/decryptBlocks([]align(16) @Vector(16,u8)).
+
+Integration suggestion (root agent owns src/modes/root.zig):
+  pub const Ocb = @import("ocb.zig").Ocb(Cipher);
+  pub fn OcbWithTag(comptime tag_bytes: usize) type {
+      return @import("ocb.zig").OcbWithTag(Cipher, tag_bytes);
+  }
+
+Parameter and safety contract:
+- Generic RFC section4 nonce: 0..15 bytes. Section3.1 named AES profiles require
+  1..15; those names are not Kuznechik profiles. Empty nonce is mathematically
+  legal for generic OCB, but may only be used once for encryption under a key.
+- Positive byte tags 1..16, fixed by the factory; default16. Any other tag-slice
+  length rejects before writes. One tag policy per key is the caller's duty.
+- Nonce offset includes TAGLEN, Ktop, Stretch, and every bottom value 0..63.
+  L_0..L_48 and ntz indexing include the inclusive 2^48-block endpoint.
+- Conservative per-call policy: ceil(AAD bytes/16)+ceil(payload bytes/16)
+  <=2^48. This implements the section5 recommended data-block budget for one
+  call; lifetime accounting across messages/keys remains external. validate
+  supports exact boundary tests without allocating petabyte-sized slices.
+- Byte payloads support arbitrary alignment, complete and partial final blocks,
+  empty sides, and authentication-only operation. No bit-string API is claimed.
+- All writable payload ranges reject overlap with AAD, nonce, detached tag,
+  or Cipher storage. Seal output tag additionally rejects overlap with AAD,
+  nonce and Cipher. Read-only inputs may overlap each other on open. Empty
+  and adjacent slices are allowed. Checks precede all output writes.
+- No allocator and no message-sized storage. Payload uses two64-vector scratch
+  arrays (blocks and offsets); AAD uses one64-vector scratch array; schedule is
+  fixed49 vectors plus L_* and L_$. These are bounded independent of message size.
+- Full decryption into private scratch authenticates before a second pass
+  releases plaintext. Invalid tags preserve the complete input ciphertext.
+  Comparison uses std.crypto.timing_safe.eql; double is branchless. This does
+  not make the underlying Kuznechik lookup-based implementation constant-time.
+- Caller must prevent concurrent mutation of inputs during calls, including
+  the interval between authentication and the second decryption pass.
+
+Correctness evidence:
+- All16 RFC7253 Appendix A AES128/tag128 tuples and the separate AES128/tag96
+  tuple, both seal and open.
+- All9 aggregate checksums: AES128/AES192/AES256 x tag128/tag96/tag64. Each
+  aggregate implements all384 inner cases, verifies their decryption, and
+  authenticates the final concatenation. AES192 test adapter also checks
+  FIPS197 C.2 encryption and inverse. These are AES construction evidence,
+  not published Kuznechik OCB vectors.
+- 394 independent Node20.19.2/OpenSSL fixtures: AES128 every nonce1..15 and
+  tag1..16 (240), AES192/256 each nonce1..15 and tag8/12/16 (90), and all64
+  nonce bottom values (64). Data/AAD sizes range0..2049 and include64/128-block
+  boundaries. Regeneration compared byte-for-byte with the checked-in JSON.
+- OpenSSL rejects empty nonce. Four empty-AAD/payload/nonce AES128 outputs for
+  tag1/8/12/16 are separately labelled evaluations of the RFC formulas using
+  Node AES-ECB; they are neither published vectors nor OCB-oracle fixtures.
+- Kuznechik:138 lengths x16 alignments =2208 guarded cases; lengths0..64,
+  1007..1041, 2031..2065, 4095..4097; rotating nonce0..15 and AAD sizes
+  0,1,15,16,17,31,32,33,1023,1024,1025. Compare batch output against a scalar
+  Cipher adapter; corrupt tags, nonempty nonces, AAD and ciphertext; verify
+  rejection preserves whole guarded buffers, then valid open restores input.
+- Dimensions, exact length-budget boundaries, malformed tag slices, empty and
+  adjacent slices, both pointer-order overlap directions, output-tag aliases,
+  Cipher storage aliases, read-only sharing, and no-write failures covered.
+- Instrumented Cipher verifies at-most64 independent blocks per batch and
+  two private batches on a failed1041-byte open versus four decrypt batches
+  on successful open (private pass plus writing pass).
+
+Commands and logs (Zig0.15.1):
+  ZIG=/tmp/kuz-toolchains/zig-x86_64-linux-0.15.1/zig
+  $ZIG fmt src/modes/ocb.zig src/modes/ocb_test.zig \
+    src/modes/ocb_aes192_test.zig src/ocb_test.zig
+  $ZIG test src/ocb_test.zig
+    local-debug.log: 58 passed, 2 skipped, 0 failed (60 total; includes current
+    root imports, whose integration was concurrent).
+  $ZIG test src/ocb_test.zig -O ReleaseSafe --test-filter modes.ocb
+    local-final-safe.log: all13 passed.
+  $ZIG test src/ocb_test.zig -O ReleaseFast --test-filter modes.ocb
+    local-final-fast.log: all13 passed.
+  Earlier unfiltered safe/fast runs: local-release-safe.log and
+    local-release-fast.log, 43 passed, 2 skipped, 0 failed, before the final
+    empty-nonce/additional tests. The final tests above supersede those runs.
+  node scripts/ocb-oracle.cjs > /tmp/ocb-evidence/oracle-regenerated.json
+  cmp src/modes/ocb_oracle.json /tmp/ocb-evidence/oracle-regenerated.json
+
+Isolated Boat VM: kuz-ocb-m / bx_74k2jvwb (created by this agent, --no-env,
+TTL7200). No other VM accessed. Compiler archive SHA256 verified on both ends:
+c61c5da6edeea14ca51ecd5e4520c6f4189ef5250383db33d01848293bfafe05
+Snapshot reproduction: extract boat-base-source.tar.gz, then
+boat-ocb-final-overlay.tar.gz into the same directory. This pins the dependency
+source used on Boat despite concurrent integration changes in the workspace.
+From that directory:
+  /tmp/ocb-toolchain/zig test src/ocb_test.zig -O ReleaseSafe -mcpu=native
+    ocb-native-safe.log: all54 passed.
+  /tmp/ocb-toolchain/zig test src/ocb_test.zig -O ReleaseFast -mcpu=native
+    ocb-native-fast.log: all54 passed.
+The5 final OCB source hashes in boat-source-and-cpu.log match
+source-sha256.txt. The sixth hash is the local oracle generator.
+
+Benchmark reproduction (only inside an isolated extracted snapshot):
+  cp /tmp/ocb-evidence/ocb-bench.zig src/ocb_bench.zig
+  /tmp/ocb-toolchain/zig build-exe src/ocb_bench.zig -O ReleaseFast \
+    -mcpu=native -femit-bin=/tmp/ocb-bench
+  taskset -c 0 /tmp/ocb-bench > /tmp/ocb-bench.log 2>&1
+  cp /tmp/ocb-evidence/ocb-backend.zig src/ocb_backend.zig
+  /tmp/ocb-toolchain/zig run src/ocb_backend.zig -O ReleaseFast -mcpu=native
+
+Measured environment: AMD Ryzen9 9950X, four-vCPU default Boat VM, Linux6.8,
+Zig0.15.1 ReleaseFast -mcpu=native; reported model=znver5,
+backend=stage2_llvm, GFNI_AVX512=true (boat-backend.log). Scalar adapter calls
+Cipher.encrypt/decrypt for every independent block; production adapter calls
+Cipher.encryptBlocks/decryptBlocks. Same OCB code, key, AAD256, nonce12 and
+tag16. The native source chooses hybrid single-block and64-block GFNI/Toeplitz
+batch paths. One warm-up per path, seven alternating serial-first/batch-first
+pairs, 4MiB payload per trial, pinnedCPU0. Open includes a ciphertext-reset copy
+on every iteration and both authentication/decryption passes. Key expansion
+and open fixture preparation are outside the timer; OCB validation, schedule,
+nonce offset and AAD hashing are inside. Final digest=246. VM-host contention,
+compiler and cache effects remain possible; no universal speed or physical
+optimality claim is made. These observations justify retaining the batch path.
+
+Median payload throughput (MiB/s) and median paired serial_ns/batch_ns:
+     1024 seal           serial=  280.7 batch= 1366.3, speedup=4.87x (pairs 4.84..4.88)
+     1024 open_with_copy serial=  145.8 batch= 1066.5, speedup=7.32x (pairs 7.26..7.35)
+    16384 seal           serial=  386.5 batch= 3974.2, speedup=10.35x (pairs 10.26..10.39)
+    16384 open_with_copy serial=  180.4 batch= 2081.2, speedup=11.57x (pairs 11.43..11.61)
+  1048576 seal           serial=  392.1 batch= 4512.2, speedup=11.49x (pairs 11.45..11.77)
+  1048576 open_with_copy serial=  183.0 batch= 2153.2, speedup=11.80x (pairs 11.25..11.91)
+
+Raw42 paired observations: ocb-bench.log; summary: benchmark-summary.json;
+benchmark source: ocb-bench.zig. Temporary benchmark drivers exist only inside
+this evidence directory and the isolated Boat snapshot, never in the workspace.
+
+Remaining caveats: exports/docs/publication belong to root; external nonce
+uniqueness, fixed-per-key tag policy and lifetime budgets; two-pass open cost;
+no Kuznechik registered OCB profile or published Kuznechik OCB KAT; no bit-level
+API; underlying cipher side channels unchanged. No unimplemented OCB stubs.
+
+Boat cleanup: stop requested for bx_74k2jvwb after collecting all evidence.
+Final Boat state response retained in boat-final-state.json.

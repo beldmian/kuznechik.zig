@@ -1,0 +1,62 @@
+[
+  {
+    "size": 1024,
+    "operation": "seal",
+    "pairs": 7,
+    "serial_MiBs": 280.72082370226974,
+    "batch_MiBs": 1366.258337591505,
+    "paired_speedup": 4.868212676836749,
+    "speedup_min": 4.8368576156834955,
+    "speedup_max": 4.876959833220076
+  },
+  {
+    "size": 1024,
+    "operation": "open_with_copy",
+    "pairs": 7,
+    "serial_MiBs": 145.77277537443013,
+    "batch_MiBs": 1066.479250713008,
+    "paired_speedup": 7.322432395505771,
+    "speedup_min": 7.256320822554117,
+    "speedup_max": 7.347231312159128
+  },
+  {
+    "size": 16384,
+    "operation": "seal",
+    "pairs": 7,
+    "serial_MiBs": 386.4628628994975,
+    "batch_MiBs": 3974.2389829127596,
+    "paired_speedup": 10.347387600460824,
+    "speedup_min": 10.259720447608956,
+    "speedup_max": 10.386737704786766
+  },
+  {
+    "size": 16384,
+    "operation": "open_with_copy",
+    "pairs": 7,
+    "serial_MiBs": 180.3696251599033,
+    "batch_MiBs": 2081.23800361407,
+    "paired_speedup": 11.568612116150812,
+    "speedup_min": 11.4292438769612,
+    "speedup_max": 11.608087828476103
+  },
+  {
+    "size": 1048576,
+    "operation": "seal",
+    "pairs": 7,
+    "serial_MiBs": 392.1070805226199,
+    "batch_MiBs": 4512.243408458426,
+    "paired_speedup": 11.491677731063524,
+    "speedup_min": 11.447646011899552,
+    "speedup_max": 11.772942467831754
+  },
+  {
+    "size": 1048576,
+    "operation": "open_with_copy",
+    "pairs": 7,
+    "serial_MiBs": 182.97667367619806,
+    "batch_MiBs": 2153.2326481747045,
+    "paired_speedup": 11.800449330969721,
+    "speedup_min": 11.247257196033559,
+    "speedup_max": 11.909384392741845
+  }
+]

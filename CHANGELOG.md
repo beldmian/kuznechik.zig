@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0 — 2026-10-29
+
+- Add generic RFC 7253 OCB with batched encrypt/decrypt operations, fixed tag types, and private verification before plaintext writes.
+- Add RFC 9189 KExp15/KImp15 and TLS CTR-OMAC, plus the cipher layer of RFC 9337 CTR-ACPKM-OMAC, with fixed encrypted 16-byte tags.
+- Verify OCB against every Appendix A tuple and aggregate checksum, 394 OpenSSL cases, and guarded Kuznechik boundaries; verify compositions against genuine RFC 9189 examples and 162 complete independent outputs.
+- Record independent reviews of OCB/compositions and MGM/ACPKM, including additional reference, alias, polynomial, counter and streaming checks. Neither review found a blocking defect.
+- Document protocol framing and external KDF dependencies separately from the exported cipher layer.
+
 ## 0.7.1 — 2026-10-29
 
 - Feed complete CCM MAC blocks directly into the cipher, reducing copying and partial-buffer bookkeeping while preserving unaligned input support.

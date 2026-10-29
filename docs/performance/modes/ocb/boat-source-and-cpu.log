@@ -1,0 +1,23 @@
+2a14340906ec2009f95406fb5c6b14595a6190e7f4cda447c7035bbed051528e  src/modes/ocb.zig
+8c334a877cc3b637002cdcf33affcca27e06e1dfaea3468304733077b3d763dc  src/modes/ocb_test.zig
+7e140f2d6b0887bd833c36784d9d9d449d5f0286046cc30bf86948a3a216e412  src/modes/ocb_aes192_test.zig
+2ea421adc7660864accee0e8a9720f6da6fad379893caf224872c08e5da6d06c  src/modes/ocb_oracle.json
+54d377fe289436e18d7b6787be153801c12d50c1eda79ed7cc2e6a77882f76be  src/ocb_test.zig
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           48 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  4
+On-line CPU(s) list:                     0-3
+Vendor ID:                               AuthenticAMD
+Model name:                              AMD Ryzen 9 9950X 16-Core Processor
+CPU family:                              26
+Model:                                   68
+Thread(s) per core:                      1
+Core(s) per socket:                      4
+Socket(s):                               1
+Stepping:                                0
+BogoMIPS:                                8583.83
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm rep_good nopl cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw perfctr_core ssbd ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 clzero xsaveerptr wbnoinvd arat npt lbrv nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload vgif vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid movdiri movdir64b fsrm avx512_vp2intersect flush_l1d arch_capabilities srso_user_kernel_no
+Virtualization:                          AMD-V
+Hypervisor vendor:                       KVM

@@ -1,0 +1,8 @@
+1/7 .review_sol_20261029.test.review_sol new independent Kuznyechik compositions irregular sections random keys and metadata...OK
+2/7 .review_sol_20261029.test.review_sol additional AES256 OpenSSL OCB independent tuples every tag size...OK
+3/7 .review_sol_20261029.test.review_sol OCB readonly nonce sharing and exhaustive small writable aliases...OK
+4/7 kuznechik.test_0...OK
+5/7 modes.compositions.test_0...OK
+6/7 modes.acpkm.test_0...OK
+7/7 modes.ocb.test_0...OK
+All 7 tests passed.

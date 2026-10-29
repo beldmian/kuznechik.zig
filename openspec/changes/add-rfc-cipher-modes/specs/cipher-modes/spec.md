@@ -27,3 +27,10 @@ Changes SHALL be published in incremental commits and releases after the relevan
 #### Scenario: Release checkpoint
 - **WHEN** a mode implementation is released
 - **THEN** its RFC scope, validation evidence, and material limitations SHALL be documented.
+
+### Requirement: MGM cipher profiles
+The library SHALL provide RFC 9367 and RFC 9227 cipher-profile helpers using caller-derived keys, preserving the respective nonce, tag, message-limit and authentication-only rules while documenting external protocol and KDF dependencies.
+
+#### Scenario: Profile-specific cipher operation
+- **WHEN** a caller supplies a derived key and valid profile parameters
+- **THEN** ciphertext and tags SHALL match the profile's published examples without changing the raw MGM nonce validation rules.

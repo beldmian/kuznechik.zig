@@ -1,6 +1,7 @@
 # Cipher modes
 
-The library provides ECB, CTR, CBC, full-block CFB, OFB, CMAC/OMAC, GCM, CCM, and MGM through
+The library provides ECB, CTR, CBC, full-block CFB, OFB, CMAC/OMAC, GCM, CCM, MGM, OCB,
+the seven RFC 8645 internal modes, and RFC 9189/9337 cipher compositions through
 `@import("kuznechik").modes`. All operate in place on byte slices without allocation
 and accept unaligned message buffers. Existing block APIs and Cipher layout are
 unchanged.
@@ -16,6 +17,7 @@ unchanged.
 | `Gcm` | `&cipher`, nonce12 | `try .seal(cipher, nonce, aad, data)` returns a 16-byte tag; `.open(..., tag)` |
 | `Ccm` | `&cipher`, nonce12 | `try .seal(cipher, nonce, aad, data)` returns a 16-byte tag; `.open(..., tag)` |
 | `Mgm` | `&cipher`, nonce16 | `try .seal(cipher, nonce, aad, data)` returns a 16-byte tag; `.open(..., tag)` |
+| `Ocb` | `&cipher`, nonce slice | `try .seal(cipher, nonce, aad, data)` returns a 16-byte tag; `.open(..., tag)` |
 
 CTR uses the nonce as the high bytes of a big-endian counter block and starts
 the low counter at zero. `CtrWithCounter(bits)` supports 32–96 counter bits in
@@ -32,7 +34,7 @@ GCM follows the nonce/counter dimensions and conservative message bounds of
 [RFC 8645 §6.2.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2.3).
 `GcmWithCounter(bits)` supports 32–64 counter bits in byte steps. Full-tag
 `seal` / `open` use 16 bytes. `sealDetached` / `openDetached` accept tag sizes
-4, 8, and 12–16 bytes. Authentication verifies in constant time before any
+4, 8, and 12–16 bytes. Tag comparison runs in constant time before any
 plaintext is written; a rejected tag leaves the ciphertext unchanged.
 AAD and mutable payload slices must be disjoint. Detached output tags must also
 be disjoint from both. GCM rejects overlaps before modifying any buffer; adjacent
@@ -145,3 +147,61 @@ adapter, also checked against FIPS 197. Other vectors use AES-128/AES-256.
 Kuznechik is independently compared to a scalar construction across sections,
 partial updates, snapshot finalization, limits and rejections.
 See [ACPKM performance evidence](performance/modes/acpkm/README.md).
+
+Version 0.8.0 adds generic [RFC 7253 OCB](https://www.rfc-editor.org/rfc/rfc7253.html).
+`Ocb` uses a 16-byte tag; `OcbWithTag(bytes)` fixes a positive byte tag of 1–16
+bytes in the type, including detached APIs. Keep one tag size per key. Nonces
+are slices of 0–15 bytes and must not repeat under a key, including an empty
+nonce. The generic construction permits that empty nonce; the named AES profiles
+require 1–15 bytes and do not assign a Kuznechik registry profile.
+
+OCB supports empty AAD/payload and partial blocks. It batches independent block
+encryption/decryption, authenticates private plaintext, then decrypts again into
+the caller's buffer on success. `validate(nonce_len, aad_len, data_len, tag_len)`
+checks dimensions and the per-call bound
+`ceil(aad_len/16) + ceil(data_len/16) <= 2^48`. Callers must also enforce that
+recommended data-block budget across messages under the key. Writable payload
+must be disjoint from nonce, AAD, tag and cipher storage; an output tag must also
+be disjoint from the read inputs and cipher storage. Read-only sharing is allowed.
+Keep inputs stable during both passes. OCB is one-shot and allocation-free.
+
+OCB passes all 17 Appendix A AES tuples and nine aggregate checksums, 394
+Node/OpenSSL cases, and 2,208 guarded Kuznechik alignment/boundary cases.
+AES vectors validate the generic construction; no Kuznechik-specific OCB registry
+assignment or official Kuznechik OCB test vector is claimed. See
+[OCB evidence](performance/modes/ocb/README.md).
+
+The same release adds three allocation-free compositions with independently
+derived ENC/MAC ciphers. All use a fixed encrypted 16-byte tag; this tag is part
+of the encrypted stream, rather than a detached AEAD tag.
+
+| Interface | Initialization | Protection / recovery |
+|---|---|---|
+| `KExp15` | `.init(enc_cipher, mac_cipher)` | `try .seal(iv8, output, secret)` / `.open(iv8, output, wrapped)` |
+| `TlsCtrOmac` | `.init(enc_cipher, mac_cipher)` | `try .seal(base_iv8, record, output, plaintext)` / `.open(base_iv8, record, output, ciphertext)` |
+| `CtrAcpkmOmac` | `try .init(enc_cipher, mac_cipher, section_bytes)` | `try .seal(nonce8, output, plaintext)` / `.open(nonce8, output, ciphertext)` |
+
+Out-of-place outputs must be exactly payload length plus 16 for sealing and
+ciphertext length minus 16 for opening, and be disjoint from inputs and context.
+`wrappedLength` / `protectedLength` check expansion. Explicit `sealInPlace` and
+`openInPlace` instead operate on payload plus 16 bytes in the same buffer;
+successful opening returns the plaintext prefix and preserves the encrypted-tag
+suffix. Failed validation or authentication preserves all caller buffers.
+
+KExp15 authenticates `IV || secret` and uses ordinary CTR over `secret || tag`.
+TLS authenticates the exact sequence/type/version/plaintext-length metadata,
+uses `(base_iv + sequence) mod 2^64`, and fixes ACPKM sections to 4096 bytes.
+`TlsRecord` supplies sequence, content type and two-byte version; its plaintext
+length is inferred. The output is only the encrypted record fragment. The caller
+enforces compression and protocol limits and supplies TLSTREE-derived keys.
+RFC 9337's cipher layer authenticates plaintext and encrypts plaintext plus tag
+using the selected ACPKM section size. `nonceFromUkm` extracts UKM's first eight
+bytes; the remaining bytes are for the external key-derivation seed.
+
+These APIs implement neither full TLS nor PBES2. TLSTREE, HMAC-Streebog, PBKDF2,
+KDF_TREE, key independence, nonce management, and serialization remain caller
+dependencies. Exact signatures, limits and genuine RFC vector provenance are in
+[composition notes](composition-notes.md). Independent review reports for
+[OCB/compositions](reviews/ocb-compositions-independent-sol-20261029.md) and
+[MGM/ACPKM](reviews/mgm-acpkm-independent-sol-20261029-0835.md) record their bounded
+checks and limitations.

@@ -24,10 +24,19 @@ pub fn Modes(comptime Cipher: type) type {
         pub const CbcAcpkmMaster = rekey.CbcAcpkmMaster;
         pub const CfbAcpkmMaster = rekey.CfbAcpkmMaster;
         pub const OmacAcpkmMaster = rekey.OmacAcpkmMaster;
+        const compositions = @import("compositions.zig").Modes(Cipher, classic, rekey);
+        pub const KExp15 = compositions.KExp15;
+        pub const TlsCtrOmac = compositions.TlsCtrOmac;
+        pub const TlsRecord = @import("compositions.zig").Record;
+        pub const CtrAcpkmOmac = compositions.CtrAcpkmOmac;
         pub const ecbEncrypt = classic.ecbEncrypt;
         pub const ecbDecrypt = classic.ecbDecrypt;
         pub const Gcm = @import("gcm.zig").Gcm(Cipher, 32);
         pub const Mgm = @import("mgm.zig").Mgm(Cipher);
+        pub const Ocb = @import("ocb.zig").Ocb(Cipher);
+        pub fn OcbWithTag(comptime tag_bytes: usize) type {
+            return @import("ocb.zig").OcbWithTag(Cipher, tag_bytes);
+        }
         pub const Ccm = @import("ccm.zig").Ccm(Cipher, 3);
         pub fn CcmWithLength(comptime length_bytes: u4) type {
             return @import("ccm.zig").Ccm(Cipher, length_bytes);

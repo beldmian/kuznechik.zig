@@ -6,4 +6,7 @@
 - Validate parameter/length/counter limits before modifying data. Authenticated decryption verifies the tag before releasing plaintext; failures preserve the caller's ciphertext buffer.
 - Batch independent counter encryptions and block decryptions through encryptBlocks/decryptBlocks; serial feedback operations retain their required dependency.
 - Keep mode primitives separate from TLS/IKE protocol framing, handshake, signature, and hash-based KDF implementations.
+- Protocol cipher-profile helpers accept already-derived per-record/leaf keys;
+  they implement RFC nonce formatting, tag policy and cipher limits without
+  claiming TLSTREE/KTREE, handshake or complete packet-stack implementations.
 - Add measured optimizations after known-answer and negative tests pass, recording the actual backend, target, and message lengths.

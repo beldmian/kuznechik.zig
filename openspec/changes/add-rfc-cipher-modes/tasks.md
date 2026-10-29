@@ -6,6 +6,7 @@
 - [ ] Implement and test generic RFC 3610 CCM and RFC 7253 OCB.
 - [ ] Implement and test every RFC 8645 cipher-mode construction, including master-key variants.
 - [ ] Implement and test reusable CTR-OMAC and KExp15/KImp15 compositions; record protocol key-schedule dependencies explicitly.
+- [ ] Implement and test RFC 9367/9227 MGM cipher-profile helpers with caller-derived keys and documented external protocol dependencies.
 - [ ] Benchmark serial and batch paths on Boat and retain measured improvements.
 - [ ] Document APIs, RFC scope, limits, and reproducible results.
 - [ ] Publish verified increments with commits and releases.
