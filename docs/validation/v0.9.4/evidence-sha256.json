@@ -1,0 +1,16 @@
+{
+  "README.md": "594dd02eceb1f587f4d9a0b84ab1864e93085b87435d4fe65f89ff018a631e1f",
+  "boat-deleted.json": "1c3d4f6df6f656c0cc7fb24c1fb92a354990bc7ea2b8e4a5324823a5216564b7",
+  "boat-deletion-status.json": "c714e13f913b46b2cfd0d406cef15b374f2aefcd50fa914279d2b65354eb04d1",
+  "boat-owned.json": "feb1b5b5e78e27f783c257ba25144dd5ece4382711a7e1f46b0821218a58cf1c",
+  "build.log": "adf81ee0b9e012eadde7db6dfa836f45a91c4f69b25ea0ada9080c2ad09a0e10",
+  "checks.json": "0515e86c215075e17b6d07130f9502b860d03a3d06f6cbd0ef5210108ddaa048",
+  "compiler.sha256": "50cddd222fc707fae8a0c84412834728d0cedf2b838e80b5b4af8867fc17e405",
+  "lscpu.json": "49c69a9cfc472a8e917f8ad499c19f4394223f2bad8a92dcc2d2d0ee79d7a246",
+  "native-fast.log": "a0eedae1c398203bf684583c343d3483e30f48aa1e48867a0bb259707783fa5b",
+  "native-safe.log": "a0eedae1c398203bf684583c343d3483e30f48aa1e48867a0bb259707783fa5b",
+  "portable-safe.log": "d92406f17247ad84f1b5c78486c67451ed269a162041fadc888c38d6c75c4d8b",
+  "remote-source-sha256.json": "9be556ac8082af7d4ae88b4d134df5c404670856e7e9ec8b48cdb5b6e8dff2f6",
+  "selected-raw-ratio-checks.json": "18d3b631bb75608de8a38a5f067a36f34434c5a91158eda726be9f6347c0a593",
+  "source-sha256.json": "c0700b04698569c21d20bb9111ae9ba1f17fb5b968b7f4d43540183bdeb9984c"
+}

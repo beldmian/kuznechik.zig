@@ -46,6 +46,13 @@ The scratch buffer holds at most min(64, IV blocks) blocks. Medium CFB
 encryption remains scalar after its candidates failed short-call controls.
 See [medium-register measurements](performance/2026-10-29/medium-feedback/RESULTS.md).
 
+Version 0.9.4 qualifies all remaining 53 medium CBC widths, so CBC batching
+now applies to every IV register of at least two blocks. The same 128/48/64-byte
+entry thresholds remain. Default one-block-IV CBC keeps its serial path.
+Measurements include small short-call costs for some instantiations; this
+throughput optimization does not make every call faster. See
+[complete width coverage and costs](performance/2026-10-29/cbc-remaining-widths/RESULTS.md).
+
 For OFB registers of at least 64 blocks, updates of at least 64 bytes use
 batched XOR and register bookkeeping. Short updates keep the scalar loop;
 both paths preserve the same partial keystream and context state. See

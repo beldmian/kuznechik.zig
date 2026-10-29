@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.4 — 2026-10-29
+
+- Enable CBC batching for all remaining 53 IV widths in 4–63 after measuring each width, replacing the whitelist with `iv_blocks >= 2`.
+- Preserve IV2/IV3 thresholds, existing large-register paths, default one-block-IV behavior, context layouts, and complete state across updates and direction changes.
+- Add independent AES/Kuznechik references for every newly enabled width, including all alignments, ring and group boundaries, guarded buffers and atomic length rejection.
+- Retain measured throughput gains with explicit small short-call costs; preserve full raw data, unchanged controls, source archives, test receipts and VM cleanup.
+- Run the complete integration suite on a larger Boat VM following killed local compile attempts; exact checks are recorded in the v0.9.4 integration receipt.
+
 ## 0.9.3 — 2026-10-29
 
 - Extend CBC encryption batching to measured IV widths 2/3/4/8/16/24/31/32/63. Entry thresholds are 128 bytes for IV2, 48 bytes for IV3 and 64 bytes for the others; bound scratch to the register width.
