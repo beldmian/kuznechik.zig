@@ -6,8 +6,10 @@ const B = definitions.block;
 const W = @Vector(64, u8);
 // Zig 0.15's self-hosted x86 Debug backend does not implement the AVX-512
 // register constraints. Keep its portable path, even on capable hardware.
+// Zig 0.15.1 LLVM also cannot allocate these vector operands with AVX2
+// disabled, even if the AVX-512 features remain enabled in the target.
 pub const supported = @import("builtin").zig_backend == .stage2_llvm and @import("builtin").cpu.arch == .x86_64 and
-    @import("std").Target.x86.featureSetHasAll(@import("builtin").cpu.features, &.{ .gfni, .avx512f, .avx512bw, .avx512vbmi, .evex512 });
+    @import("std").Target.x86.featureSetHasAll(@import("builtin").cpu.features, &.{ .avx2, .gfni, .avx512f, .avx512bw, .avx512vbmi, .evex512 });
 
 fn aesMul(a_in: u8, b_in: u8) u8 {
     var a = a_in;
