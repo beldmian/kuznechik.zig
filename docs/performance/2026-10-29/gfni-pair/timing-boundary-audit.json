@@ -1,0 +1,30 @@
+[
+  {
+    "file": "/home/t3/.cache/kuz-gfni-pair/verified/fixed-switch.s",
+    "function": "\"fixed-switch.blocks__anon_2205\"",
+    "first_clock_offset": 1149,
+    "first_gfni_offset": 2789,
+    "gfni_before_first_clock": false
+  },
+  {
+    "file": "/home/t3/.cache/kuz-gfni-pair/verified/fixed-switch.s",
+    "function": "\"fixed-switch.blocks__anon_2268\"",
+    "first_clock_offset": 1092,
+    "first_gfni_offset": 2714,
+    "gfni_before_first_clock": false
+  },
+  {
+    "file": "/home/t3/.cache/kuz-gfni-pair/verified/fixed-switch-reverse.s",
+    "function": "\"fixed-switch-reverse.blocks__anon_2205\"",
+    "first_clock_offset": 1165,
+    "first_gfni_offset": 2768,
+    "gfni_before_first_clock": false
+  },
+  {
+    "file": "/home/t3/.cache/kuz-gfni-pair/verified/fixed-switch-reverse.s",
+    "function": "\"fixed-switch-reverse.blocks__anon_2268\"",
+    "first_clock_offset": 1105,
+    "first_gfni_offset": 2745,
+    "gfni_before_first_clock": false
+  }
+]

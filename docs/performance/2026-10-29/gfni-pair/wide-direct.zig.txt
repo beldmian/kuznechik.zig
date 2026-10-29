@@ -1,0 +1,14 @@
+//! Control: specialize only the two-block copies, retain the original ZMM kernel.
+const gfni = @import("gfni.zig");
+const B = @import("definitions.zig").block;
+pub const supported = gfni.supported;
+pub fn encrypt(keys: *const [10]B, messages: *align(16) [2]B) void {
+    var padded: [4]B align(16) = .{ messages[0], messages[1], @splat(0), @splat(0) };
+    gfni.encrypt(1, keys, &padded);
+    messages.* = padded[0..2].*;
+}
+pub fn decrypt(keys: *const [10]B, messages: *align(16) [2]B) void {
+    var padded: [4]B align(16) = .{ messages[0], messages[1], @splat(0), @splat(0) };
+    gfni.decrypt(1, keys, &padded);
+    messages.* = padded[0..2].*;
+}

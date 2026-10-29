@@ -1,0 +1,10 @@
+The initial run.sh used executable names that collided with the narrow/ and
+control/ source directories. The first bench pilot completed, then linking
+narrow failed. Fixing the names to bin-* and rerunning overwrote that initial
+11-pair bench pilot log. Its printed medians were approximately 0.933 encrypt /
+0.966 decrypt for dependent pairs and 0.829 / 0.821 for independent pairs.
+Those initial raw samples are unavailable and are excluded from final claims.
+All pilot logs from the successful rerun, both alternate designs, broad native
+repetitions, baseline controls, portable controls, and exact retained-source
+repetitions are kept in the evidence archive. No observations are filtered for
+noise; reports use matched per-pair ratios, never independent minima.

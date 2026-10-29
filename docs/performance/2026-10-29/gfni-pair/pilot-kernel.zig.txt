@@ -1,0 +1,263 @@
+//! Experimental two-block matrix kernel. Exactly two defined 128-bit lanes.
+//! Dispatch additionally requires Zen 5; the original GFNI gate is unchanged.
+const definitions = @import("definitions.zig");
+const transitions = @import("transitions.zig");
+const B = definitions.block;
+const W = @Vector(32, u8);
+pub const supported = @import("gfni.zig").supported and
+    @import("std").Target.x86.featureSetHasAll(@import("builtin").cpu.features, &.{.avx512vl});
+const Z = @Vector(64, u8);
+// The alternate proper 256-bit lookup is kept for measured comparison.
+const narrow_sbox = false;
+
+fn aesMul(a_in: u8, b_in: u8) u8 {
+    var a = a_in;
+    var b = b_in;
+    var out: u8 = 0;
+    for (0..8) |_| {
+        if (b & 1 != 0) out ^= a;
+        const high = a & 0x80 != 0;
+        a = (a << 1) ^ @as(u8, if (high) 0x1b else 0);
+        b >>= 1;
+    }
+    return out;
+}
+
+// 0x30 is a root of x^8+x^7+x^6+x+1 in the AES field.
+// Substitution x -> 0x30 maps Kuznechik's field into GFNI's field.
+const basis = blk: {
+    var b: [8]u8 = undefined;
+    b[0] = 1;
+    for (1..8) |i| b[i] = aesMul(b[i - 1], 0x30);
+    break :blk b;
+};
+pub fn toAes(x: u8) u8 {
+    var out: u8 = 0;
+    for (0..8) |i| if ((x >> @intCast(i)) & 1 != 0) {
+        out ^= basis[i];
+    };
+    return out;
+}
+const inverse_map = blk: {
+    @setEvalBranchQuota(100000);
+    var table: [256]u8 = undefined;
+    for (0..256) |i| table[toAes(@intCast(i))] = @intCast(i);
+    break :blk table;
+};
+pub fn affineMatrix(comptime inverse: bool) u64 {
+    @setEvalBranchQuota(100000);
+    var matrix: u64 = 0;
+    for (0..8) |output_bit| {
+        var row: u8 = 0;
+        for (0..8) |input_bit| {
+            const x = @as(u8, 1) << @intCast(input_bit);
+            const y = if (inverse) inverse_map[x] else toAes(x);
+            row |= ((y >> @intCast(output_bit)) & 1) << @intCast(input_bit);
+        }
+        matrix |= @as(u64, row) << @intCast((7 - output_bit) * 8);
+    }
+    return matrix;
+}
+fn substitution(comptime inverse: bool) [4]Z {
+    @setEvalBranchQuota(100000);
+    var table: [256]u8 = undefined;
+    for (0..256) |i| {
+        const p = if (inverse) definitions.pi_inv_table[i] else definitions.pi_table[i];
+        table[toAes(@intCast(i))] = toAes(p);
+    }
+    var out: [4]Z = undefined;
+    for (0..4) |i| out[i] = table[i * 64 ..][0..64].*;
+    return out;
+}
+fn diagonalColumns(comptime inverse: bool) [16]W {
+    @setEvalBranchQuota(1000000);
+    var basis_columns: [16]B = undefined;
+    for (0..16) |i| {
+        var v: B = @splat(0);
+        v[i] = 1;
+        basis_columns[i] = if (inverse) transitions.l_inv_trans(v) else transitions.l_trans(v);
+    }
+    var table: [16]W = undefined;
+    for (0..16) |rotation| {
+        for (0..32) |j| {
+            const output = j % 16;
+            table[rotation][j] = toAes(basis_columns[(output + rotation) % 16][output]);
+        }
+    }
+    return table;
+}
+const enc_s = substitution(false);
+const dec_s = substitution(true);
+const enc_diag = diagonalColumns(false);
+const dec_diag = diagonalColumns(true);
+
+// PALIGNR rotates each 128-bit block independently; the coefficients are the
+// corresponding cyclic diagonals of L. Rotation zero needs no instruction.
+inline fn rotate(a: W, comptime i: usize) W {
+    if (i == 0) return a;
+    return asm ("vpalignr %[i], %[a], %[a], %[out]"
+        : [out] "=v" (-> W),
+        : [a] "v" (a),
+          [i] "n" (i),
+    );
+}
+inline fn affine(a: W, comptime inverse: bool) W {
+    const matrix: @Vector(4, u64) = @splat(comptime affineMatrix(inverse));
+    return asm ("vgf2p8affineqb $0, %[matrix], %[a], %[out]"
+        : [out] "=v" (-> W),
+        : [a] "v" (a),
+          [matrix] "vm" (matrix),
+    );
+}
+inline fn perm2(a: W, idx: W, b: W) W {
+    return asm ("vpermi2b %[b], %[a], %[idx]"
+        : [out] "=v" (-> W),
+        : [idx] "0" (idx),
+          [a] "v" (a),
+          [b] "vm" (b),
+    );
+}
+inline fn perm2Z(a: Z, idx: Z, b: Z) Z {
+    return asm ("vpermi2b %[b], %[a], %[idx]"
+        : [out] "=v" (-> Z),
+        : [idx] "0" (idx),
+          [a] "v" (a),
+          [b] "vm" (b),
+    );
+}
+inline fn half(comptime a: Z, comptime h: usize) W {
+    return @shuffle(u8, a, a, blk: {
+        var idx: [32]i32 = undefined;
+        for (0..32) |i| idx[i] = @intCast(h * 32 + i);
+        break :blk idx;
+    });
+}
+inline fn sbox(a: W, comptime inverse: bool) W {
+    const table = if (inverse) dec_s else enc_s;
+    if (comptime narrow_sbox) {
+        // Each VPERMI2B selects 64 entries in 256-bit form. Unlike ZMM,
+        // bit 6 must select between pairs, then bit 7 selects the half.
+        const p0 = perm2(half(table[0], 0), a, half(table[0], 1));
+        const p1 = perm2(half(table[1], 0), a, half(table[1], 1));
+        const p2 = perm2(half(table[2], 0), a, half(table[2], 1));
+        const p3 = perm2(half(table[3], 0), a, half(table[3], 1));
+        const bit6 = (a & @as(W, @splat(64))) != @as(W, @splat(0));
+        const lo = @select(u8, bit6, p1, p0);
+        const hi = @select(u8, bit6, p3, p2);
+        return @select(u8, a < @as(W, @splat(128)), lo, hi);
+    }
+    // Widen only substitution; both upper lanes are explicitly defined.
+    const z: Z = @shuffle(u8, a, a, [_]i32{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 } ** 2);
+    const lo = perm2Z(table[0], z, table[1]);
+    const hi = perm2Z(table[2], z, table[3]);
+    const out = @select(u8, z < @as(Z, @splat(128)), lo, hi);
+    return @shuffle(u8, out, out, [_]i32{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 });
+}
+inline fn mul(a: W, b: W) W {
+    return asm ("vgf2p8mulb %[b], %[a], %[out]"
+        : [out] "=v" (-> W),
+        : [a] "v" (a),
+          [b] "vm" (b),
+    );
+}
+inline fn linear(a: W, comptime inverse: bool) W {
+    const table = if (inverse) dec_diag else enc_diag;
+    var out: [16]W = undefined;
+    inline for (0..16) |i| out[i] = mul(rotate(a, i), table[i]);
+    inline for (.{ 1, 2, 4, 8 }) |step| {
+        inline for (0..16 / (step * 2)) |j| {
+            const i = j * step * 2;
+            out[i] ^= out[i + step];
+        }
+    }
+    return out[0];
+}
+inline fn broadcast(a: B) W {
+    return @shuffle(u8, a, undefined, [_]i32{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 } ** 2);
+}
+
+pub fn encrypt(keys: *const [10]B, messages: *align(16) [2]B) void {
+    @setRuntimeSafety(false);
+    @setEvalBranchQuota(100000);
+    const input: *align(16) W = @ptrCast(messages);
+    var state = affine(input.*, false);
+    for (0..9) |r| state = linear(sbox(state ^ affine(broadcast(keys[r]), false), false), false);
+    input.* = affine(state ^ affine(broadcast(keys[9]), false), true);
+}
+pub fn decrypt(keys: *const [10]B, messages: *align(16) [2]B) void {
+    @setRuntimeSafety(false);
+    @setEvalBranchQuota(100000);
+    const input: *align(16) W = @ptrCast(messages);
+    var state = affine(input.*, false);
+    for (0..9) |r| state = sbox(linear(state ^ affine(broadcast(keys[9 - r]), false), true), true);
+    input.* = affine(state ^ affine(broadcast(keys[0]), false), true);
+}
+
+test "pair affine and both substitutions cover every byte in both lanes" {
+    if (comptime !supported) return error.SkipZigTest;
+    const t = @import("std").testing;
+    for (0..256) |x| {
+        var input: W = undefined;
+        for (0..32) |i| input[i] = @truncate(x + i * 37);
+        const a = affine(input, false);
+        try t.expectEqual(input, affine(a, true));
+        const e = affine(sbox(a, false), true);
+        const d = affine(sbox(a, true), true);
+        for (0..32) |i| {
+            try t.expectEqual(toAes(input[i]), a[i]);
+            try t.expectEqual(definitions.pi_table[input[i]], e[i]);
+            try t.expectEqual(definitions.pi_inv_table[input[i]], d[i]);
+        }
+    }
+}
+test "pair linear independent binary bases in both lanes" {
+    if (comptime !supported) return error.SkipZigTest;
+    const t = @import("std").testing;
+    for (0..2) |lane| for (0..16) |pos| for (0..8) |bit| {
+        var input: [2]B = @splat(@splat(0));
+        input[lane][pos] = @as(u8, 1) << @intCast(bit);
+        const a = affine(@bitCast(input), false);
+        const e: [2]B = @bitCast(affine(linear(a, false), true));
+        const d: [2]B = @bitCast(affine(linear(a, true), true));
+        for (0..2) |i| {
+            try t.expectEqual(transitions.l_trans(input[i]), e[i]);
+            try t.expectEqual(transitions.l_inv_trans(input[i]), d[i]);
+        }
+    };
+}
+test "pair public API arbitrary input keys guards and sixteen-byte offsets" {
+    if (comptime !supported) return error.SkipZigTest;
+    const std = @import("std");
+    const C = @import("kuznechik.zig").Cipher;
+    var prng = std.Random.DefaultPrng.init(0xf1e2d3c4);
+    const rng = prng.random();
+    for (0..10) |ki| {
+        var k: definitions.key = undefined;
+        rng.bytes(std.mem.asBytes(&k));
+        if (ki == 0) k = @splat(0);
+        if (ki == 1) k = @splat(255);
+        const c = C.init(k);
+        try std.testing.expectEqual(@as(usize, 352), @sizeOf(C));
+        inline for (.{ false, true }) |inverse| {
+            for (0..4) |offset| for (0..64) |_| {
+                var data: [8]B align(16) = undefined;
+                rng.bytes(std.mem.asBytes(&data));
+                var expected = data;
+                for (offset..offset + 2) |i| {
+                    var a = expected[i];
+                    if (inverse) {
+                        a ^= c.ik[9];
+                        var r: usize = 9;
+                        while (r > 0) : (r -= 1) a = transitions.s_inv_trans(transitions.l_inv_trans(a)) ^ c.ik[r - 1];
+                    } else {
+                        for (0..9) |r| a = transitions.l_trans(transitions.s_trans(a ^ c.ik[r]));
+                        a ^= c.ik[9];
+                    }
+                    expected[i] = a;
+                }
+                if (inverse) c.decryptBlocks(data[offset..][0..2]) else c.encryptBlocks(data[offset..][0..2]);
+                try std.testing.expectEqualDeep(expected, data);
+            };
+        }
+    }
+}
