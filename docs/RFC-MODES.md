@@ -16,6 +16,10 @@ Integration follow-up: v0.6.0 adds RFC 9058 `Mgm`, including authentication-only
 messages, byte-aligned tags of 4–16 bytes, and validation before writes. Both
 official Kuznechik examples and 1,688 independent Go reference cases pass.
 
+Integration follow-up: v0.7.0 adds all seven RFC 8645 internal modes and both
+derivation helpers. Appendix A.2 vectors and independent scalar Kuznechik
+comparisons pass; the full native suite runs 55 tests.
+
 ## Reading the matrix
 
 Here `n = 128` and `k = 256` are **bits**, `c` is the counter width, `N` is the section size in bits, and `T*` is the master derivation stream's rekeying interval in bits. Byte APIs divide these dimensions by eight. `ceil` matters for partial blocks. A finite `usize` address space does not replace checking the construction's smaller limits. Unique nonces are required across messages under the same initial key; a new context starts a new message, not a continuation.
@@ -54,15 +58,15 @@ Common rules: [§6.2.1](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2.
 
 In this table lengths and formulas are **bits**. Let `L_d = 128*2^63/d`, interpreted with the exact integer material budget and `l=ceil(message_bits/N)`.
 
-| Mode / exact section | Nonce, IV, authentication | Message maximum / material | v0.4.1 |
+| Mode / exact section | Nonce, IV, authentication | Message maximum / material | Availability |
 |---|---|---|---|
-| [CTR-ACPKM §6.2.2](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2.2) | Unique (128-c)-bit nonce; c=32..96, byte steps | `128*2^(c-1)` | **Pending** |
-| [GCM-ACPKM §6.2.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2.3) | Unique nonce; c=32..64; fixed tag policy; hash/mask keep initial key | `min(128*(2^(c-1)-2),2^64-1)` | **Pending** |
-| [CTR-ACPKM-Master §6.3.2](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.2) | Unique nonce; c=32..96 | `min(N*L_256,128*2^c)`; d=256 | **Pending** |
-| [GCM-ACPKM-Master §6.3.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.3) | Unique nonce; c=32..64; hash/mask use first **derived** key | `min(N*L_256,128*(2^c-2),2^64-1)`; d=256 | **Pending** |
-| [CBC-ACPKM-Master §6.3.4](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.4) | Unpredictable IV16; complete nonempty blocks; external padding | `N*L_256`; d=256 | **Pending** |
-| [CFB-ACPKM-Master §6.3.5](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.5) | Unpredictable IV16; full-block feedback, final partial allowed | `N*L_256`; d=256 | **Pending** |
-| [OMAC-ACPKM-Master §6.3.6](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.6) | No nonce; final subkey comes from section material | `N*L_384`; d=384 (key256 + subkey128) | **Pending** |
+| [CTR-ACPKM §6.2.2](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2.2) | Unique (128-c)-bit nonce; c=32..96, byte steps | `128*2^(c-1)` | **Released v0.7.0** |
+| [GCM-ACPKM §6.2.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2.3) | Unique nonce; c=32..64; fixed tag policy; hash/mask keep initial key | `min(128*(2^(c-1)-2),2^64-1)` | **Released v0.7.0** |
+| [CTR-ACPKM-Master §6.3.2](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.2) | Unique nonce; c=32..96 | `min(N*L_256,128*2^c)`; d=256 | **Released v0.7.0** |
+| [GCM-ACPKM-Master §6.3.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.3) | Unique nonce; c=32..64; hash/mask use first **derived** key | `min(N*L_256,128*(2^c-2),2^64-1)`; d=256 | **Released v0.7.0** |
+| [CBC-ACPKM-Master §6.3.4](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.4) | Unpredictable IV16; complete nonempty blocks; external padding | `N*L_256`; d=256 | **Released v0.7.0** |
+| [CFB-ACPKM-Master §6.3.5](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.5) | Unpredictable IV16; full-block feedback, final partial allowed | `N*L_256`; d=256 | **Released v0.7.0** |
+| [OMAC-ACPKM-Master §6.3.6](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.3.6) | No nonce; final subkey comes from section material | `N*L_384`; d=384 (key256 + subkey128) | **Released v0.7.0** |
 
 [Appendix A.2.1](https://www.rfc-editor.org/rfc/rfc8645.html#appendix-A.2.1) covers the two non-master modes; [A.2.2](https://www.rfc-editor.org/rfc/rfc8645.html#appendix-A.2.2) covers all five master modes. These are **AES-256** examples, including intermediate material. Test generic factories with AES adapters, then separately validate their Kuznyechik instantiations. The formal empty-message OMAC-Master pseudocode has `l=ceil(0/N)=0` yet uses the last section key; an implementation must explicitly document and independently validate its empty-message extension.
 
@@ -87,7 +91,7 @@ The [IETF Datatracker reference graph](https://datatracker.ietf.org/api/v1/doc/r
 
 | Source | Classification / consequence |
 |---|---|
-| [RFC 8645 §§5.2.1,5.3.1](https://www.rfc-editor.org/rfc/rfc8645.html#section-5.2.1) | ExtParallelC and ExtSerialC are generic **block-cipher key derivation**, applicable to Kuznyechik, but not message encryption modes. No released API; optional reusable KDF scope should be explicit. A.1.1/A.1.2 give **AES-256** vectors. |
+| [RFC 8645 §§5.2.1,5.3.1](https://www.rfc-editor.org/rfc/rfc8645.html#section-5.2.1) | ExtParallelC and ExtSerialC are generic **block-cipher key derivation**, applicable to Kuznyechik, but not message encryption modes. `acpkm` and `AcpkmMaster` are released in v0.7.0; external RFC KDFs remain a separate scope. A.1.1/A.1.2 give **AES-256** vectors. |
 | [RFC 8645 §§5.2.2,5.2.3,5.3.2,7](https://www.rfc-editor.org/rfc/rfc8645.html#section-5) | HKDF/tree schedules and composition with external rekeying; not additional internal cipher modes. Key lifetime across multiple messages remains an application obligation. |
 | [RFC 9189 §8.1](https://www.rfc-editor.org/rfc/rfc9189.html#section-8.1), [RFC 9367 §4.1.2](https://www.rfc-editor.org/rfc/rfc9367.html#section-4.1.2), [RFC 9227 §4.1](https://www.rfc-editor.org/rfc/rfc9227.html#section-4.1) | TLSTREE/KTREE use **HMAC-Streebog** KDF_GOSTR3411_2012_256. They are protocol key schedules, not Kuznyechik modes; masks/labels and key-lifetime policies differ by profile. Do not substitute ACPKM. |
 | [RFC 7836 §§4.1–4.6](https://www.rfc-editor.org/rfc/rfc7836.html#section-4.1) | GOST hash-based PRFs/KDFs and accompanying algorithms; §4.6 key wrapping explicitly uses **GOST28147-89**, not Kuznyechik. No additional Kuznyechik encryption mode. |

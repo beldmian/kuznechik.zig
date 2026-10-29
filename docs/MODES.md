@@ -97,4 +97,51 @@ AES/Kuznechik ciphertext-and-tag cases generated with an independent Go library.
 Its portable and PCLMUL products also match a polynomial long-division reference.
 Reference provenance and Boat measurements are in [MGM evidence](performance/modes/mgm/README.md).
 
-RFC 8645 ACPKM/ACPKM-Master constructions are being integrated in a later increment.
+Version 0.7.0 adds every internal mode from [RFC 8645 §§6.2–6.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2).
+All section sizes `N` and master derivation lifetimes `T*` below are **bytes**;
+the RFC expresses them in bits. Each stream context owns expanded keys.
+
+| Interface | Initialization | Processing |
+|---|---|---|
+| `CtrAcpkm` | `try .init(cipher, nonce8, N)` | `try .xor(data)` |
+| `CtrAcpkmMaster` | `try .init(cipher, nonce8, N, T)` | `try .xor(data)` |
+| `GcmAcpkm` | `try .init(cipher, N)` | `try .seal(nonce12, aad, data)`; `.open(nonce12, aad, data, tag16)` |
+| `GcmAcpkmMaster` | `try .init(cipher, N, T)` | Same GCM configuration methods |
+| `CbcAcpkmMaster` | `try .init(cipher, iv16, N, T)` | `try .encrypt(data)` / `.decrypt(data)`; complete blocks |
+| `CfbAcpkmMaster` | `try .init(cipher, iv16, N, T)` | `try .encrypt(data)` / `.decrypt(data)`; full-block feedback |
+| `OmacAcpkmMaster` | `try .init(cipher, N, T)` | `try .update(data)`, `.final()` returns tag16; `try .verify(tag)` |
+
+`N` must be positive and divisible by 16. `T` must be positive and divisible by
+16 and the section material width: 32 bytes for encryption modes, 48 for
+OMAC-Master's key plus finalization subkey. `acpkm(cipher)` derives the next
+expanded key. `AcpkmMaster.init(cipher, T, material_bytes)` exposes the derivation
+stream; `try .derive(output)` requires whole materials. Callers select section
+sizes and lifetime policy appropriate to their protocol.
+
+`CtrAcpkmWithCounter(bits)` and `CtrAcpkmMasterWithCounter(bits)` accept 32–96
+counter bits in byte steps; their nonce is `(128-bits)/8` bytes. Non-master CTR
+permits at most `2^(bits-1)` blocks, while master CTR permits `2^bits` blocks.
+Cached gamma bytes remain usable at exhaustion. `GcmAcpkmWithCounter(bits)` and
+`GcmAcpkmMasterWithCounter(bits)` accept 32–64 bits, reserving two counters from
+the respective ranges. Both AAD and payload bit lengths must fit `u64`.
+
+Master message limits additionally ensure that complete section materials fit
+within `16 * 2^63` derivation bytes. GCM authentication uses the initial payload
+key (the first derived key in master mode), throughout the message. GCM
+configuration objects are reusable across messages with distinct nonces; their
+AEAD calls are one-shot. Detached tags and overlap rules match plain GCM.
+
+Streaming CTR, CBC, CFB and OMAC preserve state across sections and updates;
+CBC updates require complete blocks. OMAC finalization is a snapshot, so it may
+be repeated and followed by further updates. Verification accepts 1–16-byte
+prefixes; the protocol must fix a tag length. Complete updates are checked before
+changing data or context. Empty updates are no-ops. CBC/CFB require unpredictable
+IVs; CTR/GCM require non-repeating nonces. These APIs do not manage key usage
+across independent contexts or implement external hash-based RFC key schedules.
+
+All Appendix A.2 section keys/materials, ciphertexts and tags are checked. The
+GCM-Master example's specified 192-bit key is tested using a test-only AES-192
+adapter, also checked against FIPS 197. Other vectors use AES-128/AES-256.
+Kuznechik is independently compared to a scalar construction across sections,
+partial updates, snapshot finalization, limits and rejections.
+See [ACPKM performance evidence](performance/modes/acpkm/README.md).

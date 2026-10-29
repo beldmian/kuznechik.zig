@@ -1,0 +1,109 @@
+RFC 8645 ACPKM implementation handoff
+
+Owned repository additions only:
+  src/modes/acpkm.zig
+  src/modes/acpkm_test.zig
+  src/modes/acpkm_vectors.zig
+  src/modes/acpkm_reference_test.zig
+  src/modes/acpkm_aes192_test.zig
+No edits to existing/shared modules, no commits, no pushes. Temporary src drivers
+removed. Root must wire public exports in src/modes/root.zig and publish.
+
+Scope
+  RFC8645 6.2.1 ACPKM derivation; 6.2.2 CTR-ACPKM; 6.2.3 GCM-ACPKM;
+  6.3.1 ACPKM-Master derivation; 6.3.2 CTR-ACPKM-Master;
+  6.3.3 GCM-ACPKM-Master; 6.3.4 CBC-ACPKM-Master;
+  6.3.5 CFB-ACPKM-Master; 6.3.6 OMAC-ACPKM-Master.
+  128-bit block size; generic vector keys 128..512 bits, tested AES128,
+  AES192, AES256 and Kuznechik. Byte-oriented messages and byte-aligned tags.
+
+Factory
+  Modes(Cipher, Classic), where Classic = classic.Modes(Cipher).
+  Factory members:
+    acpkm(cipher) -> expanded next Cipher
+    AcpkmMaster.init(cipher, lifetime_bytes, material_bytes) !context
+      context.derive(output) !void; output length must be multiple of material_bytes
+    CtrAcpkm.init(cipher, nonce8, section_bytes) !context
+    CtrAcpkmWithCounter(counter_bits) -> context type (32..96, whole bytes)
+    CtrAcpkmMaster.init(cipher, nonce8, section_bytes, lifetime_bytes) !context
+    CtrAcpkmMasterWithCounter(counter_bits) -> context type
+      CTR contexts: xor(data) !void, validate(length) !void
+    GcmAcpkm(counter_bits).init(cipher, section_bytes) !configuration
+    GcmAcpkmMaster(counter_bits).init(cipher, section_bytes, lifetime_bytes) !configuration
+      GCM configurations (32..64 bits, whole bytes):
+      seal(nonce, aad, in_place_data) ![16]u8
+      sealDetached(nonce, aad, in_place_data, output_tag) !void
+      open(nonce, aad, in_place_data, tag16) !void
+      openDetached(nonce, aad, in_place_data, input_tag) !void
+      validate(aad_len, data_len) !void
+    CbcAcpkmMaster.init(cipher, iv16, section_bytes, lifetime_bytes) !context
+    CfbAcpkmMaster.init(cipher, iv16, section_bytes, lifetime_bytes) !context
+      encrypt(data) !void, decrypt(data) !void, validate(length) !void
+    OmacAcpkmMaster.init(cipher, section_bytes, lifetime_bytes) !context
+      update(input) !void, final() [16]u8 (snapshot), verify(tag) !void,
+      validate(length) !void
+
+Rules and limits
+  All sizes in BYTES, including section size and master lifetime (RFC uses bits).
+  Section size positive multiple of16. Lifetime positive, divisible by16 and d.
+  d = key bytes, except OMAC d = key bytes +16.
+  Non-master CTR permits 2^(c-1) blocks; master CTR permits 2^c blocks.
+  GCM reserves first two counters; matching non-master/master counter ranges.
+  GCM AAD/payload lengths must fit64-bit bit-length fields.
+  Master's complete section materials cannot exceed16 * 2^63 bytes.
+  GCM tag sizes4,8,12..16 bytes; OMAC verification accepts1..16-byte prefixes.
+  CBC requires full blocks; no implicit padding; empty streaming calls are no-ops.
+  OMAC empty message uses one padded block under the first section material.
+  Every failing preflight preserves data and context. Auth failures preserve
+  ciphertext: verify first, decrypt second. AEAD seal rejects AAD/data,
+  tag-output/data and tag-output/AAD overlap. Open rejects AAD/data and
+  tag-input/data overlap. Empty/adjacent slices are permitted.
+
+Correctness results (Zig0.15.1)
+  Final local Debug:33 passed,2 expected GFNI skips,0 failed.
+  Final local ReleaseFast:33 passed,2 expected GFNI skips,0 failed.
+  Boat bx_4bnay2nf core0, AMD Ryzen9 9950X, -mcpu=native:
+    ReleaseFast: all41 tests passed.
+    Debug:33 passed,3 expected backend skips,0 failed.
+  Counts include transitively imported existing classic, GCM and raw cipher tests.
+  All Appendix A.2 section keys/materials/ciphertexts/tags verified:
+    CTR-ACPKM AES256; GCM-ACPKM AES128;
+    CTR/CBC/CFB/OMAC-ACPKM-Master AES256; GCM-ACPKM-Master AES192.
+  The RFC's GCM-Master example heading says AES256 but parameters/key are192bits;
+  the test-only AES192 adapter passes FIPS197 C.2 before testing that RFC vector.
+  Scalar independent reference shares only the raw cipher. It implements its own
+  ACPKM, master derivation, CTR, CBC/CFB, OMAC and bitwise GHASH. Kuznechik tests
+  cover lengths0..65 plus95/96/97,127/128/129,255/256/257,
+  1023/1024/1025,1055/1056/1057,1088/1089 with sections16/32/48/1024.
+  CTR tests every split0..length for short messages plus boundary splits for
+  longer messages. CFB/OMAC test bytewise streaming; CBC blockwise streaming;
+  OMAC snapshot-finalize/append tests every byte through257. Whole-byte counter
+  widths tested across32..96 for CTR,32..64 for GCM; synthetic final-counter and
+  derivation/section budget tests avoid huge allocations. Invalid parameters,
+  malformed tags, AAD/nonce/ciphertext/tag tampering, overlap/adjacency and
+  unchanged state/buffers on rejection are covered.
+
+Reproduction
+  Copy test-driver.zig to src/.acpkm_tests.zig, then:
+    zig test src/.acpkm_tests.zig -O Debug
+    zig test src/.acpkm_tests.zig -O ReleaseFast -mcpu=native
+  Remove the temporary driver afterward.
+
+Performance artifacts
+  benchmark.zig: copy to src/.acpkm_bench.zig; build-exe -O ReleaseFast
+  -mcpu=native, then taskset -c0 the executable. Remove the driver afterward.
+  N4096 bytes, T*6144 bytes, reused expanded initial key. Includes context setup
+  per message. Lengths64,1024,16384,1048576. Adaptive iteration count reaches20ms;
+  median of5 samples per case. batch=false forces raw block loops through an
+  adapter while preserving the same mode implementation. No universal claims.
+  before-cfb.jsonl: original Classic byte-loop CFB encryption wrapper.
+  cfb-candidate.jsonl: full-block vector xor path (retained), before alias guards.
+  final.jsonl: final code with alias guards; ReleaseFast native on Boat core0.
+  Native final1MiB MiB/s:
+    CTR-ACPKM2989.282; GCM-ACPKM2330.188;
+    CTR-ACPKM-Master2954.893; GCM-ACPKM-Master2256.335;
+    CBC-Master encryption330.015, decryption3129.533;
+    CFB-Master encryption331.230, decryption3067.893;
+    OMAC-Master322.278.
+
+Boat core0 work is complete; sandbox remains running for root.

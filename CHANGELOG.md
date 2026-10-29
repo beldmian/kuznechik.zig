@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 — 2026-10-29
+
+- Add all seven RFC 8645 internal modes: CTR/GCM-ACPKM, CTR/GCM/CBC/CFB/OMAC-ACPKM-Master, plus ACPKM and ACPKM-Master derivations.
+- Preserve counter, feedback, partial keystream, and MAC state across sections and streaming updates; validate full master counter ranges and material budgets before writes.
+- Batch independent work, optimize full-block CFB encryption, and authenticate GCM before plaintext writes.
+- Verify all Appendix A.2 vectors, including the specified AES-192 GCM-Master key, and independently check Kuznechik across splits and section boundaries.
+- Archive native integration tests and paired serial/batch measurements with full output checks.
+
 ## 0.6.0 — 2026-10-29
 
 - Add RFC 9058 MGM with full and detached 4–16-byte tags, unaligned buffers, and verification before plaintext writes.

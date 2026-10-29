@@ -77,11 +77,14 @@ context across fragments rather than resetting its counter.
   Detached CCM tags support every even byte length from 4 through 16.
 - `Mgm` uses a 16-byte nonce with its top bit clear. It supports full 16-byte
   tags and detached 4–16-byte tags, including authentication-only messages.
+- `CtrAcpkm`, `GcmAcpkm`, and the five `*AcpkmMaster` modes implement every
+  RFC 8645 internal mode. Section and master-lifetime sizes are explicit byte
+  counts; see [API signatures and bounds](docs/MODES.md).
 
 Authenticated decryption verifies the tag before modifying the ciphertext buffer.
 GCM, CCM, and MGM reject overlapping AAD, payload, and detached output-tag buffers before writes.
-The remaining RFC 8645 re-keying constructions are being added
-in subsequent increments; see [mode APIs and coverage](docs/MODES.md).
+OCB and the remaining RFC cipher compositions are being added in subsequent
+increments; see [RFC coverage](docs/RFC-MODES.md).
 
 ### Building
 
