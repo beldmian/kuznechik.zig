@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.0 — 2026-10-29
+
+- Add RFC 9367 TLS 1.3 MGM_L/MGM_S and RFC 9227 ESP/IKEv2 MGM-KTREE and ESP MGM-MAC-KTREE cipher profiles, with checked metadata helpers and caller-derived keys. Protocol state, framing and HMAC-Streebog key derivation remain external.
+- Add bounded multipart MGM AAD processing; capture nonce values before encryption can overwrite their source storage. The independent review's nonce-alias defect was fixed before publication.
+- Verify all 17 published Kuznyechik TLS records and four RFC 9227 examples, with additional independent reference, multipart, alias and rejection checks.
+- Reduce GFNI register copies by selecting one-use operands for the first eight output XORs. Preserve the 70-map circuit, Cipher layout, block APIs, feature gates and tail policy.
+- Batch OFB bookkeeping for IV registers of at least 64 blocks, with a separate scalar path for short updates. Retain repeated gains on large messages after rejecting the initial short-update regression. CFB and CMAC experiments did not justify changes.
+- Archive exact sources, rejected candidates, paired Boat timings and final integration checks: 99 native tests; 91 portable passes with two expected GFNI skips.
+
 ## 0.8.1 — 2026-10-29
 
 - Reduce the Zen 5 large-batch linear circuit from 75 to 70 GFNI maps and from 194 to 179 binary XOR nodes using a verified diagonal normalization.

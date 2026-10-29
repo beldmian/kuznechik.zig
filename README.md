@@ -84,6 +84,11 @@ context across fragments rather than resetting its counter.
   counts; see [API signatures and bounds](docs/MODES.md).
 - `KExp15`, `TlsCtrOmac`, and `CtrAcpkmOmac` implement the RFC 9189/9337 cipher
   compositions with separate caller-derived ENC/MAC keys and encrypted tags.
+- `Tls13MgmL`, `Tls13MgmS`, `EspMgmKtree`, `EspMgmMacKtree`, and `IkeMgmKtree`
+  implement the RFC 9367/9227 cipher profiles with caller-derived record/leaf
+  keys. [Profile APIs and dependencies](docs/mgm-profiles.md) specify metadata,
+  nonce formation, fixed tags and limits; protocol state and hash-based KDFs
+  remain external. `Mgm.sealParts` / `openParts` accept multipart AAD.
 
 Authenticated decryption verifies the tag before modifying the ciphertext buffer.
 GCM, CCM, and MGM reject overlapping AAD, payload, and detached output-tag buffers before writes.
@@ -346,7 +351,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 - [x] Add fuzzing harnesses (encryption/decryption round-trip, key schedule, LS transformation)
 - [ ] Improve performance further
-- [ ] Add cipher operation modes (CTR, CBC, GCM, etc.)
+- [x] Add cipher operation modes (CTR, CBC, GCM, etc.)
 
 ## Author
 

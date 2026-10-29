@@ -1,7 +1,8 @@
 # Cipher modes
 
 The library provides ECB, CTR, CBC, full-block CFB, OFB, CMAC/OMAC, GCM, CCM, MGM, OCB,
-the seven RFC 8645 internal modes, and RFC 9189/9337 cipher compositions through
+the seven RFC 8645 internal modes, RFC 9189/9337 cipher compositions, and
+RFC 9367/9227 MGM cipher profiles through
 `@import("kuznechik").modes`. All operate in place on byte slices without allocation
 and accept unaligned message buffers. Existing block APIs and Cipher layout are
 unchanged.
@@ -29,6 +30,11 @@ the last generated block remain available across updates.
 of the specified positive number of blocks. CFB uses 128-bit feedback segments.
 Keep the context for successive fragments of the same message. ECB and CBC do
 not select or add a padding convention.
+
+For OFB registers of at least 64 blocks, updates of at least 64 bytes use
+batched XOR and register bookkeeping. Short updates keep the scalar loop;
+both paths preserve the same partial keystream and context state. See
+[paired integration measurements](performance/2026-10-29/ofb-core70-integration/README.md).
 
 GCM follows the nonce/counter dimensions and conservative message bounds of
 [RFC 8645 §6.2.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2.3).
@@ -71,6 +77,20 @@ MGM batches independent encryption and authentication counters, combining them
 for short messages. On x86-64 with PCLMUL, authentication accumulates unreduced
 carryless products and reduces once; other targets use portable multiplication.
 This selection is compile-time, just like the block cipher backend.
+
+Version 0.9.0 adds `Mgm.sealParts(cipher, nonce16, aad_parts, data)` and
+`Mgm.openParts(cipher, nonce16, aad_parts, data, tag)` for `[]const []const u8`
+AAD. They authenticate the concatenation with one final padding, return/accept
+a full 16-byte tag for sealing and a 4–16-byte tag slice for opening,
+and reject writable aliases before writes. For a shorter protocol tag,
+transmit the fixed-length prefix of the returned array.
+
+The same release exposes `Tls13MgmL`, `Tls13MgmS`, `EspMgmKtree`,
+`EspMgmMacKtree`, and `IkeMgmKtree`, also grouped under `MgmProfiles`.
+These accept a borrowed cipher initialized with the caller-derived record or
+leaf key. `KtreeIv`, `KtreeKeyMaterial`, `EspHeader`, `EspSequence`, and `IkeAad`
+provide checked metadata. TLS tags are 16 bytes; ESP/IKE tags are 12 bytes.
+See [profile signatures, formatting rules, limits and external dependencies](mgm-profiles.md).
 
 Nonce values must be unique for each message encrypted under a given key.
 Starting a fresh context for a fragment resets its counter; continue the existing

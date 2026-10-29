@@ -33,6 +33,18 @@ pub fn Modes(comptime Cipher: type) type {
         pub const ecbDecrypt = classic.ecbDecrypt;
         pub const Gcm = @import("gcm.zig").Gcm(Cipher, 32);
         pub const Mgm = @import("mgm.zig").Mgm(Cipher);
+        const profile_module = @import("mgm_profiles.zig");
+        pub const MgmProfiles = profile_module.Profiles(Cipher);
+        pub const Tls13MgmL = MgmProfiles.Tls13MgmL;
+        pub const Tls13MgmS = MgmProfiles.Tls13MgmS;
+        pub const EspMgmKtree = MgmProfiles.EspMgmKtree;
+        pub const EspMgmMacKtree = MgmProfiles.EspMgmMacKtree;
+        pub const IkeMgmKtree = MgmProfiles.IkeMgmKtree;
+        pub const KtreeIv = profile_module.KtreeIv;
+        pub const KtreeKeyMaterial = profile_module.KtreeKeyMaterial;
+        pub const EspHeader = profile_module.EspHeader;
+        pub const EspSequence = profile_module.EspSequence;
+        pub const IkeAad = profile_module.IkeAad;
         pub const Ocb = @import("ocb.zig").Ocb(Cipher);
         pub fn OcbWithTag(comptime tag_bytes: usize) type {
             return @import("ocb.zig").OcbWithTag(Cipher, tag_bytes);

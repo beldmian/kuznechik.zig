@@ -8,10 +8,10 @@ root key. It neither derives that key nor implements TLS, ESP, or IKEv2.
 There are no allocations, message-sized temporary buffers, or alignment
 requirements on byte slices. `Cipher` and the existing block APIs are unchanged.
 
-Root integration can expose `Profiles(Cipher).{Tls13MgmL,Tls13MgmS,
-EspMgmKtree,EspMgmMacKtree,IkeMgmKtree}` plus the metadata types `KtreeIv`,
-`KtreeKeyMaterial`, `EspHeader`, `EspSequence`, and `IkeAad`. This branch deliberately
-does not change public root exports.
+Version 0.9.0 exposes `modes.{Tls13MgmL,Tls13MgmS,EspMgmKtree,
+EspMgmMacKtree,IkeMgmKtree}`, also grouped under `modes.MgmProfiles`, plus
+the metadata types `KtreeIv`, `KtreeKeyMaterial`, `EspHeader`, `EspSequence`,
+and `IkeAad`. Generic users can instantiate `Profiles(Cipher)` directly.
 
 ## TLS 1.3 (RFC 9367 sections 4.1–4.1.3)
 
@@ -172,9 +172,16 @@ zig fmt src/modes/mgm_profiles_vectors.zig
 zig test src/mgm_profiles_tests.zig -O ReleaseSafe --cache-dir <fresh-disk-cache> --global-cache-dir <fresh-disk-global-cache>
 ```
 
-Final validation: 91 native tests pass in ReleaseSafe and ReleaseFast on Boat J
+Author validation: 91 native tests pass in ReleaseSafe and ReleaseFast on Boat J
 (core 0); portable Debug and ReleaseSafe each pass 83 tests with two expected
 GFNI skips. This includes the unchanged root suite. See
 `docs/validation/mgm-profiles/REPORT.md` for the source/compiler hashes, exact
 commands, counts, hardware and timing scope. The timing harness preserves 105
 samples across 15 configurations without making universal performance claims.
+
+The independent review found one nonce-capture defect in the new raw
+`Mgm.sealParts` API, corrected before v0.9.0. Final integration passes 99 native
+tests in ReleaseSafe/ReleaseFast and 91 portable tests with two expected skips
+in Debug/ReleaseSafe. The independent executable also passes in both native
+optimized modes. See the [original review](reviews/mgm-profiles-independent-20261029.md)
+and [resolution and final evidence](validation/v0.9.0/README.md).
