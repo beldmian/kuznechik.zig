@@ -20,6 +20,7 @@ pub const modes = @import("modes/root.zig").Modes(Cipher);
 
 test {
     std.testing.refAllDecls(modes);
+    _ = @import("modes/nonce_alias_test.zig");
 }
 
 const testing = std.testing;
