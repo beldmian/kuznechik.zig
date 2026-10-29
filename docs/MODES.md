@@ -32,11 +32,16 @@ GCM follows the nonce/counter dimensions and conservative message bounds of
 `seal` / `open` use 16 bytes. `sealDetached` / `openDetached` accept tag sizes
 4, 8, and 12–16 bytes. Authentication verifies in constant time before any
 plaintext is written; a rejected tag leaves the ciphertext unchanged.
+AAD and mutable payload slices must be disjoint. Detached output tags must also
+be disjoint from both. GCM rejects overlaps before modifying any buffer; adjacent
+slices of the same packet buffer are supported.
 
 Nonce values must be unique for each message encrypted under a given key.
 Starting a fresh context for a fragment resets its counter; continue the existing
 context instead. These APIs do not construct TLS/IKE records or manage nonces
 for callers.
+CBC and CFB require unpredictable IVs. OFB requires an IV that is unique under
+its key; it does not require unpredictability.
 
 The generic algorithms are tested using the published AES vectors in
 [RFC 3602](https://www.rfc-editor.org/rfc/rfc3602.html),

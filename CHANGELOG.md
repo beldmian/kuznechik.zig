@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2 — 2026-10-29
+
+- Reject overlapping GCM AAD/payload and detached output-tag buffers before writes, fixing authentication of accidentally overwritten AAD.
+- Preserve buffers on overlap errors and test adjacent packet slices, exact aliases, and partial overlaps.
+- Document the expanded RFC coverage inventory and remaining CCM, OCB, and composition requirements.
+
 ## 0.4.1 — 2026-10-29
 
 - Use a 75-map diagonally encoded Toeplitz circuit for Zen 5 batches, replacing the serial recurrence and intermediate compensated-key path.

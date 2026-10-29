@@ -74,6 +74,7 @@ context across fragments rather than resetting its counter.
   detached APIs also support the standard 4, 8, and 12–16-byte tag sizes.
 
 Authenticated decryption verifies the tag before modifying the ciphertext buffer.
+GCM rejects overlapping AAD, payload, and detached output-tag buffers before writes.
 RFC 9058 MGM and the remaining RFC 8645 re-keying constructions are being added
 in subsequent increments; see [mode APIs and coverage](docs/MODES.md).
 

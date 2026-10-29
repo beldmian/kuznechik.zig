@@ -1,6 +1,12 @@
 //! GCM with the counter/nonce dimensions and message bounds in RFC8645.
 const std = @import("std");
 const B = @Vector(16, u8);
+fn overlaps(a: []const u8, b: []const u8) bool {
+    if (a.len == 0 or b.len == 0) return false;
+    const x = @intFromPtr(a.ptr);
+    const y = @intFromPtr(b.ptr);
+    return if (x <= y) y - x < a.len else x - y < b.len;
+}
 pub fn Gcm(comptime Cipher: type, comptime counter_bits: u7) type {
     if (counter_bits < 32 or counter_bits > 64 or counter_bits % 8 != 0) @compileError("GCM counter must be32..64 bits in whole bytes");
     const Ctr = @import("classic.zig").Modes(Cipher).CtrWithCounter(counter_bits);
@@ -48,6 +54,7 @@ pub fn Gcm(comptime Cipher: type, comptime counter_bits: u7) type {
         pub fn sealDetached(cipher: *const Cipher, nonce: Nonce, aad: []const u8, data: []u8, tag: []u8) !void {
             try validTag(tag.len);
             try validate(aad.len, data.len);
+            if (overlaps(aad, data) or overlaps(tag, data) or overlaps(tag, aad)) return error.InvalidOverlap;
             var ctr = Ctr.init(cipher.*, nonce);
             ctr.blocks = 2;
             try ctr.xor(data);
@@ -60,6 +67,7 @@ pub fn Gcm(comptime Cipher: type, comptime counter_bits: u7) type {
         pub fn openDetached(cipher: *const Cipher, nonce: Nonce, aad: []const u8, data: []u8, tag: []const u8) !void {
             try validTag(tag.len);
             try validate(aad.len, data.len);
+            if (overlaps(aad, data) or overlaps(tag, data)) return error.InvalidOverlap;
             const full = try authenticate(cipher, nonce, aad, data);
             var expected: [16]u8 = @splat(0);
             var actual: [16]u8 = @splat(0);
@@ -71,6 +79,28 @@ pub fn Gcm(comptime Cipher: type, comptime counter_bits: u7) type {
             try ctr.xor(data);
         }
     };
+}
+
+test "GCM rejects overlapping buffers atomically and accepts adjacent slices" {
+    const h = @import("test_helpers.zig");
+    const testing = std.testing;
+    const c = h.Aes128.init(@splat(0));
+    const M = Gcm(h.Aes128, 32);
+    var storage: [112]u8 = @splat(0x51);
+    const original = storage;
+    var tag: [16]u8 = @splat(0x67);
+    const original_tag = tag;
+    try testing.expectError(error.InvalidOverlap, M.sealDetached(&c, @splat(0), storage[0..32], storage[16..48], &tag));
+    try testing.expectEqual(original, storage);
+    try testing.expectEqual(original_tag, tag);
+    try testing.expectError(error.InvalidOverlap, M.sealDetached(&c, @splat(0), &.{}, storage[0..32], storage[16..32]));
+    try testing.expectError(error.InvalidOverlap, M.sealDetached(&c, @splat(0), storage[0..32], storage[32..64], storage[16..32]));
+    try testing.expectError(error.InvalidOverlap, M.openDetached(&c, @splat(0), storage[0..32], storage[16..48], &tag));
+    try testing.expectError(error.InvalidOverlap, M.openDetached(&c, @splat(0), &.{}, storage[0..32], storage[16..32]));
+    try testing.expectEqual(original, storage);
+    try M.sealDetached(&c, @splat(0), storage[0..32], storage[32..96], storage[96..112]);
+    try M.openDetached(&c, @splat(0), storage[0..32], storage[32..96], storage[96..112]);
+    try testing.expectEqualSlices(u8, original[0..96], storage[0..96]);
 }
 
 test "GCM known-answer vectors and standard-library differential cases" {

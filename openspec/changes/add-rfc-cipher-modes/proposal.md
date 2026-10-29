@@ -7,6 +7,8 @@ The user explicitly requested implementing and optimizing all Kuznechik cipher m
 ## What Changes
 
 - Add byte-oriented ECB, CTR, CBC, CFB, OFB, CMAC/OMAC, GCM, and MGM primitives.
+- Include generic RFC 3610 CCM and RFC 7253 OCB, and reusable RFC 9189/9337
+  cipher/key-wrap compositions identified by the RFC coverage audit.
 - Add the RFC 8645 ACPKM and ACPKM-Master encryption/authentication constructions, preserving specified counters, re-keying boundaries, and limits.
 - Use accelerated independent-block operations where the mode permits parallelism.
 - Verify authoritative vectors, chunked operation, malformed inputs, limits, authentication failures, and output preservation.
