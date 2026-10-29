@@ -1,0 +1,362 @@
+[
+  {
+    "variant": "final-baseline",
+    "name": "before_cfb3",
+    "bytes": 10
+  },
+  {
+    "variant": "final-baseline",
+    "name": "before_cfb65",
+    "bytes": 10
+  },
+  {
+    "variant": "final-baseline",
+    "name": "before_cfb8",
+    "bytes": 10
+  },
+  {
+    "variant": "final-baseline",
+    "name": "before_cbc2",
+    "bytes": 170
+  },
+  {
+    "variant": "final-baseline",
+    "name": "before_cbc8",
+    "bytes": 171
+  },
+  {
+    "variant": "final-baseline",
+    "name": "after_cbc8",
+    "bytes": 187
+  },
+  {
+    "variant": "final-baseline",
+    "name": "before_cbc3",
+    "bytes": 199
+  },
+  {
+    "variant": "final-baseline",
+    "name": "after_cbc2",
+    "bytes": 202
+  },
+  {
+    "variant": "final-baseline",
+    "name": "after_cbc3",
+    "bytes": 231
+  },
+  {
+    "variant": "final-baseline",
+    "name": "after_cfb8",
+    "bytes": 462
+  },
+  {
+    "variant": "final-baseline",
+    "name": "after_cfb3",
+    "bytes": 491
+  },
+  {
+    "variant": "final-baseline",
+    "name": "after_cfb65",
+    "bytes": 498
+  },
+  {
+    "variant": "final-native",
+    "name": "before_cfb3",
+    "bytes": 10
+  },
+  {
+    "variant": "final-native",
+    "name": "before_cfb65",
+    "bytes": 10
+  },
+  {
+    "variant": "final-native",
+    "name": "before_cfb8",
+    "bytes": 10
+  },
+  {
+    "variant": "final-native",
+    "name": "before_cbc2",
+    "bytes": 176
+  },
+  {
+    "variant": "final-native",
+    "name": "before_cbc8",
+    "bytes": 176
+  },
+  {
+    "variant": "final-native",
+    "name": "after_cbc8",
+    "bytes": 192
+  },
+  {
+    "variant": "final-native",
+    "name": "before_cbc3",
+    "bytes": 205
+  },
+  {
+    "variant": "final-native",
+    "name": "after_cbc2",
+    "bytes": 208
+  },
+  {
+    "variant": "final-native",
+    "name": "after_cbc3",
+    "bytes": 237
+  },
+  {
+    "variant": "final-native",
+    "name": "after_cfb8",
+    "bytes": 724
+  },
+  {
+    "variant": "final-native",
+    "name": "after_cfb3",
+    "bytes": 753
+  },
+  {
+    "variant": "final-native",
+    "name": "after_cfb65",
+    "bytes": 760
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "before_cfb65",
+    "bytes": 10
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "before_cbc2",
+    "bytes": 170
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "before_cbc8",
+    "bytes": 171
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "after_cbc8",
+    "bytes": 187
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "before_cbc3",
+    "bytes": 199
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "after_cbc2",
+    "bytes": 202
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "after_cbc3",
+    "bytes": 231
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "before_cfb8",
+    "bytes": 462
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "before_cfb3",
+    "bytes": 491
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "after_cfb8",
+    "bytes": 494
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "after_cfb65",
+    "bytes": 498
+  },
+  {
+    "variant": "threshold-measured-baseline",
+    "name": "after_cfb3",
+    "bytes": 523
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "before_cfb65",
+    "bytes": 10
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "before_cbc2",
+    "bytes": 176
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "before_cbc8",
+    "bytes": 176
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "after_cbc8",
+    "bytes": 192
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "before_cbc3",
+    "bytes": 205
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "after_cbc2",
+    "bytes": 208
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "after_cbc3",
+    "bytes": 237
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "before_cfb8",
+    "bytes": 724
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "before_cfb3",
+    "bytes": 753
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "after_cfb8",
+    "bytes": 756
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "after_cfb65",
+    "bytes": 760
+  },
+  {
+    "variant": "threshold-measured-native",
+    "name": "after_cfb3",
+    "bytes": 785
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "before_cfb65",
+    "bytes": 10
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "after_cfb3",
+    "bytes": 19
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "after_cfb8",
+    "bytes": 19
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "before_cbc2",
+    "bytes": 170
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "before_cbc8",
+    "bytes": 171
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "after_cbc8",
+    "bytes": 187
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "before_cbc3",
+    "bytes": 199
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "after_cbc2",
+    "bytes": 202
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "after_cbc3",
+    "bytes": 231
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "before_cfb8",
+    "bytes": 462
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "before_cfb3",
+    "bytes": 491
+  },
+  {
+    "variant": "threshold-noinline-scalar-baseline",
+    "name": "after_cfb65",
+    "bytes": 498
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "before_cfb65",
+    "bytes": 10
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "after_cfb3",
+    "bytes": 19
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "after_cfb8",
+    "bytes": 19
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "before_cbc2",
+    "bytes": 176
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "before_cbc8",
+    "bytes": 176
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "after_cbc8",
+    "bytes": 192
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "before_cbc3",
+    "bytes": 205
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "after_cbc2",
+    "bytes": 208
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "after_cbc3",
+    "bytes": 237
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "before_cfb8",
+    "bytes": 724
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "before_cfb3",
+    "bytes": 753
+  },
+  {
+    "variant": "threshold-noinline-scalar-native",
+    "name": "after_cfb65",
+    "bytes": 760
+  }
+]

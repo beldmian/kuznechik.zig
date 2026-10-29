@@ -1,0 +1,10 @@
+1/9 kuznechik.test_0...OK
+2/9 modes.classic.test.NIST800-38A ECB CBC CFB128 and OFB known-answer vectors...OK
+3/9 modes.classic.test.CBC CFB AES independent encryption registers and exact context across small medium and large IV batches...OK
+4/9 modes.classic.test.CBC CFB Kuznechik independent encryption registers and exact context across small medium and large IV batches...OK
+5/9 modes.acpkm.test_0...OK
+6/9 modes.compositions.test_0...OK
+7/9 modes.mgm_profiles.test_0...OK
+8/9 modes.ocb.test_0...OK
+9/9 modes.acpkm_test.test.RFC8645 A.2.2 ACPKM-Master keys CTR CBC CFB OMAC AES256...OK
+All 9 tests passed.

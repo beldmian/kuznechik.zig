@@ -99,6 +99,11 @@ pub fn Modes(comptime Cipher: type) type {
             if (iv_blocks == 0) @compileError("CBC IV must contain at least one block");
             return struct {
                 const Self = @This();
+                // Keep unmeasured medium widths on their existing scalar path.
+                const batch_enabled = switch (iv_blocks) {
+                    2, 3, 4, 8, 16, 24, 31, 32, 63 => true,
+                    else => iv_blocks >= 64,
+                };
                 cipher: Cipher,
                 register: [iv_blocks]B,
                 head: usize = 0,
@@ -109,16 +114,16 @@ pub fn Modes(comptime Cipher: type) type {
                 }
                 pub fn encrypt(self: *Self, data: []u8) error{InvalidLength}!void {
                     if (data.len % 16 != 0) return error.InvalidLength;
-                    if (iv_blocks >= 64 and data.len >= 64) return self.encryptBatched(data);
+                    if (batch_enabled and data.len >= (if (iv_blocks == 2) @as(usize, 128) else if (iv_blocks == 3) @as(usize, 48) else 64)) return self.encryptBatched(data);
                     self.encryptScalar(data);
                 }
                 noinline fn encryptBatched(self: *Self, data: []u8) void {
                     var at: usize = 0;
-                    while (data.len - at >= 64) {
+                    while (data.len - at >= (if (iv_blocks == 3) @as(usize, 48) else 64)) {
                         // Until the ring repeats, each plaintext block depends
                         // only on a distinct entry of the existing register.
                         const count: usize = @min(64, iv_blocks, (data.len - at) / 16);
-                        var blocks: [64]B = undefined;
+                        var blocks: [@min(64, iv_blocks)]B = undefined;
                         for (0..count) |i| blocks[i] = load(data[at + i * 16 ..][0..16]) ^ self.register[(self.head + i) % iv_blocks];
                         self.cipher.encryptBlocks(blocks[0..count]);
                         for (0..count) |i| {
@@ -734,6 +739,33 @@ fn FeedbackEncryptionReference(comptime C: type, comptime width: usize, comptime
                 }
             }
         }
+        fn decrypt(self: *@This(), data: []u8) void {
+            var at: usize = 0;
+            while (at < data.len) {
+                if (!cfb or (self.used == 16 and data.len - at >= 16)) {
+                    const ct = data[at..][0..16].*;
+                    var value: B = if (cfb) self.register[0..16].* else ct;
+                    if (cfb) self.cipher.encrypt(&value) else self.cipher.decrypt(&value);
+                    const bytes: [16]u8 = value;
+                    for (data[at..][0..16], 0..) |*byte, i| byte.* = bytes[i] ^ (if (cfb) ct[i] else self.register[i]);
+                    self.shift(&ct);
+                    at += 16;
+                } else {
+                    if (self.used == 16) {
+                        var gamma: B = self.register[0..16].*;
+                        self.cipher.encrypt(&gamma);
+                        self.stream = gamma;
+                        self.used = 0;
+                    }
+                    const ct = data[at];
+                    data[at] ^= self.stream[self.used];
+                    self.feedback[self.used] = ct;
+                    self.used += 1;
+                    at += 1;
+                    if (self.used == 16) self.shift(&self.feedback);
+                }
+            }
+        }
         fn shift(self: *@This(), last: *const [16]u8) void {
             std.mem.copyForwards(u8, self.register[0 .. self.register.len - 16], self.register[16..]);
             @memcpy(self.register[self.register.len - 16 ..], last);
@@ -760,14 +792,14 @@ fn checkFeedbackEncryptionBatches(comptime C: type, cipher: C) !void {
     var rng = std.Random.DefaultPrng.init(0x4241544348454e43);
     var plain: [4304]u8 = undefined;
     rng.random().bytes(&plain);
-    inline for (.{ 1, 2, 3, 63, 64, 65, 128 }) |width| {
+    inline for (.{ 1, 2, 3, 4, 8, 16, 24, 31, 32, 63, 64, 65, 128 }) |width| {
         var iv: [width * 16]u8 = undefined;
         rng.random().bytes(&iv);
         inline for (.{ false, true }) |cfb| {
             const Ref = FeedbackEncryptionReference(C, width, cfb);
             // Prefixes position the ring and partial feedback on both sides of
             // the dispatch, 64-block batch and IV65/128 wrap boundaries.
-            for ([_]usize{ 0, 1, 15, 16, 17, 47, 48, 49, 63, 64, 65, 79, 80, 81, 1007, 1008, 1023, 1024, 1025, 1039, 1040, 1041, 1055, 1056, 1057, 2032, 2047, 2048, 2049, 2063, 2064, 2065 }) |prefix| {
+            for ([_]usize{ 0, 1, 15, 16, 17, 47, 48, 49, 63, 64, 65, 79, 80, 81, 111, 112, 127, 128, 129, 143, 144, 1007, 1008, 1023, 1024, 1025, 1039, 1040, 1041, 1055, 1056, 1057, 2032, 2047, 2048, 2049, 2063, 2064, 2065, width * 16 - 1, width * 16, width * 16 + 1, width * 32 - 16, width * 32, width * 32 + 1 }) |prefix| {
                 if (!cfb and prefix % 16 != 0) continue;
                 for (0..16) |offset| {
                     var guarded: [4336]u8 align(16) = @splat(0xa5);
@@ -804,6 +836,32 @@ fn checkFeedbackEncryptionBatches(comptime C: type, cipher: C) !void {
                     try std.testing.expectEqualSlices(u8, &plain, data);
                 }
             }
+            // Changing direction exposes stale stream/feedback values left by
+            // complete-block decryption. Compare a physical shift register,
+            // full output, every ring entry and both partial fields after each
+            // call, including empty calls and every buffer alignment.
+            var mixed_ctx = if (cfb) M.Cfb(width).init(cipher, iv) else M.Cbc(width).init(cipher, iv);
+            var mixed_ref = Ref{ .cipher = cipher, .register = iv };
+            for (0..96) |step| {
+                var guarded: [2192]u8 align(16) = undefined;
+                rng.random().bytes(&guarded);
+                var expected = guarded;
+                const offset = step % 16;
+                const lengths = [_]usize{ 0, 1, 15, 16, 17, 47, 48, 49, 63, 64, 65, 112, 127, 128, 129, 144, width * 16 - 1, width * 16, width * 16 + 1, 2112 };
+                const length = lengths[step % lengths.len];
+                const n = if (cfb) length else length / 16 * 16;
+                const data = guarded[offset..][0..n];
+                const reference = expected[offset..][0..n];
+                if (step % 3 == 0) {
+                    if (cfb) mixed_ctx.decrypt(data) else try mixed_ctx.decrypt(data);
+                    mixed_ref.decrypt(reference);
+                } else {
+                    if (cfb) mixed_ctx.encrypt(data) else try mixed_ctx.encrypt(data);
+                    mixed_ref.encrypt(reference);
+                }
+                try std.testing.expectEqualSlices(u8, &expected, &guarded);
+                try mixed_ref.check(mixed_ctx);
+            }
             if (cfb) {
                 // Every possible pending partial block length, with long calls
                 // immediately after it, followed by scalar byte continuations.
@@ -830,12 +888,12 @@ fn checkFeedbackEncryptionBatches(comptime C: type, cipher: C) !void {
     }
 }
 
-test "CBC CFB AES independent encryption registers and exact context across large IV batches" {
+test "CBC CFB AES independent encryption registers and exact context across small medium and large IV batches" {
     const h = @import("test_helpers.zig");
     try checkFeedbackEncryptionBatches(h.Aes128, h.Aes128.init(@splat(0x51)));
 }
 
-test "CBC CFB Kuznechik independent encryption registers and exact context across large IV batches" {
+test "CBC CFB Kuznechik independent encryption registers and exact context across small medium and large IV batches" {
     const C = @import("../kuznechik.zig").Cipher;
     try std.testing.expectEqual(@as(usize, 352), @sizeOf(C));
     try checkFeedbackEncryptionBatches(C, C.init(@splat(0x61)));

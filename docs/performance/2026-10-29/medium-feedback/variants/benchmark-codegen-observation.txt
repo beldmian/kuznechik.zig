@@ -1,0 +1,12 @@
+Read-only observation during the threshold-inline trial, before final binaries
+replaced its paired-native-forward executable:
+
+boat ssh bx_g86mt7cz 'nm -S --size-sort /home/user/medium-feedback/paired-native-forward | rg "Cfb\(8\).*encrypt|run.*8" | head -20'
+
+000000000104da00 00000000000002f4 t src.modes.classic.Modes(src.kuznechik.Cipher).Cfb(8).encrypt
+0000000001081810 0000000000000993 t src.modes.classic.Modes(src.kuznechik.Cipher).Cfb(8).encryptBatched
+
+The filtered output had no separate baseline Cfb(8).encrypt symbol. This is an
+observation of that benchmark compilation, not a claim about all callers. Full
+reproducible assembly/nm captures of final and rejected implementations with
+explicit wrappers are in assembly/.

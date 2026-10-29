@@ -1,0 +1,9 @@
+1/8 continuation.test.feedback state continuation agrees with v0.9.2 across direction changes...OK
+2/8 src.kuznechik.test_0...OK
+3/8 src.modes.classic_before_092.test.Kuznechik classic modes preserve streaming and feedback across batch boundaries...OK
+4/8 src.modes.classic.test.Kuznechik classic modes preserve streaming and feedback across batch boundaries...OK
+5/8 src.modes.acpkm.test_0...OK
+6/8 src.modes.compositions.test_0...OK
+7/8 src.modes.mgm_profiles.test_0...OK
+8/8 src.modes.ocb.test_0...OK
+All 8 tests passed.
