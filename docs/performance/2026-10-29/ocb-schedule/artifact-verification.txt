@@ -1,7 +1,0 @@
-baseline-source: 45 source files match d42d82cd4ece09b6281aac58cdcbe6edef5d43b7
-source: 46 source files match the committed candidate working tree
-baseline OCB snapshot SHA256 2a14340906ec2009f95406fb5c6b14595a6190e7f4cda447c7035bbed051528e
-control OCB snapshot SHA256 2a14340906ec2009f95406fb5c6b14595a6190e7f4cda447c7035bbed051528e
-candidate OCB snapshot SHA256 d9017ff8afcbf7beb14504625c48b1694d2baabc04547dd3c6924197e4953230
-Measured driver bench.zig SHA256 6cde171a624c9bd4287cc19ea72f7520389ff70bb6d721a618fff2da35d15ca1
-Measured driver run-vm.sh SHA256 4a7f3a0fe03836203b3de2f78e37ac48e5da4b151083e017e15ee2ceda4d691b

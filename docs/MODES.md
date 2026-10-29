@@ -36,7 +36,7 @@ least 64 blocks. CFB encryption batches power-of-two register sizes of at least
 64 blocks; other sizes retain scalar encryption. Updates shorter than 64 bytes
 keep scalar paths. Both preserve the same complete context state across calls,
 and CBC validates block length before any writes. Default one-block IV behavior
-is unchanged. See [feedback batching evidence](performance/2026-10-29/feedback-batching/RESULTS.md)
+is unchanged. See [feedback batching evidence](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/performance/2026-10-29/feedback-batching/RESULTS.md)
 for measured widths, short-call controls, rejected candidates and limits.
 
 Version 0.9.3 additionally batches CBC IV widths 2/3/4/8/16/24/31/32/63.
@@ -44,19 +44,19 @@ Calls enter the helper at 128 bytes for IV2, 48 bytes for IV3 and 64 bytes
 for the remaining listed widths. Other medium widths keep scalar encryption.
 The scratch buffer holds at most min(64, IV blocks) blocks. Medium CFB
 encryption remains scalar after its candidates failed short-call controls.
-See [medium-register measurements](performance/2026-10-29/medium-feedback/RESULTS.md).
+See [medium-register measurements](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/performance/2026-10-29/medium-feedback/RESULTS.md).
 
 Version 0.9.4 qualifies all remaining 53 medium CBC widths, so CBC batching
 now applies to every IV register of at least two blocks. The same 128/48/64-byte
 entry thresholds remain. Default one-block-IV CBC keeps its serial path.
 Measurements include small short-call costs for some instantiations; this
 throughput optimization does not make every call faster. See
-[complete width coverage and costs](performance/2026-10-29/cbc-remaining-widths/RESULTS.md).
+[complete width coverage and costs](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/performance/2026-10-29/cbc-remaining-widths/RESULTS.md).
 
 For OFB registers of at least 64 blocks, updates of at least 64 bytes use
 batched XOR and register bookkeeping. Short updates keep the scalar loop;
 both paths preserve the same partial keystream and context state. See
-[paired integration measurements](performance/2026-10-29/ofb-core70-integration/README.md).
+[paired integration measurements](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/performance/2026-10-29/ofb-core70-integration/README.md).
 
 GCM follows the nonce/counter dimensions and conservative message bounds of
 [RFC 8645 §6.2.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2.3).
@@ -139,7 +139,7 @@ Run `node scripts/ccm-oracle.cjs` to regenerate its checked-in oracle data.
 MGM passes both RFC Kuznechik examples and a SHA-256 digest of 1,688 complete
 AES/Kuznechik ciphertext-and-tag cases generated with an independent Go library.
 Its portable and PCLMUL products also match a polynomial long-division reference.
-Reference provenance and Boat measurements are in [MGM evidence](performance/modes/mgm/README.md).
+Reference provenance and Boat measurements are in [MGM evidence](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/performance/modes/mgm/README.md).
 
 Version 0.7.0 adds every internal mode from [RFC 8645 §§6.2–6.3](https://www.rfc-editor.org/rfc/rfc8645.html#section-6.2).
 All section sizes `N` and master derivation lifetimes `T*` below are **bytes**;
@@ -188,7 +188,7 @@ GCM-Master example's specified 192-bit key is tested using a test-only AES-192
 adapter, also checked against FIPS 197. Other vectors use AES-128/AES-256.
 Kuznechik is independently compared to a scalar construction across sections,
 partial updates, snapshot finalization, limits and rejections.
-See [ACPKM performance evidence](performance/modes/acpkm/README.md).
+See [ACPKM performance evidence](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/performance/modes/acpkm/README.md).
 
 Version 0.8.0 adds generic [RFC 7253 OCB](https://www.rfc-editor.org/rfc/rfc7253.html).
 `Ocb` uses a 16-byte tag; `OcbWithTag(bytes)` fixes a positive byte tag of 1–16
@@ -211,13 +211,13 @@ OCB passes all 17 Appendix A AES tuples and nine aggregate checksums, 394
 Node/OpenSSL cases, and 2,208 guarded Kuznechik alignment/boundary cases.
 AES vectors validate the generic construction; no Kuznechik-specific OCB registry
 assignment or official Kuznechik OCB test vector is claimed. See
-[OCB evidence](performance/modes/ocb/README.md).
+[OCB evidence](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/performance/modes/ocb/README.md).
 
 Version 0.9.1 initializes only the OCB offset schedule entries reachable by the
 full-block AAD or payload counts. Empty and partial-only messages need no L_i
 entries; the inclusive L48 endpoint and bounded storage remain supported.
 It adds 280 independent OpenSSL boundary cases. See the
-[setup performance report](performance/2026-10-29/ocb-schedule/report.md) for
+[setup performance report](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/performance/2026-10-29/ocb-schedule/report.md) for
 paired results, controls, large-call costs and reproduction commands.
 
 Version 0.8.0 also adds three allocation-free compositions with independently
@@ -251,6 +251,6 @@ These APIs implement neither full TLS nor PBES2. TLSTREE, HMAC-Streebog, PBKDF2,
 KDF_TREE, key independence, nonce management, and serialization remain caller
 dependencies. Exact signatures, limits and genuine RFC vector provenance are in
 [composition notes](composition-notes.md). Independent review reports for
-[OCB/compositions](reviews/ocb-compositions-independent-sol-20261029.md) and
-[MGM/ACPKM](reviews/mgm-acpkm-independent-sol-20261029-0835.md) record their bounded
+[OCB/compositions](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/reviews/ocb-compositions-independent-sol-20261029.md) and
+[MGM/ACPKM](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/reviews/mgm-acpkm-independent-sol-20261029-0835.md) record their bounded
 checks and limitations.

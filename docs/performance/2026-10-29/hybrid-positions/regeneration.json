@@ -1,7 +1,0 @@
-{
-  "files_matched": 739,
-  "all_measured_zig_files_identical": true,
-  "baseline_release_object_verified": true,
-  "only_hybrid_changes_in_candidates": true,
-  "measured_harness_sha256": "cae0701ab1caed397b729bd6a1fa297ecad06134c48c996ec79df22ccaf30520"
-}

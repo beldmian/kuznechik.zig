@@ -1,6 +1,0 @@
-retained-tests-native.log verified distinct names: 76 ; baseline names preserved
-retained-tests-native-fast.log verified distinct names: 76 ; baseline names preserved
-retained-tests-portable.log verified distinct names: 70 ; baseline names preserved
-Measured source/harness hashes and snapshots match; CFB and CMAC unchanged.
-272 target/configuration summaries, three controls each; no changed OFB median regression >5%.
-Owned VM deletion completed: 2026-10-29T09:39:12.800Z

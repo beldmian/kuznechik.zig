@@ -1,4 +1,0 @@
-/home/t3/.cache/gfni-pressure-test-global.MTTvUF 2026-10-29 16:06:06.316253029 +0300
-/home/t3/.cache/gfni-pressure-test-global.kkKTDw 2026-10-29 15:56:39.997990772 +0300
-/home/t3/.cache/gfni-pressure-test-local.ZXjNVp 2026-10-29 15:57:06.037913159 +0300
-/home/t3/.cache/gfni-pressure-test-local.b7nu89 2026-10-29 16:06:05.460255659 +0300

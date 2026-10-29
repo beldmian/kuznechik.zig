@@ -1,1 +1,0 @@
-{"file": "docs/performance/2026-10-29/gfni-pair/local-portable-fast.log", "total": 97, "passed": 95, "skipped": ["gfni.test.GFNI affine and S-box instructions agree for every byte", "gfni.test.GFNI linear layers match every binary basis vector"]}

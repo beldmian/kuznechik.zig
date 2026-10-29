@@ -1,35 +1,11 @@
 # RFC cipher-mode scope and conformance matrix
 
-Audit baseline: **v0.4.1**, 2026-10-29. This is a scope inventory, not a claim that every listed construction has shipped. At the initial audit read, `src/modes/root.zig` exported classic modes and GCM; concurrent working files are not release evidence. The raw `Cipher` remains a 128-bit block primitive with a 256-bit key and its existing 352-byte layout. Release ownership and publication remain with the integrating agent.
-
-Integration follow-up: v0.4.2 rejects overlapping GCM AAD/payload or tag/payload
-inputs, and output-tag/AAD overlap, before writes. Adjacent packet slices remain
-supported. The overlap regression is tested in Debug, ReleaseSafe and ReleaseFast.
-The review notes below describe the original v0.4.1 baseline.
-
-Integration follow-up: v0.5.0 adds `Ccm` and `CcmWithLength(L)` with all RFC 3610
-byte dimensions. All 24 RFC AES packet vectors and 49 Node/OpenSSL oracle cases
-pass, along with Kuznechik alignment/batch and negative tests. The generic-mode
-tables below record the subsequent versioned availability.
-
-Integration follow-up: v0.6.0 adds RFC 9058 `Mgm`, including authentication-only
-messages, byte-aligned tags of 4–16 bytes, and validation before writes. Both
-official Kuznechik examples and 1,688 independent Go reference cases pass.
-
-Integration follow-up: v0.7.0 adds all seven RFC 8645 internal modes and both
-derivation helpers. Appendix A.2 vectors and independent scalar Kuznechik
-comparisons pass; that release's full native suite runs 55 tests.
-
-Integration follow-up: v0.8.0 exports generic OCB, KExp15/KImp15, TLS CTR-OMAC,
-and the RFC 9337 CTR-ACPKM-OMAC cipher layer. External protocol framing and
-hash-based key derivation remain explicit caller dependencies. Independent
-reviews of these modes and MGM/ACPKM found no blocking implementation defects.
-
-Integration follow-up: v0.9.0 exports the RFC 9367/9227 cipher profiles with
-caller-derived keys and checked metadata. All 17 published Kuznyechik TLS
-records and four RFC 9227 examples match. The independent review's multipart
-nonce-alias finding was corrected before publication; the original report and
-resolution remain linked from the profile documentation.
+The audited byte-oriented mode families, compositions and cipher-profile helpers
+are released through v0.9.4. This inventory records applicable constructions,
+constraints, vector provenance and external protocol dependencies. The raw cipher
+uses 128-bit blocks, a 256-bit key and its existing 352-byte layout. See
+[mode APIs](MODES.md), [validation](validation/README.md) and
+[tracked follow-ups](OPEN-WORK.md).
 
 ## Reading the matrix
 
@@ -111,29 +87,18 @@ The [IETF Datatracker reference graph](https://datatracker.ietf.org/api/v1/doc/r
 | [RFC 9385 §4 and Appendix A](https://www.rfc-editor.org/rfc/rfc9385.html#section-4) | IKEv2 signatures/authentication/PRFs; uses the existing RFC 9227 MGM transforms, no additional mode. Appendix A adds complete IKE protection examples. |
 | [RFC 9312 §2.1](https://www.rfc-editor.org/rfc/rfc9312.html#section-2.1) | Its reference to RFC 7801 occurs in a QUIC version-greasing discussion, not a cipher definition. It does not define any Kuznyechik mode/profile. |
 
-## Review notes and release gates
+## Validation and remaining scope
 
-The read-only implementation review below concerns `classic.zig` and `gcm.zig` at the audit baseline. It must not be mistaken for a formal security proof. Concurrent working `mgm.zig` and `acpkm.zig` files appeared during this audit; their existence does not change the release/export labels above and their review belongs to their implementation owners.
+Current APIs reject documented writable overlaps and invalid parameters before
+writes. Authenticated opens verify tags before changing ciphertext. Independent
+references, RFC examples, alignment and boundary tests are recorded in the
+[validation index](validation/README.md) and [review index](reviews/README.md).
+Historical audit findings and their versioned resolutions are preserved in the
+[research archive](performance/README.md).
 
-- CTR preflights the entire update, counts only newly generated blocks, and permits consuming cached bytes at the limit. This preserves input on counter failure. Master wrappers need their own full-counter and derivation budgets rather than using that smaller limit blindly.
-- ECB/CBC reject partial blocks before mutation. Byte loads/stores copy through values; ECB casts only after a runtime alignment check. Counter/decryption batches use aligned vector arrays. No unaligned vector dereference was found in these paths.
-- CFB preserves a partially assembled feedback block; OFB preserves unused gamma bytes and treats multi-block registers as interleaved streams. CBC updates require whole blocks, so its API is not an arbitrary-byte update API.
-- GCM checks tag format and lengths before encrypting, and authenticates before decrypting. Failed authentication preserves ciphertext. Its bit-length checks and counter budget must remain in force in generalized and master variants.
-- **Tag-length policy is external.** Both CMAC verification and detached GCM accept caller-selected short tags. An application that trusts attacker-supplied tag length permits tag shortening. Fixed-length wrappers or explicit initialization policy would prevent accidental downgrades. GCM's 4/8-byte tags require message/verification budgets from NIST SP800-38D appendix C; current APIs do not enforce those lifetime budgets.
-- **Overlap contract is undocumented.** If `aad` aliases mutable payload, `sealDetached` hashes AAD after ciphertext mutation. Define non-overlap for AAD/payload and tag/payload, or detect/reject overlap before writes; otherwise ordinary seal/open symmetry can fail. In-place payload support alone does not define additional aliasing semantics.
-- **No GCM streaming context exists.** Seal/open/authenticate are one-shot. A streaming wrapper must preserve GHASH phase/padding, counter offsets and final lengths and must stage/verify before exposing decrypted data. The proposal's streaming requirement is broader than the current GCM API.
-- **IV policy documentation needs specificity:** CBC/CFB IVs must be unpredictable; OFB/CTR nonces must not repeat. Generic uniqueness wording alone does not describe CBC/CFB requirements.
-- Existing generic known answers cover AES. Kuznyechik classic-mode round trips and split equivalence do not replace authoritative Kuznyechik known answers; add the applicable GOST examples or independently checked references. Multi-block IVs also need an independent reference, not only split-vs-unsplit tests using the same implementation.
-
-Version 0.9.0 completes the audited byte-oriented cipher-mode families, reusable cipher compositions and cipher-profile helpers. Protocol integrations retain the explicitly listed framing, serialization, nonce-lifetime and external KDF dependencies. This does not claim every bit-level parameterization, full protocol implementation, or physical performance optimality. Benchmark claims must identify hardware, backend, compiler, message/section sizes and compared implementations; this research audit makes no universal speed claim.
-
-## Additional read-only verification
-
-Temporary `src/.research_tests.zig` was run with Zig0.15.1, then removed. These are correctness checks, not performance measurements:
-
-- `zig test src/.research_tests.zig -O Debug`: **23 passed, 2 skipped**, including independent bit-serial GHASH/GCM for c32/40/48/56/64, offsets0..15, lengths0/1/15/16/17/31/32/33/1023/1024/1025/1057; every permitted/rejected tag length0..17; corrupted tags; unchanged ciphertext; exact generalized counter/bit-length boundaries.
-- After adding exhaustive small boundaries: `zig test src/.research_tests.zig -O Debug -mcpu native`: **24 passed, 2 skipped**. All AAD/payload length pairs0..33 were compared to the independent GCM oracle; CMAC lengths0..33 were compared against Zig AES-CMAC, including all prefix lengths and malformed lengths. The two skips are the repository GFNI feature-gated tests.
-- All nine CTR widths32..96 were placed at the final block: cached gamma consumption succeeded, overlong updates failed atomically, and an empty update at exhaustion succeeded. Separate shift-register CBC/CFB/OFB references covered IV widths1/2/3/65 and boundary lengths, including invalid CBC/ECB lengths.
-- The overlapping-AAD reproducer confirmed that seal authenticated the overwritten alias: opening with a saved copy of the original AAD failed without altering ciphertext. Opening with the ciphertext alias succeeded. This demonstrates an API-contract gap, not a mismatch for disjoint inputs.
-
-No implementation file was edited, no performance run was performed, and no Git commit/push/release action was taken by this audit.
+Tag policies, nonce/IV requirements and lifetime usage budgets remain documented
+caller duties. The library supplies byte-oriented mode APIs; AEAD streaming and
+additional bit-level parameterizations are tracked in [issue #7](https://github.com/beldmian/kuznechik.zig/issues/7).
+Protocol framing, replay state, hash-based KDFs and complete TLS/IKE exchanges
+remain outside the cipher layer. Coverage does not imply a formal security proof
+or physical performance optimality.

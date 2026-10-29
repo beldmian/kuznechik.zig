@@ -149,8 +149,9 @@ Primary specifications:
 [RFC 9227](https://www.rfc-editor.org/rfc/rfc9227.html),
 [RFC 8446](https://www.rfc-editor.org/rfc/rfc8446.html), and
 [RFC 9058](https://www.rfc-editor.org/rfc/rfc9058.html).
-Source snapshots, commands, compiler/hardware identities, hashes, test logs,
-and timing samples are in `docs/validation/mgm-profiles`.
+RFC text inputs remain in `docs/validation/mgm-profiles`. Commands, compiler/
+hardware identities, hashes, test logs and timing samples are preserved in the
+[research archive](performance/README.md).
 
 `mgm_profiles_reference.py` uses gostcrypto 1.2.5 solely for raw Kuznyechik
 block encryption. It independently implements MGM counters and polynomial
@@ -175,7 +176,7 @@ zig test src/mgm_profiles_tests.zig -O ReleaseSafe --cache-dir <fresh-disk-cache
 Author validation: 91 native tests pass in ReleaseSafe and ReleaseFast on Boat J
 (core 0); portable Debug and ReleaseSafe each pass 83 tests with two expected
 GFNI skips. This includes the unchanged root suite. See
-`docs/validation/mgm-profiles/REPORT.md` for the source/compiler hashes, exact
+[original validation report](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/validation/mgm-profiles/REPORT.md) for the source/compiler hashes, exact
 commands, counts, hardware and timing scope. The timing harness preserves 105
 samples across 15 configurations without making universal performance claims.
 
@@ -183,5 +184,5 @@ The independent review found one nonce-capture defect in the new raw
 `Mgm.sealParts` API, corrected before v0.9.0. Final integration passes 99 native
 tests in ReleaseSafe/ReleaseFast and 91 portable tests with two expected skips
 in Debug/ReleaseSafe. The independent executable also passes in both native
-optimized modes. See the [original review](reviews/mgm-profiles-independent-20261029.md)
-and [resolution and final evidence](validation/v0.9.0/README.md).
+optimized modes. See the [original review](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/reviews/mgm-profiles-independent-20261029.md)
+and [resolution and final evidence](https://github.com/beldmian/kuznechik.zig/blob/research-2026-10-29/docs/validation/v0.9.0/README.md).

@@ -1,5 +1,0 @@
-length=32 iterations=32768 median_ns=14682227 MiB_s=68.110
-length=128 iterations=8192 median_ns=4474207 MiB_s=223.503
-length=1024 iterations=1024 median_ns=1508684 MiB_s=662.829
-length=16384 iterations=64 median_ns=1235989 MiB_s=809.069
-length=1048576 iterations=8 median_ns=10005551 MiB_s=799.556

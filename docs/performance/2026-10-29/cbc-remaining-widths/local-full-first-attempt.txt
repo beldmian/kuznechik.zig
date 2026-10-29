@@ -1,2 +1,0 @@
-Local full portable ReleaseSafe compiler terminated by SIGKILL (exit 137) before emitting any named tests. This is not a validation pass. The focused fresh-cache run passed 7/7. Retrying serial compiler jobs with fresh caches.
-The fresh-cache -j1 retry was also killed (exit 137), with no test inventory emitted. Local host inspection showed 3.7 GiB RAM and almost-full 4 GiB swap while other workspace tasks were active. No unrelated process was stopped. VM validation is separately recorded; neither failed local compile is counted as a pass.

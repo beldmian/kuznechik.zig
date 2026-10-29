@@ -1,4 +1,0 @@
-probe exit=0
-indirect exit=0
-value exit=139
-aggregate exit=0

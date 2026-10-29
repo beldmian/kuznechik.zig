@@ -1,6 +1,0 @@
-
-Build Summary: 3/3 steps succeeded; 97/99 tests passed; 2 skipped
-test success
-+- run test 97 passed 2 skipped 10s MaxRSS:5M
-   +- compile test ReleaseSafe native-native cached 9ms MaxRSS:40M
-

@@ -1,6 +1,0 @@
---- mgm.zig
-+++ mgm_final_portable.zig
-@@ -9,2 +9 @@
--const use_pclmul = builtin.cpu.arch == .x86_64 and builtin.zig_backend != .stage2_c and
--    std.Target.x86.featureSetHas(builtin.cpu.features, .pclmul);
-+const use_pclmul = false;

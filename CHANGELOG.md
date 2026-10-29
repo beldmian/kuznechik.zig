@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.5 — 2026-10-29
+
+- Close the investigation after the final explicit-memory GFNI test; both variants were rejected. Cipher, mode, fixture and benchmark sources remain unchanged from v0.9.4.
+- Preserve the complete research snapshot in the `research-2026-10-29` tag and release archive. Download and verify the uploaded archive before removing raw research files from the current tree; preserve Git history and live fixture-generator inputs.
+- Replace research clutter with concise performance, validation and independent-review indexes; refresh RFC coverage, archive links and fuzzing documentation.
+- Track remaining work in GitHub issues #3–#9 and confirm all Boat VMs, including stopped VMs, are deleted.
+- Independently audit the final experiment's complete source, artifact, test and timing records, and verify the unchanged library builds after cleanup.
+
 ## 0.9.4 — 2026-10-29
 
 - Enable CBC batching for all remaining 53 IV widths in 4–63 after measuring each width, replacing the whitelist with `iv_blocks >= 2`.

@@ -2,6 +2,10 @@
 
 A fast implementation of the Kuznechik (GOST R 34.12-2015) block cipher in Zig. Kuznechik is a symmetric block cipher with a block size of 128 bits and a key length of 256 bits, standardized as GOST R 34.12-2015.
 
+The investigation is closed after its final test. See the [research archive](docs/performance/README.md),
+[current performance guide](docs/PERFORMANCE.md), [validation](docs/validation/README.md)
+and [open issues](docs/OPEN-WORK.md).
+
 ## Features
 
 - Pure Zig implementation

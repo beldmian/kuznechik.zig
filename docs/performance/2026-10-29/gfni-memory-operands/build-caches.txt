@@ -1,2 +1,0 @@
-/home/user/.cache/gfni-memory-build-local.RChSsC
-/home/user/.cache/gfni-memory-build-global.sLVFcT

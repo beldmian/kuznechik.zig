@@ -1,2 +1,0 @@
-Filesystem     Type 1K-blocks     Used Available Use% Mounted on
-/dev/vda2      ext4 103161348 59998900  37903348  62% /

@@ -1,7 +1,0 @@
-1/6 contracts.test.v0.9.0 feedback contexts retain every field offset size and alignment...OK
-2/6 src.kuznechik.test_0...OK
-3/6 src.modes.acpkm.test_0...OK
-4/6 src.modes.compositions.test_0...OK
-5/6 src.modes.mgm_profiles.test_0...OK
-6/6 src.modes.ocb.test_0...OK
-All 6 tests passed.

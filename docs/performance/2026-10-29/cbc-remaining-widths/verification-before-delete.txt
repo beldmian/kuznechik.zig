@@ -1,1 +1,0 @@
-PASS: exact v0.9.3, source/scope and remote source hashes, 42200 final/control rows / 379800 measured pairs, 14 sequential named test receipts, linked AArch64 (before deletion)

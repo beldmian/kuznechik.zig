@@ -1,2 +1,0 @@
-{"type":"config","seed":94101,"pairs":15,"target_blocks":262144,"warmup_pairs":3,"zig":"0.15.1","cpu":"znver5","optimization":"ReleaseFast","order":"shuffled widths and alternating pair order, rotated buffers"}
-error: OutputOrGuardMismatch

@@ -1,1 +1,0 @@
-Verified exact v0.9.2 baseline, source archive, VM source binding, 6528 final rows / 58752 measured pairs, 13 test receipts, linked AArch64 build, completed VM deletion

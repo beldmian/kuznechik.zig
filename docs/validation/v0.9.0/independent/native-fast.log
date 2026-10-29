@@ -1,5 +1,0 @@
-oracle fixtures: 111; multipart partitions: 318; failed authentication/tag checks: 7090
-metadata: independent nonce/header/seeds/KEYMAT checks passed
-alias checks: AAD byte sliding, tags, descriptors, Cipher, read-only key/body passed
-limits: checked integer/parts overflow and real ESP/MAC/IKE extent maxima passed; sizeof(Cipher)=352
-INDEPENDENT REVIEW DRIVER PASS

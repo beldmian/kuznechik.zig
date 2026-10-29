@@ -1,1 +1,0 @@
-../bin/tests-aarch64: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped

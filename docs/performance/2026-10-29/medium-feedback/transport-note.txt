@@ -1,7 +1,0 @@
-During the exact-width final run, the local boat ssh client returned exit 143
-without output. At 2026-10-29 12:24:48 UTC a fresh read-only SSH command verified
-that remote bash restrict.sh (PID 20534) and run-tests.sh (PID 21856) continued,
-with Zig starting candidate portable Debug. Native ReleaseFast had completed
-103/103 successfully. No duplicate test/compile/timing runner was launched.
-Completion is established by the actual complete logs and final marker files,
-not the disconnected client's status.
