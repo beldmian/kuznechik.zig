@@ -39,6 +39,13 @@ and CBC validates block length before any writes. Default one-block IV behavior
 is unchanged. See [feedback batching evidence](performance/2026-10-29/feedback-batching/RESULTS.md)
 for measured widths, short-call controls, rejected candidates and limits.
 
+Version 0.9.3 additionally batches CBC IV widths 2/3/4/8/16/24/31/32/63.
+Calls enter the helper at 128 bytes for IV2, 48 bytes for IV3 and 64 bytes
+for the remaining listed widths. Other medium widths keep scalar encryption.
+The scratch buffer holds at most min(64, IV blocks) blocks. Medium CFB
+encryption remains scalar after its candidates failed short-call controls.
+See [medium-register measurements](performance/2026-10-29/medium-feedback/RESULTS.md).
+
 For OFB registers of at least 64 blocks, updates of at least 64 bytes use
 batched XOR and register bookkeeping. Short updates keep the scalar loop;
 both paths preserve the same partial keystream and context state. See

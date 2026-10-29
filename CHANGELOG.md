@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.3 — 2026-10-29
+
+- Extend CBC encryption batching to measured IV widths 2/3/4/8/16/24/31/32/63. Entry thresholds are 128 bytes for IV2, 48 bytes for IV3 and 64 bytes for the others; bound scratch to the register width.
+- Preserve existing large-register paths, context layouts and exact state across partial updates and direction changes. Medium CFB candidates were rejected for short-call costs and are not enabled.
+- Require AVX2 in the LLVM GFNI feature gate: synthetic AVX2-disabled targets now select the fallback instead of failing vector-register allocation. Normal eligible targets keep their accelerated dispatch.
+- Preserve hybrid byte-position rejection evidence without changing its released policy; retain raw paired timings, compiler output and independent correctness checks.
+- Record combined validation and target-profile checks in the v0.9.3 integration receipt, with reproducible CBC results and rejected candidates.
+
 ## 0.9.2 — 2026-10-29
 
 - Batch CBC encryption with IV registers of at least 64 blocks and CFB encryption with power-of-two IV registers of at least 64 blocks. Short updates keep scalar paths; CFB IV65 batching was rejected after a portable short-call regression.

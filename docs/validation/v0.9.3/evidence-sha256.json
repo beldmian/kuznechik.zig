@@ -1,0 +1,18 @@
+{
+  "README.md": "f640f249de0b55f890b8c95256bdbc1c0fa93a309ca004739abe4f86d9e7875a",
+  "boat-deleted.json": "2c3a202172a85212e4233be072b322b8194b458f2f74476f7b26d52485b3f957",
+  "boat-deletion-status.json": "b2582e9709f5519ccbfbd9d9f22db7a929e9277002ab8d7f54739504d017d40c",
+  "boat-owned.json": "6041126d4c370239ee6d7fe9e812d5a086f31e4cfd3c13ad6a829770f20ae708",
+  "checks.json": "8cc13d4f0c85b2d465b30a84c92c0ebec6c28e88385e67e15ce9e42a0343ad01",
+  "compiler.sha256": "50cddd222fc707fae8a0c84412834728d0cedf2b838e80b5b4af8867fc17e405",
+  "lscpu.json": "6a3adc81aee1b0788bcb81d706cae315bb8bf54c7f1d3a84406fad76b1e98164",
+  "native-fast.log": "5a0d78473df203e4273bd28ea96934d7c9615bbfd46fcefcd7c55a8ec352b8c2",
+  "native-safe.log": "5a0d78473df203e4273bd28ea96934d7c9615bbfd46fcefcd7c55a8ec352b8c2",
+  "noavx2-before-build.log": "f3c86e2bb3c48352c6a54da000643a4efbb3deb80e2b92fe9a7cac691b4d1738",
+  "noavx2-fast.log": "30cf6d7c5e131550e5bbaa5a93388e69655d1af3b9408694cd6a3ac634e08639",
+  "noavx2-gate-only-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "portable-build.log": "b155f6a72ba81ada7f5deb46f1e1b6630a3b0082f85b0744489513a85f8c6700",
+  "portable-safe.log": "7b7641517c887e5918762dff474339f3f1de12f046da22e4897e55202ff265d9",
+  "remote-source-sha256.json": "d025f4838f56bbb8b802735582b70470bb65d24a906fdcfbc013371bf10ce9d0",
+  "source-sha256.json": "54c5c3e7d35a658cf29c8d8c29d4f74af5fbd820718ab44d4854eaffb2ffe733"
+}
