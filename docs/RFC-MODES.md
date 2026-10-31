@@ -102,3 +102,21 @@ additional bit-level parameterizations are tracked in [issue #7](https://github.
 Protocol framing, replay state, hash-based KDFs and complete TLS/IKE exchanges
 remain outside the cipher layer. Coverage does not imply a formal security proof
 or physical performance optimality.
+
+## Decision on remaining API dimensions (issue #7)
+
+The supported public surface remains byte-oriented for this release. Sub-block
+CFB segments and non-byte-aligned tags are deferred until there is a concrete
+interoperability requirement, an explicit bit-order/length contract and
+independent vectors. The current CFB and byte-tag APIs do not claim those
+parameterizations. General NIST variable-IV GCM is also outside the raw GCM
+API's RFC 8645 nonce/counter family.
+
+Authenticated-encryption streaming contexts are deferred: a future opening
+API must either authenticate before writing caller-visible plaintext or specify
+a separate private staging mechanism with explicit ownership and failure
+semantics. Streaming must not silently weaken the existing open contract.
+This decision adds no streaming or bit-level functionality and does not imply
+registered Kuznyechik profiles for generic AES-named RFC algorithms. Protocol
+key derivation, framing, replay protection and cumulative key-use accounting
+remain caller responsibilities.

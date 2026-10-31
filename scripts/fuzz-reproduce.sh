@@ -5,7 +5,7 @@
 set -e
 
 FUZZER="${1:-ls_roundtrip}"
-CRASH_FILE="$2"
+CRASH_FILE="${2:-}"
 BINARY="./zig-out/bin/${FUZZER}"
 
 if [ -z "$CRASH_FILE" ]; then
@@ -34,9 +34,8 @@ echo ""
 echo "Running..."
 
 # Run with the crash file as input
-"$BINARY" < "$CRASH_FILE" || true
-
-EXIT_CODE=$?
+EXIT_CODE=0
+"$BINARY" < "$CRASH_FILE" || EXIT_CODE=$?
 
 echo ""
 echo "Exit code: $EXIT_CODE"
@@ -53,3 +52,5 @@ if [[ "$CRASH_FILE" =~ sig:([0-9]+) ]]; then
         *)  echo "  Unknown signal" ;;
     esac
 fi
+
+exit "$EXIT_CODE"

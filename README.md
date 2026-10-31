@@ -145,11 +145,9 @@ zig build fuzz-build
 zig build fuzz-test
 ```
 
-The standalone AFL runners still need input delivery and target-name fixes
-([#3](https://github.com/beldmian/kuznechik.zig/issues/3)); the key-schedule
-harness also needs a valid oracle ([#4](https://github.com/beldmian/kuznechik.zig/issues/4)).
-These smoke checks are not evidence of a fuzzing campaign. See the
-[fuzzing status and build targets](docs/FUZZING.md).
+The standalone runners accept AFL input on stdin; `fuzz-test` remains a smoke
+check, not a coverage measurement. See [fuzzing status and build targets](docs/FUZZING.md)
+for the short uninstrumented campaign and its limits.
 
 ## Performance
 

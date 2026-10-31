@@ -25,5 +25,7 @@ CPU, workload, source and baseline. A finite test set does not prove optimality.
 
 See `docs/MODES.md` and `docs/RFC-MODES.md` for shipped byte-oriented modes,
 compositions and protocol helpers. Hash-based KDFs, complete protocol framing,
-replay state and lifetime usage accounting remain external. The fuzzing proposal
-is unfinished; fixed-vector smoke checks do not establish mutation coverage.
+replay state and lifetime usage accounting remain external. The broader fuzzing proposal
+remains unfinished. Issues #3/#4 repairs now deliver mutation input and compare
+a separate scalar schedule; the recorded brief dumb-mode campaign does not
+measure coverage or establish a security guarantee.

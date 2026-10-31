@@ -1,0 +1,6 @@
+# relative_time, cycles_done, cur_item, corpus_count, pending_total, pending_favs, map_size, saved_crashes, saved_hangs, max_depth, execs_per_sec, total_execs, edges_found
+10, 0, 0, 3, 0, 0, 0.00%, 0, 0, 1, 115.32, 1182, 0
+
+AFL++ 4.21c dumb mode; Zig 0.15.2 Debug; Linux x86_64, Intel Xeon E5-2690 v4.
+AFL_SKIP_CPUFREQ=1 AFL_NO_AFFINITY=1 AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1 AFL_NO_UI=1 afl-fuzz -n -V 10 -i test/fuzz/corpus/key_schedule -o <fresh-output> -- ./zig-out/bin/key_schedule
+No coverage instrumentation. Timeout 40ms chosen by AFL. Run ended at the time limit.

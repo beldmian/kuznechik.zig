@@ -37,7 +37,7 @@ export fn LLVMFuzzerTestOneInput(data: [*]const u8, len: usize) i32 {
 
     // Assert that we get back the original block
     // This should never fail unless there's a bug in the implementation
-    std.debug.assert(std.mem.eql(u8, &@as([16]u8, original), &@as([16]u8, working)));
+    if (!std.mem.eql(u8, &@as([16]u8, original), &@as([16]u8, working))) @panic("LS round-trip mismatch");
 
     return 0;
 }
@@ -47,7 +47,5 @@ pub fn main() !void {
     // Simple test with known vectors
     const test_input = [_]u8{ 0x64, 0xa5, 0x94, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-    _ = LLVMFuzzerTestOneInput(&test_input, 16);
-
-    std.debug.print("LS round-trip fuzz harness: Basic test passed\n", .{});
+    try @import("standalone.zig").run(&LLVMFuzzerTestOneInput, &test_input);
 }

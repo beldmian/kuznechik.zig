@@ -41,7 +41,7 @@ export fn LLVMFuzzerTestOneInput(data: [*]const u8, len: usize) i32 {
 
     // Assert that we get back the original plaintext
     // This should never fail unless there's a bug in the implementation
-    std.debug.assert(std.mem.eql(u8, &@as([16]u8, original), &@as([16]u8, plaintext)));
+    if (!std.mem.eql(u8, &@as([16]u8, original), &@as([16]u8, plaintext))) @panic("round-trip mismatch");
 
     return 0;
 }
@@ -64,7 +64,5 @@ pub fn main() !void {
     @memcpy(test_input[0..32], @as([*]const u8, @ptrCast(&test_key))[0..32]);
     @memcpy(test_input[32..48], @as([*]const u8, @ptrCast(&test_plaintext))[0..16]);
 
-    _ = LLVMFuzzerTestOneInput(&test_input, test_input.len);
-
-    std.debug.print("Round-trip fuzz harness: Basic test passed\n", .{});
+    try @import("standalone.zig").run(&LLVMFuzzerTestOneInput, &test_input);
 }

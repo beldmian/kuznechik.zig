@@ -32,6 +32,15 @@ See [FUZZING.md](../../../docs/FUZZING.md) for current commands and status.
 Input delivery and naming are tracked in [issue #3](https://github.com/beldmian/kuznechik.zig/issues/3);
 valid key-schedule oracles are tracked in [issue #4](https://github.com/beldmian/kuznechik.zig/issues/4).
 
+## Repair follow-up — 2026-10-31
+
+The user-requested bug fixes for issues #3/#4 now connect stdin/file input,
+repair runner naming, and replace false assertions with an independent scalar
+schedule oracle and zero/equal-half regressions. A brief real dumb-mode campaign
+is recorded in [FUZZING.md](../../../docs/FUZZING.md). This supersedes the
+2026-10-29 harness status above. The broader draft (instrumented campaigns,
+mode-level coverage, and other optional tasks) is not declared complete.
+
 ## Proposed change
 
 Connect actual mutation inputs to deterministic cipher-property checks, use

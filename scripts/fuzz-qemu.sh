@@ -5,29 +5,23 @@
 set -e
 
 FUZZER="${1:-ls_roundtrip}"
-CORPUS_DIR="test/fuzz/corpus/${FUZZER}"
+case "$FUZZER" in
+    roundtrip) BUILD_STEP=fuzz-round-trip; CORPUS_NAME=round_trip ;;
+    key_schedule) BUILD_STEP=fuzz-key-schedule; CORPUS_NAME=key_schedule ;;
+    ls_roundtrip) BUILD_STEP=fuzz-ls-roundtrip; CORPUS_NAME=ls_roundtrip ;;
+    *) echo "Unknown fuzzer: $FUZZER" >&2; exit 1 ;;
+esac
+CORPUS_DIR="test/fuzz/corpus/${CORPUS_NAME}"
 OUTPUT_DIR="test/fuzz/output/${FUZZER}_qemu"
 BINARY="./zig-out/bin/${FUZZER}"
 
-# Check if afl-fuzz supports QEMU mode
-if ! afl-fuzz -h 2>&1 | grep -q "\-Q"; then
-    echo "Error: AFL++ QEMU mode not available."
-    echo ""
-    echo "Your AFL++ installation doesn't support QEMU mode."
-    echo "This is common with Homebrew installations."
-    echo ""
-    echo "Options:"
-    echo "  1. Use dumb mode instead: ./scripts/fuzz-dumb.sh ${FUZZER}"
-    echo "  2. Build AFL++ from source with QEMU support:"
-    echo "     git clone https://github.com/AFLplusplus/AFLplusplus"
-    echo "     cd AFLplusplus && make all && sudo make install"
-    exit 1
-fi
+# AFL diagnoses a missing afl-qemu-trace when starting. Its help advertises
+# -Q even on installations without that runtime, so help text is not a probe.
 
 # Check if fuzzer exists
 if [ ! -f "$BINARY" ]; then
     echo "Building fuzzer: ${FUZZER}"
-    zig build "fuzz-${FUZZER}"
+    zig build "$BUILD_STEP"
 fi
 
 # Create output directory
