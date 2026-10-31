@@ -1,0 +1,60 @@
+src/modes/acpkm.zig:57:13: error: CallAbiIterator.param(@Vector(32, u8))
+        pub fn acpkm(cipher: Cipher) Cipher {
+        ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/modes/classic.zig:22:9: error: CallAbiIterator.param(@Vector(16, u8))
+        fn ecb(comptime inverse: bool, cipher: *const Cipher, data: []u8) !void {
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/modes/classic.zig:22:9: error: CallAbiIterator.param(@Vector(16, u8))
+        fn ecb(comptime inverse: bool, cipher: *const Cipher, data: []u8) !void {
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/modes/classic.zig:7:1: error: CallAbiIterator.param(@Vector(16, u8))
+fn store(bytes: *[16]u8, value: B) void {
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/modes/classic.zig:4:1: error: CallAbiIterator.param(@Vector(16, u8))
+fn load(bytes: *const [16]u8) B {
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/kuznechik.zig:94:9: error: CallAbiIterator.param(@Vector(32, u8))
+    pub fn init(k: key) Cipher {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~
+src/parallel.zig:19:5: error: bad xor @Vector(16, u8)
+pub fn encrypt(comptime width: usize, keys: *const [10]block, messages: *[width]block) void {
+~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/parallel.zig:19:5: error: bad xor @Vector(16, u8)
+pub fn encrypt(comptime width: usize, keys: *const [10]block, messages: *[width]block) void {
+~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/parallel.zig:19:5: error: bad xor @Vector(16, u8)
+pub fn encrypt(comptime width: usize, keys: *const [10]block, messages: *[width]block) void {
+~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/kuznechik.zig:113:9: error: bad xor @Vector(16, u8)
+    pub fn encrypt(self: Cipher, msg: *align(16) block) void {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/kuznechik.zig:67:1: error: CallAbiIterator.param(@Vector(32, u8))
+fn make_iter_keys(k: key) [10]block {
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/kuznechik.zig:127:9: error: bad xor @Vector(16, u8)
+    pub fn decrypt(self: Cipher, msg: *align(16) block) void {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/parallel.zig:30:5: error: bad xor @Vector(16, u8)
+pub fn decrypt(comptime width: usize, keys: *const [10]block, inverse_keys: *const [10]block, messages: *[width]block) void {
+~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/parallel.zig:30:5: error: bad xor @Vector(16, u8)
+pub fn decrypt(comptime width: usize, keys: *const [10]block, inverse_keys: *const [10]block, messages: *[width]block) void {
+~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/parallel.zig:30:5: error: bad xor @Vector(16, u8)
+pub fn decrypt(comptime width: usize, keys: *const [10]block, inverse_keys: *const [10]block, messages: *[width]block) void {
+~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/zig-x86_64-linux-0.15.2/lib/std/testing.zig:78:1: error: CallAbiIterator.param(@Vector(16, u8))
+fn expectEqualInner(comptime T: type, expected: T, actual: T) !void {
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/zig-x86_64-linux-0.15.2/lib/std/testing.zig:78:1: error: CallAbiIterator.param(@Vector(32, u8))
+fn expectEqualInner(comptime T: type, expected: T, actual: T) !void {
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/kuznechik.zig:318:1: error: CallAbiIterator.param(@Vector(32, u8))
+test "lookup key setup matches every basic Feistel and inverse key" {
+^~~~
+src/transitions.zig:61:5: error: CallAbiIterator.param(@Vector(16, u8))
+pub fn l_trans(a: block) block {
+~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+src/transitions.zig:74:5: error: CallAbiIterator.param(@Vector(16, u8))
+pub fn l_inv_trans(a: block) block {
+~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

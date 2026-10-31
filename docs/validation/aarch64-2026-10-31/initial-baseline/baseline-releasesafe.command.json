@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "zig",
+    "test",
+    "/home/runner/work/kuznechik.zig/kuznechik.zig/src/kuznechik.zig",
+    "-mcpu=baseline",
+    "-OReleaseSafe",
+    "-fllvm"
+  ],
+  "local_cache": "/tmp/kuz-validate-bwpi9kqo/local",
+  "global_cache": "/tmp/kuz-validate-bwpi9kqo/global"
+}

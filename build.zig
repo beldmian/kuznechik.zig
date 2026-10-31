@@ -66,9 +66,8 @@ pub fn build(b: *std.Build) void {
     build_benchmark_step.dependOn(&build_benchmark.step);
 
     // === Fuzzing Infrastructure ===
-    // To build instrumented binaries for AFL++:
-    //   AFL_CC=afl-clang-fast AFL_CXX=afl-clang-fast++ zig build fuzz
-    // This uses AFL++'s compiler wrappers for instrumentation.
+    // Standalone executables consume AFL stdin/file input. Zig compilation is
+    // not instrumented by AFL_CC/AFL_CXX; use dumb mode or an AFL QEMU runtime.
 
     // Import kuznechik module for all fuzz harnesses
     const kuznechik_fuzz_module = b.createModule(.{
@@ -93,6 +92,7 @@ pub fn build(b: *std.Build) void {
     build_roundtrip_step.dependOn(&install_roundtrip.step);
 
     const run_roundtrip = b.addRunArtifact(roundtrip_fuzzer);
+    run_roundtrip.addArg("--smoke");
     const run_roundtrip_step = b.step("test-fuzz-round-trip", "Run round-trip fuzzer test");
     run_roundtrip_step.dependOn(&run_roundtrip.step);
 
@@ -114,6 +114,7 @@ pub fn build(b: *std.Build) void {
     build_key_schedule_step.dependOn(&install_key_schedule.step);
 
     const run_key_schedule = b.addRunArtifact(key_schedule_fuzzer);
+    run_key_schedule.addArg("--smoke");
     const run_key_schedule_step = b.step("test-fuzz-key-schedule", "Run key schedule fuzzer test");
     run_key_schedule_step.dependOn(&run_key_schedule.step);
 
@@ -135,6 +136,7 @@ pub fn build(b: *std.Build) void {
     build_ls_roundtrip_step.dependOn(&install_ls_roundtrip.step);
 
     const run_ls_roundtrip = b.addRunArtifact(ls_roundtrip_fuzzer);
+    run_ls_roundtrip.addArg("--smoke");
     const run_ls_roundtrip_step = b.step("test-fuzz-ls-roundtrip", "Run LS round-trip fuzzer test");
     run_ls_roundtrip_step.dependOn(&run_ls_roundtrip.step);
 
@@ -149,6 +151,14 @@ pub fn build(b: *std.Build) void {
     test_fuzz_step.dependOn(&run_roundtrip.step);
     test_fuzz_step.dependOn(&run_key_schedule.step);
     test_fuzz_step.dependOn(&run_ls_roundtrip.step);
+    for ([_][]const u8{ "test/fuzz/standalone.zig", "test/fuzz/key_reference.zig" }) |path| {
+        const tests = b.addTest(.{ .root_module = b.createModule(.{
+            .root_source_file = b.path(path),
+            .target = target,
+            .optimize = optimize,
+        }) });
+        test_fuzz_step.dependOn(&b.addRunArtifact(tests).step);
+    }
 
     // Main fuzz step - builds all fuzzers (can be run with AFL++)
     const fuzz_step = b.step("fuzz", "Build all fuzzers for use with AFL++");
@@ -170,6 +180,11 @@ pub fn build(b: *std.Build) void {
     const run_corpus_key_schedule = b.addRunArtifact(key_schedule_fuzzer);
     run_corpus_key_schedule.addFileArg(b.path("test/fuzz/corpus/key_schedule/rfc7801_test_vector"));
     corpus_step.dependOn(&run_corpus_key_schedule.step);
+    for ([_][]const u8{ "zero_key", "equal_halves" }) |seed| {
+        const run_regression = b.addRunArtifact(key_schedule_fuzzer);
+        run_regression.addFileArg(b.path(b.fmt("test/fuzz/corpus/key_schedule/{s}", .{seed})));
+        corpus_step.dependOn(&run_regression.step);
+    }
 
     const run_corpus_ls_roundtrip = b.addRunArtifact(ls_roundtrip_fuzzer);
     run_corpus_ls_roundtrip.addFileArg(b.path("test/fuzz/corpus/ls_roundtrip/ls_test_vector"));

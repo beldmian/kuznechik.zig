@@ -1,14 +1,12 @@
 const std = @import("std");
 const kuznechik = @import("kuznechik");
 
-const block = kuznechik.block;
 const key = kuznechik.key;
 
 /// Fuzz harness for key schedule validation.
 ///
-/// This harness tests properties of the generated round keys:
-/// 1. All round keys must be unique (no duplicates)
-/// 2. All round keys must not be all zeros
+/// Compares every encryption and inverse linear round key with a scalar
+/// RFC 7801 reference. This checks equality, not constant-time behavior.
 ///
 /// Input format: 32 bytes representing a key
 ///
@@ -27,18 +25,19 @@ export fn LLVMFuzzerTestOneInput(data: [*]const u8, len: usize) i32 {
     // Initialize cipher with the key (this generates round keys)
     const cipher = kuznechik.Cipher.init(cipher_key);
 
-    // Verify all round keys are unique
-    for (0..10) |i| {
-        for (i + 1..10) |j| {
-            // No two round keys should be equal
-            std.debug.assert(!std.mem.eql(u8, &@as([16]u8, cipher.ik[i]), &@as([16]u8, cipher.ik[j])));
-        }
+    const reference = @import("key_reference.zig");
+    const expected = reference.expand(key_slice[0..32].*);
+    for (expected, 0..) |round_key, i| {
+        if (!std.mem.eql(u8, &round_key, &@as([16]u8, cipher.ik[i]))) @panic("round key mismatch");
+        const inverse = reference.inverseLinear(round_key);
+        if (!std.mem.eql(u8, &inverse, &@as([16]u8, cipher.ik_inv[i]))) @panic("inverse key mismatch");
     }
 
-    // Verify no round key is all zeros
-    const zero_block: block = @splat(0);
-    for (cipher.ik) |round_key| {
-        std.debug.assert(!std.mem.eql(u8, &@as([16]u8, zero_block), &@as([16]u8, round_key)));
+    for (0..4) |group| {
+        const previous = reference.previousPair(@as([16]u8, cipher.ik[2 + group * 2]), @as([16]u8, cipher.ik[3 + group * 2]), group);
+        for (previous, 0..) |round_key, i| {
+            if (!std.mem.eql(u8, &round_key, &@as([16]u8, cipher.ik[group * 2 + i]))) @panic("reverse schedule mismatch");
+        }
     }
 
     return 0;
@@ -54,7 +53,5 @@ pub fn main() !void {
         0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef,
     };
 
-    _ = LLVMFuzzerTestOneInput(@as([*]const u8, @ptrCast(&test_key)), 32);
-
-    std.debug.print("Key schedule fuzz harness: Basic test passed\n", .{});
+    try @import("standalone.zig").run(&LLVMFuzzerTestOneInput, &@as([32]u8, test_key));
 }

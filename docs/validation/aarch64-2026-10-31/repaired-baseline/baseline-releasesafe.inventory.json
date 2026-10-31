@@ -1,0 +1,403 @@
+{
+  "total": 99,
+  "passed": 97,
+  "skipped": 2,
+  "tests": [
+    {
+      "name": "kuznechik.test_0",
+      "status": "OK"
+    },
+    {
+      "name": "kuznechik.test.LS transition test",
+      "status": "OK"
+    },
+    {
+      "name": "kuznechik.test.LS inverse transition test",
+      "status": "OK"
+    },
+    {
+      "name": "kuznechik.test.Iterational constants test",
+      "status": "OK"
+    },
+    {
+      "name": "kuznechik.test.Iterational keys test",
+      "status": "OK"
+    },
+    {
+      "name": "kuznechik.test.lookup key setup matches every basic Feistel and inverse key",
+      "status": "OK"
+    },
+    {
+      "name": "kuznechik.test.Cipher test",
+      "status": "OK"
+    },
+    {
+      "name": "kuznechik.test.optimized cipher matches basic transformations for independent inputs",
+      "status": "OK"
+    },
+    {
+      "name": "kuznechik.test.bulk operations match independent blocks at every batch and tail boundary",
+      "status": "OK"
+    },
+    {
+      "name": "modes.nonce_alias_test.test.GCM value nonce metadata may originate in the mutable payload",
+      "status": "OK"
+    },
+    {
+      "name": "modes.nonce_alias_test.test.CCM value nonce metadata may originate in the mutable payload",
+      "status": "OK"
+    },
+    {
+      "name": "modes.nonce_alias_test.test.MGM value nonce metadata may originate in the mutable payload",
+      "status": "OK"
+    },
+    {
+      "name": "modes.nonce_alias_test.test.GCM ACPKM value nonce metadata may originate in the mutable payload",
+      "status": "OK"
+    },
+    {
+      "name": "modes.nonce_alias_test.test.GCM ACPKM Master value nonce metadata may originate in the mutable payload",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.RFC3602 CBC and RFC4493 CMAC vectors using the generic construction",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.RFC8645 CTR base vectors and counter exhaustion preserve input",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.NIST800-38A ECB CBC CFB128 and OFB known-answer vectors",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.Kuznechik classic modes preserve streaming and feedback across batch boundaries",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.CFB and OFB match independent AES byte shift registers with unaligned guards and splits",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.CFB and OFB match independent Kuznechik byte shift registers including m65",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.CMAC independent byte subkeys retain final block across splits snapshot final and append",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.CBC CFB AES independent encryption registers and exact context across small medium and large IV batches",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.CBC CFB Kuznechik independent encryption registers and exact context across small medium and large IV batches",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.CBC remaining widths AES physical shift register all alignments exact state and atomic rejection",
+      "status": "OK"
+    },
+    {
+      "name": "modes.classic.test.CBC remaining widths Kuznechik physical shift register all alignments exact state and atomic rejection",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm.test_0",
+      "status": "OK"
+    },
+    {
+      "name": "modes.compositions.test_0",
+      "status": "OK"
+    },
+    {
+      "name": "modes.gcm.test.GCM rejects overlapping buffers atomically and accepts adjacent slices",
+      "status": "OK"
+    },
+    {
+      "name": "modes.gcm.test.GCM known-answer vectors and standard-library differential cases",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM RFC 9058 Appendix A.1 Kuznechik examples 1 and 2",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM polynomial product matches long division and RFC intermediate sum",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM independent scalar differential all short remainders and batch boundaries",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM all tag lengths and authentication failures preserve ciphertext",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM rejects invalid nonce tags empty messages and lengths before mutation",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM modulo half-counter wrap never carries into the other half",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM 1688 independent BI.ZONE AES and Kuznechik ciphertext and tag fixtures",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM mode counters wrap across batches and empty payload failures preserve input",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM long messages every final remainder and failed opens",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm.test.MGM rejects all mutable overlaps before writes and accepts adjacent packet slices",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles.test_0",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb.test_0",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb.test.OCB schedule length full-block powers including inclusive L48 endpoint",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ccm.test.RFC3610 CCM packet vector1 and unchanged ciphertext on rejection",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ccm.test.all24 RFC3610 CCM packet vectors",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ccm.test.CCM all dimensions and AAD prefix boundaries match independent OpenSSL fixtures",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ccm.test.Kuznechik CCM tails alignment guards and rejected inputs",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ccm.test.CCM length budgets tags and overlap reject before mutation",
+      "status": "OK"
+    },
+    {
+      "name": "gfni.test.field isomorphism preserves every byte product",
+      "status": "OK"
+    },
+    {
+      "name": "gfni.test.GFNI affine and S-box instructions agree for every byte",
+      "status": "SKIP"
+    },
+    {
+      "name": "gfni.test.GFNI linear layers match every binary basis vector",
+      "status": "SKIP"
+    },
+    {
+      "name": "luts.test.generated lookup tables match basic transformations exhaustively",
+      "status": "OK"
+    },
+    {
+      "name": "transitions.test.X transition test",
+      "status": "OK"
+    },
+    {
+      "name": "transitions.test.S and S inverse transition test",
+      "status": "OK"
+    },
+    {
+      "name": "transitions.test.L and L inverse transition test",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.RFC8645 A.2.1 CTR-ACPKM AES256 all section keys and ciphertext",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.RFC8645 A.2.1 GCM-ACPKM AES128 initial authentication key and rekey",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.RFC8645 A.2.2 ACPKM-Master keys CTR CBC CFB OMAC AES256",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.RFC8645 A.2.2 GCM-Master vector specifies AES192 despite AES256 heading",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.Kuznechik every ACPKM construction matches independent scalar reference and chunk splits",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.ACPKM invalid parameters counters section budgets and transactional failures",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.ACPKM GCM bounds tags authentication failures preserve ciphertext",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.ACPKM whole-byte counter dimensions include full master range and omit nonce carry",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.ACPKM OMAC snapshot finalization allows appending at section boundaries",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_test.test.ACPKM GCM rejects forbidden aliases before writes and permits adjacent slices",
+      "status": "OK"
+    },
+    {
+      "name": "modes.composition_test.test.RFC9189 A.1.3.2 Kuznyechik PMS export and import exact known answer",
+      "status": "OK"
+    },
+    {
+      "name": "modes.composition_test.test.RFC9189 A.1.2.2 Kuznyechik TLS records 0 63 64 including meshing",
+      "status": "OK"
+    },
+    {
+      "name": "modes.composition_test.test.independent Python Kuznyechik oracle full outputs all alignments and 64-block section boundaries",
+      "status": "OK"
+    },
+    {
+      "name": "modes.composition_test.test.every ciphertext or tag byte corruption and wrong keys nonce metadata preserve all buffers",
+      "status": "OK"
+    },
+    {
+      "name": "modes.composition_test.test.composition preflight lengths sections overlap adjacency and TLS IV modulo",
+      "status": "OK"
+    },
+    {
+      "name": "modes.composition_test.test.expanded mode budget and immutable cipher configuration are checked before writes",
+      "status": "OK"
+    },
+    {
+      "name": "modes.composition_test.test.composition altered nonce keys section truncation extension preserve caller outputs",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.RFC9367 A.1 all17 Kuznyechik records use published leaf keys and match every published byte",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.RFC9227 Appendix A all4 Kuznyechik AEAD and MAC-only official examples",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.MGM multipart independent Python fixtures every split including empty parts and tails",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.TLS nonce masks only the high bit after full-width big-endian XOR and RawMgm stays strict",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.TLS L S checked lengths sequence endpoints masks and exact header",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.KTREE IV seeds nonce maxima and pnum overflow are checked without narrowing",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.ESP SN ESN AAD exact order and MAC-only concatenation without boundary padding",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.IKE ordinary and fragmented ordered AAD matches contiguous MGM across all tails",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.Profile wire caps account for AAD IV tag and ESN high word not sent on wire",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.TLS failures and fixed tag lengths preserve every ciphertext byte",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.ESP AEAD and auth-only reject wrong keys salts sequence prefixes IV and tag without writing",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.IKE failures bind each AAD field and payload and preserve ciphertext",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.MGM multipart failures reject aliases and invalid metadata before any write",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.Profile sequence counter actual endpoints empty bodies and adjacent tag slices",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.All small multipart splits and all remainder pairs match unchanged contiguous MGM",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.Every byte alignment across profile short long and batch boundaries leaves guards intact",
+      "status": "OK"
+    },
+    {
+      "name": "modes.mgm_profiles_test.test.MGM multipart captures nonce values backed by the mutable payload",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.RFC7253 Appendix A all sixteen AES128 tuples and tag96 tuple",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.RFC7253 Appendix A all nine aggregate checksums",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.394 independent Node OpenSSL OCB fixtures all byte nonce and tag lengths all bottom bits",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.Kuznechik OCB all small tails 64-block boundaries every alignment guards and rejection",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.OCB fixed dimensions budget and alias failures preserve output",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.OCB key storage aliases and read-only sharing",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.OCB independent work batches stop at64 and open authenticates in a separate pass",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.generic RFC7253 empty nonce is distinct from named AES profile limits",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_test.test.OCB bounded schedule independent AAD and payload powers full and partial",
+      "status": "OK"
+    },
+    {
+      "name": "modes.acpkm_aes192_test.test.test-only AES192 matches FIPS197 C.2",
+      "status": "OK"
+    },
+    {
+      "name": "modes.ocb_aes192_test.test.test-only AES192 matches FIPS197 C.2",
+      "status": "OK"
+    }
+  ]
+}

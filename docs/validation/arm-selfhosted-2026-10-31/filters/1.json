@@ -1,0 +1,19 @@
+{
+  "filter": "CBC",
+  "exit_code": -11,
+  "elapsed_seconds": 1.5676959950000082,
+  "command": [
+    "/tmp/zig-x86_64-linux-0.15.2/zig",
+    "test",
+    "src/kuznechik.zig",
+    "-target",
+    "aarch64-linux-musl",
+    "-mcpu=baseline",
+    "-ODebug",
+    "-fno-llvm",
+    "--test-no-exec",
+    "--test-filter",
+    "CBC",
+    "-femit-bin=/home/user/selfhosted-filters/1.bin"
+  ]
+}

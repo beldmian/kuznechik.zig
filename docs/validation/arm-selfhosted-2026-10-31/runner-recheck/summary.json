@@ -1,0 +1,8 @@
+{
+  "passed_profiles": [
+    "native-selfhosted-debug"
+  ],
+  "failed_profiles": [],
+  "unsupported_profiles": [],
+  "allow_known_unsupported": false
+}

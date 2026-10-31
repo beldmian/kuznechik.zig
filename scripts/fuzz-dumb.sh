@@ -5,14 +5,20 @@
 set -e
 
 FUZZER="${1:-ls_roundtrip}"
-CORPUS_DIR="test/fuzz/corpus/${FUZZER}"
+case "$FUZZER" in
+    roundtrip) BUILD_STEP=fuzz-round-trip; CORPUS_NAME=round_trip ;;
+    key_schedule) BUILD_STEP=fuzz-key-schedule; CORPUS_NAME=key_schedule ;;
+    ls_roundtrip) BUILD_STEP=fuzz-ls-roundtrip; CORPUS_NAME=ls_roundtrip ;;
+    *) echo "Unknown fuzzer: $FUZZER" >&2; exit 1 ;;
+esac
+CORPUS_DIR="test/fuzz/corpus/${CORPUS_NAME}"
 OUTPUT_DIR="test/fuzz/output/${FUZZER}_dumb"
 BINARY="./zig-out/bin/${FUZZER}"
 
 # Check if fuzzer exists
 if [ ! -f "$BINARY" ]; then
     echo "Building fuzzer: ${FUZZER}"
-    zig build "fuzz-${FUZZER}"
+    zig build "$BUILD_STEP"
 fi
 
 # Create output directory
