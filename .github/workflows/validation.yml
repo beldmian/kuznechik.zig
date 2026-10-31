@@ -1,0 +1,50 @@
+name: Full validation matrix
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  suite:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {runner: ubuntu-24.04, arch: x86_64, profiles: 'baseline-debug baseline-releasesafe baseline-releasefast'}
+          - {runner: ubuntu-24.04, arch: x86_64, profiles: 'native-debug native-releasesafe native-releasefast baseline-selfhosted-debug native-selfhosted-debug'}
+          - {runner: ubuntu-24.04, arch: x86_64, profiles: 'native-without-gfni native-without-avx512vbmi native-without-avx512vl native-without-avx2'}
+          - {runner: ubuntu-24.04-arm, arch: aarch64, profiles: 'baseline-debug baseline-releasesafe baseline-releasefast'}
+          - {runner: ubuntu-24.04-arm, arch: aarch64, profiles: 'native-debug native-releasesafe native-releasefast baseline-selfhosted-debug native-selfhosted-debug'}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install Zig 0.15.2
+        shell: bash
+        run: |
+          case '${{ matrix.arch }}' in
+            x86_64) sha=02aa270f183da276e5b5920b1dac44a63f1a49e55050ebde3aecc9eb82f93239 ;;
+            aarch64) sha=958ed7d1e00d0ea76590d27666efbf7a932281b3d7ba0c6b01b0ff26498f667f ;;
+          esac
+          curl --fail --location --retry 3 "https://ziglang.org/download/0.15.2/zig-${{ matrix.arch }}-linux-0.15.2.tar.xz" -o zig.tar.xz
+          echo "$sha  zig.tar.xz" | sha256sum -c -
+          tar -xf zig.tar.xz
+          echo "$PWD/zig-${{ matrix.arch }}-linux-0.15.2" >> "$GITHUB_PATH"
+      - name: Check runner regressions
+        run: |
+          python3 scripts/test_validate_matrix.py
+          python3 scripts/test_fuzz_runners.py
+          bash -n scripts/fuzz-{dumb,qemu,parallel,reproduce}.sh
+      - name: Run fuzz smoke and corpus regressions
+        if: contains(matrix.profiles, 'native-debug')
+        run: zig build fuzz-build fuzz-test fuzz-corpus -j1
+      - name: Run complete profiles
+        run: python3 scripts/validate-matrix.py --output validation-results ${{ matrix.profiles }}
+      - name: Save named test logs and resource receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: validation-${{ strategy.job-index }}
+          path: validation-results/
+          if-no-files-found: warn
