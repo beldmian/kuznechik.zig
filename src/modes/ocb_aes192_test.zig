@@ -27,7 +27,9 @@ pub const Aes192 = struct {
         for (&table, 0..) |*x, i| x.* = sbox(@intCast(i));
         break :blk table;
     };
-    pub fn init(k: @Vector(24, u8)) Aes192 {
+    // Use byte input consistently with the ACPKM AES-192 test adapter, avoiding
+    // its observed AArch64 LLVM ReleaseSafe 24-lane argument corruption.
+    pub fn init(k: [24]u8) Aes192 {
         var expanded: [208]u8 = undefined;
         expanded[0..24].* = k;
         var rcon: u8 = 1;

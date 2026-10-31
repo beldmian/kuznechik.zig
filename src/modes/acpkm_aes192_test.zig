@@ -27,7 +27,10 @@ pub const Aes192 = struct {
         for (&table, 0..) |*x, i| x.* = sbox(@intCast(i));
         break :blk table;
     };
-    pub fn init(k: @Vector(24, u8)) Aes192 {
+    // Keep the input as bytes: Zig 0.15.2 AArch64 LLVM ReleaseSafe corrupts
+    // the tail of the 24-lane vector argument during in-context ACPKM rekeying.
+    // The .k field remains a vector for the generic mode's key-size metadata.
+    pub fn init(k: [24]u8) Aes192 {
         var expanded: [208]u8 = undefined;
         expanded[0..24].* = k;
         var rcon: u8 = 1;

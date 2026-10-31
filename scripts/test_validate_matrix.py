@@ -18,6 +18,13 @@ class InventoryTest(unittest.TestCase):
                 inventory = matrix.read_inventory(log.read_text())
                 self.assertGreaterEqual(inventory['passed'], 97)
 
+    def test_initial_arm_logs_keep_real_failure_visible(self):
+        directory = ROOT / 'docs/validation/aarch64-2026-10-31/initial-baseline'
+        for profile in ('baseline-debug', 'baseline-releasefast'):
+            self.assertEqual(matrix.read_inventory((directory / (profile + '.log')).read_text())['passed'], 97)
+        with self.assertRaises(ValueError):
+            matrix.read_inventory((directory / 'baseline-releasesafe.log').read_text())
+
     def test_reject_missing_test_even_with_success_summary(self):
         with self.assertRaises(ValueError):
             matrix.read_inventory('1/2 first...OK\nAll 2 tests passed.\n')

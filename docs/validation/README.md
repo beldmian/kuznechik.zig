@@ -105,3 +105,15 @@ copied and verified. Deletion operation
 `2026-10-30T14:04:06.699Z`; the subsequent all-state VM list was empty. The
 last usage receipt before deletion was $0.02471 (20m36s wall time), within the
 approved $0.10 budget. No new VM is authorized or needed for publication.
+
+
+## Initial native AArch64 CI, 2026-10-31
+
+Hosted ARM execution is now available. The first run passed baseline LLVM Debug
+and ReleaseFast, but ReleaseSafe exposed an AES-192 test-adapter rekey failure;
+the separate native group was interrupted by runner shutdown. The original
+artifact, diagnosis and byte-input adapter workaround are preserved in the
+[AArch64 follow-up](aarch64-2026-10-31/README.md). The repaired targeted test
+passes under QEMU; full native retry results remain pending. This supersedes
+the earlier statement that no native AArch64 execution had occurred, while
+preserving the incomplete status of the full matrix.

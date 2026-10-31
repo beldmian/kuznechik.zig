@@ -78,6 +78,8 @@ def main():
             with (out / (name + '.log')).open('w') as log:
                 result = subprocess.run([sys.executable, '-c', helper, str(out / (name + '.json')), *command], cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT)
             if result.returncode:
+                print(f"{name}: build/test failed; complete diagnostic log:", flush=True)
+                print((out / (name + '.log')).read_text(), flush=True)
                 failures.append(name)
                 continue
             try:
