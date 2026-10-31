@@ -1,0 +1,6 @@
+vector-probe.zig:1:8: error: CallAbiIterator.param(@Vector(16, u8))
+export fn vector_xor(a: @Vector(16, u8), b: @Vector(16, u8)) @Vector(16, u8) {
+~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vector-probe.zig:4:8: error: CallAbiIterator.param(@Vector(32, u8))
+export fn vector_key(k: @Vector(32, u8)) @Vector(16, u8) {
+~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

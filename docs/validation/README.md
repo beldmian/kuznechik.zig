@@ -117,3 +117,22 @@ artifact, diagnosis and byte-input adapter workaround are preserved in the
 passes under QEMU; full native retry results remain pending. This supersedes
 the earlier statement that no native AArch64 execution had occurred, while
 preserving the incomplete status of the full matrix.
+
+
+## ARM self-hosted support diagnosis
+
+The repaired native ARM baseline LLVM Debug, ReleaseSafe and ReleaseFast suites
+all passed 97 tests with two feature skips in run
+[41192215856](https://github.com/beldmian/kuznechik.zig/actions/runs/41192215856).
+The artifact is retained in `aarch64-2026-10-31/repaired-baseline/`. The native
+LLVM group reached self-hosted compilation but was interrupted before artifact
+upload; a complete native-group receipt still needs the separated CI run.
+
+A bounded [Boat diagnosis](arm-selfhosted-2026-10-31/README.md) establishes a
+Zig 0.15.2 AArch64 self-hosted vector-ABI limitation independently of hosted
+runner shutdown. This backend is explicitly unsupported for the library, rather
+than a passing suite. CI separates native LLVM and self-hosted capability jobs,
+retains every supported full-suite profile, and records unsupported results
+separately. New runner invocations fail on unsupported backends unless the caller
+explicitly supplies `--allow-known-unsupported`; all unexpected failures still
+fail. Per-profile deadlines prevent indefinite build/test processes.

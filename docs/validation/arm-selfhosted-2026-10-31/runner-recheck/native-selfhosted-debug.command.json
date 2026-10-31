@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/tmp/zig-x86_64-linux-0.15.2/zig",
+    "test",
+    "/home/user/kuz-work/src/kuznechik.zig",
+    "-mcpu=native",
+    "-ODebug",
+    "-fno-llvm"
+  ],
+  "local_cache": "/tmp/kuz-validate-u3d7wpyo/local",
+  "global_cache": "/tmp/kuz-validate-u3d7wpyo/global",
+  "timeout_seconds": 900
+}

@@ -1,0 +1,19 @@
+{
+  "filter": "AES192",
+  "exit_code": -9,
+  "elapsed_seconds": 25.780345590999985,
+  "command": [
+    "/tmp/zig-x86_64-linux-0.15.2/zig",
+    "test",
+    "src/kuznechik.zig",
+    "-target",
+    "aarch64-linux-musl",
+    "-mcpu=baseline",
+    "-ODebug",
+    "-fno-llvm",
+    "--test-no-exec",
+    "--test-filter",
+    "AES192",
+    "-femit-bin=/home/user/selfhosted-filters/2.bin"
+  ]
+}

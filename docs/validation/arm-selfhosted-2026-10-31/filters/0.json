@@ -1,0 +1,19 @@
+{
+  "filter": "Cipher test",
+  "exit_code": 1,
+  "elapsed_seconds": 5.0257062320000045,
+  "command": [
+    "/tmp/zig-x86_64-linux-0.15.2/zig",
+    "test",
+    "src/kuznechik.zig",
+    "-target",
+    "aarch64-linux-musl",
+    "-mcpu=baseline",
+    "-ODebug",
+    "-fno-llvm",
+    "--test-no-exec",
+    "--test-filter",
+    "Cipher test",
+    "-femit-bin=/home/user/selfhosted-filters/0.bin"
+  ]
+}

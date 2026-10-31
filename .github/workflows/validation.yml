@@ -11,13 +11,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {runner: ubuntu-24.04, arch: x86_64, profiles: 'baseline-debug baseline-releasesafe baseline-releasefast'}
-          - {runner: ubuntu-24.04, arch: x86_64, profiles: 'native-debug native-releasesafe native-releasefast baseline-selfhosted-debug native-selfhosted-debug'}
-          - {runner: ubuntu-24.04, arch: x86_64, profiles: 'native-without-gfni native-without-avx512vbmi native-without-avx512vl native-without-avx2'}
-          - {runner: ubuntu-24.04-arm, arch: aarch64, profiles: 'baseline-debug baseline-releasesafe baseline-releasefast'}
-          - {runner: ubuntu-24.04-arm, arch: aarch64, profiles: 'native-debug native-releasesafe native-releasefast baseline-selfhosted-debug native-selfhosted-debug'}
+          - {name: x86-portable-llvm, runner: ubuntu-24.04, arch: x86_64, profiles: 'baseline-debug baseline-releasesafe baseline-releasefast', allow_unsupported: false}
+          - {name: x86-native-llvm, runner: ubuntu-24.04, arch: x86_64, profiles: 'native-debug native-releasesafe native-releasefast', allow_unsupported: false}
+          - {name: x86-selfhosted, runner: ubuntu-24.04, arch: x86_64, profiles: 'baseline-selfhosted-debug native-selfhosted-debug', allow_unsupported: false}
+          - {name: x86-feature-gates, runner: ubuntu-24.04, arch: x86_64, profiles: 'native-without-gfni native-without-avx512vbmi native-without-avx512vl native-without-avx2', allow_unsupported: false}
+          - {name: arm-portable-llvm, runner: ubuntu-24.04-arm, arch: aarch64, profiles: 'baseline-debug baseline-releasesafe baseline-releasefast', allow_unsupported: false}
+          - {name: arm-native-llvm, runner: ubuntu-24.04-arm, arch: aarch64, profiles: 'native-debug native-releasesafe native-releasefast', allow_unsupported: false}
+          - {name: arm-selfhosted-capability, runner: ubuntu-24.04-arm, arch: aarch64, profiles: 'baseline-selfhosted-debug native-selfhosted-debug', allow_unsupported: true}
+    name: ${{ matrix.name }}
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 180
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Install Zig 0.15.2
@@ -40,11 +43,11 @@ jobs:
         if: contains(matrix.profiles, 'native-debug')
         run: zig build fuzz-build fuzz-test fuzz-corpus -j1
       - name: Run complete profiles
-        run: python3 scripts/validate-matrix.py --output validation-results ${{ matrix.profiles }}
+        run: python3 scripts/validate-matrix.py --output validation-results --timeout-seconds 900 ${{ matrix.allow_unsupported && '--allow-known-unsupported' || '' }} ${{ matrix.profiles }}
       - name: Save named test logs and resource receipts
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: validation-${{ strategy.job-index }}
+          name: validation-${{ matrix.name }}
           path: validation-results/
           if-no-files-found: warn

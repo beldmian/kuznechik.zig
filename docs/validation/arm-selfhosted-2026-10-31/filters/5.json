@@ -1,0 +1,19 @@
+{
+  "filter": "lookup key setup",
+  "exit_code": 1,
+  "elapsed_seconds": 1.3177171330000021,
+  "command": [
+    "/tmp/zig-x86_64-linux-0.15.2/zig",
+    "test",
+    "src/kuznechik.zig",
+    "-target",
+    "aarch64-linux-musl",
+    "-mcpu=baseline",
+    "-ODebug",
+    "-fno-llvm",
+    "--test-no-exec",
+    "--test-filter",
+    "lookup key setup",
+    "-femit-bin=/home/user/selfhosted-filters/5.bin"
+  ]
+}
